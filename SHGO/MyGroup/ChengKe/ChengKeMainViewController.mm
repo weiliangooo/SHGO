@@ -152,29 +152,80 @@
         }
         else
         {
-            _ckTimeSelectView = [[CKTimeSelectView alloc] initWithFrame:CGRectMake(0, AL_DEVICE_HEIGHT, AL_DEVICE_WIDTH, 440*PROPORTION750)];
-            _ckTimeSelectView.CKTimeSelectBlock = ^(BOOL isCancle){
-                if (!isCancle)
+            if (_ccMsgModel.startAddress.length == 0)
+            {
+                [self toast:@"请填写出发地点"];
+                return ;
+            }
+            if (_ccMsgModel.endAddress.length == 0)
+            {
+                [self toast:@"请填写目的地点"];
+                return ;
+            }
+            
+            NSString *startCityId = [self getCityIdWithCityName:_ccMsgModel.startCity];
+            if (startCityId == nil)
+            {
+                [self toast:@"出发城市选择暂不支持"];
+                return;
+            }
+            
+            NSString *endCityId = [self getCityIdWithCityName:_ccMsgModel.endCity];
+            if (endCityId == nil)
+            {
+                [self toast:@"目的城市选择暂不支持"];
+                return;
+            }
+            
+            
+            NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                           startCityId, @"start_address",
+                                           endCityId, @"end_address",
+                                           [MyHelperNO getUid], @"uid",
+                                           [MyHelperNO getMyToken], @"token", nil];
+            [self post:@"index/timelist" withParam:reqDic success:^(id responseObject) {
+                int code = [responseObject intForKey:@"status"];
+                NSString *msg = [responseObject stringForKey:@"msg"];
+                NSLog(@"%@", responseObject);
+                if (code == 200)
                 {
-                    [_ckTimeSelectView removeFromSuperview];
-                    CKBookViewController *viewController = [[CKBookViewController alloc] initWithCCMsgModel:self.ccMsgModel];
-                    [self.navigationController pushViewController:viewController animated:YES];
-                }
-                else
-                {
+                    _ckTimeSelectView = [[CKTimeSelectView alloc] initWithFrame:CGRectMake(0, AL_DEVICE_HEIGHT, AL_DEVICE_WIDTH, 440*PROPORTION750)];
+                    _ckTimeSelectView.dataArray = [responseObject objectForKey:@"data"];
+                    _ckTimeSelectView.CKTimeSelectBlock = ^(BOOL isCancle){
+                        if (!isCancle)
+                        {
+                            [_ckTimeSelectView removeFromSuperview];
+                            CKBookViewController *viewController = [[CKBookViewController alloc] initWithCCMsgModel:self.ccMsgModel];
+                            [self.navigationController pushViewController:viewController animated:YES];
+                        }
+                        else
+                        {
+                            [UIView animateWithDuration:0.5f animations:^{
+                                _ckTimeSelectView.frame = CGRectMake(0, AL_DEVICE_HEIGHT, AL_DEVICE_WIDTH, 440*PROPORTION750);
+                            } completion:^(BOOL finished) {
+                                [_ckTimeSelectView removeFromSuperview];
+                            }];
+                        }
+                        
+                        
+                    };
+                    [self.view addSubview:_ckTimeSelectView];
                     [UIView animateWithDuration:0.5f animations:^{
-                        _ckTimeSelectView.frame = CGRectMake(0, AL_DEVICE_HEIGHT, AL_DEVICE_WIDTH, 440*PROPORTION750);
-                    } completion:^(BOOL finished) {
-                        [_ckTimeSelectView removeFromSuperview];
+                        _ckTimeSelectView.frame = CGRectMake(0, AL_DEVICE_HEIGHT-440*PROPORTION750, AL_DEVICE_WIDTH, 440*PROPORTION750);
                     }];
                 }
+                else if (code == 300)
+                {
+                    [self toast:@"身份认证已过期"];
+                    [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+                }
+                else if (code == 400)
+                {
+                    [self toast:msg];
+                }
+
+            } failure:^(NSError *error) {
                 
-               
-            };
-            [self.view addSubview:_ckTimeSelectView];
-    
-            [UIView animateWithDuration:0.5f animations:^{
-                _ckTimeSelectView.frame = CGRectMake(0, AL_DEVICE_HEIGHT-440*PROPORTION750, AL_DEVICE_WIDTH, 440*PROPORTION750);
             }];
         }
     };
@@ -258,7 +309,6 @@
 -(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView toast:(NSString *)toast
 {
     [self alert:toast];
-//    [self toast:toast];
 }
 
 
@@ -266,20 +316,14 @@
 - (void)onGetPoiResult:(BMKPoiSearch*)searcher result:(BMKPoiResult*)poiResult errorCode:(BMKSearchErrorCode)errorCode
 {
     if(errorCode == BMK_SEARCH_NO_ERROR)
-        
     {
-        
         NSMutableArray *addressArray = [NSMutableArray array];
-        
         [addressArray removeAllObjects];
-        
         for (BMKPoiInfo *objc in poiResult.poiInfoList)
         {
             [addressArray addObject:objc];
         }
-        
         [_CKSPView setDataArray:addressArray];
-        
     }
 }
 
@@ -356,9 +400,6 @@
 //                reverseGeoCodeOption.reverseGeoPoint = userLocation.location.coordinate;
 //                [_geoCodeSearch reverseGeoCode:reverseGeoCodeOption];
                 
-//                if (<#condition#>) {
-//                    <#statements#>
-//                }
                 self.ccMsgModel.startCity = city;
                 self.ccMsgModel.startAddress = placemark.name;
                 self.ccMsgModel.startDetailAddress = placemark.thoroughfare;
@@ -377,6 +418,7 @@
 
 -(void)requestForPlaces
 {
+    
     NSMutableDictionary *reqDic= [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [MyHelperNO getUid], @"uid",
                                   [MyHelperNO getMyToken], @"token", nil];
@@ -411,7 +453,7 @@
     [_locService startUserLocationService];
 }
 
-///
+///设置起始位置 和 终点位置 的大头钉的图片
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
 {
     if ([annotation isKindOfClass:[BMKPointAnnotation class]])
@@ -419,19 +461,14 @@
         if (annotation == _startAnnotation)
         {
             BMKAnnotationView *newStart = [[BMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startAnnotation"];
-            
             newStart.image = [UIImage imageNamed:@"startPoint"];   //把大头针换成别的图片
-            
             return newStart;
-            
         }
         else
         {
-            BMKAnnotationView *newStart = [[BMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endAnnotation"];
-            
-            newStart.image = [UIImage imageNamed:@"endPoint"];   //把大头针换成别的图片
-            
-            return newStart;
+            BMKAnnotationView *newEnd = [[BMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endAnnotation"];
+            newEnd.image = [UIImage imageNamed:@"endPoint"];   //把大头针换成别的图片
+            return newEnd;
         }
     }
     
@@ -530,7 +567,7 @@
 
     //这个数组就是百度地图比例尺对应的物理距离，其中2000000对应的比例是3，5对应的是21；可能有出入可以根据情况累加
     NSArray *zoomLevelArr = [[NSArray alloc]initWithObjects:@"2000000", @"1000000", @"500000", @"200000", @"100000", @"50000", @"25000", @"20000", @"10000", @"5000", @"2000", @"1000", @"500", @"200", @"100", @"50", @"20", @"10", @"5", nil];
-    for (int j=0; j<zoomLevelArr.count; j++)
+    for (int j=0; j < zoomLevelArr.count; j++)
     {
         if (j + 1 < zoomLevelArr.count)
         {
@@ -543,6 +580,20 @@
     }
 }
 
+///通过城市的名称 获取城市在服务器对应的id
+-(NSString *)getCityIdWithCityName:(NSString *)cityName
+{
+    for (int i = 0; i < _cityListModel.citysModel.count; i++)
+    {
+        CKCitysModel *model = [[CKCitysModel alloc] init ];
+        model = [_cityListModel.citysModel objectAtIndex:i];
+        if ([model.cityName hasPrefix:cityName])
+        {
+            return model.cityModel.myId;
+        }
+    }
+    return nil;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -36,6 +36,7 @@
 {
     if (_httpManager == nil) {
         _httpManager = [AFHTTPRequestOperationManager manager];
+//        _httpManager.responseSerializer = [AFHTTPResponseSerializer serializer];
         _httpManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"application/json",nil];
     }
     return _httpManager;

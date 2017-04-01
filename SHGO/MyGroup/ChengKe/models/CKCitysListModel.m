@@ -38,7 +38,7 @@
     if (self = [super init])
     {
         _cityName = [[dataSource objectForKey:@"city"] stringForKey:@"name"];
-        _cityModel = [dataSource objectForKey:@"city"];
+        _cityModel = [[CKCityModel alloc] initWithData:[dataSource objectForKey:@"city"]];
         
         _placeModel = [NSMutableArray array];
         for (id objc in [dataSource arrayForKey:@"hotplace"])
@@ -66,9 +66,6 @@
         _local = [dataSource stringForKey:@"local"];
         _is_use = [dataSource stringForKey:@"is_use"];
         _distance = [dataSource stringForKey:@"distance"];
-        
-        
-        
     }
     return self;
 }

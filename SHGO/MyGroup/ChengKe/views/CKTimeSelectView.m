@@ -10,8 +10,15 @@
 
 
 @interface CKTimeSelectView ()<UIPickerViewDelegate,UIPickerViewDataSource>
+{
+    NSMutableArray *timeArray;
+}
 
 @property (nonatomic, strong)UIPickerView *pickerView;
+
+@property (nonatomic, strong) NSString *dateStr;
+
+@property (nonatomic, strong) NSString *timeStr;
 
 @end
 
@@ -32,6 +39,7 @@
     {
         _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 80*PROPORTION750, AL_DEVICE_WIDTH, 250*PROPORTION750)];
         _pickerView.backgroundColor= [UIColor clearColor];
+        _pickerView.showsSelectionIndicator=YES;
         _pickerView.delegate = self;
         _pickerView.dataSource = self;
     }
@@ -80,6 +88,11 @@
     self.CKTimeSelectBlock(button.tag == 100);
 }
 
+-(void)setDataArray:(NSMutableArray *)dataArray
+{
+    _dataArray = dataArray;
+    timeArray = [NSMutableArray arrayWithArray:[[_dataArray objectAtIndex:0] arrayForKey:@"runs"]];
+}
 
 
 #pragma 实现UIPickerViewDelegate的协议的方法
@@ -95,32 +108,27 @@
     //如果是第一列，就是显示首字母的那一列，返回的是存放首字母数组的个数
     if (component == 0)
     {
-        return 10;
+        return _dataArray.count;
     }
     else//如果是第二列，就是显示城市的那一列，返回的是存放城市的数组的个数
     {
-        return 10;
+        return timeArray.count;
     }
 }
 
-
-
-
-
 #pragma 实现UIPickerViewDataSource的协议的方法
-
 //返回的是component列的行显示的内容
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     if (component == 0)//如果是首字母的那一列
     {
         //row表示你已经选中第几行了，当然是从0开始的
-        return [NSString stringWithFormat:@"%d, %d", (int)component, (int)row];
+        return [[_dataArray objectAtIndex:row] stringForKey:@"date"];
     }
     else//如果选择的是城市那一列
     {
         //返回的是城市那一列的第row的那一行的显示的内容
-        return [NSString stringWithFormat:@"%d, %d", (int)component, (int)row];
+        return [[timeArray objectAtIndex:row] stringForKey:@"start_time"];
     }
 }
 
@@ -130,11 +138,15 @@
     //如果首字母那一列被选中
     if (component == 0)
     {
-        NSLog(@"%@", [NSString stringWithFormat:@"%d, %d", (int)component, (int)row]);
+        _dateStr = [[_dataArray objectAtIndex:row] stringForKey:@"date"];
+        _timeStr = @"";
+        timeArray = [[_dataArray objectAtIndex:row] arrayForKey:@"runs"];
+        [pickerView selectRow:0 inComponent:1 animated:YES];
+        [pickerView reloadComponent:1];
     }
     else
     {
-        NSLog(@"%@", [NSString stringWithFormat:@"%d, %d", (int)component, (int)row]);
+        [[timeArray objectAtIndex:row] stringForKey:@"start_time"];
     }
 }
 

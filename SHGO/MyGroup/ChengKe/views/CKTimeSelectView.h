@@ -12,4 +12,6 @@
 
 @property (nonatomic, copy) void (^CKTimeSelectBlock)(BOOL isCanCle);
 
+@property (nonatomic, strong) NSMutableArray *dataArray;
+
 @end
