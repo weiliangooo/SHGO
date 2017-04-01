@@ -1,0 +1,94 @@
+//
+//  PrefixHeader.pch
+//  FarmProduce
+//
+//  Created by AbelYang on 16/6/6.
+//  Copyright © 2016年 AbelYang. All rights reserved.
+//
+
+
+
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+
+//
+#ifdef __OBJC__
+
+#import "Frame.h"
+#import "UIViewExt.h"
+#import "MBProgressHUD.h"
+#import "UIColor+ColorFrom16.h"
+#import "UIImageView+WebCache.h"
+#import "Regular.h"
+#import "MJRefresh.h"
+#import "MyHelperNO.h"
+
+
+#define NSEaseLocalizedString(key, comment) [[NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"EaseUIResource" withExtension:@"bundle"]] localizedStringForKey:(key) value:@"" table:nil]
+
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+#define IS_IOS7 ((double)[[UIDevice currentDevice].systemVersion doubleValue]>=7.0f)
+#define IS_IOS8 ((double)[[UIDevice currentDevice].systemVersion doubleValue]>=8.0f)
+
+#define STATUS_BAR_HEIGHT ((IS_IOS7) ? 20 : 0)
+#define STATUS_HEIGHT ((IS_IOS7) ? 44 : 0)
+//屏幕大小
+#define AL_DEVICE_HEIGHT  [UIScreen mainScreen].bounds.size.height
+#define AL_DEVICE_WIDTH   [UIScreen mainScreen].bounds.size.width
+#define PROPORTION fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.width)/320
+
+#define PROPORTION750 fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.width)/750
+
+#define PRHEIGHT fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height)/568
+//本地化
+#define USERDEFAULTS [NSUserDefaults standardUserDefaults]
+//RGBA颜色
+#define RGBA(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
+//随机颜色
+#define HAPPENCOLOR [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1]
+// 默认占位图片
+#define PICDEFAULT  [UIImage imageNamed:@"picDefault"]
+// 日志输出
+//#ifdef DEBUG // 开发阶段-DEBUG阶段:使用Log
+//#define ABLog(...) NSLog(__VA_ARGS__)
+//#else // 发布阶段-上线阶段:移除Log
+//#define ABLog(...)
+//#endif
+
+// 弱引用
+#define WeakSelf __weak typeof(self) weakSelf = self;
+
+#define YH_REQUEST_DOMAIN @"http://m.xiaomachuxing.com/xmapp/"//域名
+
+//与4寸屏宽度比
+#define HW fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.width)/320
+//导航颜色
+#define NavColor [UIColor colorWithRed:76/255. green:157/255. blue:138/255. alpha:1]
+
+#define FONT(x) [UIFont boldSystemFontOfSize:x*PROPORTION]
+#define SYSF(x) [UIFont systemFontOfSize:x*PROPORTION]
+
+#define FONT750(x) [UIFont boldSystemFontOfSize:x*PROPORTION750]
+#define SYSF750(x) [UIFont systemFontOfSize:x*PROPORTION750]
+
+//友盟注册
+#define UMemgKey @"57c1361067e58ee86100002a"
+#define WXAPPID @"wx8ffc982021c3e3bf"
+#define WXAPPSECRET @"8fdd6c7935ec5b867e9eb01561260ade"
+#define DEFAULTWEB @"http://www.baidu.com"
+#define QQID @"1105580327"
+#define QQKEY @"0eAyJ7hlB2UVJO0A"
+
+#define DefaultColor [UIColor colorWithHexString:@"333333"]
+
+#endif
+
+
+
+#endif /* PrefixHeader_pch */
+
+
+
+
