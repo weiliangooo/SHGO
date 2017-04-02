@@ -342,12 +342,12 @@
         [_maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissLeftView)]];
         [de.window addSubview:_maskView];
         
-        _leftView = [[ChengKeLeftView alloc] initWithFrame:CGRectMake(-AL_DEVICE_WIDTH/8*5, 0, AL_DEVICE_WIDTH/8*5, [UIScreen mainScreen].bounds.size.height)];
+        _leftView = [[ChengKeLeftView alloc] initWithFrame:CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height) withViewController:self];
         _leftView.backgroundColor = [UIColor whiteColor];
         [de.window addSubview:_leftView];
         
         [UIView animateWithDuration:0.5f animations:^{
-            _leftView.frame = CGRectMake(0, 0, AL_DEVICE_WIDTH/8*5, [UIScreen mainScreen].bounds.size.height);
+            _leftView.frame = CGRectMake(0, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
         } completion:nil];
         
     }
@@ -355,7 +355,7 @@
     {
         _maskView.hidden = NO;
         [UIView animateWithDuration:0.5f animations:^{
-            _leftView.frame = CGRectMake(0, 0, AL_DEVICE_WIDTH/8*5, [UIScreen mainScreen].bounds.size.height);
+            _leftView.frame = CGRectMake(0, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
         } completion:nil];
     }
 }
@@ -364,7 +364,7 @@
 -(void)dismissLeftView
 {
     [UIView animateWithDuration:0.5f animations:^{
-        _leftView.frame = CGRectMake(-AL_DEVICE_WIDTH/8*5, 0, AL_DEVICE_WIDTH/8*5, [UIScreen mainScreen].bounds.size.height);
+        _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
     } completion:^(BOOL finished) {
         _maskView.hidden = YES;
     }];

@@ -534,9 +534,9 @@
     if (alertView == phoneAlertView) {
         if (buttonIndex == 1) {
             if (IS_IOS8) {
-                BOOL result = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", phoneAlertView.title]]];
+                BOOL result = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@", phoneAlertView.title]]];
                 if (!result) {
-                    [self alertMessage:@"拨号失败,请检查号码是否正确"];
+//                    [self alertMessage:@"拨号失败,请检查号码是否正确"];
                     return;
                 }
                 
