@@ -299,6 +299,10 @@
 		F71275781E85215100238420 /* CKTimeSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = F71275771E85215100238420 /* CKTimeSelectView.m */; };
 		F712757B1E88AD1800238420 /* CKBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F712757A1E88AD1800238420 /* CKBookViewController.m */; };
 		F712757E1E88D90C00238420 /* CKBookView.m in Sources */ = {isa = PBXBuildFile; fileRef = F712757D1E88D90C00238420 /* CKBookView.m */; };
+		F73B0EA01E96197000FB468E /* CKDiscoutSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B0E9F1E96197000FB468E /* CKDiscoutSelectView.m */; };
+		F73B0EA31E96413600FB468E /* CKSureOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B0EA21E96413600FB468E /* CKSureOrderModel.m */; };
+		F73B80201E9721330005EC11 /* CKPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B801F1E9721330005EC11 /* CKPayView.m */; };
+		F73B80271E9754680005EC11 /* CKListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B80261E9754680005EC11 /* CKListViewController.m */; };
 		F7489B601E8C99A200CDBAEC /* CKOnTheWayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7489B5F1E8C99A200CDBAEC /* CKOnTheWayViewController.m */; };
 		F7489B631E8C9E4B00CDBAEC /* Star.m in Sources */ = {isa = PBXBuildFile; fileRef = F7489B611E8C9E4B00CDBAEC /* Star.m */; };
 		F79F0C871E821CB900EAD30B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F79F0C851E821CB900EAD30B /* Info.plist */; };
@@ -325,6 +329,10 @@
 		F79F0D381E8228D100EAD30B /* SiJiMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F0D371E8228D100EAD30B /* SiJiMainViewController.m */; };
 		F79F0D3B1E822CE900EAD30B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F0D3A1E822CE900EAD30B /* MainViewController.m */; };
 		F7B53D251E8B7C4D0011F04A /* CKMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B53D241E8B7C4D0011F04A /* CKMapViewController.m */; };
+		F7C63F281E976910009EC70C /* CKEditCKMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C63F271E976910009EC70C /* CKEditCKMsgViewController.m */; };
+		F7C63F2B1E976EE9009EC70C /* CKAddCKMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C63F2A1E976EE9009EC70C /* CKAddCKMsgViewController.m */; };
+		F7C63F2F1E977220009EC70C /* CKWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C63F2E1E977220009EC70C /* CKWalletViewController.m */; };
+		F7C63F321E9788F5009EC70C /* CKWalletDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C63F311E9788F5009EC70C /* CKWalletDetailViewController.m */; };
 		F7D943961E823FA2000C9F8F /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F7D943951E823FA2000C9F8F /* mapapi.bundle */; };
 		F7D943991E825266000C9F8F /* ChengKeCenterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D943981E825266000C9F8F /* ChengKeCenterView.m */; };
 		F7D9439C1E825721000C9F8F /* ChengKeLeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D9439B1E825721000C9F8F /* ChengKeLeftView.m */; };
@@ -569,6 +577,14 @@
 		F712757A1E88AD1800238420 /* CKBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKBookViewController.m; sourceTree = "<group>"; };
 		F712757C1E88D90C00238420 /* CKBookView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKBookView.h; sourceTree = "<group>"; };
 		F712757D1E88D90C00238420 /* CKBookView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKBookView.m; sourceTree = "<group>"; };
+		F73B0E9E1E96197000FB468E /* CKDiscoutSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKDiscoutSelectView.h; sourceTree = "<group>"; };
+		F73B0E9F1E96197000FB468E /* CKDiscoutSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKDiscoutSelectView.m; sourceTree = "<group>"; };
+		F73B0EA11E96413600FB468E /* CKSureOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSureOrderModel.h; sourceTree = "<group>"; };
+		F73B0EA21E96413600FB468E /* CKSureOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSureOrderModel.m; sourceTree = "<group>"; };
+		F73B801E1E9721330005EC11 /* CKPayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKPayView.h; sourceTree = "<group>"; };
+		F73B801F1E9721330005EC11 /* CKPayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKPayView.m; sourceTree = "<group>"; };
+		F73B80251E9754680005EC11 /* CKListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKListViewController.h; sourceTree = "<group>"; };
+		F73B80261E9754680005EC11 /* CKListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKListViewController.m; sourceTree = "<group>"; };
 		F7489B5E1E8C99A200CDBAEC /* CKOnTheWayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKOnTheWayViewController.h; sourceTree = "<group>"; };
 		F7489B5F1E8C99A200CDBAEC /* CKOnTheWayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKOnTheWayViewController.m; sourceTree = "<group>"; };
 		F7489B611E8C9E4B00CDBAEC /* Star.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Star.m; sourceTree = "<group>"; };
@@ -604,6 +620,14 @@
 		F79F0D3A1E822CE900EAD30B /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		F7B53D231E8B7C4D0011F04A /* CKMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMapViewController.h; sourceTree = "<group>"; };
 		F7B53D241E8B7C4D0011F04A /* CKMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMapViewController.m; sourceTree = "<group>"; };
+		F7C63F261E976910009EC70C /* CKEditCKMsgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKEditCKMsgViewController.h; sourceTree = "<group>"; };
+		F7C63F271E976910009EC70C /* CKEditCKMsgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKEditCKMsgViewController.m; sourceTree = "<group>"; };
+		F7C63F291E976EE9009EC70C /* CKAddCKMsgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAddCKMsgViewController.h; sourceTree = "<group>"; };
+		F7C63F2A1E976EE9009EC70C /* CKAddCKMsgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKAddCKMsgViewController.m; sourceTree = "<group>"; };
+		F7C63F2D1E977220009EC70C /* CKWalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKWalletViewController.h; sourceTree = "<group>"; };
+		F7C63F2E1E977220009EC70C /* CKWalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKWalletViewController.m; sourceTree = "<group>"; };
+		F7C63F301E9788F5009EC70C /* CKWalletDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKWalletDetailViewController.h; sourceTree = "<group>"; };
+		F7C63F311E9788F5009EC70C /* CKWalletDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKWalletDetailViewController.m; sourceTree = "<group>"; };
 		F7D943951E823FA2000C9F8F /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
 		F7D943971E825266000C9F8F /* ChengKeCenterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChengKeCenterView.h; sourceTree = "<group>"; };
 		F7D943981E825266000C9F8F /* ChengKeCenterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChengKeCenterView.m; sourceTree = "<group>"; };
@@ -1127,6 +1151,28 @@
 			path = MyGroup;
 			sourceTree = "<group>";
 		};
+		F73B80231E97543A0005EC11 /* viewcontrollers */ = {
+			isa = PBXGroup;
+			children = (
+				F7C63F2C1E97720B009EC70C /* 钱包 */,
+				F73B80241E9754470005EC11 /* 乘客 */,
+			);
+			path = viewcontrollers;
+			sourceTree = "<group>";
+		};
+		F73B80241E9754470005EC11 /* 乘客 */ = {
+			isa = PBXGroup;
+			children = (
+				F73B80251E9754680005EC11 /* CKListViewController.h */,
+				F73B80261E9754680005EC11 /* CKListViewController.m */,
+				F7C63F261E976910009EC70C /* CKEditCKMsgViewController.h */,
+				F7C63F271E976910009EC70C /* CKEditCKMsgViewController.m */,
+				F7C63F291E976EE9009EC70C /* CKAddCKMsgViewController.h */,
+				F7C63F2A1E976EE9009EC70C /* CKAddCKMsgViewController.m */,
+			);
+			path = "乘客";
+			sourceTree = "<group>";
+		};
 		F79F0C891E8221F900EAD30B /* ThridSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1165,6 +1211,7 @@
 		F79F0D2B1E82281300EAD30B /* ChengKe */ = {
 			isa = PBXGroup;
 			children = (
+				F73B80231E97543A0005EC11 /* viewcontrollers */,
 				F79F0D2D1E82284300EAD30B /* views */,
 				F79F0D2F1E82284300EAD30B /* models */,
 				F79F0D331E8228BB00EAD30B /* ChengKeMainViewController.h */,
@@ -1216,6 +1263,10 @@
 				F7FD999A1E8B47EF00A863DE /* CKBookCKSelectView.m */,
 				F7FD999C1E8B489F00A863DE /* CKBookCKSelectBtn.h */,
 				F7FD999D1E8B489F00A863DE /* CKBookCKSelectBtn.m */,
+				F73B0E9E1E96197000FB468E /* CKDiscoutSelectView.h */,
+				F73B0E9F1E96197000FB468E /* CKDiscoutSelectView.m */,
+				F73B801E1E9721330005EC11 /* CKPayView.h */,
+				F73B801F1E9721330005EC11 /* CKPayView.m */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -1229,6 +1280,8 @@
 				F71275741E84E2C600238420 /* CCMsgModel.m */,
 				F7F625C81E8E2A3900B025DC /* CKCitysListModel.h */,
 				F7F625C91E8E2A3900B025DC /* CKCitysListModel.m */,
+				F73B0EA11E96413600FB468E /* CKSureOrderModel.h */,
+				F73B0EA21E96413600FB468E /* CKSureOrderModel.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -1252,6 +1305,17 @@
 			children = (
 			);
 			path = models;
+			sourceTree = "<group>";
+		};
+		F7C63F2C1E97720B009EC70C /* 钱包 */ = {
+			isa = PBXGroup;
+			children = (
+				F7C63F2D1E977220009EC70C /* CKWalletViewController.h */,
+				F7C63F2E1E977220009EC70C /* CKWalletViewController.m */,
+				F7C63F301E9788F5009EC70C /* CKWalletDetailViewController.h */,
+				F7C63F311E9788F5009EC70C /* CKWalletDetailViewController.m */,
+			);
+			path = "钱包";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1433,6 +1497,7 @@
 				F71275721E84E23C00238420 /* CKMsgModel.m in Sources */,
 				F701C8811E4844E6008ADFD6 /* UIImage+ScalImage.m in Sources */,
 				F701C8691E4844E6008ADFD6 /* UIImageView+WebCache.m in Sources */,
+				F7C63F2F1E977220009EC70C /* CKWalletViewController.m in Sources */,
 				F701C8001E4844E6008ADFD6 /* MJRefreshBackGifFooter.m in Sources */,
 				F71275661E83A0FF00238420 /* CKLoginViewController.m in Sources */,
 				F7FD999B1E8B47EF00A863DE /* CKBookCKSelectView.m in Sources */,
@@ -1448,6 +1513,7 @@
 				F70182011E8DED5000B28C59 /* PGSLeadViewController.m in Sources */,
 				F701C7EB1E4844E6008ADFD6 /* MJRefreshBackFooter.m in Sources */,
 				F701C7F41E4844E6008ADFD6 /* MJRefreshHeader.m in Sources */,
+				F73B80271E9754680005EC11 /* CKListViewController.m in Sources */,
 				F701C6CC1E4844C2008ADFD6 /* NoDataView.m in Sources */,
 				F701C84B1E4844E6008ADFD6 /* SDWebImageDecoder.m in Sources */,
 				F701C6C91E4844C2008ADFD6 /* Frame.m in Sources */,
@@ -1462,6 +1528,7 @@
 				F701C80C1E4844E6008ADFD6 /* MJRefreshNormalHeader.m in Sources */,
 				F701C8571E4844E6008ADFD6 /* SDWebImagePrefetcher.m in Sources */,
 				F701C7D61E4844E6008ADFD6 /* UploadFileData.m in Sources */,
+				F7C63F321E9788F5009EC70C /* CKWalletDetailViewController.m in Sources */,
 				F712757E1E88D90C00238420 /* CKBookView.m in Sources */,
 				F701C7AC1E4844E5008ADFD6 /* AFURLRequestSerialization.m in Sources */,
 				F701C7A31E4844E5008ADFD6 /* AFNetworkReachabilityManager.m in Sources */,
@@ -1475,8 +1542,10 @@
 				F701C83C1E4844E6008ADFD6 /* UIView+SDExtension.m in Sources */,
 				F701C8EB1E4846AA008ADFD6 /* MyHelperNO.m in Sources */,
 				F701C8241E4844E6008ADFD6 /* PopAleatView.m in Sources */,
+				F7C63F2B1E976EE9009EC70C /* CKAddCKMsgViewController.m in Sources */,
 				F701C7C11E4844E6008ADFD6 /* AssetPickerCell.m in Sources */,
 				F701C7E21E4844E6008ADFD6 /* MBProgressHUD+Add.m in Sources */,
+				F73B0EA31E96413600FB468E /* CKSureOrderModel.m in Sources */,
 				F701C8481E4844E6008ADFD6 /* SDWebImageCompat.m in Sources */,
 				F701C6811E48440D008ADFD6 /* AppDelegate.m in Sources */,
 				F701C7BB1E4844E6008ADFD6 /* ASValueTrackingSlider.m in Sources */,
@@ -1494,6 +1563,7 @@
 				F701C84E1E4844E6008ADFD6 /* SDWebImageDownloader.m in Sources */,
 				F701C8451E4844E6008ADFD6 /* SDImageCache.m in Sources */,
 				F7489B631E8C9E4B00CDBAEC /* Star.m in Sources */,
+				F73B0EA01E96197000FB468E /* CKDiscoutSelectView.m in Sources */,
 				F71275691E83A23D00238420 /* CKLoginTextField.m in Sources */,
 				F701C82D1E4844E6008ADFD6 /* SDCycleScrollView.m in Sources */,
 				F701C8541E4844E6008ADFD6 /* SDWebImageManager.m in Sources */,
@@ -1505,6 +1575,7 @@
 				F701C7D91E4844E6008ADFD6 /* XAAssetData.m in Sources */,
 				F701C85D1E4844E6008ADFD6 /* UIImage+GIF.m in Sources */,
 				F701C81B1E4844E6008ADFD6 /* UIScrollView+MJExtension.m in Sources */,
+				F73B80201E9721330005EC11 /* CKPayView.m in Sources */,
 				F701C7FA1E4844E6008ADFD6 /* MJRefreshAutoNormalFooter.m in Sources */,
 				F79F0D3B1E822CE900EAD30B /* MainViewController.m in Sources */,
 				F701C8721E4844E6008ADFD6 /* NSDateExt.m in Sources */,
@@ -1513,6 +1584,7 @@
 				F701C67E1E48440D008ADFD6 /* main.m in Sources */,
 				F701C7FD1E4844E6008ADFD6 /* MJRefreshAutoStateFooter.m in Sources */,
 				F701C8271E4844E6008ADFD6 /* Regular.m in Sources */,
+				F7C63F281E976910009EC70C /* CKEditCKMsgViewController.m in Sources */,
 				F701C7DF1E4844E6008ADFD6 /* XACameraController.m in Sources */,
 				F701C7BE1E4844E6008ADFD6 /* AssetGroupCell.m in Sources */,
 				F701C8511E4844E6008ADFD6 /* SDWebImageDownloaderOperation.m in Sources */,

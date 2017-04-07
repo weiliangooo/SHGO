@@ -14,14 +14,16 @@
 
 @interface CKLoginViewController ()
 {
+    ///定时器
     NSTimer * timer;
+    ///默认60 倒计时
     NSInteger countDownTime;
 }
-
+///登录输入框
 @property (nonatomic, strong) CKLoginTextField *accountTF;
-
+///验证码输入框
 @property (nonatomic, strong) CKLoginTextField *codeTF;
-
+///获取验证码按钮
 @property (nonatomic, strong) UIButton *codeBT;
 
 @end

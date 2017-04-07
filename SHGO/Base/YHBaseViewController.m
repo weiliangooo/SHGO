@@ -36,8 +36,9 @@
     if(type==1)
     {
         _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _leftBtn.frame = CGRectMake(0, 0, 100*PROPORTION750, 30*PROPORTION750);
-        [_leftBtn setImage:[UIImage imageNamed:@"rowBack"] forState:UIControlStateNormal];
+        _leftBtn.frame = CGRectMake(0, 0, 38*PROPORTION750, 30*PROPORTION750);
+        _leftBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 20*PROPORTION750, 0, 0);
+        [_leftBtn setImage:[UIImage imageNamed:@"rowback"] forState:UIControlStateNormal];
         [_leftBtn addTarget:self action:@selector(leftBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self ios7LeftBarButtonItems:[[UIBarButtonItem alloc]initWithCustomView:_leftBtn]];
     }

@@ -11,16 +11,26 @@
 #import "CKBookView.h"
 #import "AppDelegate.h"
 #import "CKBookCKSelectView.h"
+#import "CKDiscoutSelectView.h"
 
 #import "CKSendOrderViewController.h"
 
 #import "CKOnTheWayViewController.h"
 
-@interface CKBookViewController ()<BMKMapViewDelegate,CKBookViewDelegate>
+#import "CKSureOrderModel.h"
 
+#import "CKPayView.h"
 
+@interface CKBookViewController ()<BMKMapViewDelegate,CKBookViewDelegate,CKPayViewDelegate>
+
+///选择乘车成员界面
 @property (nonatomic, strong)CKBookCKSelectView *ckBookCKSelectView;
+///选择优惠界面
+@property (nonatomic, strong)CKDiscoutSelectView *ckDiscoutView;
+///确认订单界面的model
+@property (nonatomic, strong)CKSureOrderModel *sureOrderModel;
 
+@property (nonatomic, strong)CKPayView *payView;
 @end
 
 @implementation CKBookViewController
@@ -31,28 +41,55 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.type = 1;
-    self.topTitle = @"确认预定";
+    self.topTitle = @"确认订单";
     
-    CKBookView *view = [[CKBookView alloc] initWithFrame:CGRectMake(0, AL_DEVICE_HEIGHT-400*PROPORTION750-64, AL_DEVICE_WIDTH, 400*PROPORTION750)];
+    CKBookView *view = [[CKBookView alloc] initWithFrame:CGRectMake(0, AL_DEVICE_HEIGHT-880*PROPORTION750-64, AL_DEVICE_WIDTH, 880*PROPORTION750)];
     view.delegate = self;
     [self.view addSubview:view];
 }
 
 #pragma --mark CKBookView 代理
--(void)CKBookViewForMoreBtnClickEventWithCKMsg:(NSMutableArray *)ckMsg
+-(void)CKBookViewForMoreBtnClickEventWithCKMsg:(NSMutableArray *)ckMsg flag:(NSInteger)flag
 {
-    _ckBookCKSelectView = [[CKBookCKSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
+    
     AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [de.window addSubview:_ckBookCKSelectView];
+    if (flag == 1)
+    {
+        _ckBookCKSelectView = [[CKBookCKSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
+        [de.window addSubview:_ckBookCKSelectView];
+    }
+    else if (flag == 2)
+    {
+        _ckDiscoutView = [[CKDiscoutSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
+        [de.window addSubview:_ckDiscoutView];
+    }
+    
 }
 
 -(void)CKBookViewBackWithCKMsg:(NSMutableArray *)ckMsg
 {
-    CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
-    [self.navigationController pushViewController:viewController animated:YES];
+    AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//    if (flag == 1)
+//    {
+        _payView = [[CKPayView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
+    _payView.delegate = self;
+        [de.window addSubview:_payView];
+//    }
+    
+//    CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
+//    [self.navigationController pushViewController:viewController animated:YES];
 
 //    CKOnTheWayViewController *viewController = [[CKOnTheWayViewController alloc] initWithCCMsgModel:self.ccMsgModel];
 //    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+#pragma --mark CKPayView 代理
+-(void)CKPayViwePayBtnClickEvent
+{
+//    [self showLoading:@"please waiting"];
+    [_payView removeFromSuperview];
+    CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 

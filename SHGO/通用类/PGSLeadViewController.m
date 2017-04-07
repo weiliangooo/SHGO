@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSArray *pics = @[@"test001", @"test002", @"test003"];
+    NSArray *pics = @[@"guide_one", @"guide_two", @"guide_three"];
     
     _myScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
     _myScrollView.backgroundColor = [UIColor whiteColor];

@@ -21,25 +21,6 @@
 @end
 
 
-//@interface CKCollectionCell : UICollectionViewCell
-//
-//@property (nonatomic, assign) BOOL isSelected;
-//
-//@property (nonatomic, strong) CKBookCKSelectBtn *myBtn;
-//
-//@end
-//
-//
-//@interface CkCollectionHeader : UICollectionReusableView
-//
-//
-//@end
-//
-//
-//@interface CKCollectionFooter : UICollectionReusableView
-//
-//@end
-
 
 @interface CKBookCKSelectDetailView : UIView
 

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "YHBaseViewController.h"
 
+@class CKLeftCell;
 @class CKLeftHeadView;
 @class CKLeftFootView;
 
@@ -20,7 +21,17 @@
 
 @property (nonatomic, strong) CKLeftFootView *myTableFoot;
 
+@property (nonatomic, copy) void (^didSelectedBlock)(NSInteger row);
+
 -(instancetype)initWithFrame:(CGRect)frame withViewController:(YHBaseViewController *)viewController;
+
+@end
+
+@interface CKLeftCell : UITableViewCell
+
+@property (nonatomic, strong) UIImageView *headImage;
+
+@property (nonatomic, strong) UILabel *titleLB;
 
 @end
 

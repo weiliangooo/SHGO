@@ -20,11 +20,6 @@
             CKCitysModel *model = [[CKCitysModel alloc] initWithData:[dataSource objectForKey:key]];
             [_citysModel addObject:model];
         }];
-//        for (int i = 0; i < dataSource.count; i++)
-//        {
-//            
-//            CKCitysModel *model = [CKCitysModel alloc] initWithData:<#(id)#>
-//        }
     }
     return self;
 }

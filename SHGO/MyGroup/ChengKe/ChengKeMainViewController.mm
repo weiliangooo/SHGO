@@ -13,6 +13,8 @@
 #import "CKSearchPlaceView.h"
 #import "CKTimeSelectView.h"
 #import "CKBookViewController.h"
+#import "CKListViewController.h"
+#import "CKWalletViewController.h"
 
 @interface ChengKeMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate>
 
@@ -78,6 +80,7 @@
     
     self.type = 2;
     [self.leftBtn setImage:[UIImage imageNamed:@"left_menu"] forState:UIControlStateNormal];
+    [self.rightBtn setImage:[UIImage imageNamed:@"right_msg"] forState:UIControlStateNormal];
     self.topTitle = @"小马出行";
     
     _currentIsStart = YES;
@@ -243,6 +246,11 @@
     [self showLeftView];
 }
 
+-(void)rightBtn:(UIButton *)button
+{
+    
+}
+
 #pragma --mark CKSearchPlaceView 代理函数
 -(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView cancleBtnClick:(UIButton *)cancleBtn
 {
@@ -334,8 +342,6 @@
     if (!_maskView)
     {
         AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        
-        
         _maskView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         _maskView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
         _maskView.userInteractionEnabled = YES;
@@ -343,6 +349,37 @@
         [de.window addSubview:_maskView];
         
         _leftView = [[ChengKeLeftView alloc] initWithFrame:CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height) withViewController:self];
+        _leftView.didSelectedBlock = ^(NSInteger row){
+            switch (row) {
+                case 0:
+                {
+                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
+                    _maskView.hidden = YES;
+                    CKWalletViewController *viewController = [[CKWalletViewController alloc] init];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                }
+                    break;
+                case 1:
+                {
+                }
+                    break;
+                case 2:
+                {
+                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
+                    _maskView.hidden = YES;
+                    CKListViewController *viewController = [[CKListViewController alloc] init];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                }
+                    break;
+                case 3:
+                {
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        };
         _leftView.backgroundColor = [UIColor whiteColor];
         [de.window addSubview:_leftView];
         

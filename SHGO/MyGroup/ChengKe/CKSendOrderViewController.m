@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.topTitle = @"正在排单中";
+    self.topTitle = @"正在派单中";
     
     UIView *msgView = [[UIView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-240*PROPORTION750-64, 690*PROPORTION750, 220*PROPORTION750)];
     msgView.backgroundColor = [UIColor whiteColor];

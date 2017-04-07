@@ -45,10 +45,10 @@
     {
         self.backgroundColor = [UIColor whiteColor];
         
-        dataArray = @[@{@"head":@"phone",@"title":@"钱包"},
-                      @{@"head":@"phone",@"title":@"行程"},
-                      @{@"head":@"phone",@"title":@"乘客"},
-                      @{@"head":@"phone",@"title":@"设置"}];
+        dataArray = @[@{@"head":@"left_wallet",@"title":@"钱包"},
+                      @{@"head":@"left_order",@"title":@"行程"},
+                      @{@"head":@"left_ck",@"title":@"乘客"},
+                      @{@"head":@"left_setup",@"title":@"设置"}];
         
         _myTableHead = [[CKLeftHeadView alloc] initWithFrame:CGRectMake(0, 0, self.width, 270*PROPORTION750)];
         
@@ -88,22 +88,47 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    CKLeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell)
     {
-        cell = [[UITableViewCell alloc] init];
-        cell.imageView.frame = CGRectMake(60*PROPORTION750, 30*PROPORTION750, 40*PROPORTION750, 40*PROPORTION750);
-        cell.clipsToBounds = YES;
-        
+        cell = [[CKLeftCell alloc] init];
     }
     
     NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[dataArray objectAtIndex:indexPath.row]];
     
-    cell.imageView.image = [UIImage imageNamed:[dic stringForKey:@"head"]];
+    cell.headImage.image = [UIImage imageNamed:[dic stringForKey:@"head"]];
     
-    cell.textLabel.text = [dic stringForKey:@"title"];
+    cell.titleLB.text = [dic stringForKey:@"title"];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    self.didSelectedBlock(indexPath.row);
+}
+
+@end
+
+
+@implementation CKLeftCell
+
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    {
+        _headImage = [[UIImageView alloc] initWithFrame:CGRectMake(60*PROPORTION750, 30*PROPORTION750, 40*PROPORTION750, 40*PROPORTION750)];
+        _headImage.clipsToBounds = YES;
+        _headImage.layer.cornerRadius = 20*PROPORTION750;
+        [self addSubview:_headImage];
+        
+        _titleLB = [[UILabel alloc] initWithFrame:CGRectMake(_headImage.right+30*PROPORTION750, 35*PROPORTION750, 100*PROPORTION750, 30*PROPORTION750)];
+        _titleLB.font = SYSF750(30);
+        _titleLB.textAlignment = NSTextAlignmentLeft;
+        [self addSubview:_titleLB];
+    }
+    return self;
 }
 
 @end
@@ -116,6 +141,10 @@
     if (self = [super initWithFrame:frame])
     {
         self.backgroundColor = [UIColor whiteColor];
+        
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.height-2*PROPORTION750, self.width, 2*PROPORTION750)];
+        line.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+        [self addSubview:line];
         
         _headView = [[UIImageView alloc] initWithFrame:CGRectMake(60*PROPORTION750, 100*PROPORTION750, 120*PROPORTION750, 120*PROPORTION750)];
         _headView.clipsToBounds = YES;
@@ -135,11 +164,11 @@
         _signBtn.layer.cornerRadius = 8*PROPORTION750;
         _signBtn.titleLabel.font = SYSF750(22);
         [_signBtn addTarget:self action:@selector(signBtnClickEvent:) forControlEvents:UIControlEventTouchUpInside];
-        [_signBtn setImage:nil forState:UIControlStateNormal];
+        [_signBtn setImage:[UIImage imageNamed:@"sign_no"] forState:UIControlStateNormal];
         [_signBtn setTitle:@"签到" forState:UIControlStateNormal];
         [_signBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
          
-        [_signBtn setImage:nil forState:UIControlStateSelected];
+        [_signBtn setImage:[UIImage imageNamed:@"sign_yes"] forState:UIControlStateSelected];
         [_signBtn setTitle:@"已签到" forState:UIControlStateSelected];
         [_signBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateSelected];
         

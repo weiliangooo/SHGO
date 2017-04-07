@@ -75,7 +75,6 @@
 -(void)tap:(UITapGestureRecognizer *)tap
 {
     [self setIsSelected:!_isSelected];
-    //    _isSelected = !_isSelected ;
 }
 
 
