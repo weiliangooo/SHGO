@@ -15,6 +15,8 @@
 #import "CKBookViewController.h"
 #import "CKListViewController.h"
 #import "CKWalletViewController.h"
+#import "CKOrderViewController.h"
+#import "CKSetUpViewController.h"
 
 @interface ChengKeMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate>
 
@@ -361,6 +363,10 @@
                     break;
                 case 1:
                 {
+                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
+                    _maskView.hidden = YES;
+                    CKOrderViewController *viewController = [[CKOrderViewController alloc] init];
+                    [self.navigationController pushViewController:viewController animated:YES];
                 }
                     break;
                 case 2:
@@ -373,6 +379,10 @@
                     break;
                 case 3:
                 {
+                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
+                    _maskView.hidden = YES;
+                    CKSetUpViewController *viewController = [[CKSetUpViewController alloc] init];
+                    [self.navigationController pushViewController:viewController animated:YES];
                 }
                     break;
                     

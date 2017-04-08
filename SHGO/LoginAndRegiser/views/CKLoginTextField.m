@@ -28,7 +28,7 @@
         
         UIImageView *leftImgView = [[UIImageView alloc] initWithFrame:CGRectMake(30*PROPORTION750, 25*PROPORTION750, 30*PROPORTION750, 40*PROPORTION750)];
         leftImgView.image = [UIImage imageNamed:leftImgName];
-        leftImgView.contentMode = UIViewContentModeCenter;
+//        leftImgView.contentMode = UIViewContentModeCenter;
         [self addSubview:leftImgView];
         
         _myTextField = [[UITextField alloc] initWithFrame:CGRectMake(leftImgView.right+30*PROPORTION750, 30*PROPORTION750, self.width-120*PROPORTION750, 30*PROPORTION750)];

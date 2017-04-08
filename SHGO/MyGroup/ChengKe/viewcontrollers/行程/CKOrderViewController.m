@@ -1,0 +1,214 @@
+//
+//  CKOrderViewController.m
+//  SHGO
+//
+//  Created by 魏亮 on 2017/4/8.
+//  Copyright © 2017年 Alen. All rights reserved.
+//
+
+#import "CKOrderViewController.h"
+#import "CKOnTheWayViewController.h"
+
+@interface CKOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *myTableView;
+
+@end
+
+@implementation CKOrderViewController
+
+-(UITableView *)myTableView
+{
+    if (!_myTableView)
+    {
+        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 0, AL_DEVICE_WIDTH-40*PROPORTION750, AL_DEVICE_HEIGHT-64) style:UITableViewStylePlain];
+        _myTableView.backgroundColor = [UIColor clearColor];
+        _myTableView.delegate = self;
+        _myTableView.dataSource = self;
+        _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    return _myTableView;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.type = 1;
+    self.topTitle = @"我的行程";
+    
+    self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+    
+    [self.view addSubview:self.myTableView];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 10;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 85*PROPORTION750;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH-40*PROPORTION750, 85*PROPORTION750)];
+    view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+    if (section == 0)
+    {
+        UILabel *titleLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 27.5*PROPORTION750, view.width, 30*PROPORTION750)];
+        titleLB.text = @"未完成订单";
+        titleLB.textColor = [UIColor colorWithHexString:@"#1bae1a"];
+        titleLB.font = SYSF750(30);
+        titleLB.textAlignment = NSTextAlignmentLeft;
+        [view addSubview:titleLB];
+    }
+    else
+    {
+        UILabel *titleLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 27.5*PROPORTION750, view.width, 30*PROPORTION750)];
+        titleLB.text = @"已完成订单";
+        titleLB.textColor = [UIColor colorWithHexString:@"#999999"];
+        titleLB.font = SYSF750(30);
+        titleLB.textAlignment = NSTextAlignmentLeft;
+        [view addSubview:titleLB];
+    }
+    
+    
+    return view;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.05;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 285*PROPORTION750;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CKOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell)
+    {
+        cell = [[CKOrderCell alloc] init];
+    }
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CKOnTheWayViewController *viewController = [[CKOnTheWayViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end
+
+@implementation CKOrderCell
+
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    {
+        self.backgroundColor = [UIColor clearColor];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 710*PROPORTION750, 255*PROPORTION750)];
+        view.backgroundColor = [UIColor whiteColor];
+        view.clipsToBounds = YES;
+        view.layer.cornerRadius = 15*PROPORTION750;
+        [self addSubview:view];
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(30*PROPORTION750, 27.5*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
+        imageView.clipsToBounds = YES;
+        imageView.layer.cornerRadius = 15*PROPORTION750;
+        imageView.image = [UIImage imageNamed:@"time"];
+        [view addSubview:imageView];
+        
+        _timeLB = [[UILabel alloc] initWithFrame:CGRectMake(imageView.right+20*PROPORTION750, 27.5*PROPORTION750, 350*PROPORTION750, 30*PROPORTION750)];
+        _timeLB.text = @"（今天）03-21 15:01（到达）";
+        _timeLB.font = SYSF750(25);
+        _timeLB.textAlignment = NSTextAlignmentLeft;
+        [view addSubview:_timeLB];
+        
+        _stateLB = [[UILabel alloc] initWithFrame:CGRectMake(view.width-158*PROPORTION750, 27.5*PROPORTION750, 90*PROPORTION750, 30*PROPORTION750)];
+        _stateLB.text = @"已完成";
+        _stateLB.font = SYSF750(25);
+        _stateLB.textAlignment = NSTextAlignmentRight;
+        [view addSubview:_stateLB];
+        
+        UIImageView *rightImgView = [[UIImageView alloc] initWithFrame:CGRectMake(view.width-48*PROPORTION750, 27.5*PROPORTION750, 18*PROPORTION750, 30*PROPORTION750)];
+        rightImgView.clipsToBounds = YES;
+        rightImgView.layer.cornerRadius = 15*PROPORTION750;
+        rightImgView.image = [UIImage imageNamed:@"right_wallet"];
+        [view addSubview:rightImgView];
+        
+        UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(0, 83*PROPORTION750, view.width, 2*PROPORTION750)];
+        line1.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+        [view addSubview:line1];
+        
+        
+        UIView *greenView = [[UIImageView alloc] initWithFrame:CGRectMake(30*PROPORTION750, line1.bottom+27.5*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
+        greenView.clipsToBounds = YES;
+        greenView.layer.cornerRadius = 15*PROPORTION750;
+        greenView.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
+        [view addSubview:greenView];
+        
+        _starPlaceLB = [[UILabel alloc] initWithFrame:CGRectMake(greenView.right+20*PROPORTION750, greenView.top, 350*PROPORTION750, 30*PROPORTION750)];
+        _starPlaceLB.text = @"合肥市-财富广场";
+        _starPlaceLB.font = SYSF750(25);
+        _starPlaceLB.textAlignment = NSTextAlignmentLeft;
+        [view addSubview:_starPlaceLB];
+        
+        UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, 168*PROPORTION750, view.width, 2*PROPORTION750)];
+        line2.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+        [view addSubview:line2];
+        
+        UIView *redView = [[UIImageView alloc] initWithFrame:CGRectMake(30*PROPORTION750, line2.bottom+27.5*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
+        redView.clipsToBounds = YES;
+        redView.layer.cornerRadius = 15*PROPORTION750;
+        redView.backgroundColor = [UIColor colorWithHexString:@"#ff4f00"];
+        [view addSubview:redView];
+        
+        _endPlaceLB = [[UILabel alloc] initWithFrame:CGRectMake(redView.right+20*PROPORTION750, redView.top, 350*PROPORTION750, 30*PROPORTION750)];
+        _endPlaceLB.text = @"桐城市-青草镇";
+        _endPlaceLB.font = SYSF750(25);
+        _endPlaceLB.textAlignment = NSTextAlignmentLeft;
+        [view addSubview:_endPlaceLB];
+
+        
+    }
+    return self;
+}
+
+@end
+

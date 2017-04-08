@@ -1,23 +1,24 @@
 //
-//  CKWalletDetailViewController.m
+//  CKRedPaceDetailViewController.m
 //  SHGO
 //
-//  Created by 魏亮 on 2017/4/7.
+//  Created by 魏亮 on 2017/4/8.
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "CKWalletDetailViewController.h"
-#import "CKWalletDQuestionViewController.h"
+#import "CKRedPackDetailViewController.h"
 
-@interface CKWalletDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
+#import "CKRedPackDRegularViewController.h"
+
+@interface CKRedPackDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *myTableView;
 
-@property (nonatomic, strong) CKWalletDetailHeader *ckWalletHeader;
+@property (nonatomic, strong) CKRedPackDetailHeader *ckRedPackHeader;
 
 @end
 
-@implementation CKWalletDetailViewController
+@implementation CKRedPackDetailViewController
 
 -(UITableView *)myTableView
 {
@@ -36,16 +37,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.type = 1;
-    self.topTitle = @"我的余额";
+    self.topTitle = @"我的红包";
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     
-    _ckWalletHeader = [[CKWalletDetailHeader alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 280*PROPORTION750)];
-    _ckWalletHeader.buttonBlock = ^(){
-        CKWalletDQuestionViewController *viewController = [[CKWalletDQuestionViewController alloc] init];
+    _ckRedPackHeader = [[CKRedPackDetailHeader alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 280*PROPORTION750)];
+    _ckRedPackHeader.buttonBlock = ^(){
+        CKRedPackDRegularViewController *viewController = [[CKRedPackDRegularViewController alloc] init];
         [self.navigationController pushViewController:viewController animated:YES];
     };
-    [self.view addSubview:_ckWalletHeader];
+    [self.view addSubview:_ckRedPackHeader];
     
     
     [self.view addSubview:self.myTableView];
@@ -112,26 +113,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 160*PROPORTION750;
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH-40*PROPORTION750, 160*PROPORTION750)];
-    view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
-    
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 50*PROPORTION750, view.width, 90*PROPORTION750)];
-    button.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
-    button.clipsToBounds = YES;
-    button.layer.cornerRadius = 15*PROPORTION750;
-    [button setTitle:@"提现" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    button.titleLabel.font = SYSF750(40);
-    button.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [button addTarget:self action:@selector(outMoneyEvent:) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:button];
-    
-    return view;
+    return 0.05;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -141,10 +123,10 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CKWalletListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    CKRedPackListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell)
     {
-        cell = [[CKWalletListCell alloc] init];
+        cell = [[CKRedPackListCell alloc] init];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor whiteColor];
@@ -152,10 +134,7 @@
     return cell;
 }
 
--(void)outMoneyEvent:(UIButton *)button
-{
 
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -174,14 +153,13 @@
 
 @end
 
-
-@interface CKWalletDetailHeader()
+@interface CKRedPackDetailHeader()
 
 @property (nonatomic, strong) UILabel *priceLB;
 
 @end
 
-@implementation CKWalletDetailHeader
+@implementation CKRedPackDetailHeader
 
 -(instancetype)initWithFrame:(CGRect)frame
 {
@@ -192,7 +170,7 @@
         self.layer.cornerRadius = 15*PROPORTION750;
         
         UILabel *titleLB = [[UILabel alloc] initWithFrame:CGRectMake(40*PROPORTION750, 30*PROPORTION750, 380*PROPORTION750, 25*PROPORTION750)];
-        titleLB.text = @"余额（元）";
+        titleLB.text = @"红包（元）";
         titleLB.textColor = [UIColor colorWithHexString:@"999999"];
         titleLB.textAlignment = NSTextAlignmentLeft;
         titleLB.font = SYSF750(25);
@@ -200,7 +178,7 @@
         
         UIButton *tipBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.width-180*PROPORTION750, 27.5*PROPORTION750, 150*PROPORTION750, 30*PROPORTION750)];
         [tipBtn setImage:[UIImage imageNamed:@"regular_wallet"] forState:UIControlStateNormal];
-        [tipBtn setTitle:@"常见问题" forState:UIControlStateNormal];
+        [tipBtn setTitle:@"使用规则" forState:UIControlStateNormal];
         [tipBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
         tipBtn.titleLabel.textAlignment = NSTextAlignmentRight;
         tipBtn.titleLabel.font = SYSF750(25);
@@ -217,7 +195,7 @@
         _priceLB.textAlignment = NSTextAlignmentLeft;
         _priceLB.font = SYSF750(50);
         [self addSubview:_priceLB];
-
+        
         UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, 193*PROPORTION750, self.width, 2*PROPORTION750)];
         line2.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
         [self addSubview:line2];
@@ -247,7 +225,7 @@
 @end
 
 
-@implementation CKWalletListCell
+@implementation CKRedPackListCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -278,9 +256,5 @@
 }
 
 @end
-
-
-
-
 
 

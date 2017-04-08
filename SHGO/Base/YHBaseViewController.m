@@ -86,6 +86,17 @@
         [_rightBtn addTarget:self action:@selector(rightBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self ios7RightBarButtonItems:[[UIBarButtonItem alloc]initWithCustomView:_rightBtn]];
     }
+    else if(type == 5)
+    {
+        _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _leftBtn.frame = CGRectMake(0, 0, 50*PROPORTION, 25*PROPORTION);
+        [_leftBtn setTitle:@"取消" forState:UIControlStateNormal];
+        [_leftBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
+        _leftBtn.titleLabel.font = SYSF750(25);
+//        _leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15*PROPORTION750, 0, 0);
+        [_leftBtn addTarget:self action:@selector(leftBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [self ios7LeftBarButtonItems:[[UIBarButtonItem alloc]initWithCustomView:_leftBtn]];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated {

@@ -7,6 +7,9 @@
 //
 
 #import "CKWalletViewController.h"
+#import "CKWalletDetailViewController.h"
+#import "CKRedPackDetailViewController.h"
+#import "CKDiscountViewController.h"
 
 @interface CKWalletViewController ()
 
@@ -34,6 +37,9 @@
     for (int i = 0; i < 3; i++)
     {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 100*PROPORTION750*i, myView.width, 100*PROPORTION750)];
+        view.tag = 100 +i;
+        view.userInteractionEnabled = YES;
+        [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapEvents:)]];
         [myView addSubview:view];
         
         if(i != 2)
@@ -67,6 +73,33 @@
         
     }
     
+}
+
+-(void)tapEvents:(UITapGestureRecognizer *)tap
+{
+    switch (tap.view.tag) {
+        case 100:
+        {
+            CKWalletDetailViewController *viewController = [[CKWalletDetailViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES]; 
+        }
+            break;
+        case 101:
+        {
+            CKRedPackDetailViewController *viewController = [[CKRedPackDetailViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+            break;
+        case 102:
+        {
+            CKDiscountViewController *viewController = [[CKDiscountViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
