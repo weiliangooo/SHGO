@@ -17,6 +17,7 @@
 #import "CKWalletViewController.h"
 #import "CKOrderViewController.h"
 #import "CKSetUpViewController.h"
+#import "CKMsgChangeViewController.h"
 
 @interface ChengKeMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate>
 
@@ -378,6 +379,22 @@
                 }
                     break;
                 case 3:
+                {
+                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
+                    _maskView.hidden = YES;
+                    CKSetUpViewController *viewController = [[CKSetUpViewController alloc] init];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                }
+                    break;
+                case 100:
+                {
+                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
+                    _maskView.hidden = YES;
+                    CKMsgChangeViewController *viewController = [[CKMsgChangeViewController alloc] init];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                }
+                    break;
+                case 200:
                 {
                     _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
                     _maskView.hidden = YES;

@@ -42,6 +42,8 @@
 @property (nonatomic, strong)UILabel *phoneLB;
 ///签到按钮
 @property (nonatomic, strong)UIButton *signBtn;
+///签到和头像点击的回调函数 flag : 1 点击头像  2 点击签到按钮
+@property (nonatomic, copy)void (^leftHeadBlock)(NSInteger flag);
 
 @end
 
