@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		225BFFF71E9A1C9900BB88A9 /* CKMsgChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 225BFFF61E9A1C9900BB88A9 /* CKMsgChangeViewController.m */; };
 		F70182011E8DED5000B28C59 /* PGSLeadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F70182001E8DED5000B28C59 /* PGSLeadViewController.m */; };
 		F701C67E1E48440D008ADFD6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F701C67D1E48440D008ADFD6 /* main.m */; };
 		F701C6811E48440D008ADFD6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F701C6801E48440D008ADFD6 /* AppDelegate.m */; };
@@ -371,6 +372,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		225BFFF51E9A1C9900BB88A9 /* CKMsgChangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKMsgChangeViewController.h; path = "../../../../../../../../../haili/Desktop/workSpace/SHGO/SHGO/MyGroup/ChengKe/viewcontrollers/头像/CKMsgChangeViewController.h"; sourceTree = "<group>"; };
+		225BFFF61E9A1C9900BB88A9 /* CKMsgChangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKMsgChangeViewController.m; path = "../../../../../../../../../haili/Desktop/workSpace/SHGO/SHGO/MyGroup/ChengKe/viewcontrollers/头像/CKMsgChangeViewController.m"; sourceTree = "<group>"; };
 		F70181FF1E8DED5000B28C59 /* PGSLeadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSLeadViewController.h; sourceTree = "<group>"; };
 		F70182001E8DED5000B28C59 /* PGSLeadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSLeadViewController.m; sourceTree = "<group>"; };
 		F701C6791E48440D008ADFD6 /* SHGO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHGO.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -719,6 +722,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		225BFFF41E9A1C3E00BB88A9 /* 头像 */ = {
+			isa = PBXGroup;
+			children = (
+				225BFFF51E9A1C9900BB88A9 /* CKMsgChangeViewController.h */,
+				225BFFF61E9A1C9900BB88A9 /* CKMsgChangeViewController.m */,
+			);
+			path = "头像";
+			sourceTree = "<group>";
+		};
 		F701C6701E48440D008ADFD6 = {
 			isa = PBXGroup;
 			children = (
@@ -1187,6 +1199,7 @@
 		F73B80231E97543A0005EC11 /* viewcontrollers */ = {
 			isa = PBXGroup;
 			children = (
+				225BFFF41E9A1C3E00BB88A9 /* 头像 */,
 				F761C2EB1E98C2A800FCA6E3 /* 设置 */,
 				F761C2E71E98B59D00FCA6E3 /* 行程 */,
 				F7C63F2C1E97720B009EC70C /* 钱包 */,
@@ -1589,6 +1602,7 @@
 				F701C7B51E4844E5008ADFD6 /* Reachability.m in Sources */,
 				F701C7A61E4844E5008ADFD6 /* AFSecurityPolicy.m in Sources */,
 				F701C7E81E4844E6008ADFD6 /* MJRefreshAutoFooter.m in Sources */,
+				225BFFF71E9A1C9900BB88A9 /* CKMsgChangeViewController.m in Sources */,
 				F701C83F1E4844E6008ADFD6 /* MKAnnotationView+WebCache.m in Sources */,
 				F701C8871E4844E6008ADFD6 /* UIViewExt.m in Sources */,
 				F701C87E1E4844E6008ADFD6 /* UIColor+ColorFrom16.m in Sources */,
@@ -1998,7 +2012,7 @@
 					"$(PROJECT_DIR)/SHGO/MyGroup/ThridSDK",
 				);
 				GCC_INPUT_FILETYPE = automatic;
-				GCC_PREFIX_HEADER = /Users/alen/Desktop/workSpace/SHGO/SHGO/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/HaiLi/Desktop/workSpace/SHGO/SHGO/PrefixHeader.pch;
 				INFOPLIST_FILE = SHGO/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2022,7 +2036,7 @@
 					"$(PROJECT_DIR)/SHGO/MyGroup/ThridSDK",
 				);
 				GCC_INPUT_FILETYPE = automatic;
-				GCC_PREFIX_HEADER = /Users/alen/Desktop/workSpace/SHGO/SHGO/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/HaiLi/Desktop/workSpace/SHGO/SHGO/PrefixHeader.pch;
 				INFOPLIST_FILE = SHGO/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

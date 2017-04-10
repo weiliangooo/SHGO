@@ -51,6 +51,16 @@
                       @{@"head":@"left_setup",@"title":@"设置"}];
         
         _myTableHead = [[CKLeftHeadView alloc] initWithFrame:CGRectMake(0, 0, self.width, 270*PROPORTION750)];
+        _myTableHead.leftHeadBlock = ^(NSInteger flag){
+            if (flag == 1)
+            {
+                self.didSelectedBlock(100);
+            }
+            else if (flag == 2)
+            {
+                self.didSelectedBlock(200);
+            }
+        };
         
         _myTableFoot = [[CKLeftFootView alloc] initWithFrame:CGRectMake(0, self.height-100*PROPORTION750, self.width, 100*PROPORTION750)];
         _myTableFoot.phoneOfKFBlock = ^(NSString *phoneNum)
@@ -150,6 +160,8 @@
         _headView.clipsToBounds = YES;
         _headView.layer.cornerRadius = 60*PROPORTION750;
         _headView.image = [UIImage imageNamed:@"test001"];
+        _headView.userInteractionEnabled = YES;
+        [_headView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headImgTapEvent:)]];
         [self addSubview:_headView];
         
         _phoneLB = [[UILabel alloc] initWithFrame:CGRectMake(_headView.right+100*PROPORTION750, 130*PROPORTION750, 200*PROPORTION750, 20*PROPORTION750)];
@@ -179,11 +191,18 @@
 
 -(void)signBtnClickEvent:(UIButton *)button
 {
-    if (!button.selected)
-    {
-        button.selected = YES;
-        _signBtn.backgroundColor = [UIColor colorWithHexString:@"#e9ede9"];
-    }
+//    if (!button.selected)
+//    {
+//        button.selected = YES;
+//        _signBtn.backgroundColor = [UIColor colorWithHexString:@"#e9ede9"];
+//    }
+    self.leftHeadBlock(2);
+    
+}
+
+-(void)headImgTapEvent:(UITapGestureRecognizer *)tap
+{
+    self.leftHeadBlock(1);
 }
 
 -(void)setUpSignBtnStauts:(BOOL)isSelected
