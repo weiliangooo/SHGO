@@ -128,7 +128,9 @@
                 [view addSubview:line1];
             
                 UIImageView *timeImage = [[UIImageView alloc] initWithFrame:CGRectMake(line1.right+75*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
-                timeImage.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
+                timeImage.clipsToBounds = YES;
+                timeImage.layer.cornerRadius = 15*PROPORTION750;
+                timeImage.image = [UIImage imageNamed:@"time"];
                 [view addSubview:timeImage];
             
                 UILabel *timeLB = [[UILabel alloc]initWithFrame:CGRectMake(timeImage.right, 30*PROPORTION750, 245*PROPORTION750, 30*PROPORTION750)];

@@ -89,31 +89,32 @@
     else if(type == 5)
     {
         _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _leftBtn.frame = CGRectMake(0, 0, 60*PROPORTION, 25*PROPORTION);
+        _leftBtn.frame = CGRectMake(0, 0, 50*PROPORTION, 25*PROPORTION);
         [_leftBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_leftBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
         _leftBtn.titleLabel.font = SYSF750(25);
-//        _leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15*PROPORTION750, 0, 0);
+        _leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15*PROPORTION750, 0, 0);
         [_leftBtn addTarget:self action:@selector(leftBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self ios7LeftBarButtonItems:[[UIBarButtonItem alloc]initWithCustomView:_leftBtn]];
     }
     else if (type == 6)
     {
         _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _leftBtn.frame = CGRectMake(0, 0, 60*PROPORTION, 25*PROPORTION);
+        _leftBtn.frame = CGRectMake(0, 0, 50*PROPORTION, 25*PROPORTION);
         [_leftBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_leftBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
         _leftBtn.titleLabel.font = SYSF750(25);
-        //        _leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15*PROPORTION750, 0, 0);
+                _leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15*PROPORTION750, 0, 0);
         [_leftBtn addTarget:self action:@selector(leftBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self ios7LeftBarButtonItems:[[UIBarButtonItem alloc]initWithCustomView:_leftBtn]];
         
         _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _rightBtn.frame = CGRectMake(0, 0, 60*PROPORTION, 25*PROPORTION);
+        _rightBtn.frame = CGRectMake(0, 0, 50*PROPORTION, 25*PROPORTION);
         [_rightBtn setTitle:@"保存" forState:UIControlStateNormal];
-        [_rightBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
+        [_rightBtn setTitleColor:[UIColor colorWithHexString:@"#1aad19"] forState:UIControlStateNormal];
         _rightBtn.titleLabel.textAlignment = NSTextAlignmentRight;
         _rightBtn.titleLabel.font = SYSF750(25);
+        _rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15*PROPORTION750);
         [_rightBtn addTarget:self action:@selector(rightBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self ios7RightBarButtonItems:[[UIBarButtonItem alloc]initWithCustomView:_rightBtn]];
     }

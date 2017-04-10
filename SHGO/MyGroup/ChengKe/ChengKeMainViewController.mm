@@ -126,7 +126,7 @@
             BlockSelf.CKSPView.cityTF.placeholder = @"出发城市";
             BlockSelf.CKSPView.placeTF.text = @"";
             [BlockSelf.CKSPView.dataArray removeAllObjects];
-            [UIView animateWithDuration:1.0f animations:^{
+            [UIView animateWithDuration:0.5f animations:^{
                 BlockSelf.CKSPView.frame = CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
                 [BlockSelf.navigationController setNavigationBarHidden:YES];
             } completion:^(BOOL finished) {
@@ -149,7 +149,7 @@
             BlockSelf.CKSPView.placeTF.text = @"";
             [BlockSelf.CKSPView.dataArray removeAllObjects];
 //            [BlockSelf.CKSPView.placeTableView reloadData];
-            [UIView animateWithDuration:1.0f animations:^{
+            [UIView animateWithDuration:0.5f animations:^{
                 BlockSelf.CKSPView.frame = CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
                  [BlockSelf.navigationController setNavigationBarHidden:YES];
             } completion:^(BOOL finished) {
@@ -217,7 +217,7 @@
                     };
                     [self.view addSubview:_ckTimeSelectView];
                     [UIView animateWithDuration:0.5f animations:^{
-                        _ckTimeSelectView.frame = CGRectMake(0, AL_DEVICE_HEIGHT-440*PROPORTION750, AL_DEVICE_WIDTH, 440*PROPORTION750);
+                        _ckTimeSelectView.frame = CGRectMake(0, AL_DEVICE_HEIGHT-440*PROPORTION750-64, AL_DEVICE_WIDTH, 440*PROPORTION750);
                     }];
                 }
                 else if (code == 300)
@@ -257,7 +257,7 @@
 #pragma --mark CKSearchPlaceView 代理函数
 -(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView cancleBtnClick:(UIButton *)cancleBtn
 {
-    [UIView animateWithDuration:1.0f animations:^{
+    [UIView animateWithDuration:0.5f animations:^{
         CKSPView.frame = CGRectMake(0, AL_DEVICE_HEIGHT, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
         [self.navigationController setNavigationBarHidden:NO];
     }];
@@ -285,7 +285,7 @@
 
 -(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView locationModel:(myLocationModel *)locationModel
 {
-    [UIView animateWithDuration:1.0f animations:^{
+    [UIView animateWithDuration:0.5f animations:^{
         CKSPView.frame = CGRectMake(0, AL_DEVICE_HEIGHT, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
         [self.navigationController setNavigationBarHidden:NO];
     }];
@@ -396,10 +396,10 @@
                     break;
                 case 200:
                 {
-                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
-                    _maskView.hidden = YES;
-                    CKSetUpViewController *viewController = [[CKSetUpViewController alloc] init];
-                    [self.navigationController pushViewController:viewController animated:YES];
+//                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
+//                    _maskView.hidden = YES;
+//                    CKSetUpViewController *viewController = [[CKSetUpViewController alloc] init];
+//                    [self.navigationController pushViewController:viewController animated:YES];
                 }
                     break;
                     
