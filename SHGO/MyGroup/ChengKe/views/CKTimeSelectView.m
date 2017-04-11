@@ -7,11 +7,14 @@
 //
 
 #import "CKTimeSelectView.h"
+#import "AppDelegate.h"
 
 
 @interface CKTimeSelectView ()<UIPickerViewDelegate,UIPickerViewDataSource>
 {
     NSMutableArray *timeArray;
+    
+    UIView *myView;
 }
 
 @property (nonatomic, strong)UIPickerView *pickerView;
@@ -37,7 +40,7 @@
 {
     if (!_pickerView)
     {
-        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 80*PROPORTION750, AL_DEVICE_WIDTH, 250*PROPORTION750)];
+        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 190*PROPORTION750, AL_DEVICE_WIDTH, 250*PROPORTION750)];
         _pickerView.backgroundColor= [UIColor clearColor];
         _pickerView.showsSelectionIndicator=YES;
         _pickerView.delegate = self;
@@ -47,36 +50,48 @@
 }
 
 
--(instancetype)initWithFrame:(CGRect)frame
+-(instancetype)initWithData:(NSMutableArray *)array
 {
-    if (self = [super initWithFrame:frame])
+    if (self = [super initWithFrame:[UIScreen mainScreen].bounds])
     {
-        self.backgroundColor = [UIColor whiteColor];
+        [self setDataArray:array];
         
-        UIButton *cancleBtn = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, 25*PROPORTION750, 65*PROPORTION750, 30*PROPORTION750)];
+        AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
+        self.userInteractionEnabled = YES;
+        [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissView)]];
+        [de.window addSubview:self];
+        
+        myView = [[UIView alloc] initWithFrame:CGRectMake(0, AL_DEVICE_HEIGHT-510*PROPORTION750, AL_DEVICE_WIDTH, 510*PROPORTION750)];
+        myView.backgroundColor = [UIColor whiteColor];
+        myView.userInteractionEnabled = YES;
+        [myView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(test)]];
+        [self addSubview:myView];
+        
+        UIButton *cancleBtn = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, 45*PROPORTION750, 65*PROPORTION750, 30*PROPORTION750)];
         [cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
         [cancleBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
         cancleBtn.titleLabel.font = SYSF750(30);
         cancleBtn.tag = 100;
         [cancleBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:cancleBtn];
+        [myView addSubview:cancleBtn];
         
-        UILabel *titleLB = [[UILabel alloc] initWithFrame:CGRectMake(self.width/2-225*PROPORTION750, 25*PROPORTION750, 450*PROPORTION750, 25*PROPORTION750)];
+        UILabel *titleLB = [[UILabel alloc] initWithFrame:CGRectMake(self.width/2-225*PROPORTION750, 45*PROPORTION750, 450*PROPORTION750, 25*PROPORTION750)];
         titleLB.text = @"建议提前一天预约";
         titleLB.font = SYSF750(25);
         titleLB.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:titleLB];
+        [myView addSubview:titleLB];
         
         
-        UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(AL_DEVICE_WIDTH-95*PROPORTION750, 25*PROPORTION750, 65*PROPORTION750, 30*PROPORTION750)];
+        UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(AL_DEVICE_WIDTH-95*PROPORTION750, 45*PROPORTION750, 65*PROPORTION750, 30*PROPORTION750)];
         [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
         [sureBtn setTitleColor:[UIColor colorWithHexString:@"#1aaf1a"] forState:UIControlStateNormal];
         sureBtn.titleLabel.font = SYSF750(30);
         sureBtn.tag = 101;
         [sureBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:sureBtn];
+        [myView addSubview:sureBtn];
         
-        [self addSubview:self.pickerView];
+        [myView addSubview:self.pickerView];
         
     }
     return self;
@@ -85,6 +100,7 @@
 
 -(void)buttonClickEvents:(UIButton *)button
 {
+    [self dismissView];
     self.CKTimeSelectBlock(button.tag == 100);
 }
 
@@ -150,5 +166,14 @@
     }
 }
 
+-(void)dismissView
+{
+    [self removeFromSuperview];
+}
+
+-(void)test
+{
+    NSLog(@"hahah");
+}
 
 @end

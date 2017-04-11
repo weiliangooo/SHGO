@@ -8,13 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CKPlaceTimeViewDelegate <NSObject>
+
+@required
+///label点击回调 tag:100 起始位置点击  200:结束位置点击  300:乘车时间点击
+-(void)CKPlaceTimeViewClickEvents:(NSInteger )flag;
+
+@end
+
 @interface ChengKePlaceTimeView : UIView
 
+@property (nonatomic, assign) id<CKPlaceTimeViewDelegate> delegate;
 @property (nonatomic, strong) UILabel *timeLB;
 @property (nonatomic, strong) UILabel *startPlaceLB;
 @property (nonatomic, strong) UILabel *endPlaceLB;
-///label点击回调 tag:100 起始位置点击  200:结束位置点击  300:乘车时间点击
-@property (nonatomic, copy)void (^CKPTBlock)(NSInteger tag);
-
 
 @end

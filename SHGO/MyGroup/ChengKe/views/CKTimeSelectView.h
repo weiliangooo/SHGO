@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
+-(instancetype)initWithData:(NSMutableArray *)array;
+
 @end
