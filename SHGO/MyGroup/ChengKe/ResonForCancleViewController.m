@@ -32,8 +32,21 @@
     topTitleLB.textAlignment = NSTextAlignmentCenter;
     [backView addSubview:topTitleLB];
     
-//    UILabel *tipLB = [UILabel alloc] init
+    UILabel *tipLB = [[UILabel alloc] initWithFrame:CGRectMake(0, topTitleLB.bottom+30*PROPORTION750, backView.width, 25*PROPORTION750)];
+    tipLB.text = @"我们会努力为您提供更好的服务";
+    tipLB.textColor = [UIColor colorWithHexString:@"#1aad1a"];
+    tipLB.font = SYSF750(25);
+    tipLB.textAlignment = NSTextAlignmentCenter;
+    [backView addSubview:tipLB];
     
+    for (int i = 0 ; i < 6; i++)
+    {
+//        UIView *view = [UIView alloc] initWithFrame:CGRectMake(0, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+//        if (i == 0)
+//        {
+//            UIView *lineTop = [UIView alloc] initWithFrame:CGRectMake(0, 0, <#CGFloat width#>, <#CGFloat height#>)
+//        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
