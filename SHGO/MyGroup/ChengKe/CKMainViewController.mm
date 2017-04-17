@@ -6,10 +6,10 @@
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "ChengKeMainViewController.h"
+#import "CKMainViewController.h"
 #import "AppDelegate.h"
-#import "ChengKeLeftView.h"
-#import "ChengKeCenterView.h"
+#import "CKLeftView.h"
+#import "CKCenterView.h"
 #import "CKSearchPlaceView.h"
 #import "CKTimeSelectView.h"
 #import "CKBookViewController.h"
@@ -18,11 +18,12 @@
 #import "CKOrderViewController.h"
 #import "CKSetUpViewController.h"
 #import "CKMsgChangeViewController.h"
+#import "SignAlertView.h"
 
-@interface ChengKeMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate>
+@interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate>
 
 ///左边的菜单界面
-@property (nonatomic, strong)ChengKeLeftView *leftView;
+@property (nonatomic, strong)CKLeftView *leftView;
 ///展示左边菜单栏时 显示的遮罩view
 @property (nonatomic, strong)UIView *maskView;
 
@@ -40,7 +41,7 @@
 
 @end
 
-@implementation ChengKeMainViewController
+@implementation CKMainViewController
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -111,7 +112,7 @@
     AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [de.window addSubview:_CKSPView];
 
-    _ptView = [[ChengKePlaceTimeView alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 690*PROPORTION750, 300*PROPORTION750)];
+    _ptView = [[CKPlaceTimeView alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 690*PROPORTION750, 300*PROPORTION750)];
     _ptView.delegate = self;
     [self.view addSubview:_ptView];
 
@@ -339,7 +340,7 @@
         [_maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissLeftView)]];
         [de.window addSubview:_maskView];
         
-        _leftView = [[ChengKeLeftView alloc] initWithFrame:CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height) withViewController:self];
+        _leftView = [[CKLeftView alloc] initWithFrame:CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height) withViewController:self];
         _leftView.didSelectedBlock = ^(NSInteger row){
             switch (row) {
                 case 0:
@@ -384,10 +385,13 @@
                     break;
                 case 200:
                 {
-//                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
-//                    _maskView.hidden = YES;
+                    
+                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
+                    _maskView.hidden = YES;
 //                    CKSetUpViewController *viewController = [[CKSetUpViewController alloc] init];
 //                    [self.navigationController pushViewController:viewController animated:YES];
+                    SignAlertView *alerView = [[SignAlertView alloc] initWithTipTitle:@"获得红包5.00元"];
+//                    alerView.delegate = self;
                 }
                     break;
                     
@@ -411,6 +415,8 @@
         } completion:nil];
     }
 }
+
+
 
 //隐藏左边菜单栏
 -(void)dismissLeftView

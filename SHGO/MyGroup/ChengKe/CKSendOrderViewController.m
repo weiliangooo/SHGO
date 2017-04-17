@@ -7,8 +7,10 @@
 //
 
 #import "CKSendOrderViewController.h"
+#import "UIImage+ScalImage.h"
+#import "CancleOrderAlertView.h"
 
-@interface CKSendOrderViewController ()
+@interface CKSendOrderViewController ()<AlertClassDelegate>
 
 @end
 
@@ -19,7 +21,7 @@
     // Do any additional setup after loading the view.
     self.topTitle = @"正在派单中";
     
-    UIView *msgView = [[UIView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-240*PROPORTION750-64, 690*PROPORTION750, 220*PROPORTION750)];
+    UIView *msgView = [[UIView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-330*PROPORTION750-64, 690*PROPORTION750, 310*PROPORTION750)];
     msgView.backgroundColor = [UIColor whiteColor];
     msgView.clipsToBounds = YES;
     msgView.layer.cornerRadius = 15*PROPORTION750;
@@ -67,6 +69,30 @@
     msgLB.attributedText = AttributedStr;
     [msgView addSubview:msgLB];
     
+    UIView *line3 = [[UIView alloc] initWithFrame:CGRectMake(0, 218*PROPORTION750, 690*PROPORTION750, 2*PROPORTION750)];
+    line3.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
+    [msgView addSubview:line3];
+    
+    UIButton *cancleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, line3.bottom, msgView.width, 90*PROPORTION750)];
+    cancleBtn.backgroundColor = [UIColor clearColor];
+    [cancleBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+    [cancleBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
+    cancleBtn.titleLabel.font = SYSF750(25);
+    [cancleBtn setImage:[[UIImage imageNamed:@"left_order"] scaleImageByHeight:30*PROPORTION750] forState:UIControlStateNormal];
+    [cancleBtn addTarget:self action:@selector(canCleBtnClickEvent) forControlEvents:UIControlEventTouchUpInside];
+    [msgView addSubview:cancleBtn];
+    
+}
+
+-(void)canCleBtnClickEvent
+{
+    CancleOrderAlertView *alerView = [[CancleOrderAlertView alloc] initWithTipTitle:@"" TipImage:nil];
+    alerView.delegate =self;
+}
+
+-(void)AlertClassView:(id)alertView clickIndex:(NSInteger)index
+{
+    NSLog(@"%d",(int)index);
 }
 
 - (void)didReceiveMemoryWarning {

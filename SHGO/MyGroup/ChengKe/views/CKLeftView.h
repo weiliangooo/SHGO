@@ -13,7 +13,7 @@
 @class CKLeftHeadView;
 @class CKLeftFootView;
 
-@interface ChengKeLeftView : UIView <UITableViewDelegate, UITableViewDataSource>
+@interface CKLeftView : UIView <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *myTableView;
 

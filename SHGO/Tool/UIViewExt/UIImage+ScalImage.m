@@ -29,6 +29,20 @@
     return scaledImage;
 }
 
+-(UIImage *)scaleImageByWidth:(CGFloat)width
+{
+    CGFloat rate = width/self.size.width;
+    CGSize reSize = CGSizeMake(width, self.size.height*rate);
+    return [self scaleToSize:reSize];
+}
+
+-(UIImage *)scaleImageByHeight:(CGFloat)height
+{
+    CGFloat rate = height/self.size.height;
+    CGSize reSize = CGSizeMake(self.size.width*rate, height);
+    return [self scaleToSize:reSize];
+}
+
 - (UIImage *)rotation:(UIImageOrientation)orientation
 {
     long double rotate = 0.0;

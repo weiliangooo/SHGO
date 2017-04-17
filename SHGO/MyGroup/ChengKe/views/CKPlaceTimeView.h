@@ -16,7 +16,7 @@
 
 @end
 
-@interface ChengKePlaceTimeView : UIView
+@interface CKPlaceTimeView : UIView
 
 @property (nonatomic, assign) id<CKPlaceTimeViewDelegate> delegate;
 @property (nonatomic, strong) UILabel *timeLB;

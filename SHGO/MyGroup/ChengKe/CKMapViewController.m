@@ -17,6 +17,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [_mapView viewWillAppear];
+    self.navigationController.navigationBar.translucent = false;
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
 }
 

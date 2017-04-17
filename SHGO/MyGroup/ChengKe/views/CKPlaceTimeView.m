@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "ChengKePlaceTimeView.h"
+#import "CKPlaceTimeView.h"
 
-@implementation ChengKePlaceTimeView
+@implementation CKPlaceTimeView
 
 /*
 // Only override drawRect: if you perform custom drawing.
