@@ -14,7 +14,14 @@
  * Tip：压缩图片至size大小
  */
 - (UIImage*)scaleToSize:(CGSize)size;
-
+/*
+ * Tip：压缩图片根据高度
+ */
+-(UIImage *)scaleImageByWidth:(CGFloat)width;
+/*
+ * Tip：压缩图片根据宽度
+ */
+-(UIImage *)scaleImageByHeight:(CGFloat)height;
 /*
  * Tip：旋转图片
  */

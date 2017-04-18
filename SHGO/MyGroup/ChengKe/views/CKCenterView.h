@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChengKeCenterView : UIView
+@interface CKCenterView : UIView
 
 @property (nonatomic, strong) UIImageView *titleImage;
 @property (nonatomic, strong) UILabel *titleLB;

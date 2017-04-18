@@ -13,5 +13,6 @@
 
 @interface CKBookViewController : CKMapViewController
 
+@property (nonatomic, strong) NSDictionary *inputData;
 
 @end

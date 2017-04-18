@@ -8,7 +8,7 @@
 
 #import "CKLoginViewController.h"
 #import "CKLoginTextField.h"
-#import "ChengKeMainViewController.h"
+#import "CKMainViewController.h"
 #import "CKRealNameViewController.h"
 
 
@@ -152,7 +152,7 @@
                 }
                 else
                 {
-                    ChengKeMainViewController *viewController = [[ChengKeMainViewController alloc] init];
+                    CKMainViewController *viewController = [[CKMainViewController alloc] init];
                     [self.navigationController pushViewController:viewController animated:YES];
                 }
             }

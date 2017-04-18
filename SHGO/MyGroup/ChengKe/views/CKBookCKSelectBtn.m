@@ -75,6 +75,10 @@
 -(void)tap:(UITapGestureRecognizer *)tap
 {
     [self setIsSelected:!_isSelected];
+    if (_delegate && [_delegate respondsToSelector:@selector(CKBookCKSelectBtn:isSelected:)])
+    {
+        [_delegate CKBookCKSelectBtn:self isSelected:_isSelected];
+    }
 }
 
 

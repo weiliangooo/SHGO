@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "ChengKeCenterView.h"
+#import "CKCenterView.h"
 
-@implementation ChengKeCenterView
+@implementation CKCenterView
 
 /*
 // Only override drawRect: if you perform custom drawing.

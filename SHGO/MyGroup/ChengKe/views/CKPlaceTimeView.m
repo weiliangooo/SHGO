@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "ChengKePlaceTimeView.h"
+#import "CKPlaceTimeView.h"
 
-@implementation ChengKePlaceTimeView
+@implementation CKPlaceTimeView
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -71,7 +71,7 @@
         UIImageView *imageView3 = [[UIImageView alloc] initWithFrame:CGRectMake(30*PROPORTION750, 235*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
         imageView3.clipsToBounds = YES;
         imageView3.layer.cornerRadius = 15.f*PROPORTION750;
-        imageView3.backgroundColor = [UIColor colorWithHexString:@"#fda501"];
+        imageView3.image = [UIImage imageNamed:@"time_orange"];;
         [self addSubview:imageView3];
         
         _timeLB = [[UILabel alloc] initWithFrame:CGRectMake(90*PROPORTION750, 200*PROPORTION750, self.width-120*PROPORTION750, 99*PROPORTION750)];
@@ -94,7 +94,10 @@
 
 -(void)labelTapEvents:(UITapGestureRecognizer *)tap
 {
-    self.CKPTBlock([tap view].tag);
+    if (_delegate && [_delegate respondsToSelector:@selector(CKPlaceTimeViewClickEvents:)])
+    {
+        [_delegate CKPlaceTimeViewClickEvents:[tap view].tag];
+    }
 }
 
 

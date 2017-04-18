@@ -8,10 +8,9 @@
 
 #import "AppDelegate.h"
 #import "BaseNavViewController.h"
-#import "MainViewController.h"
 #import "PGSLeadViewController.h"
 #import "CKLoginViewController.h"
-#import "ChengKeMainViewController.h"
+#import "CKMainViewController.h"
 #import "CKRealNameViewController.h"
 #import <UMSocialCore/UMSocialCore.h>
 @interface AppDelegate ()
@@ -79,7 +78,7 @@
         {
             if([MyHelperNO isHadAuthentication])
             {
-                ChengKeMainViewController *viewController = [[ChengKeMainViewController alloc] init];
+                CKMainViewController *viewController = [[CKMainViewController alloc] init];
                 BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
                 navigationController.navigationBar.hidden = NO;
                 

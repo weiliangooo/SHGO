@@ -7,7 +7,7 @@
 //
 
 #import "CKRealNameViewController.h"
-#import "ChengKeMainViewController.h"
+#import "CKMainViewController.h"
 
 @interface CKRealNameViewController ()
 
@@ -224,7 +224,7 @@
 
 -(void)gotoCKMainViewController
 {
-    ChengKeMainViewController *viewController = [[ChengKeMainViewController alloc] init];
+    CKMainViewController *viewController = [[CKMainViewController alloc] init];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

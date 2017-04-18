@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "ChengKeLeftView.h"
+#import "CKLeftView.h"
 
-@interface ChengKeLeftView ()
+@interface CKLeftView ()
 {
     NSArray *dataArray;
 }
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation ChengKeLeftView
+@implementation CKLeftView
 
 /*
 // Only override drawRect: if you perform custom drawing.
