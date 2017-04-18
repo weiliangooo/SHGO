@@ -9,6 +9,7 @@
 #import "CKSUAcountSecurityViewController.h"
 #import "CKSUTableViewCell.h"
 #import "CKSUCurrentPhoneViewController.h"
+#import "CKCancellationViewController.h"
 
 @interface CKSUAcountSecurityViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -25,7 +26,7 @@
 {
     if (!_myTableView)
     {
-        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 270*PROPORTION750) style:UITableViewStylePlain];
+        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 180*PROPORTION750) style:UITableViewStylePlain];
         _myTableView.backgroundColor = [UIColor whiteColor];
         _myTableView.clipsToBounds = YES;
         _myTableView.layer.cornerRadius = 15*PROPORTION750;
@@ -46,7 +47,7 @@
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     
-    titles = @[@"手机号",@"密码设置",@"注销账户"];
+    titles = @[@"手机号",@"注销账户"];
     
     [self.view addSubview:self.myTableView];
     
@@ -116,6 +117,12 @@
         case 0:
         {
             CKSUCurrentPhoneViewController *viewController = [[CKSUCurrentPhoneViewController  alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+            break;
+        case 1:
+        {
+            CKCancellationViewController *viewController = [[CKCancellationViewController  alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;

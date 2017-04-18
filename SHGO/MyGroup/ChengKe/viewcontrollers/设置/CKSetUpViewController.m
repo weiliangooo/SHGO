@@ -9,6 +9,8 @@
 #import "CKSetUpViewController.h"
 #import "CKSUTableViewCell.h"
 #import "CKSUAcountSecurityViewController.h"
+#import "CKShareViewController.h"
+#import "HelpViewController.h"
 
 @interface CKSetUpViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -97,6 +99,18 @@
         case 0:
         {
             CKSUAcountSecurityViewController *viewController = [[CKSUAcountSecurityViewController  alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+            break;
+        case 1:
+        {
+            CKShareViewController *viewController = [[CKShareViewController  alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+            break;
+        case 2:
+        {
+            HelpViewController *viewController = [[HelpViewController  alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;

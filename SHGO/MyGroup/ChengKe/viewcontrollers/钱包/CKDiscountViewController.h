@@ -11,3 +11,9 @@
 @interface CKDiscountViewController : YHBaseViewController
 
 @end
+
+
+@interface CKDiscountCell : UITableViewCell
+
+
+@end

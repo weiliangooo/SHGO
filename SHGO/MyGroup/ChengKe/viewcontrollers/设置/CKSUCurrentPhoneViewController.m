@@ -1,5 +1,9 @@
 //
+<<<<<<< HEAD
 //  CKSUVerifyCurrentPhoneViewController.m
+=======
+//  CKSUCurrentPhoneViewController.m
+>>>>>>> 176511a22c30fd0ce28a4ac7f040baf95235e6eb
 //  SHGO
 //
 //  Created by 魏亮 on 2017/4/8.
@@ -18,9 +22,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+<<<<<<< HEAD
     self.type = 5;
     self.topTitle = @"手机号";
     self.view.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
+=======
+    self.type = 1;
+    self.topTitle = @"手机号";
+    
+    self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+>>>>>>> 176511a22c30fd0ce28a4ac7f040baf95235e6eb
     
     UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, 710*PROPORTION750, 90*PROPORTION750)];
     myView.backgroundColor = [UIColor whiteColor];
@@ -40,8 +51,13 @@
     detailLB.font = SYSF750(22);
     detailLB.textAlignment = NSTextAlignmentRight;
     [myView addSubview:detailLB];
+<<<<<<< HEAD
 
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(20*PROPORTION750, detailLB.bottom+50*PROPORTION750, 710*PROPORTION750, 90*PROPORTION750)];
+=======
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(20*PROPORTION750, myView.bottom+50*PROPORTION750, 710*PROPORTION750, 90*PROPORTION750)];
+>>>>>>> 176511a22c30fd0ce28a4ac7f040baf95235e6eb
     button.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
     button.clipsToBounds = YES;
     button.layer.cornerRadius = 15*PROPORTION750;
@@ -49,12 +65,20 @@
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     button.titleLabel.font = SYSF750(40);
     button.titleLabel.textAlignment = NSTextAlignmentCenter;
+<<<<<<< HEAD
     [button addTarget:self action:@selector(buttonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
 }
 
 
 -(void)buttonClickEvent:(UIButton *)button
+=======
+    [button addTarget:self action:@selector(changePhoneEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+}
+
+-(void)changePhoneEvent:(UIButton *)button
+>>>>>>> 176511a22c30fd0ce28a4ac7f040baf95235e6eb
 {
     CKSUVerifyCurrentPhoneViewController *viewController = [[CKSUVerifyCurrentPhoneViewController alloc] init];
     [self.navigationController pushViewController:viewController animated:YES];

@@ -32,6 +32,7 @@
         
         UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
         [closeBtn setImage:[UIImage imageNamed:@"pay_close"] forState:UIControlStateNormal];
+        [closeBtn addTarget:self action:@selector(closeBtnClickEvent) forControlEvents:UIControlEventTouchUpInside];
         [myView addSubview:closeBtn];
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(60*PROPORTION750, 30*PROPORTION750, self.width-120*PROPORTION750, 30*PROPORTION750)];
@@ -40,9 +41,14 @@
         title.textAlignment = NSTextAlignmentCenter;
         [myView addSubview:title];
         
+        NSArray *images = @[@"wchat_share",@"alipay",@"saoma"];
+        NSArray *tips = @[@"微信支付",@"支付宝支付",@"上车扫码"];
+        
         for (int i = 0; i < 3; i++)
         {
             CKPayCell *cell = [[CKPayCell alloc] initWithFrame:CGRectMake(0, 90*PROPORTION750+105*PROPORTION750*i, self.width, 105*PROPORTION750)];
+            cell.headImage.image = [UIImage imageNamed:images[i]];
+            cell.titleLB.text = tips[i];
             cell.tag = 100+i;
             if (i == 0)
             {
@@ -93,6 +99,10 @@
     return self;
 }
 
+-(void)closeBtnClickEvent
+{
+    [self removeFromSuperview];
+}
 
 -(void)payBtnClickEvent:(UIButton *)button
 {
@@ -127,18 +137,18 @@
         _headImage = [[UIImageView alloc] initWithFrame:CGRectMake(60*PROPORTION750, 30*PROPORTION750, 45*PROPORTION750, 45*PROPORTION750)];
         _headImage.clipsToBounds = YES;
         _headImage.layer.cornerRadius = 22.5*PROPORTION750;
-        _headImage.backgroundColor = [UIColor grayColor];
+//        _headImage.backgroundColor = [UIColor grayColor];
         [self addSubview:_headImage];
         
         _titleLB = [[UILabel alloc] initWithFrame:CGRectMake(_headImage.right+20*PROPORTION750, _headImage.top+7.5*PROPORTION750, 500*PROPORTION750, 30*PROPORTION750)];
-        _titleLB.text = @"adfsadfsa";
+//        _titleLB.text = @"adfsadfsa";
         _titleLB.font = SYSF750(25);
         _titleLB.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_titleLB];
         
         
         selectImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.width-100*PROPORTION750, 32.5*PROPORTION750, 40*PROPORTION750, 40*PROPORTION750)];
-        selectImage.backgroundColor = [UIColor grayColor];
+        selectImage.image = [UIImage imageNamed:@"ckunselected"];
         selectImage.userInteractionEnabled = YES;
         [selectImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectImageClickEvent:)]];
         [self addSubview:selectImage];
@@ -157,11 +167,11 @@
     _isSelected = isSelected;
     if (_isSelected)
     {
-        selectImage.backgroundColor = [UIColor greenColor];
+        selectImage.image = [UIImage imageNamed:@"ckselected"];
     }
     else
     {
-        selectImage.backgroundColor = [UIColor grayColor];
+        selectImage.image = [UIImage imageNamed:@"ckunselected"];
     }
 }
 
