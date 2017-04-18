@@ -6,13 +6,13 @@
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "YHBaseViewController.h"
 #import "CKMapViewController.h"
-#import "CCMsgModel.h"
+
 
 
 @interface CKBookViewController : CKMapViewController
 
+///从上个界面带过来的数据
 @property (nonatomic, strong) NSDictionary *inputData;
 
 @end

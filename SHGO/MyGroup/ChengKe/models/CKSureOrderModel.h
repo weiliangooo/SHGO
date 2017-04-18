@@ -11,22 +11,30 @@
 #import "CKMsgModel.h"
 
 @interface CKSureOrderModel : NSObject
-
-///乘车出发城市
-@property (nonatomic, strong) NSString *startCity;
-///乘车到达城市
-@property (nonatomic, strong) NSString *endCity;
-///乘车的时间
-@property (nonatomic, strong) NSString *ccTime;
-///乘车成员信息
-@property (nonatomic, strong) NSMutableArray <CKMsgModel *>* aboardPeople;
-///乘车单价
-@property (nonatomic, strong) NSString *singerPrice;
-///单人接送附加费用
-@property (nonatomic, strong) NSString *singerAddPrice;
-///账户余额
-@property (nonatomic, strong) NSString *accountPrice;
-
+///留言
+@property (nonatomic, strong) NSString *up_message;
+///活动id
+@property (nonatomic, strong) NSString *up_act_id;
+///活动的type
+@property (nonatomic, strong) NSString *up_type;
+///出发的时间戳 format 2014-04-18 12:00
+@property (nonatomic, strong) NSString *up_start_time;
+///班次的id
+@property (nonatomic, strong) NSString *up_banci_id;
+///出发的坐标
+@property (nonatomic, strong) NSString *up_start;
+///出发的具体名称
+@property (nonatomic, strong) NSString *up_start_name;
+///到达地具体名称
+@property (nonatomic, strong) NSString *up_arrive_name;
+///到达地坐标 “lat，lon”
+@property (nonatomic, strong) NSString *up_arrive;
+///付款方式
+@property (nonatomic, strong) NSString *up_paytype;
+///1 微信。 2 支付宝
+@property (nonatomic, strong) NSString *up_paytool;
+///乘客信息 例：乘客id|乘客姓名|乘客类型_乘客id|乘客姓名|乘客类型
+@property (nonatomic, strong) NSString *up_passenger;
 
 
 @end

@@ -9,19 +9,12 @@
 #import "CKBookViewController.h"
 
 #import "CKBookView.h"
-#import "AppDelegate.h"
 #import "CKBookCKSelectView.h"
 #import "CKDiscoutSelectView.h"
-
 #import "CKSendOrderViewController.h"
-
 #import "CKOnTheWayViewController.h"
-
 #import "CKSureOrderModel.h"
-
 #import "CKPayView.h"
-#import "ActivityModel.h"
-#import "CKMsgModel.h"
 
 @interface CKBookViewController ()<BMKMapViewDelegate,CKBookViewDelegate,CKBookMsgViewDelegate,CKPayViewDelegate,DiscoutSelectViewDelegate,BookCKSelectDetailViewDelegate>
 
@@ -122,7 +115,7 @@
 
 
 #pragma --mark CKPayView 代理
--(void)CKPayViwePayBtnClickEvent
+-(void)CKPayViwePayEventsWithFlag:(NSInteger)flag
 {
     [_payView removeFromSuperview];
     CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];

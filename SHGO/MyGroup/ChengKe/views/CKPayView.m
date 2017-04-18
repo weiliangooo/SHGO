@@ -111,9 +111,19 @@
 
 -(void)payBtnClickEvent:(UIButton *)button
 {
-    if (_delegate && [_delegate respondsToSelector:@selector(CKPayViwePayBtnClickEvent)])
+    NSInteger flag;
+    for (int i = 0; i < 3; i++)
     {
-        [_delegate CKPayViwePayBtnClickEvent];
+        CKPayCell *cell = [self viewWithTag:100+i];
+        if (cell.isSelected)
+        {
+            flag = i+1;
+            break;
+        }
+    }
+    if (_delegate && [_delegate respondsToSelector:@selector(CKPayViwePayEventsWithFlag:)])
+    {
+        [_delegate CKPayViwePayEventsWithFlag:flag];
     }
 }
 

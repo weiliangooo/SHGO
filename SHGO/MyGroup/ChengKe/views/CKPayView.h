@@ -12,8 +12,8 @@
 @class CKPayCell;
 
 @protocol CKPayViewDelegate <NSObject>
-
--(void)CKPayViwePayBtnClickEvent;
+///1:微信 2：支付宝   3:上车扫码
+-(void)CKPayViwePayEventsWithFlag:(NSInteger)flag;
 
 @end
 
