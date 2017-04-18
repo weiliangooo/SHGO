@@ -7,15 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ActivityModel.h"
 
+@class CKDiscoutSelectView;
+@protocol DiscoutSelectViewDelegate <NSObject>
+
+-(void)DiscoutSelectView:(CKDiscoutSelectView *)dicoutView selectResult:(ActivityModel *)model;
+
+@end
 
 @class CKDiscoutHeadView;
 @class CKDiscoutCell;
 @interface CKDiscoutSelectView : UIView <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) NSMutableArray *dataArray;
-
+@property (nonatomic, assign) id<DiscoutSelectViewDelegate> delegate;
+@property (nonatomic, strong) NSMutableArray<ActivityModel *> *dataArray;
+@property (nonatomic, strong) ActivityModel *stActModel;
 @property (nonatomic, strong) UITableView *myTableView;
+
+-(instancetype)initWithFrame:(CGRect)frame data:(NSMutableArray *)data;
 
 @end
 

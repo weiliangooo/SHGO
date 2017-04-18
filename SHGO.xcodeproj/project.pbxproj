@@ -305,6 +305,7 @@
 		F73B80271E9754680005EC11 /* CKListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B80261E9754680005EC11 /* CKListViewController.m */; };
 		F7489B601E8C99A200CDBAEC /* CKOnTheWayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7489B5F1E8C99A200CDBAEC /* CKOnTheWayViewController.m */; };
 		F7489B631E8C9E4B00CDBAEC /* Star.m in Sources */ = {isa = PBXBuildFile; fileRef = F7489B611E8C9E4B00CDBAEC /* Star.m */; };
+		F75172081EA5D640007EC790 /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75172071EA5D640007EC790 /* ActivityModel.m */; };
 		F761C2DD1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2DC1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m */; };
 		F761C2E01E98AAB600FCA6E3 /* CKWalletDQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2DF1E98AAB600FCA6E3 /* CKWalletDQuestionViewController.m */; };
 		F761C2E31E98AAD100FCA6E3 /* CKRedPackDRegularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2E21E98AAD100FCA6E3 /* CKRedPackDRegularViewController.m */; };
@@ -641,6 +642,8 @@
 		F7489B5F1E8C99A200CDBAEC /* CKOnTheWayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKOnTheWayViewController.m; sourceTree = "<group>"; };
 		F7489B611E8C9E4B00CDBAEC /* Star.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Star.m; sourceTree = "<group>"; };
 		F7489B621E8C9E4B00CDBAEC /* Star.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Star.h; sourceTree = "<group>"; };
+		F75172061EA5D640007EC790 /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
+		F75172071EA5D640007EC790 /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
 		F761C2DB1E98A8D800FCA6E3 /* CKRedPackDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRedPackDetailViewController.h; sourceTree = "<group>"; };
 		F761C2DC1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRedPackDetailViewController.m; sourceTree = "<group>"; };
 		F761C2DE1E98AAB600FCA6E3 /* CKWalletDQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKWalletDQuestionViewController.h; sourceTree = "<group>"; };
@@ -1803,6 +1806,8 @@
 				F7F625C91E8E2A3900B025DC /* CKCitysListModel.m */,
 				F73B0EA11E96413600FB468E /* CKSureOrderModel.h */,
 				F73B0EA21E96413600FB468E /* CKSureOrderModel.m */,
+				F75172061EA5D640007EC790 /* ActivityModel.h */,
+				F75172071EA5D640007EC790 /* ActivityModel.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -2101,6 +2106,7 @@
 				F701C84E1E4844E6008ADFD6 /* SDWebImageDownloader.m in Sources */,
 				F701C8451E4844E6008ADFD6 /* SDImageCache.m in Sources */,
 				F7489B631E8C9E4B00CDBAEC /* Star.m in Sources */,
+				F75172081EA5D640007EC790 /* ActivityModel.m in Sources */,
 				F73B0EA01E96197000FB468E /* CKDiscoutSelectView.m in Sources */,
 				F71275691E83A23D00238420 /* CKLoginTextField.m in Sources */,
 				F701C82D1E4844E6008ADFD6 /* SDCycleScrollView.m in Sources */,

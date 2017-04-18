@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "CKBookCKSelectBtn.h"
+#import "CKMsgModel.h"
+
+
+@class CKBookCKSelectView;
+@class CKBookCKSelectDetailView;
+
+@protocol BookCKSelectDetailViewDelegate <NSObject>
+
+-(void)CKBookCKSelectView:(CKBookCKSelectView *)selectView selectData:(NSMutableArray *)data;
+
+@end
 
 @interface CKBookCKSelectView : UIView
 
@@ -18,14 +29,23 @@
 @property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UIView *bottomView;
 
+@property (nonatomic, strong) CKBookCKSelectDetailView *detailView;
+
+@property (nonatomic, strong) NSMutableArray <CKMsgModel *> *allCKData;
+@property (nonatomic, strong) NSMutableArray <CKMsgModel *> *selectData;
+
+-(instancetype)initWithFrame:(CGRect)frame allData:(NSMutableArray *)allCKData selectData:(NSMutableArray *)selectData;
+
 @end
 
 
 
-@interface CKBookCKSelectDetailView : UIView
+@interface CKBookCKSelectDetailView : UIView <CKBookCKSelectBtnDelegate>
 
-@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, assign) id<BookCKSelectDetailViewDelegate> delegate;
+@property (nonatomic, strong) NSMutableArray <CKMsgModel *> *allCKData;
+@property (nonatomic, strong) NSMutableArray <CKMsgModel *> *selectData;
 
--(instancetype)initWithFrame:(CGRect)frame withDataArray:(NSMutableArray *)dataArray;
+-(instancetype)initWithFrame:(CGRect)frame allData:(NSMutableArray *)allCKData selectData:(NSMutableArray *)selectData;
 
 @end

@@ -11,3 +11,14 @@
 @interface ResonForCancleViewController : YHBaseViewController
 
 @end
+
+
+@interface ResonCell : UITableViewCell
+
+@property (nonatomic, strong) UILabel *titleLB;
+
+@property (nonatomic, strong) UIImageView *checkView;
+
+@property (nonatomic, assign) BOOL isSelected;
+
+@end

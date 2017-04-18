@@ -23,6 +23,8 @@
 
 @property (nonatomic, strong) NSString *timeStr;
 
+@property (nonatomic, strong) NSString *timeId;
+
 @end
 
 @implementation CKTimeSelectView
@@ -101,7 +103,12 @@
 -(void)buttonClickEvents:(UIButton *)button
 {
     [self dismissView];
-    self.CKTimeSelectBlock(button.tag == 100);
+    if ([_timeStr isEqualToString:@"无可乘班次"])
+    {
+        return;
+    }
+    NSString *timeSting = [_dateStr stringByAppendingString:@" 00:00:00"];
+    self.CKTimeSelectBlock(button.tag == 100, timeSting, _timeId);
 }
 
 -(void)setDataArray:(NSMutableArray *)dataArray
@@ -139,12 +146,19 @@
     if (component == 0)//如果是首字母的那一列
     {
         //row表示你已经选中第几行了，当然是从0开始的
+        _dateStr = [[_dataArray objectAtIndex:row] stringForKey:@"date"];
         return [[_dataArray objectAtIndex:row] stringForKey:@"date"];
     }
     else//如果选择的是城市那一列
     {
         //返回的是城市那一列的第row的那一行的显示的内容
-        return [[timeArray objectAtIndex:row] stringForKey:@"start_time"];
+        NSDictionary *dic = [timeArray objectAtIndex:row];
+        if (dic != nil) {
+            _timeStr = [dic stringForKey:@"start_time"];
+            _timeId = [dic stringForKey:@"id"];
+            return [dic stringForKey:@"start_time"];
+        }
+        return @"无可乘班次";
     }
 }
 
@@ -154,8 +168,6 @@
     //如果首字母那一列被选中
     if (component == 0)
     {
-        _dateStr = [[_dataArray objectAtIndex:row] stringForKey:@"date"];
-        _timeStr = @"";
         timeArray = [[_dataArray objectAtIndex:row] arrayForKey:@"runs"];
         [pickerView selectRow:0 inComponent:1 animated:YES];
         [pickerView reloadComponent:1];

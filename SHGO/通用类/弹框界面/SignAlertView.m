@@ -33,7 +33,8 @@
         UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(backView.right-50*PROPORTION750, backView.top-85*PROPORTION750, 50*PROPORTION750, 50*PROPORTION750)];
         closeBtn.backgroundColor = [UIColor clearColor];
         UIImage *image = [UIImage imageNamed:@"closeBtn"];
-        [closeBtn setImage:[image scaleImageByWidth:50*PROPORTION750] forState:UIControlStateNormal];
+        [closeBtn setImage:[image scaleImageByWidth:100*PROPORTION750] forState:UIControlStateNormal];
+//        [closeBtn setImage:image forState:UIControlStateNormal];
         [closeBtn addTarget:self action:@selector(closeBtnClickEvent) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:closeBtn];
         

@@ -9,6 +9,7 @@
 #import "CKSendOrderViewController.h"
 #import "UIImage+ScalImage.h"
 #import "CancleOrderAlertView.h"
+#import "ResonForCancleViewController.h"
 
 @interface CKSendOrderViewController ()<AlertClassDelegate>
 
@@ -92,6 +93,12 @@
 
 -(void)AlertClassView:(id)alertView clickIndex:(NSInteger)index
 {
+    [alertView removeFromSuperview];
+    if (index == 100)
+    {
+        ResonForCancleViewController *viewController = [[ResonForCancleViewController alloc] init];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
     NSLog(@"%d",(int)index);
 }
 

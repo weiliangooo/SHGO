@@ -7,6 +7,7 @@
 //
 
 #import "CKDiscoutSelectView.h"
+#import "UIImage+ScalImage.h"
 
 @implementation CKDiscoutSelectView
 
@@ -29,17 +30,14 @@
     return _myTableView;
 }
 
--(instancetype)initWithFrame:(CGRect)frame
+-(instancetype)initWithFrame:(CGRect)frame data:(NSMutableArray *)data
 {
     if (self = [super initWithFrame:frame])
     {
         self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
-        
-        _dataArray = @[@"线上支付首单每人优惠¥27.5",
-                       @"红包最多可用10元（红包余额¥10）",
-                       @"10元优惠券",
-                       @"5元优惠券",
-                       @"不使用优惠券"];
+        _dataArray =  data;
+        CGFloat height = [self calTableViewHeightWithCellMaxNum:5 cellNum:_dataArray.count cellHeight:110*PROPORTION750 headerHeight:90*PROPORTION750 footHeight:0];
+        self.myTableView.frame = CGRectMake(0, self.height-height, self.width, height);
         [self addSubview:self.myTableView];
     }
     return self;
@@ -59,8 +57,12 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     CKDiscoutHeadView *View = [[CKDiscoutHeadView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, 90*PROPORTION750)];
+    __weak typeof(self) weakSelf = self;
     View.backBlock = ^(){
-        [self removeFromSuperview];
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(DiscoutSelectView:selectResult:)])
+        {
+            [weakSelf.delegate DiscoutSelectView:weakSelf selectResult:weakSelf.stActModel];
+        }
     };
     return View;
 }
@@ -88,16 +90,49 @@
         cell = [[CKDiscoutCell alloc] init];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.titleLB.text = _dataArray[indexPath.row];
+    ActivityModel *model = [_dataArray objectAtIndex:indexPath.row];
+    cell.titleLB.text = model.actName;
+    if ([model.actName isEqualToString:_stActModel.actName])
+    {
+        [cell.mySwitch setOn:YES];
+    }
+    else
+    {
+        [cell.mySwitch setOn:NO];
+    }
     [cell.mySwitch addTarget:self action:@selector(switchClickEvents:) forControlEvents:UIControlEventValueChanged];
+    cell.mySwitch.tag = 100+indexPath.row;
     return cell;
 }
 
 
 -(void)switchClickEvents:(UISwitch *)mySwitch
 {
-    
+    if (!mySwitch.on)
+    {
+        [mySwitch setOn:YES];
+    }
+    else
+    {
+        _stActModel = [_dataArray objectAtIndex:mySwitch.tag-100];
+        [self.myTableView reloadData];
+    }
 }
+
+-(CGFloat)calTableViewHeightWithCellMaxNum:(NSInteger)cellMaxNum
+                                   cellNum:(NSInteger)cellNum
+                                cellHeight:(CGFloat)cellHeight
+                              headerHeight:(CGFloat)headerHeight
+                                footHeight:(CGFloat)footHeight
+
+{
+    if (cellNum>cellMaxNum)
+    {
+        return cellMaxNum*cellHeight+headerHeight+footHeight;
+    }
+    return cellNum*cellHeight+headerHeight+footHeight;
+}
+
 
 
 @end
@@ -111,8 +146,8 @@
     {
         self.backgroundColor = [UIColor whiteColor];
         
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 15*PROPORTION750, 30*PROPORTION750)];
-        button.backgroundColor = [UIColor redColor];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 20*PROPORTION750, 30*PROPORTION750)];
+        [button setImage:[[UIImage imageNamed:@"rowback"] scaleImageByHeight:60*PROPORTION750] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
         

@@ -213,11 +213,42 @@
             if (code == 200)
             {
                 _ckTimeSelectView = [[CKTimeSelectView alloc] initWithData:[responseObject objectForKey:@"data"]];
-                _ckTimeSelectView.CKTimeSelectBlock = ^(BOOL isCancle){
+                _ckTimeSelectView.CKTimeSelectBlock = ^(BOOL isCancle, NSString *timeStr, NSString *timeId){
                     if (!isCancle)
                     {
-                        CKBookViewController *viewController = [[CKBookViewController alloc] initWithCCMsgModel:weakSelf.ccMsgModel];
-                        [weakSelf.navigationController pushViewController:viewController animated:YES];
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                        NSDate* date = [formatter dateFromString:timeStr];
+                        NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[date timeIntervalSince1970]];
+                        
+                        NSMutableDictionary *reqDic2 = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                       timeSp, @"choose_time",
+                                                       timeId, @"banci_id",
+                                                       [MyHelperNO getUid], @"uid",
+                                                       [MyHelperNO getMyToken], @"token", nil];
+                        [weakSelf post:@"choosecar/placeorder" withParam:reqDic2 success:^(id responseObject) {
+                            int code = [responseObject intForKey:@"status"];
+                            NSString *msg = [responseObject stringForKey:@"msg"];
+                            NSLog(@"%@", responseObject);
+                            if (code == 200)
+                            {
+                                CKBookViewController *viewController = [[CKBookViewController alloc] initWithCCMsgModel:weakSelf.ccMsgModel];
+                                viewController.inputData = [responseObject objectForKey:@"data"];
+                                [weakSelf.navigationController pushViewController:viewController animated:YES];
+                            }
+                            else if (code == 300)
+                            {
+                                [weakSelf toast:@"身份认证已过期"];
+                                [weakSelf performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+                            }
+                            else if (code == 400)
+                            {
+                                [weakSelf toast:msg];
+                            }
+                            
+                        } failure:^(NSError *error) {
+                            
+                        }];
                     }
                 };
             }
