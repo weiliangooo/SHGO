@@ -13,8 +13,8 @@
 #import "CKDiscoutSelectView.h"
 #import "CKSendOrderViewController.h"
 #import "CKOnTheWayViewController.h"
-#import "CKSureOrderModel.h"
 #import "CKPayView.h"
+#import "CKSureOrderModel.h"
 
 @interface CKBookViewController ()<BMKMapViewDelegate,CKBookViewDelegate,CKBookMsgViewDelegate,CKPayViewDelegate,DiscoutSelectViewDelegate,BookCKSelectDetailViewDelegate>
 

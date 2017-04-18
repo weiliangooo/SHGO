@@ -26,8 +26,6 @@
 @property (nonatomic, strong)CKLeftView *leftView;
 ///展示左边菜单栏时 显示的遮罩view
 @property (nonatomic, strong)UIView *maskView;
-
-//@property (nonatomic, strong)ChengKeCenterView *centerView;
 ///地图view
 @property (nonatomic, strong)BMKMapView *mapView;
 ///搜索当前位置类，返回的是经纬度
@@ -419,10 +417,7 @@
                     
                     _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
                     _maskView.hidden = YES;
-//                    CKSetUpViewController *viewController = [[CKSetUpViewController alloc] init];
-//                    [self.navigationController pushViewController:viewController animated:YES];
                     SignAlertView *alerView = [[SignAlertView alloc] initWithTipTitle:@"获得红包5.00元"];
-//                    alerView.delegate = self;
                 }
                     break;
                     
