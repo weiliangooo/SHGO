@@ -8,6 +8,7 @@
 
 #import "CKDiscoutSelectView.h"
 #import "UIImage+ScalImage.h"
+#import "AppDelegate.h"
 
 @implementation CKDiscoutSelectView
 
@@ -34,6 +35,9 @@
 {
     if (self = [super initWithFrame:frame])
     {
+        AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [de.window addSubview:self];
+        
         self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
         _dataArray =  data;
         CGFloat height = [self calTableViewHeightWithCellMaxNum:5 cellNum:_dataArray.count cellHeight:110*PROPORTION750 headerHeight:90*PROPORTION750 footHeight:0];

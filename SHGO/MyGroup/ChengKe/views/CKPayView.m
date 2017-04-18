@@ -7,6 +7,8 @@
 //
 
 #import "CKPayView.h"
+#import "AppDelegate.h"
+
 
 @implementation CKPayView
 
@@ -22,6 +24,9 @@
 {
     if (self = [super initWithFrame:frame])
     {
+        AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [de.window addSubview:self];
+        
         self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
         self.userInteractionEnabled = YES;
 //        [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(test:)]];
@@ -110,7 +115,6 @@
     {
         [_delegate CKPayViwePayBtnClickEvent];
     }
-//    [self removeFromSuperview];
 }
 
 

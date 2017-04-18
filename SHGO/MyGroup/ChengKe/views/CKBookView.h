@@ -10,16 +10,13 @@
 
 #import "CCMsgModel.h"
 
+
+@class CKBookView;
 @class CKBookMsgView;
 
 @protocol CKBookViewDelegate <NSObject>
-
-@required
-
 ///点击立即预订  返回乘客成员信息
--(void)CKBookViewBackWithCKMsg:(NSMutableArray *)ckMsg;
-///加载乘客成员选择界面
--(void)CKBookViewForMoreBtnClickEventWithCKMsg:(NSMutableArray *)ckMsg flag:(NSInteger)flag;
+-(void)CKBookViewClickSureBtn;
 
 @end
 
@@ -30,14 +27,17 @@
 @property (nonatomic, strong) CKBookMsgView *ckBookMsgView;
 
 
-
 @end
 
 
-
+@protocol CKBookMsgViewDelegate <NSObject>
+///flag=1:选择乘客界面  flag=2:选择优惠界面
+-(void)CKBookMsgViewEventsWithFlag:(NSInteger)flag;
+@end
 
 @interface CKBookMsgView : UIView
 
+@property (nonatomic, assign) id<CKBookMsgViewDelegate> delegate;
 ///显示当前有多少乘客
 @property (nonatomic, strong) UILabel *CKNumLB;
 
@@ -59,12 +59,9 @@
 @property (nonatomic, strong) NSString *amoutString;
 
 @property (nonatomic, strong) CCMsgModel *model;
-
 ///标示是否使用账户余额
 @property (nonatomic, strong) UISwitch *mySwitch;
 
-///flag 1:展示选择乘客界面。2:展示选择优惠界面
-@property (nonatomic, copy) void (^AddOrMoreBtnBlock)(NSInteger flag);
 
 @end
 

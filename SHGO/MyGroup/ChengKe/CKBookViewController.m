@@ -23,7 +23,7 @@
 #import "ActivityModel.h"
 #import "CKMsgModel.h"
 
-@interface CKBookViewController ()<BMKMapViewDelegate,CKBookViewDelegate,CKPayViewDelegate,DiscoutSelectViewDelegate,BookCKSelectDetailViewDelegate>
+@interface CKBookViewController ()<BMKMapViewDelegate,CKBookViewDelegate,CKBookMsgViewDelegate,CKPayViewDelegate,DiscoutSelectViewDelegate,BookCKSelectDetailViewDelegate>
 
 ///显示界面
 @property (nonatomic, strong)CKBookView *bookView;
@@ -67,14 +67,20 @@
     _stActModel = [[ActivityModel alloc] initWithInputData:nil];
     _bookView = [[CKBookView alloc] initWithFrame:CGRectMake(0, AL_DEVICE_HEIGHT-880*PROPORTION750-64, AL_DEVICE_WIDTH, 880*PROPORTION750)];
     _bookView.delegate = self;
+    _bookView.ckBookMsgView.delegate = self;
     [self.view addSubview:_bookView];
 }
 
 #pragma --mark CKBookView 代理
--(void)CKBookViewForMoreBtnClickEventWithCKMsg:(NSMutableArray *)ckMsg flag:(NSInteger)flag
+-(void)CKBookViewClickSureBtn
 {
-    
-    AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    _payView = [[CKPayView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
+    _payView.delegate = self;
+}
+
+#pragma --mark ckBookMsgView 代理
+-(void)CKBookMsgViewEventsWithFlag:(NSInteger)flag
+{
     if (flag == 1)
     {
         NSArray *passengers = [NSArray arrayWithArray:[_inputData arrayForKey:@"passenger"]];
@@ -88,7 +94,6 @@
         }
         _ckBookCKSelectView = [[CKBookCKSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT) allData:models selectData:_ckModels];
         _ckBookCKSelectView.detailView.delegate = self;
-        [de.window addSubview:_ckBookCKSelectView];
     }
     else if (flag == 2)
     {
@@ -111,27 +116,10 @@
         _ckDiscoutView = [[CKDiscoutSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT) data:models];
         _ckDiscoutView.stActModel = _stActModel;
         _ckDiscoutView.delegate = self;
-        [de.window addSubview:_ckDiscoutView];
     }
     
 }
 
--(void)CKBookViewBackWithCKMsg:(NSMutableArray *)ckMsg
-{
-    AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//    if (flag == 1)
-//    {
-        _payView = [[CKPayView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
-    _payView.delegate = self;
-        [de.window addSubview:_payView];
-//    }
-    
-//    CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
-//    [self.navigationController pushViewController:viewController animated:YES];
-
-//    CKOnTheWayViewController *viewController = [[CKOnTheWayViewController alloc] initWithCCMsgModel:self.ccMsgModel];
-//    [self.navigationController pushViewController:viewController animated:YES];
-}
 
 #pragma --mark CKPayView 代理
 -(void)CKPayViwePayBtnClickEvent
