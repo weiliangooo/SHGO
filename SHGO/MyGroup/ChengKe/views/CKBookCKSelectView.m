@@ -8,6 +8,7 @@
 
 #import "CKBookCKSelectView.h"
 #import "UIImage+ScalImage.h"
+#import "AppDelegate.h"
 
 
 @interface CKBookCKSelectView ()
@@ -21,6 +22,8 @@
 {
     if (self = [super initWithFrame:frame])
     {
+        AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [de.window addSubview:self];
         _allCKData = allCKData;
         _selectData = selectData;
         self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];

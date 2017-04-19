@@ -25,14 +25,6 @@
         self.backgroundColor = [UIColor clearColor];
         
         _ckBookMsgView = [[CKBookMsgView alloc] initWithFrame:CGRectMake(30*PROPORTION750, 0, 690*PROPORTION750, 750*PROPORTION750) inputData:_inputData];
-        __weak typeof(self) weakSelf = self;
-        _ckBookMsgView.AddOrMoreBtnBlock = ^(NSInteger flag){
-            
-            if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(CKBookViewForMoreBtnClickEventWithCKMsg:flag:)])
-            {
-                [weakSelf.delegate CKBookViewForMoreBtnClickEventWithCKMsg:[NSMutableArray array] flag:flag];
-            }
-        };
         [self addSubview:_ckBookMsgView];
         
         
@@ -52,9 +44,9 @@
 
 -(void)bookBTClickEvent:(UIButton *)button
 {
-    if (_delegate && [_delegate respondsToSelector:@selector(CKBookViewBackWithCKMsg:)])
+    if (_delegate && [_delegate respondsToSelector:@selector(CKBookViewClickSureBtn)])
     {
-        [_delegate CKBookViewBackWithCKMsg:[NSMutableArray array]];
+        [_delegate CKBookViewClickSureBtn];
     }
 }
 
@@ -299,10 +291,7 @@
     
 }
 
--(void)ClickDiscoutLB:(UITapGestureRecognizer *)tap
-{
-    self.AddOrMoreBtnBlock(2);
-}
+
 
 -(void)setCKNumString:(NSString *)CKNumString
 {
@@ -354,10 +343,22 @@
     _amoutLB.attributedText = string;
 }
 
+-(void)ClickDiscoutLB:(UITapGestureRecognizer *)tap
+{
+    [self backEvents:2];
+}
 
 -(void)buttonClickEvent:(UIButton *)button
 {
-    self.AddOrMoreBtnBlock(1);
+    [self backEvents:1];
+}
+
+-(void)backEvents:(NSInteger)flag
+{
+    if (_delegate && [_delegate respondsToSelector:@selector(CKBookMsgViewEventsWithFlag:)])
+    {
+        [_delegate CKBookMsgViewEventsWithFlag:flag];
+    }
 }
 
 -(void)setStCKData:(NSMutableArray *)stCKData

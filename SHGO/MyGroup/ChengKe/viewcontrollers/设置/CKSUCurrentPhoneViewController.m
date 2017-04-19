@@ -20,7 +20,6 @@
     // Do any additional setup after loading the view.
     self.type = 1;
     self.topTitle = @"手机号";
-    
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     
     UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, 710*PROPORTION750, 90*PROPORTION750)];
@@ -41,6 +40,7 @@
     detailLB.font = SYSF750(22);
     detailLB.textAlignment = NSTextAlignmentRight;
     [myView addSubview:detailLB];
+
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(20*PROPORTION750, myView.bottom+50*PROPORTION750, 710*PROPORTION750, 90*PROPORTION750)];
     button.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
@@ -50,11 +50,12 @@
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     button.titleLabel.font = SYSF750(40);
     button.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [button addTarget:self action:@selector(changePhoneEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(buttonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
 }
 
--(void)changePhoneEvent:(UIButton *)button
+
+-(void)buttonClickEvent:(UIButton *)button
 {
     CKSUVerifyCurrentPhoneViewController *viewController = [[CKSUVerifyCurrentPhoneViewController alloc] init];
     [self.navigationController pushViewController:viewController animated:YES];
