@@ -69,11 +69,11 @@
 
 @property (nonatomic, strong) NSDictionary * inputData;
 
-@property (nonatomic, strong) NSMutableArray *stCKData;
+@property (nonatomic, retain) NSMutableArray *stCKData;
 
-@property (nonatomic, strong) ActivityModel *stActModel;
+@property (nonatomic, retain) ActivityModel *stActModel;
 
-
+@property (nonatomic, assign) BOOL useWallet;
 
 -(instancetype)initWithFrame:(CGRect)frame inputData:(NSDictionary *)inputData;
 

@@ -137,12 +137,18 @@
 
 -(void)CKBookCKSelectBtn:(CKBookCKSelectBtn *)btn isSelected:(BOOL)isSelected
 {
-    if (isSelected)
+    if (!isSelected)
     {
         [_selectData addObject:_allCKData[btn.tag-100]];
+        btn.isSelected = YES;
     }
     else
     {
+        if (_selectData.count == 1)
+        {
+            btn.isSelected = YES;
+            return;
+        }
         for (int i = 0; i < _selectData.count; i++)
         {
             CKMsgModel *model = _selectData[i];
@@ -152,6 +158,7 @@
                 break;
             }
         }
+        btn.isSelected = NO;
 
     }
 }

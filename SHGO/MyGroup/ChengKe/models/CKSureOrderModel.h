@@ -28,13 +28,14 @@
 ///到达地具体名称
 @property (nonatomic, strong) NSString *up_arrive_name;
 ///到达地坐标 “lat，lon”
-@property (nonatomic, strong) NSString *up_arrive;
+@property (nonatomic, strong) NSString *up_arriver;
 ///付款方式
 @property (nonatomic, strong) NSString *up_paytype;
 ///1 微信。 2 支付宝
 @property (nonatomic, strong) NSString *up_paytool;
 ///乘客信息 例：乘客id|乘客姓名|乘客类型_乘客id|乘客姓名|乘客类型
 @property (nonatomic, strong) NSString *up_passenger;
-
+///是否使用钱包 默认2。使用1
+@property (nonatomic, strong) NSString *up_use_wallet;
 
 @end

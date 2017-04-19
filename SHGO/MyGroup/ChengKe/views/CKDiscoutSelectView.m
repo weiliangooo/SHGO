@@ -96,6 +96,21 @@
     }
     ActivityModel *model = [_dataArray objectAtIndex:indexPath.row];
     cell.titleLB.text = model.actName;
+    [cell.titleLB sizeToFit];
+    cell.tipLB.frame = CGRectMake(cell.titleLB.right, 42.5*PROPORTION750, 500*PROPORTION750, 25*PROPORTION750);
+    if ([model.actType isEqualToString:@"event"] || [model.actType isEqualToString:@"extra"])
+    {
+        cell.tipLB.text = [NSString stringWithFormat:@"(每人优惠%@元)",model.actPrice];
+    }
+    else if ([model.actType isEqualToString:@"0"])
+    {
+        cell.tipLB.text = @"";
+    }
+    else
+    {
+        cell.tipLB.text = [NSString stringWithFormat:@"(每单优惠%@元)",model.actPrice];
+    }
+    [cell sizeToFit];
     if ([model.actName isEqualToString:_stActModel.actName])
     {
         [cell.mySwitch setOn:YES];
@@ -188,6 +203,12 @@
         _titleLB.font = SYSF750(30);
         _titleLB.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_titleLB];
+        
+        _tipLB = [[UILabel alloc] initWithFrame:CGRectMake(_titleLB.right, 42.5*PROPORTION750, 500*PROPORTION750, 25*PROPORTION750)];
+        _tipLB.textColor = [UIColor colorWithHexString:@"#ff4f00"];
+        _tipLB.font = SYSF750(25);
+        _tipLB.textAlignment = NSTextAlignmentLeft;
+        [self addSubview:_tipLB];
         
         _mySwitch = [[UISwitch alloc] initWithFrame:CGRectMake(AL_DEVICE_WIDTH-160*PROPORTION750, 25*PROPORTION750, 100*PROPORTION750, 60*PROPORTION750)];
         [self addSubview:_mySwitch];

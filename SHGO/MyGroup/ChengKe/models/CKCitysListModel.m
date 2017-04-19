@@ -10,16 +10,16 @@
 
 @implementation CKCitysListModel
 
--(instancetype)initWithData:(NSDictionary *)dataSource
+-(instancetype)initWithData:(NSArray *)dataSource
 {
     if (self = [super init])
     {
         _citysModel = [NSMutableArray array];
-        [dataSource enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            NSLog(@"key = %@ and obj = %@", key, obj);
-            CKCitysModel *model = [[CKCitysModel alloc] initWithData:[dataSource objectForKey:key]];
+        for (int i = 0; i < dataSource.count; i++)
+        {
+            CKCitysModel *model = [[CKCitysModel alloc] initWithData:[dataSource objectAtIndex:i]];
             [_citysModel addObject:model];
-        }];
+        }
     }
     return self;
 }
@@ -32,9 +32,8 @@
 {
     if (self = [super init])
     {
-        _cityName = [[dataSource objectForKey:@"city"] stringForKey:@"name"];
-        _cityModel = [[CKCityModel alloc] initWithData:[dataSource objectForKey:@"city"]];
-        
+        _cityName = [dataSource stringForKey:@"name"];
+        _cityId = [dataSource stringForKey:@"id"];
         _placeModel = [NSMutableArray array];
         for (id objc in [dataSource arrayForKey:@"hotplace"])
         {
@@ -48,24 +47,6 @@
 
 @end
 
-
-
-@implementation CKCityModel
-
--(instancetype)initWithData:(NSDictionary *)dataSource
-{
-    if (self = [super init])
-    {
-        _myId = [dataSource stringForKey:@"id"];
-        _name = [dataSource stringForKey:@"name"];
-        _local = [dataSource stringForKey:@"local"];
-        _is_use = [dataSource stringForKey:@"is_use"];
-        _distance = [dataSource stringForKey:@"distance"];
-    }
-    return self;
-}
-
-@end
 
 @implementation CKHotPlaceModel
 

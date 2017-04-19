@@ -218,6 +218,7 @@
                         [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
                         NSDate* date = [formatter dateFromString:timeStr];
                         NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[date timeIntervalSince1970]];
+                        weakSelf.ccMsgModel.aboardTime = timeSp;
                         
                         NSString *startLocal = [NSString stringWithFormat:@"%f,%f",weakSelf.ccMsgModel.startLocation.latitude,weakSelf.ccMsgModel.startLocation.longitude];
                         NSString *endLocal = [NSString stringWithFormat:@"%f,%f",weakSelf.ccMsgModel.endLocation.latitude,weakSelf.ccMsgModel.endLocation.longitude];
@@ -236,6 +237,9 @@
                             {
                                 CKBookViewController *viewController = [[CKBookViewController alloc] initWithCCMsgModel:weakSelf.ccMsgModel];
                                 viewController.inputData = [responseObject objectForKey:@"data"];
+                                viewController.startLocal = startLocal;
+                                viewController.endLocal = endLocal;
+                                viewController.ccMsgModel = weakSelf.ccMsgModel;
                                 [weakSelf.navigationController pushViewController:viewController animated:YES];
                             }
                             else if (code == 300)
@@ -519,7 +523,7 @@
         NSLog(@"%@", responseObject);
         if (code == 200)
         {
-            NSDictionary *data = [NSDictionary dictionaryWithDictionary:[responseObject objectForKey:@"data"]];
+            NSArray *data = [NSArray arrayWithArray:[responseObject arrayForKey:@"data"]];
             _cityListModel = [[CKCitysListModel alloc] initWithData:data];
             _CKSPView.defaultModel = _cityListModel;
         }
@@ -684,11 +688,11 @@
 {
     for (int i = 0; i < _cityListModel.citysModel.count; i++)
     {
-        CKCitysModel *model = [[CKCitysModel alloc] init ];
+        CKCitysModel *model = [[CKCitysModel alloc] init];
         model = [_cityListModel.citysModel objectAtIndex:i];
         if ([model.cityName hasPrefix:cityName])
         {
-            return model.cityModel.myId;
+            return model.cityId;
         }
     }
     return nil;

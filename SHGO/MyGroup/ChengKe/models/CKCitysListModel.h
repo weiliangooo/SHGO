@@ -9,14 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @class CKCitysModel;
-@class CKCityModel;
 @class CKHotPlaceModel;
 @interface CKCitysListModel : NSObject
 
 
 @property (nonatomic, strong)NSMutableArray <CKCitysModel *> *citysModel;
 
--(instancetype)initWithData:(NSDictionary *)dataSource;
+-(instancetype)initWithData:(NSArray *)dataSource;
 
 @end
 
@@ -24,25 +23,13 @@
 @interface CKCitysModel : NSObject
 
 @property (nonatomic, strong)NSString *cityName;
-@property (nonatomic, strong)CKCityModel *cityModel;
+@property (nonatomic, strong)NSString *cityId;
 @property (nonatomic, strong)NSMutableArray <CKHotPlaceModel *> *placeModel;
 
 -(instancetype)initWithData:(NSDictionary *)dataSource;
 
 @end
 
-
-@interface CKCityModel : NSObject
-
-@property (nonatomic, strong) NSString *myId;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *local;
-@property (nonatomic, strong) NSString *is_use;
-@property (nonatomic, strong) NSString *distance;
-
--(instancetype)initWithData:(NSDictionary *)dataSource;
-
-@end
 
 @interface CKHotPlaceModel : NSObject
 
