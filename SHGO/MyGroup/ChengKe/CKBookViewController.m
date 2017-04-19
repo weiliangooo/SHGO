@@ -65,7 +65,7 @@
     }
     
     _stActModel = [[ActivityModel alloc] initWithInputData:nil];
-    _bookView = [[CKBookView alloc] initWithFrame:CGRectMake(0, AL_DEVICE_HEIGHT-880*PROPORTION750-64, AL_DEVICE_WIDTH, 880*PROPORTION750)];
+    _bookView = [[CKBookView alloc] initWithFrame:CGRectMake(0, AL_DEVICE_HEIGHT-880*PROPORTION750-64, AL_DEVICE_WIDTH, 880*PROPORTION750) inputData:_inputData];
     _bookView.delegate = self;
     [self.view addSubview:_bookView];
 }
@@ -146,6 +146,9 @@
 {
     self.stActModel = model;
     [dicoutView removeFromSuperview];
+    _bookView.ckBookMsgView.stActModel = self.stActModel;
+    
+//    桐国秀水
 }
 
 #pragma --mark CKDiscoutSelectView 代理
@@ -153,6 +156,7 @@
 {
     self.ckModels = data;
     [selectView removeFromSuperview];
+    _bookView.ckBookMsgView.stCKData = self.ckModels;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

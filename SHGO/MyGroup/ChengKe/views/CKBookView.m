@@ -17,13 +17,14 @@
     // Drawing code
 }
 */
--(instancetype)initWithFrame:(CGRect)frame
+-(instancetype)initWithFrame:(CGRect)frame inputData:(NSDictionary *)inputData
 {
     if (self = [super initWithFrame:frame])
     {
+        _inputData = inputData;
         self.backgroundColor = [UIColor clearColor];
         
-        _ckBookMsgView = [[CKBookMsgView alloc] initWithFrame:CGRectMake(30*PROPORTION750, 0, 690*PROPORTION750, 750*PROPORTION750)];
+        _ckBookMsgView = [[CKBookMsgView alloc] initWithFrame:CGRectMake(30*PROPORTION750, 0, 690*PROPORTION750, 750*PROPORTION750) inputData:_inputData];
         __weak typeof(self) weakSelf = self;
         _ckBookMsgView.AddOrMoreBtnBlock = ^(NSInteger flag){
             
@@ -31,8 +32,6 @@
             {
                 [weakSelf.delegate CKBookViewForMoreBtnClickEventWithCKMsg:[NSMutableArray array] flag:flag];
             }
-            
-            
         };
         [self addSubview:_ckBookMsgView];
         
@@ -65,13 +64,19 @@
 
 #import "CKBookCKSelectBtn.h"
 
+@interface CKBookMsgView()
+
+@property (nonatomic, strong) UIView *ckView;
+
+@end
 
 @implementation CKBookMsgView
 
--(instancetype)initWithFrame:(CGRect)frame
+-(instancetype)initWithFrame:(CGRect)frame inputData:(NSDictionary *)inputData;
 {
     if (self = [super initWithFrame:frame])
     {
+        _inputData = inputData;
         self.backgroundColor = [UIColor whiteColor];
         self.clipsToBounds = YES;
         self.layer.cornerRadius = 18*PROPORTION750;
@@ -113,12 +118,12 @@
         
         
         
-        
+        NSDictionary *info = [_inputData objectForKey:@"info"];
         switch (i) {
             case 0:
             {
                 UILabel *startEndLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 298*PROPORTION750, 30*PROPORTION750)];
-                startEndLB.text = [NSString stringWithFormat:@"%@——>%@", _model.startCity, _model.endCity];
+                startEndLB.text = [NSString stringWithFormat:@"%@——>%@", [info stringForKey:@"start_address_name"], [info stringForKey:@"end_address_name"]];
                 startEndLB.textColor = [UIColor colorWithHexString:@"#999999"];
                 startEndLB.font = SYSF750(30);
                 [view addSubview:startEndLB];
@@ -133,8 +138,17 @@
                 timeImage.image = [UIImage imageNamed:@"time"];
                 [view addSubview:timeImage];
             
+                // 格式化时间
+                NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+                formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+                [formatter setDateStyle:NSDateFormatterMediumStyle];
+                [formatter setTimeStyle:NSDateFormatterShortStyle];
+                [formatter setDateFormat:@"yyyy-MM-dd"];
+                NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[[info stringForKey:@"begin_time"] integerValue]];
+                NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+             
                 UILabel *timeLB = [[UILabel alloc]initWithFrame:CGRectMake(timeImage.right+5*PROPORTION750, 30*PROPORTION750, 245*PROPORTION750, 30*PROPORTION750)];
-                timeLB.text = @"今天（03-21）10:00";
+                timeLB.text = [NSString stringWithFormat:@"%@ %@",confromTimespStr,[info stringForKey:@"start_time"]];
                 timeLB.textColor = [UIColor colorWithHexString:@"#999999"];
                 timeLB.font = SYSF750(25);
                 [view addSubview:timeLB];
@@ -142,29 +156,29 @@
                 break;
             case 1:
             {
-                UIView *lateBtn;
-            
-                for (int i = 0; i < 4; i++)
+                _ckView = view;
+                for (int i = 0; i < 2; i++)
                 {
-                    if (i < 3)
+                    if (i == 0)
                     {
-                        CKBookCKSelectBtn *button;
-                        if (i == 0)
-                        {
-                            button = [[CKBookCKSelectBtn alloc] initWithFrame:CGRectMake(30*PROPORTION750, 29*PROPORTION750, 70*PROPORTION750, 30*PROPORTION750)];
-            
-                        }
-                        else
-                        {
-                            button = [[CKBookCKSelectBtn alloc] initWithFrame:CGRectMake(30*PROPORTION750+lateBtn.right, 29*PROPORTION750, 70*PROPORTION750, 30*PROPORTION750)];
-                        }
-                        button.nameStr = @"sdfsfadsf";
+                        CKBookCKSelectBtn * button = [[CKBookCKSelectBtn alloc] initWithFrame:CGRectMake(30*PROPORTION750, 29*PROPORTION750, 70*PROPORTION750, 30*PROPORTION750)];
+                        button.isSelected = YES;
                         [view addSubview:button];
-                        lateBtn = button;
+                        NSArray *passengers = [NSArray arrayWithArray:[_inputData arrayForKey:@"passenger"]];
+                        for (int i = 0 ; i < passengers.count; i++)
+                        {
+                            NSDictionary *dic = [passengers objectAtIndex:i];
+                            CKMsgModel *model = [[CKMsgModel alloc] initWithInputData:dic];
+                            if ([model.ckOwn integerValue] == 1)
+                            {
+                                button.nameStr = model.ckName;
+                                break;
+                            }
+                        }
                     }
                     else
                     {
-                        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750+lateBtn.right, 29*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
+                        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(150*PROPORTION750, 29*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
                         [button setTitle:@"+" forState:UIControlStateNormal];
                         [button setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
                         [button addTarget:self action:@selector(buttonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
@@ -183,8 +197,9 @@
                 titleLB.font = SYSF750(25);
                 [view addSubview:titleLB];
                 
+                NSDictionary *info = [_inputData objectForKey:@"info"];
                 UILabel *priceLB = [[UILabel alloc] initWithFrame:CGRectMake(self.width-180*PROPORTION750, 30*PROPORTION750, 150*PROPORTION750, 30*PROPORTION750)];
-                priceLB.text = @"¥55.00/人";
+                priceLB.text = [NSString stringWithFormat:@"¥%@/人", [info stringForKey:@"price"]];
                 priceLB.textColor = [UIColor blackColor];
                 priceLB.textAlignment = NSTextAlignmentRight;
                 priceLB.font = SYSF750(25);
@@ -231,33 +246,17 @@
                 break;
             case 5:
             {
-                NSMutableAttributedString *string1 = [[NSMutableAttributedString alloc] initWithString:@"共1位乘客"];
-                [string1 addAttribute:NSForegroundColorAttributeName
-                                      value:[UIColor blackColor]
-                                      range:NSMakeRange(0, 1)];
-                [string1 addAttribute:NSForegroundColorAttributeName
-                                value:[UIColor blackColor]
-                                range:NSMakeRange(string1.length-3, 3)];
-                [string1 addAttribute:NSForegroundColorAttributeName
-                                value:[UIColor colorWithHexString:@"#ff4d00"]
-                                range:NSMakeRange(1, string1.length-4)];
+                
                 _CKNumLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 150*PROPORTION750, 30*PROPORTION750)];
                 _CKNumLB.textAlignment = NSTextAlignmentLeft;
                 _CKNumLB.font = SYSF750(25);
-                _CKNumLB.attributedText = string1;
                 [view addSubview:_CKNumLB];
-                
-                
-                NSMutableAttributedString *string2 = [[NSMutableAttributedString alloc] initWithString:@"小计：¥55.00"];
-                [string2 addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, 3)];
-                [string2 addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, 3)];
-                [string2 addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#ff4d00"] range:NSMakeRange(3, string2.length-3)];
-                [string2 addAttribute:NSFontAttributeName value:SYSF750(30) range:NSMakeRange(3, string2.length-3)];
+                [self setCKNumString:@"共1位乘客"];
                 
                 _priceLB = [[UILabel alloc] initWithFrame:CGRectMake(self.width-230*PROPORTION750, 30*PROPORTION750, 200*PROPORTION750, 30*PROPORTION750)];
-                _priceLB.attributedText = string2;
                 _priceLB.textAlignment = NSTextAlignmentRight;
                 [view addSubview:_priceLB];
+                [self setPriceString:[NSString stringWithFormat:@"小计：¥%@",[info stringForKey:@"price"]]];
             }
                 break;
             case 6:
@@ -269,16 +268,10 @@
                 titleLB.font = SYSF750(25);
                 [view addSubview:titleLB];
                 
-                NSMutableAttributedString *string2 = [[NSMutableAttributedString alloc] initWithString:@"线上支付每人优惠¥27.5>"];
-                [string2 addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#ff4d00"] range:NSMakeRange(0, string2.length-1)];
-                [string2 addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, string2.length-1)];
-                [string2 addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(string2.length-1, 1)];
-                [string2 addAttribute:NSFontAttributeName value:SYSF750(30) range:NSMakeRange(string2.length-1, 1)];
-                
                 _discountLB = [[UILabel alloc] initWithFrame:CGRectMake(self.width-360*PROPORTION750, 30*PROPORTION750, 330*PROPORTION750, 30*PROPORTION750)];
-                _discountLB.attributedText = string2;
                 _discountLB.textAlignment = NSTextAlignmentRight;
                 [view addSubview:_discountLB];
+                [self setDiscountString:@"不使用优惠"];
                 
                 _discountLB.userInteractionEnabled = YES;
                 [_discountLB addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickDiscoutLB:)]];
@@ -286,31 +279,17 @@
                 break;
             case 7:
             {
-                NSMutableAttributedString *string2 = [[NSMutableAttributedString alloc] initWithString:@"合计：¥27.50"];
-                [string2 addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, 3)];
-                [string2 addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, 3)];
-                [string2 addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#ff4d00"] range:NSMakeRange(3, string2.length-3)];
-                [string2 addAttribute:NSFontAttributeName value:SYSF750(30) range:NSMakeRange(3, string2.length-3)];
-                
                 _amoutLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 30*PROPORTION750, self.width, 30*PROPORTION750)];
-                _amoutLB.attributedText = string2;
                 _amoutLB.textAlignment = NSTextAlignmentCenter;
                 [view addSubview:_amoutLB];
-                
-                
-                
+                [self setAmoutString:[NSString stringWithFormat:@"合计：¥%@",[info stringForKey:@"price"]]];
             }
                 break;
             default:
                 break;
         }
-        
-        
-        
         lastView = view;
-        
         [self addSubview:view];
-        
     }
     
 }
@@ -327,7 +306,7 @@
 
 -(void)setCKNumString:(NSString *)CKNumString
 {
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"共1位乘客"];
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:CKNumString];
     [string addAttribute:NSForegroundColorAttributeName
                     value:[UIColor blackColor]
                     range:NSMakeRange(0, 1)];
@@ -344,7 +323,7 @@
 
 -(void)setPriceString:(NSString *)priceString
 {
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"小计：¥55.00"];
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:priceString];
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, 3)];
     [string addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, 3)];
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#ff4d00"] range:NSMakeRange(3, string.length-3)];
@@ -355,7 +334,7 @@
 
 -(void)setDiscountString:(NSString *)discountString
 {
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"线上支付每人优惠¥27.5>"];
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@>",discountString]];
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#ff4d00"] range:NSMakeRange(0, string.length-1)];
     [string addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, string.length-1)];
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(string.length-1, 1)];
@@ -366,7 +345,7 @@
 
 -(void)setAmoutString:(NSString *)amoutString
 {
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"合计：¥27.50"];
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:amoutString];
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, 3)];
     [string addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, 3)];
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#ff4d00"] range:NSMakeRange(3, string.length-3)];
@@ -381,6 +360,37 @@
     self.AddOrMoreBtnBlock(1);
 }
 
+-(void)setStCKData:(NSMutableArray *)stCKData
+{
+    _stCKData = stCKData;
+    [_ckView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    for (int i = 0; i < 4; i++)
+    {
+        if (i < 3)
+        {
+            CKMsgModel *model = _stCKData[i];
+            CKBookCKSelectBtn * button = [[CKBookCKSelectBtn alloc] initWithFrame:CGRectMake(30*PROPORTION750+100*PROPORTION750*i, 29*PROPORTION750, 70*PROPORTION750, 30*PROPORTION750)];
+            button.nameStr = model.ckName;
+            button.isSelected = YES;
+            [_ckView addSubview:button];
+        }
+        else
+        {
+            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(130*PROPORTION750, 29*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
+            [button setTitle:@"+" forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
+            [button addTarget:self action:@selector(buttonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
+            [_ckView addSubview:button];
+        }
+    }
+}
+
+-(void)setStActModel:(ActivityModel *)stActModel
+{
+    _stActModel = stActModel;
+    [self setDiscountString:_stActModel.actName];
+    
+}
 
 @end
 

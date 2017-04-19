@@ -221,11 +221,15 @@
                         NSDate* date = [formatter dateFromString:timeStr];
                         NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[date timeIntervalSince1970]];
                         
+                        NSString *startLocal = [NSString stringWithFormat:@"%f,%f",weakSelf.ccMsgModel.startLocation.latitude,weakSelf.ccMsgModel.startLocation.longitude];
+                        NSString *endLocal = [NSString stringWithFormat:@"%f,%f",weakSelf.ccMsgModel.endLocation.latitude,weakSelf.ccMsgModel.endLocation.longitude];
                         NSMutableDictionary *reqDic2 = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                        timeSp, @"choose_time",
                                                        timeId, @"banci_id",
+                                                        startLocal,@"start_local",
+                                                        endLocal,@"arr_local",
                                                        [MyHelperNO getUid], @"uid",
-                                                       [MyHelperNO getMyToken], @"token", nil];
+                                                       [MyHelperNO getMyToken], @"token",nil];
                         [weakSelf post:@"choosecar/placeorder" withParam:reqDic2 success:^(id responseObject) {
                             int code = [responseObject intForKey:@"status"];
                             NSString *msg = [responseObject stringForKey:@"msg"];

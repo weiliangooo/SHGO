@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "CCMsgModel.h"
+#import "ActivityModel.h"
 
 @class CKBookMsgView;
 
@@ -29,7 +30,9 @@
 
 @property (nonatomic, strong) CKBookMsgView *ckBookMsgView;
 
+@property (nonatomic, strong) NSDictionary * inputData;
 
+-(instancetype)initWithFrame:(CGRect)frame inputData:(NSDictionary *)inputData;
 
 @end
 
@@ -65,6 +68,16 @@
 
 ///flag 1:展示选择乘客界面。2:展示选择优惠界面
 @property (nonatomic, copy) void (^AddOrMoreBtnBlock)(NSInteger flag);
+
+@property (nonatomic, strong) NSDictionary * inputData;
+
+@property (nonatomic, strong) NSMutableArray *stCKData;
+
+@property (nonatomic, strong) ActivityModel *stActModel;
+
+
+
+-(instancetype)initWithFrame:(CGRect)frame inputData:(NSDictionary *)inputData;
 
 @end
 
