@@ -237,7 +237,7 @@
             case 4:
             {
                 UILabel *titleLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 1000*PROPORTION750, 30*PROPORTION750)];
-                titleLB.text = [NSString stringWithFormat:@"账户余额(%.2f元)最高优惠10元",[[_inputData stringForKey:@"user_wallet"] doubleValue]];
+                titleLB.text = [NSString stringWithFormat:@"账户余额(%.2f元)",[[_inputData stringForKey:@"user_wallet"] doubleValue]];
                 titleLB.textColor = [UIColor blackColor];
                 titleLB.textAlignment = NSTextAlignmentLeft;
                 titleLB.font = SYSF750(25);
@@ -442,25 +442,16 @@
     double discountPrice = [_stActModel.actPrice doubleValue];
     if (_useWallet)
     {
-        double useMoney;
-        if (_money > 10)
-        {
-            useMoney = 10;
-        }
-        else
-        {
-            useMoney = _money;
-        }
         if ([_stActModel.actType isEqualToString:@"event"] || [_stActModel.actType isEqualToString:@"extra"])
         {
             
-            [self setPriceString:[NSString stringWithFormat:@"小计：¥%.2f",(_singlePrice+_otherPrice)*_stCKData.count-useMoney]];
-            [self setAmoutString:[NSString stringWithFormat:@"合计：¥%.2f",(_singlePrice+_otherPrice-discountPrice)*_stCKData.count-useMoney]];
+            [self setPriceString:[NSString stringWithFormat:@"小计：¥%.2f",(_singlePrice+_otherPrice)*_stCKData.count-_money]];
+            [self setAmoutString:[NSString stringWithFormat:@"合计：¥%.2f",(_singlePrice+_otherPrice-discountPrice)*_stCKData.count-_money]];
         }
         else
         {
-            [self setPriceString:[NSString stringWithFormat:@"小计：¥%.2f",(_singlePrice+_otherPrice)*_stCKData.count-useMoney]];
-            [self setAmoutString:[NSString stringWithFormat:@"合计：¥%.2f",(_singlePrice+_otherPrice)*_stCKData.count-discountPrice-useMoney]];
+            [self setPriceString:[NSString stringWithFormat:@"小计：¥%.2f",(_singlePrice+_otherPrice)*_stCKData.count-_money]];
+            [self setAmoutString:[NSString stringWithFormat:@"合计：¥%.2f",(_singlePrice+_otherPrice)*_stCKData.count-discountPrice-_money]];
         }
 
     }

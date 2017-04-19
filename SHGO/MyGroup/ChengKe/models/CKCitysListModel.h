@@ -33,12 +33,9 @@
 
 @interface CKHotPlaceModel : NSObject
 
-@property (nonatomic, strong) NSString *myId;
-@property (nonatomic, strong) NSString *arean_id;
 @property (nonatomic, strong) NSString *local;
 @property (nonatomic, strong) NSString *place_name;
 @property (nonatomic, strong) NSString *place_address;
-@property (nonatomic, strong) NSString *price;
 
 -(instancetype)initWithData:(NSDictionary *)dataSource;
 

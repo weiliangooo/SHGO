@@ -54,12 +54,9 @@
 {
     if (self = [super init])
     {
-        _myId = [dataSource stringForKey:@"id"];
-        _arean_id = [dataSource stringForKey:@"arean_id"];
         _local = [dataSource stringForKey:@"local"];
         _place_name = [dataSource stringForKey:@"place_name"];
         _place_address = [dataSource stringForKey:@"place_address"];
-        _price = [dataSource stringForKey:@"price"];
     }
     return self;
 }
