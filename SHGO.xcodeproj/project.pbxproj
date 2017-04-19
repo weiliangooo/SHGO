@@ -376,6 +376,7 @@
 		F79F0D211E82277900EAD30B /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F79F0CC11E82277800EAD30B /* libcrypto.a */; };
 		F79F0D221E82277900EAD30B /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F79F0CC21E82277800EAD30B /* libssl.a */; };
 		F79F0D351E8228BB00EAD30B /* CKMainViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F79F0D341E8228BB00EAD30B /* CKMainViewController.mm */; };
+		F7A08EC71EA7837A000F41CC /* MyWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7A08EC61EA7837A000F41CC /* MyWebViewController.m */; };
 		F7B14F131EA4944100D7CDB6 /* AlertClassView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B14F121EA4944100D7CDB6 /* AlertClassView.m */; };
 		F7B14F161EA495CF00D7CDB6 /* CancleOrderAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B14F151EA495CF00D7CDB6 /* CancleOrderAlertView.m */; };
 		F7B14F1A1EA4A15500D7CDB6 /* SignAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B14F191EA4A15500D7CDB6 /* SignAlertView.m */; };
@@ -829,6 +830,8 @@
 		F79F0CC21E82277800EAD30B /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		F79F0D331E8228BB00EAD30B /* CKMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMainViewController.h; sourceTree = "<group>"; };
 		F79F0D341E8228BB00EAD30B /* CKMainViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CKMainViewController.mm; sourceTree = "<group>"; };
+		F7A08EC51EA7837A000F41CC /* MyWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWebViewController.h; sourceTree = "<group>"; };
+		F7A08EC61EA7837A000F41CC /* MyWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWebViewController.m; sourceTree = "<group>"; };
 		F7B14F111EA4944100D7CDB6 /* AlertClassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertClassView.h; sourceTree = "<group>"; };
 		F7B14F121EA4944100D7CDB6 /* AlertClassView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertClassView.m; sourceTree = "<group>"; };
 		F7B14F141EA495CF00D7CDB6 /* CancleOrderAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancleOrderAlertView.h; sourceTree = "<group>"; };
@@ -1386,6 +1389,8 @@
 				F701C8D41E4846AA008ADFD6 /* MyHelperNO.m */,
 				F70181FF1E8DED5000B28C59 /* PGSLeadViewController.h */,
 				F70182001E8DED5000B28C59 /* PGSLeadViewController.m */,
+				F7A08EC51EA7837A000F41CC /* MyWebViewController.h */,
+				F7A08EC61EA7837A000F41CC /* MyWebViewController.m */,
 			);
 			path = "通用类";
 			sourceTree = "<group>";
@@ -2135,6 +2140,7 @@
 				F761C2FB1E98CF7C00FCA6E3 /* CKSUVerifyCurrentPhoneViewController.m in Sources */,
 				F701C7BE1E4844E6008ADFD6 /* AssetGroupCell.m in Sources */,
 				F701C8511E4844E6008ADFD6 /* SDWebImageDownloaderOperation.m in Sources */,
+				F7A08EC71EA7837A000F41CC /* MyWebViewController.m in Sources */,
 				F701C7B21E4844E5008ADFD6 /* AFURLSessionManager.m in Sources */,
 				F712756F1E83D15700238420 /* CKSearchPlaceView.m in Sources */,
 				F761C2DD1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m in Sources */,
