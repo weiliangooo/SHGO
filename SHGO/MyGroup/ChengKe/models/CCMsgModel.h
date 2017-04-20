@@ -9,24 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import "CKMsgModel.h"
+#import "PlaceModel.h"
 
 @interface CCMsgModel : NSObject
 
-@property (nonatomic, strong)NSString *startCity;
+@property (nonatomic, strong)PlaceModel *startPlaceModel;
 
-@property (nonatomic, strong)NSString *startAddress;
-
-@property (nonatomic, strong)NSString *startDetailAddress;
-
-@property (nonatomic, assign)CLLocationCoordinate2D startLocation;
-
-@property (nonatomic, strong)NSString *endCity;
-
-@property (nonatomic, strong)NSString *endAddress;
-
-@property (nonatomic, strong)NSString *endDetailAddress;
-
-@property (nonatomic, assign)CLLocationCoordinate2D endLocation;
+@property (nonatomic, strong)PlaceModel *endPlaceModel;
 
 @property (nonatomic, strong)NSString *aboardTime;
 

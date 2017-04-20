@@ -12,7 +12,6 @@
 @class CKHotPlaceModel;
 @interface CKCitysListModel : NSObject
 
-
 @property (nonatomic, strong)NSMutableArray <CKCitysModel *> *citysModel;
 
 -(instancetype)initWithData:(NSArray *)dataSource;

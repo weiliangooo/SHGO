@@ -303,6 +303,8 @@
 		F73B0EA31E96413600FB468E /* CKSureOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B0EA21E96413600FB468E /* CKSureOrderModel.m */; };
 		F73B80201E9721330005EC11 /* CKPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B801F1E9721330005EC11 /* CKPayView.m */; };
 		F73B80271E9754680005EC11 /* CKListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B80261E9754680005EC11 /* CKListViewController.m */; };
+		F73FCC961EA846FE00EB45CD /* PlaceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F73FCC951EA846FE00EB45CD /* PlaceModel.m */; };
+		F73FCC9A1EA87CAC00EB45CD /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F73FCC991EA87CAC00EB45CD /* OrderListModel.m */; };
 		F7489B601E8C99A200CDBAEC /* CKOnTheWayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7489B5F1E8C99A200CDBAEC /* CKOnTheWayViewController.m */; };
 		F7489B631E8C9E4B00CDBAEC /* Star.m in Sources */ = {isa = PBXBuildFile; fileRef = F7489B611E8C9E4B00CDBAEC /* Star.m */; };
 		F75172081EA5D640007EC790 /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75172071EA5D640007EC790 /* ActivityModel.m */; };
@@ -638,6 +640,10 @@
 		F73B801F1E9721330005EC11 /* CKPayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKPayView.m; sourceTree = "<group>"; };
 		F73B80251E9754680005EC11 /* CKListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKListViewController.h; sourceTree = "<group>"; };
 		F73B80261E9754680005EC11 /* CKListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKListViewController.m; sourceTree = "<group>"; };
+		F73FCC941EA846FE00EB45CD /* PlaceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceModel.h; sourceTree = "<group>"; };
+		F73FCC951EA846FE00EB45CD /* PlaceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceModel.m; sourceTree = "<group>"; };
+		F73FCC981EA87CAC00EB45CD /* OrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListModel.h; sourceTree = "<group>"; };
+		F73FCC991EA87CAC00EB45CD /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListModel.m; sourceTree = "<group>"; };
 		F7409E4E1EA483FF007AB779 /* HeFei.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HeFei.gpx; sourceTree = "<group>"; };
 		F7489B5E1E8C99A200CDBAEC /* CKOnTheWayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKOnTheWayViewController.h; sourceTree = "<group>"; };
 		F7489B5F1E8C99A200CDBAEC /* CKOnTheWayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKOnTheWayViewController.m; sourceTree = "<group>"; };
@@ -1430,6 +1436,15 @@
 			path = "乘客";
 			sourceTree = "<group>";
 		};
+		F73FCC971EA87C9600EB45CD /* models */ = {
+			isa = PBXGroup;
+			children = (
+				F73FCC981EA87CAC00EB45CD /* OrderListModel.h */,
+				F73FCC991EA87CAC00EB45CD /* OrderListModel.m */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
 		F7409E501EA493A6007AB779 /* 弹框界面 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1446,6 +1461,7 @@
 		F761C2E71E98B59D00FCA6E3 /* 行程 */ = {
 			isa = PBXGroup;
 			children = (
+				F73FCC971EA87C9600EB45CD /* models */,
 				F761C2E81E98B5B600FCA6E3 /* CKOrderViewController.h */,
 				F761C2E91E98B5B600FCA6E3 /* CKOrderViewController.m */,
 			);
@@ -1803,10 +1819,12 @@
 		F79F0D2F1E82284300EAD30B /* models */ = {
 			isa = PBXGroup;
 			children = (
-				F71275701E84E23C00238420 /* CKMsgModel.h */,
-				F71275711E84E23C00238420 /* CKMsgModel.m */,
 				F71275731E84E2C600238420 /* CCMsgModel.h */,
 				F71275741E84E2C600238420 /* CCMsgModel.m */,
+				F71275701E84E23C00238420 /* CKMsgModel.h */,
+				F71275711E84E23C00238420 /* CKMsgModel.m */,
+				F73FCC941EA846FE00EB45CD /* PlaceModel.h */,
+				F73FCC951EA846FE00EB45CD /* PlaceModel.m */,
 				F7F625C81E8E2A3900B025DC /* CKCitysListModel.h */,
 				F7F625C91E8E2A3900B025DC /* CKCitysListModel.m */,
 				F73B0EA11E96413600FB468E /* CKSureOrderModel.h */,
@@ -2075,11 +2093,13 @@
 				F701C7A31E4844E5008ADFD6 /* AFNetworkReachabilityManager.m in Sources */,
 				F712756C1E83B99300238420 /* CKRealNameViewController.m in Sources */,
 				F701C6CF1E4844C2008ADFD6 /* XAClient.m in Sources */,
+				F73FCC9A1EA87CAC00EB45CD /* OrderListModel.m in Sources */,
 				F701C8331E4844E6008ADFD6 /* TAAnimatedDotView.m in Sources */,
 				F701C8391E4844E6008ADFD6 /* TAPageControl.m in Sources */,
 				F701C8211E4844E6008ADFD6 /* UIView+MJExtension.m in Sources */,
 				F701C7971E4844E5008ADFD6 /* AFDownloadRequestOperation.m in Sources */,
 				F701C81E1E4844E6008ADFD6 /* UIScrollView+MJRefresh.m in Sources */,
+				F73FCC961EA846FE00EB45CD /* PlaceModel.m in Sources */,
 				F701C83C1E4844E6008ADFD6 /* UIView+SDExtension.m in Sources */,
 				F701C8EB1E4846AA008ADFD6 /* MyHelperNO.m in Sources */,
 				F701C8241E4844E6008ADFD6 /* PopAleatView.m in Sources */,

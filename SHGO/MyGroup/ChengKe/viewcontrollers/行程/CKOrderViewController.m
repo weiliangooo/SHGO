@@ -8,10 +8,14 @@
 
 #import "CKOrderViewController.h"
 #import "CKOnTheWayViewController.h"
+#import "OrderListModel.h"
 
 @interface CKOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *myTableView;
+
+@property (nonatomic, strong) NSMutableArray *unFinishdata;
+@property (nonatomic, strong) NSMutableArray *finishdata;
 
 @end
 
@@ -37,9 +41,58 @@
     self.topTitle = @"我的行程";
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
-    
+    _finishdata = [NSMutableArray array] ;
+    _unFinishdata = [NSMutableArray array] ;
     [self.view addSubview:self.myTableView];
+    
+    [self loadData];
 }
+
+-(void)loadData
+{
+    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[MyHelperNO getUid], @"uid", [MyHelperNO getMyToken], @"token", nil];
+    [self post:@"order/orderlist" withParam:reqDic success:^(id responseObject) {
+        int code = [responseObject intForKey:@"status"];
+        NSLog(@"%@", responseObject);
+        NSString *msg = [responseObject stringForKey:@"msg"];
+        if (code == 200)
+        {
+            NSArray *fin = [NSArray arrayWithArray:[responseObject arrayForKey:@"over"]];
+            _finishdata = [NSMutableArray array];
+            for (int i = 0 ; i < fin.count; i++)
+            {
+                NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[fin objectAtIndex:i]];
+                OrderListMemModel *model = [[OrderListMemModel alloc] initWithData:dic];
+                [_finishdata addObject:model];
+            }
+            
+            NSArray *unf = [NSArray arrayWithArray:[responseObject arrayForKey:@"doing"]];
+            _unFinishdata = [NSMutableArray array];
+            for (int i = 0 ; i < unf.count; i++)
+            {
+                NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[unf objectAtIndex:i]];
+                OrderListMemModel *model = [[OrderListMemModel alloc] initWithData:dic];
+                [_unFinishdata addObject:model];
+            }
+            
+            [self.myTableView reloadData];
+        }
+        else if (code == 300)
+        {
+            [self toast:@"身份认证已过期"];
+            [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+        }
+        else if (code == 400)
+        {
+            [self toast:msg];
+        }
+
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -50,11 +103,11 @@
 {
     if (section == 0)
     {
-        return 1;
+        return [_unFinishdata count];
     }
     else
     {
-        return 10;
+        return [_finishdata count];
     }
 }
 
@@ -108,6 +161,16 @@
         cell = [[CKOrderCell alloc] init];
     }
     
+    OrderListMemModel *model;
+    if (indexPath.section == 0)
+    {
+        model = [_unFinishdata objectAtIndex:indexPath.row];
+    }
+    else
+    {
+        model = [_finishdata objectAtIndex:indexPath.row];
+    }
+    cell.model = model;
     return cell;
 }
 
@@ -155,12 +218,12 @@
         [view addSubview:imageView];
         
         _timeLB = [[UILabel alloc] initWithFrame:CGRectMake(imageView.right+20*PROPORTION750, 27.5*PROPORTION750, 350*PROPORTION750, 30*PROPORTION750)];
-        _timeLB.text = @"（今天）03-21 15:01（到达）";
+        _timeLB.text = @"（今天）03-21 15:01（下单）";
         _timeLB.font = SYSF750(25);
         _timeLB.textAlignment = NSTextAlignmentLeft;
         [view addSubview:_timeLB];
         
-        _stateLB = [[UILabel alloc] initWithFrame:CGRectMake(view.width-158*PROPORTION750, 27.5*PROPORTION750, 90*PROPORTION750, 30*PROPORTION750)];
+        _stateLB = [[UILabel alloc] initWithFrame:CGRectMake(view.width-188*PROPORTION750, 27.5*PROPORTION750, 120*PROPORTION750, 30*PROPORTION750)];
         _stateLB.text = @"已完成";
         _stateLB.font = SYSF750(25);
         _stateLB.textAlignment = NSTextAlignmentRight;
@@ -209,6 +272,28 @@
     }
     return self;
 }
+
+-(void)setModel:(OrderListMemModel *)model
+{
+    _model = model;
+    
+    // 格式化时间
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[_model.order_time integerValue]];
+    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+    _timeLB.text = [NSString stringWithFormat:@"%@（下单）", confromTimespStr];
+    
+    _stateLB.text = _model.type;
+    
+    _starPlaceLB.text = _model.s_name;
+    _endPlaceLB.text = _model.e_name;
+    
+}
+
 
 @end
 

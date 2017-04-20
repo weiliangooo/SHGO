@@ -206,8 +206,8 @@
     _sureOrderModel.up_start_time = [_inputData stringForKey:@"unix_zero"];
     _sureOrderModel.up_banci_id = [info stringForKey:@"id"];
     _sureOrderModel.up_start = _startLocal;
-    _sureOrderModel.up_start_name = self.ccMsgModel.startAddress;
-    _sureOrderModel.up_arrive_name = self.ccMsgModel.endAddress;
+    _sureOrderModel.up_start_name = self.ccMsgModel.startPlaceModel.address;
+    _sureOrderModel.up_arrive_name = self.ccMsgModel.endPlaceModel.address;
     _sureOrderModel.up_arriver = _endLocal;
     if (flag == 3)
     {
