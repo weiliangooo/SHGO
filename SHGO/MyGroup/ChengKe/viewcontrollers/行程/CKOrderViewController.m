@@ -246,7 +246,7 @@
         greenView.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
         [view addSubview:greenView];
         
-        _starPlaceLB = [[UILabel alloc] initWithFrame:CGRectMake(greenView.right+20*PROPORTION750, greenView.top, 350*PROPORTION750, 30*PROPORTION750)];
+        _starPlaceLB = [[UILabel alloc] initWithFrame:CGRectMake(greenView.right+20*PROPORTION750, greenView.top, 500*PROPORTION750, 30*PROPORTION750)];
         _starPlaceLB.text = @"合肥市-财富广场";
         _starPlaceLB.font = SYSF750(25);
         _starPlaceLB.textAlignment = NSTextAlignmentLeft;
@@ -262,7 +262,7 @@
         redView.backgroundColor = [UIColor colorWithHexString:@"#ff4f00"];
         [view addSubview:redView];
         
-        _endPlaceLB = [[UILabel alloc] initWithFrame:CGRectMake(redView.right+20*PROPORTION750, redView.top, 350*PROPORTION750, 30*PROPORTION750)];
+        _endPlaceLB = [[UILabel alloc] initWithFrame:CGRectMake(redView.right+20*PROPORTION750, redView.top, 500*PROPORTION750, 30*PROPORTION750)];
         _endPlaceLB.text = @"桐城市-青草镇";
         _endPlaceLB.font = SYSF750(25);
         _endPlaceLB.textAlignment = NSTextAlignmentLeft;
