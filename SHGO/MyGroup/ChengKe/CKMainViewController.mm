@@ -157,11 +157,7 @@
         self.CKSPView.cityTF.placeholder = @"到达城市";
         self.CKSPView.cityTF.text = @"";
         self.CKSPView.placeTF.text = @"";
-<<<<<<< HEAD
-        self.CKSPView.placeTF.placeholder = @"您要去哪儿";
-=======
         self.CKSPView.preFlag = 3;
->>>>>>> 7c4abcbc3171a968f5f1629681781d166b18030f
         [self.CKSPView.dataArray removeAllObjects];
         [UIView animateWithDuration:0.5f animations:^{
             self.CKSPView.frame = CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
