@@ -7,9 +7,6 @@
 //
 
 #import "CKWalletViewController.h"
-#import "CKWalletDetailViewController.h"
-#import "CKRedPackDetailViewController.h"
-#import "CKDiscountViewController.h"
 #import "WalletMoneyModel.h"
 #import "WalletDetailViewController.h"
 
