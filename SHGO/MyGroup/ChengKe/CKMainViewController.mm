@@ -140,6 +140,7 @@
         self.CKSPView.cityTF.text = self.ccMsgModel.startCity;
         self.CKSPView.cityTF.placeholder = @"出发城市";
         self.CKSPView.placeTF.text = @"";
+        self.CKSPView.placeTF.placeholder = @"您现在在哪儿";
         [self.CKSPView.dataArray removeAllObjects];
         [UIView animateWithDuration:0.5f animations:^{
             self.CKSPView.frame = CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
@@ -162,6 +163,7 @@
         self.CKSPView.cityTF.text = @"";
         self.CKSPView.cityTF.placeholder = @"到达城市";
         self.CKSPView.placeTF.text = @"";
+        self.CKSPView.placeTF.placeholder = @"您要去哪儿";
         [self.CKSPView.dataArray removeAllObjects];
         [UIView animateWithDuration:0.5f animations:^{
             self.CKSPView.frame = CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
