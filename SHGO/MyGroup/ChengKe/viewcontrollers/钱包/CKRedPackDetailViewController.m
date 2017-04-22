@@ -9,12 +9,15 @@
 #import "CKRedPackDetailViewController.h"
 
 #import "CKRedPackDRegularViewController.h"
+#import "WalletMoneyModel.h"
 
 @interface CKRedPackDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *myTableView;
 
 @property (nonatomic, strong) CKRedPackDetailHeader *ckRedPackHeader;
+
+@property (nonatomic, strong) WalletMoneyModel *dataSource;
 
 @end
 
@@ -32,6 +35,14 @@
     return _myTableView;
 }
 
+-(instancetype)initWithData:(WalletMoneyModel *)dataSource
+{
+    if (self = [super init])
+    {
+        _dataSource = dataSource;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,9 +53,11 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     
     _ckRedPackHeader = [[CKRedPackDetailHeader alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 280*PROPORTION750)];
+    _ckRedPackHeader.price = _dataSource.allMoney;
+    __weak typeof(self) weakSelf = self;
     _ckRedPackHeader.buttonBlock = ^(){
         CKRedPackDRegularViewController *viewController = [[CKRedPackDRegularViewController alloc] init];
-        [self.navigationController pushViewController:viewController animated:YES];
+        [weakSelf.navigationController pushViewController:viewController animated:YES];
     };
     [self.view addSubview:_ckRedPackHeader];
     
@@ -59,7 +72,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 19;
+    return _dataSource.listModels.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -130,6 +143,11 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor whiteColor];
+    
+    WalletMoneyListModel *model = _dataSource.listModels[indexPath.row];
+    cell.timeLB.text = model.time;
+    cell.typeLB.text = model.type;
+    cell.moneyLB.text = model.money;
     
     return cell;
 }

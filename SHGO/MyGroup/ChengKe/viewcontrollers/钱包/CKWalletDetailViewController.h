@@ -8,7 +8,10 @@
 
 #import "YHBaseViewController.h"
 
+@class WalletMoneyModel;
 @interface CKWalletDetailViewController : YHBaseViewController
+
+-(instancetype)initWithData:(WalletMoneyModel *)dataSource;
 
 @end
 

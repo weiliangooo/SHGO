@@ -120,7 +120,7 @@
         [button setTitle:@"分享此次行程获得现金红包" forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         button.titleLabel.font = SYSF750(25);
-        [button setImage:[[UIImage imageNamed:@"share_icon"] scaleImageByHeight:40*PROPORTION750] forState:UIControlStateNormal];
+        [button setImage:[[UIImage imageNamed:@"share_icon"] scaleImageByHeight:30*PROPORTION750] forState:UIControlStateNormal];
 //        button.imageEdgeInsets = UIEdgeInsetsMake(20*PROPORTION750, 0, 20*PROPORTION750, 0);
         [button addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];

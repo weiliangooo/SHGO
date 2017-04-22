@@ -8,7 +8,15 @@
 
 #import "YHBaseViewController.h"
 
+typedef enum : NSUInteger {
+    MoneyTypeWallet,
+    MoneyTypeRed,
+} MoneyType;
+
+@class WalletMoneyModel;
 @interface CKRedPackDetailViewController : YHBaseViewController
+
+-(instancetype)initWithData:(WalletMoneyModel *)dataSource;
 
 @end
 

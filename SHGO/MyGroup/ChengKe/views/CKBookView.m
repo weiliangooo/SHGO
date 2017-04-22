@@ -389,6 +389,9 @@
 {
     _stCKData = stCKData;
     [_ckView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 88*PROPORTION750, self.width, 2*PROPORTION750)];
+    line.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+    [_ckView addSubview:line];
     for (int i = 0; i < _stCKData.count+1; i++)
     {
         if (i < _stCKData.count)
