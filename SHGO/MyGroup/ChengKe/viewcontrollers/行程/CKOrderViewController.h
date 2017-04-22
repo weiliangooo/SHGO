@@ -12,6 +12,7 @@
 
 @end
 
+#import "OrderListModel.h"
 
 @interface CKOrderCell : UITableViewCell
 
@@ -22,5 +23,7 @@
 @property (nonatomic, strong) UILabel *starPlaceLB;
 
 @property (nonatomic, strong) UILabel *endPlaceLB;
+
+@property (nonatomic, strong) OrderListMemModel *model;
 
 @end

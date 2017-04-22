@@ -7,11 +7,16 @@
 //
 
 #import "CKOrderViewController.h"
-#import "CKOnTheWayViewController.h"
+#import "CKOrderDetailViewController.h"
+#import "OrderListModel.h"
+#import "OrderDetailModel.h"
 
 @interface CKOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *myTableView;
+
+@property (nonatomic, strong) NSMutableArray *unFinishdata;
+@property (nonatomic, strong) NSMutableArray *finishdata;
 
 @end
 
@@ -37,9 +42,58 @@
     self.topTitle = @"我的行程";
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
-    
+    _finishdata = [NSMutableArray array] ;
+    _unFinishdata = [NSMutableArray array] ;
     [self.view addSubview:self.myTableView];
+    
+    [self loadData];
 }
+
+-(void)loadData
+{
+    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[MyHelperNO getUid], @"uid", [MyHelperNO getMyToken], @"token", nil];
+    [self post:@"order/orderlist" withParam:reqDic success:^(id responseObject) {
+        int code = [responseObject intForKey:@"status"];
+        NSLog(@"%@", responseObject);
+        NSString *msg = [responseObject stringForKey:@"msg"];
+        if (code == 200)
+        {
+            NSArray *fin = [NSArray arrayWithArray:[responseObject arrayForKey:@"over"]];
+            _finishdata = [NSMutableArray array];
+            for (int i = 0 ; i < fin.count; i++)
+            {
+                NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[fin objectAtIndex:i]];
+                OrderListMemModel *model = [[OrderListMemModel alloc] initWithData:dic];
+                [_finishdata addObject:model];
+            }
+            
+            NSArray *unf = [NSArray arrayWithArray:[responseObject arrayForKey:@"doing"]];
+            _unFinishdata = [NSMutableArray array];
+            for (int i = 0 ; i < unf.count; i++)
+            {
+                NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[unf objectAtIndex:i]];
+                OrderListMemModel *model = [[OrderListMemModel alloc] initWithData:dic];
+                [_unFinishdata addObject:model];
+            }
+            
+            [self.myTableView reloadData];
+        }
+        else if (code == 300)
+        {
+            [self toast:@"身份认证已过期"];
+            [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+        }
+        else if (code == 400)
+        {
+            [self toast:msg];
+        }
+
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -50,11 +104,11 @@
 {
     if (section == 0)
     {
-        return 1;
+        return [_unFinishdata count];
     }
     else
     {
-        return 10;
+        return [_finishdata count];
     }
 }
 
@@ -108,14 +162,62 @@
         cell = [[CKOrderCell alloc] init];
     }
     
+    OrderListMemModel *model;
+    if (indexPath.section == 0)
+    {
+        model = [_unFinishdata objectAtIndex:indexPath.row];
+    }
+    else
+    {
+        model = [_finishdata objectAtIndex:indexPath.row];
+    }
+    cell.model = model;
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CKOnTheWayViewController *viewController = [[CKOnTheWayViewController alloc] init];
-    [self.navigationController pushViewController:viewController animated:YES];
+    OrderListMemModel *model;
+    if (indexPath.section == 0)
+    {
+        model = [_unFinishdata objectAtIndex:indexPath.row];
+    }
+    else
+    {
+        model = [_finishdata objectAtIndex:indexPath.row];
+    }
+
+    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   model.order_sn, @"common_id",
+                                   [MyHelperNO getUid], @"uid",
+                                   [MyHelperNO getMyToken], @"token", nil];
+    [self post:@"order/ordercurrent" withParam:reqDic success:^(id responseObject) {
+        int code = [responseObject intForKey:@"status"];
+        NSLog(@"%@", responseObject);
+        NSString *msg = [responseObject stringForKey:@"msg"];
+        if (code == 200)
+        {
+            NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[responseObject objectForKey:@"data"]];
+            OrderDetailModel *omodel = [[OrderDetailModel alloc] initWithData:dic];
+            CKOrderDetailViewController *viewController = [[CKOrderDetailViewController alloc] initWithOrderDetailModel:omodel];
+            viewController.orderNum = model.order_sn;
+            [self.navigationController pushViewController:viewController animated:YES];
+            
+        }
+        else if (code == 300)
+        {
+            [self toast:@"身份认证已过期"];
+            [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+        }
+        else if (code == 400)
+        {
+            [self toast:msg];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -155,12 +257,12 @@
         [view addSubview:imageView];
         
         _timeLB = [[UILabel alloc] initWithFrame:CGRectMake(imageView.right+20*PROPORTION750, 27.5*PROPORTION750, 350*PROPORTION750, 30*PROPORTION750)];
-        _timeLB.text = @"（今天）03-21 15:01（到达）";
+        _timeLB.text = @"（今天）03-21 15:01（下单）";
         _timeLB.font = SYSF750(25);
         _timeLB.textAlignment = NSTextAlignmentLeft;
         [view addSubview:_timeLB];
         
-        _stateLB = [[UILabel alloc] initWithFrame:CGRectMake(view.width-158*PROPORTION750, 27.5*PROPORTION750, 90*PROPORTION750, 30*PROPORTION750)];
+        _stateLB = [[UILabel alloc] initWithFrame:CGRectMake(view.width-188*PROPORTION750, 27.5*PROPORTION750, 120*PROPORTION750, 30*PROPORTION750)];
         _stateLB.text = @"已完成";
         _stateLB.font = SYSF750(25);
         _stateLB.textAlignment = NSTextAlignmentRight;
@@ -183,7 +285,7 @@
         greenView.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
         [view addSubview:greenView];
         
-        _starPlaceLB = [[UILabel alloc] initWithFrame:CGRectMake(greenView.right+20*PROPORTION750, greenView.top, 350*PROPORTION750, 30*PROPORTION750)];
+        _starPlaceLB = [[UILabel alloc] initWithFrame:CGRectMake(greenView.right+20*PROPORTION750, greenView.top, 500*PROPORTION750, 30*PROPORTION750)];
         _starPlaceLB.text = @"合肥市-财富广场";
         _starPlaceLB.font = SYSF750(25);
         _starPlaceLB.textAlignment = NSTextAlignmentLeft;
@@ -199,7 +301,7 @@
         redView.backgroundColor = [UIColor colorWithHexString:@"#ff4f00"];
         [view addSubview:redView];
         
-        _endPlaceLB = [[UILabel alloc] initWithFrame:CGRectMake(redView.right+20*PROPORTION750, redView.top, 350*PROPORTION750, 30*PROPORTION750)];
+        _endPlaceLB = [[UILabel alloc] initWithFrame:CGRectMake(redView.right+20*PROPORTION750, redView.top, 500*PROPORTION750, 30*PROPORTION750)];
         _endPlaceLB.text = @"桐城市-青草镇";
         _endPlaceLB.font = SYSF750(25);
         _endPlaceLB.textAlignment = NSTextAlignmentLeft;
@@ -209,6 +311,28 @@
     }
     return self;
 }
+
+-(void)setModel:(OrderListMemModel *)model
+{
+    _model = model;
+    
+    // 格式化时间
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[_model.order_time integerValue]];
+    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+    _timeLB.text = [NSString stringWithFormat:@"%@（下单）", confromTimespStr];
+    
+    _stateLB.text = _model.type;
+    
+    _starPlaceLB.text = _model.s_name;
+    _endPlaceLB.text = _model.e_name;
+    
+}
+
 
 @end
 

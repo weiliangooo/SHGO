@@ -178,6 +178,58 @@
     }
 }
 
+-(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+{
+    return 90*PROPORTION750;
+}
+
+-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+
+    [self changeSpearatorLineColor];
+    //设置文字的属性
+    UILabel *genderLabel = [UILabel new];
+    genderLabel.textAlignment = NSTextAlignmentCenter;
+    
+    if (component == 0)//如果是首字母的那一列
+    {
+        //row表示你已经选中第几行了，当然是从0开始的
+        _dateStr = [[_dataArray objectAtIndex:row] stringForKey:@"date"];
+        genderLabel.text = [[_dataArray objectAtIndex:row] stringForKey:@"date"];
+    }
+    else//如果选择的是城市那一列
+    {
+        //返回的是城市那一列的第row的那一行的显示的内容
+        NSDictionary *dic = [timeArray objectAtIndex:row];
+        if (dic != nil)
+        {
+            _timeStr = [dic stringForKey:@"start_time"];
+            _timeId = [dic stringForKey:@"id"];
+            genderLabel.text = [dic stringForKey:@"start_time"];
+        }
+        else
+        {
+            genderLabel.text = @"无可乘班次";
+        }
+    }
+
+    
+    return genderLabel;
+}
+
+#pragma mark - 改变分割线的颜色
+- (void)changeSpearatorLineColor
+{
+    for(UIView *speartorView in self.pickerView.subviews)
+    {
+        if (speartorView.frame.size.height < 1)//取出分割线view
+        {
+            speartorView.backgroundColor = [UIColor colorWithHexString:@"e5e5e5"];//隐藏分割线
+        }
+    }
+}
+
+
 -(void)dismissView
 {
     [self removeFromSuperview];

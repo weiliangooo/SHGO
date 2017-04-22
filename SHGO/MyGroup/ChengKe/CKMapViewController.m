@@ -53,8 +53,8 @@
     
     _startAnnotation = [[BMKPointAnnotation alloc]init];
     _startAnnotation.title = @"起点";
-    _startAnnotation.subtitle = _ccMsgModel.startAddress;
-    _startAnnotation.coordinate = _ccMsgModel.startLocation;
+    _startAnnotation.subtitle = _ccMsgModel.startPlaceModel.address;
+    _startAnnotation.coordinate = _ccMsgModel.startPlaceModel.location;
     [_mapView addAnnotation:_startAnnotation];
   /*
     BMKAnnotationView *view = [[BMKAnnotationView alloc] init];
@@ -64,8 +64,8 @@
     */
     _endAnnotation = [[BMKPointAnnotation alloc]init];
     _endAnnotation.title = @"终点";
-    _endAnnotation.subtitle = _ccMsgModel.endAddress;
-    _endAnnotation.coordinate = _ccMsgModel.endLocation;
+    _endAnnotation.subtitle = _ccMsgModel.endPlaceModel.address;
+    _endAnnotation.coordinate = _ccMsgModel.endPlaceModel.location;
     [_mapView addAnnotation:_endAnnotation];
     
     [self getMapViewVisbleRect];
@@ -107,8 +107,8 @@
 //    region.span.longitudeDelta = 0.1;//纬度范围
 //    [_mapView setRegion:region animated:YES];
     
-    BMKMapPoint point1 = BMKMapPointForCoordinate(self.ccMsgModel.startLocation);
-    BMKMapPoint point2 = BMKMapPointForCoordinate(self.ccMsgModel.endLocation);
+    BMKMapPoint point1 = BMKMapPointForCoordinate(self.ccMsgModel.startPlaceModel.location);
+    BMKMapPoint point2 = BMKMapPointForCoordinate(self.ccMsgModel.endPlaceModel.location);
     CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
     
     //这个数组就是百度地图比例尺对应的物理距离，其中2000000对应的比例是3，5对应的是21；可能有出入可以根据情况累加
@@ -130,7 +130,8 @@
     BMKMapStatus *status = [[BMKMapStatus alloc] init];
     status.fLevel = zoomLe;
     status.targetScreenPt = CGPointMake(AL_DEVICE_WIDTH/2, 450*PROPORTION750);
-    status.targetGeoPt = CLLocationCoordinate2DMake((self.ccMsgModel.startLocation.latitude+self.ccMsgModel.endLocation.latitude)/2, (self.ccMsgModel.startLocation.longitude+self.ccMsgModel.endLocation.longitude)/2);
+    status.targetGeoPt = CLLocationCoordinate2DMake((self.ccMsgModel.startPlaceModel.location.latitude+self.ccMsgModel.endPlaceModel.location.latitude)/2,
+                                                    (self.ccMsgModel.startPlaceModel.location.longitude+self.ccMsgModel.endPlaceModel.location.longitude)/2);
     [_mapView setMapStatus:status withAnimation:YES];
     
 }

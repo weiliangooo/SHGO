@@ -8,12 +8,15 @@
 
 #import "CKWalletDetailViewController.h"
 #import "CKWalletDQuestionViewController.h"
+#import "WalletMoneyModel.h"
 
 @interface CKWalletDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *myTableView;
 
 @property (nonatomic, strong) CKWalletDetailHeader *ckWalletHeader;
+
+@property (nonatomic, strong) WalletMoneyModel *dataSource;
 
 @end
 
@@ -31,6 +34,15 @@
     return _myTableView;
 }
 
+-(instancetype)initWithData:(WalletMoneyModel *)dataSource
+{
+    if (self = [super init])
+    {
+        _dataSource = dataSource;
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,9 +53,11 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     
     _ckWalletHeader = [[CKWalletDetailHeader alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 280*PROPORTION750)];
+    _ckWalletHeader.price = _dataSource.allMoney;
+    __weak typeof(self) weakSelf = self;
     _ckWalletHeader.buttonBlock = ^(){
         CKWalletDQuestionViewController *viewController = [[CKWalletDQuestionViewController alloc] init];
-        [self.navigationController pushViewController:viewController animated:YES];
+        [weakSelf.navigationController pushViewController:viewController animated:YES];
     };
     [self.view addSubview:_ckWalletHeader];
     
@@ -58,7 +72,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 19;
+    return _dataSource.listModels.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -97,7 +111,7 @@
     [view addSubview:tipTypeLB];
     
     UILabel *tipMoneyLB = [[UILabel alloc] initWithFrame:CGRectMake(tipTypeLB.right, line.bottom+25*PROPORTION750, 165*PROPORTION750, 30*PROPORTION750)];
-    tipMoneyLB.text = @"类型";
+    tipMoneyLB.text = @"费用";
     tipMoneyLB.textColor = [UIColor colorWithHexString:@"999999"];
     tipMoneyLB.textAlignment = NSTextAlignmentCenter;
     tipMoneyLB.font = SYSF750(25);
@@ -148,7 +162,10 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor whiteColor];
-    
+    WalletMoneyListModel *model = _dataSource.listModels[indexPath.row];
+    cell.timeLB.text = model.time;
+    cell.typeLB.text = model.type;
+    cell.moneyLB.text = model.money;
     return cell;
 }
 

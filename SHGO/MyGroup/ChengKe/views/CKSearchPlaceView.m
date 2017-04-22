@@ -35,7 +35,6 @@
         _myTableView.backgroundColor = [UIColor whiteColor];
         _myTableView.delegate = self;
         _myTableView.dataSource = self;
-        
     }
     return _myTableView;
 }
@@ -45,11 +44,8 @@
 {
     if (self = [super initWithFrame:frame])
     {
-        
         self.backgroundColor = [UIColor colorWithWhite:0.6 alpha:0.6];
-        
         [self createNaviView];
-        
         [self addSubview:self.myTableView];
     }
     return self;
@@ -88,69 +84,34 @@
     cancleBT.titleLabel.font = SYSF750(30);
     [cancleBT addTarget:self action:@selector(cancleBtnClickEvent:) forControlEvents:UIControlEventTouchUpInside];
     [naviView addSubview:cancleBT];
-    
 }
 
 -(void)cancleBtnClickEvent:(UIButton *)button
 {
     [_cityTF resignFirstResponder];
     [_placeTF resignFirstResponder];
-    
     if (_delegate && [_delegate respondsToSelector:@selector(CKSearchPlaceView:cancleBtnClick:)])
     {
         [_delegate CKSearchPlaceView:self cancleBtnClick:button];
     }
 }
 
-
+#pragma --mark textField Delegate
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if (textField == _cityTF)
     {
-        _typeOfData = 0;
-        _dataArray = [NSMutableArray array];
-        for (int i = 0; i < _defaultModel.citysModel.count; i++)
-        {
-            CKCitysModel *model = [[CKCitysModel alloc] init];
-            model = [_defaultModel.citysModel objectAtIndex:i];
-            [_dataArray addObject:model.cityName];
-        }
-        [self.myTableView reloadData];
+        [self setTypeOfData:DataSourceTypeCity dataSource:nil];
     }
     else
     {
-        _dataArray = [NSMutableArray array];
         if (_placeTF.text.length == 0)
         {
-            _typeOfData = 1;
-            for (int i = 0; i < _defaultModel.citysModel.count; i++)
-            {
-                
-                CKCitysModel *model = [[CKCitysModel alloc] init ];
-                model = [_defaultModel.citysModel objectAtIndex:i];
-                if ([model.cityName hasPrefix:_cityTF.text])
-                {
-                    for (int j = 0; j < model.placeModel.count; j++)
-                    {
-                        CKHotPlaceModel *hotModel = [[CKHotPlaceModel alloc] init];
-                        hotModel = [model.placeModel objectAtIndex:j];
-                        myLocationModel *myModel = [[myLocationModel alloc] init];
-                        myModel.city = model.cityName;
-                        myModel.address = hotModel.place_name;
-                        myModel.detailAddress = hotModel.place_address;
-                        
-                        NSArray *temp=[hotModel.local componentsSeparatedByString:@","];
-                        
-                        myModel.location = CLLocationCoordinate2DMake([[temp objectAtIndex:0] doubleValue], [[temp objectAtIndex:1] doubleValue]);
-                        [_dataArray addObject:myModel];
-                    }
-                }
-            }
-            [self.myTableView reloadData];
+            [self setTypeOfData:DataSourceTypeHot dataSource:nil];
         }
         else
         {
-            _typeOfData = 2;
+            _typeOfData = DataSourceTypeBaidu;
             if (_delegate && [_delegate respondsToSelector:@selector(CKSearchPlaceView:searchCity:keyWord:)])
             {
                 [_delegate CKSearchPlaceView:self searchCity:_cityTF.text keyWord:_placeTF.text];
@@ -211,7 +172,7 @@
     }
 }
 
-
+///修改navi 内部控件frame
 -(void)cotrolFrame
 {
     if (_cityTF.isFirstResponder)
@@ -270,17 +231,11 @@
         cell.textLabel.text = [_dataArray objectAtIndex:indexPath.row];
         
     }
-    else if (_typeOfData == 1)
+    else if (_typeOfData == 1 || _typeOfData == 2)
     {
-        myLocationModel *model = [_dataArray objectAtIndex:indexPath.row];
+        PlaceModel *model = [_dataArray objectAtIndex:indexPath.row];
         cell.textLabel.text = model.address;
         cell.detailTextLabel.text = model.detailAddress;
-    }
-    else if(_typeOfData == 2)
-    {
-        BMKPoiInfo *dic = [_dataArray objectAtIndex:indexPath.row];
-        cell.textLabel.text = dic.name;
-        cell.detailTextLabel.text = dic.address;
     }
     
     return cell;
@@ -293,114 +248,107 @@
     [_cityTF resignFirstResponder];
     [_placeTF resignFirstResponder];
     
-//    BMKPoiInfo *dic = [_dataArray objectAtIndex:indexPath.row];
     if (_typeOfData == 0)
     {
         _cityTF.text = [_dataArray objectAtIndex:indexPath.row];
         [_cityTF resignFirstResponder];
         [_placeTF becomeFirstResponder];
+        [self setTypeOfData:1 dataSource:nil];
     }
-    else
+    else if(_typeOfData == 1 || _typeOfData == 2)
     {
         if (_delegate && [_delegate respondsToSelector:@selector(CKSearchPlaceView:locationModel:)])
         {
-            if (_typeOfData == 1)
-            {
-                myLocationModel *model = [_dataArray objectAtIndex:indexPath.row];
-                
-                _locationModel = [[myLocationModel alloc] init];
-                _locationModel.city = model.city;
-                _locationModel.address = model.address;
-                _locationModel.detailAddress = model.detailAddress;
-                _locationModel.location = model.location;
-            }
-            else if (_typeOfData == 2)
-            {
-                BMKPoiInfo *dic = [_dataArray objectAtIndex:indexPath.row];
-                
-                _locationModel = [[myLocationModel alloc] init];
-                _locationModel.city = _cityTF.text;
-                _locationModel.address = dic.name;
-                _locationModel.detailAddress = dic.address;
-                _locationModel.location = dic.pt;
-            }
-            
-            
-            if ([_cityTF.placeholder isEqualToString:@"出发城市"])
-            {
-                _locationModel.isStart = YES;
-                [_delegate CKSearchPlaceView:self locationModel:_locationModel];
-            }
-            else
-            {
-                _locationModel.isStart = NO;
-                [_delegate CKSearchPlaceView:self locationModel:_locationModel];
-            }
+            PlaceModel *backModel = [[PlaceModel alloc] init];
+            backModel = [_dataArray objectAtIndex:indexPath.row];
+            [_delegate CKSearchPlaceView:self locationModel:backModel];
         }
     }
     
 }
 
+
 -(void)setDataArray:(NSMutableArray *)dataArray
 {
-    _dataArray = dataArray;
-    _typeOfData = 2;
-    if (_dataArray.count == 0)
+    if (dataArray.count == 0)
     {
         if (_cityTF.text.length == 0)
         {
-            _typeOfData = 0;
-            [_cityTF becomeFirstResponder];
-            _dataArray = [NSMutableArray array];
-            for (int i = 0; i < _defaultModel.citysModel.count; i++)
-            {
-                CKCitysModel *model = [[CKCitysModel alloc] init];
-                model = [_defaultModel.citysModel objectAtIndex:i];
-                [_dataArray addObject:model.cityName];
-            }
-            [self.myTableView reloadData];
+            [self setTypeOfData:DataSourceTypeCity dataSource:nil];
         }
         else
         {
-            _typeOfData = 1;
-            [_placeTF becomeFirstResponder];
-            _dataArray = [NSMutableArray array];
-            if (_placeTF.text.length == 0)
+            [self setTypeOfData:DataSourceTypeHot dataSource:nil];
+        }
+    }
+    else
+    {
+        [self setTypeOfData:DataSourceTypeBaidu dataSource:dataArray];
+    }
+}
+
+-(void)setTypeOfData:(DataSourceType)typeOfData dataSource:(NSMutableArray *)dataSource
+{
+    _typeOfData = typeOfData;
+    _dataArray = [NSMutableArray array];
+    if (typeOfData == DataSourceTypeCity)
+    {
+        [_cityTF becomeFirstResponder];
+        for (int i = 0; i < _defaultModel.citysModel.count; i++)
+        {
+            CKCitysModel *model = [[CKCitysModel alloc] init];
+            model = [_defaultModel.citysModel objectAtIndex:i];
+            [_dataArray addObject:model.cityName];
+        }
+        [self.myTableView reloadData];
+    }
+    else if (typeOfData == DataSourceTypeHot)
+    {
+        [_placeTF becomeFirstResponder];
+        if (_placeTF.text.length == 0)
+        {
+            for (int i = 0; i < _defaultModel.citysModel.count; i++)
             {
-                for (int i = 0; i < _defaultModel.citysModel.count; i++)
+                CKCitysModel *model = [[CKCitysModel alloc] init ];
+                model = [_defaultModel.citysModel objectAtIndex:i];
+                if ([model.cityName hasPrefix:_cityTF.text])
                 {
-                    CKCitysModel *model = [[CKCitysModel alloc] init ];
-                    model = [_defaultModel.citysModel objectAtIndex:i];
-                    if ([model.cityName hasPrefix:_cityTF.text])
+                    for (int j = 0; j < model.placeModel.count; j++)
                     {
-                        for (int j = 0; j < model.placeModel.count; j++)
-                        {
-                            CKHotPlaceModel *hotModel = [[CKHotPlaceModel alloc] init];
-                            hotModel = [model.placeModel objectAtIndex:j];
-                            myLocationModel *myModel = [[myLocationModel alloc] init];
-                            myModel.city = model.cityName;
-                            myModel.address = hotModel.place_name;
-                            myModel.detailAddress = hotModel.place_address;
-                            
-                            NSArray *temp=[hotModel.local componentsSeparatedByString:@","];
-                            
-                            myModel.location = CLLocationCoordinate2DMake([[temp objectAtIndex:0] doubleValue], [[temp objectAtIndex:1] doubleValue]);
-                            [_dataArray addObject:myModel];
-                        }
+                        CKHotPlaceModel *hotModel = [[CKHotPlaceModel alloc] init];
+                        hotModel = [model.placeModel objectAtIndex:j];
+                        
+                        PlaceModel *myModel = [[PlaceModel alloc] init];
+                        myModel.cityName = model.cityName;
+                        myModel.address = hotModel.place_name;
+                        myModel.detailAddress = hotModel.place_address;
+                        myModel.location = [myModel stringToLocation:hotModel.local];
+                        [_dataArray addObject:myModel];
                     }
                 }
             }
+        }
+
+    }
+    else if (typeOfData == DataSourceTypeBaidu)
+    {
+        [_placeTF becomeFirstResponder];
+        for (int i = 0; i<dataSource.count; i++)
+        {
+            BMKPoiInfo *dic = [dataSource objectAtIndex:i];
+            
+            PlaceModel *backModel = [[PlaceModel alloc] init];
+            backModel.cityName = _cityTF.text;
+            backModel.address = dic.name;
+            backModel.detailAddress = dic.address;
+            backModel.location = dic.pt;
+            [_dataArray addObject:backModel];
         }
     }
     [self.myTableView reloadData];
 }
 
 
-@end
-
-
-@implementation myLocationModel
-
-
 
 @end
+
