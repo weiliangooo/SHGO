@@ -74,7 +74,7 @@
     
     _placeTF = [[UITextField alloc] initWithFrame:CGRectMake(line.right+20*PROPORTION750, _cityTF.top, 425*PROPORTION750, 35*PROPORTION750)];
     _placeTF.delegate = self;
-    _placeTF.placeholder = @"你要去哪儿";
+    _placeTF.placeholder = @"您要去哪儿";
     _placeTF.font = SYSF750(30);
     [_placeTF addTarget:self
                   action:@selector(textFieldDidChangeValue:)
