@@ -11,6 +11,14 @@
 #import "CKCitysListModel.h"
 #import "PlaceModel.h"
 
+
+typedef enum : NSUInteger {
+    ///当前列表的数据类型
+    DataSourceTypeCity = 0,      ///服务器城市数据
+    DataSourceTypeHot = 1,       ///服务器热门地点数据
+    DataSourceTypeBaidu = 2,     ///百度搜索返回的地点数据
+} DataSourceType;
+
 @class CKSearchPlaceView;
 @protocol CKSearchPlaceViewDelegate <NSObject>
 
@@ -40,8 +48,7 @@
 @property (nonatomic, strong) NSMutableArray *dataArray;
 ///从服务器获取的城市和热门地点的数据
 @property (nonatomic, strong) CKCitysListModel *defaultModel;
-///表示tablevew的数据源 0:服务器城市 1:服务器热门地点 2:百度搜索地点
-@property (nonatomic, assign) NSInteger typeOfData;
+@property (nonatomic, assign) DataSourceType typeOfData;
 ///标示当前界面展示时的状态 1:选择出发地点 出发城市可用 2:选择出发地点 出发城市不可用 3:选择目的地点
 @property (nonatomic, assign) NSInteger preFlag;
 

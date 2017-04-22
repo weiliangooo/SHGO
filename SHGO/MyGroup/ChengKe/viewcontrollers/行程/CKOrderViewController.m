@@ -7,8 +7,9 @@
 //
 
 #import "CKOrderViewController.h"
-#import "CKOnTheWayViewController.h"
+#import "CKOrderDetailViewController.h"
 #import "OrderListModel.h"
+#import "OrderDetailModel.h"
 
 @interface CKOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -177,8 +178,46 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CKOnTheWayViewController *viewController = [[CKOnTheWayViewController alloc] init];
-    [self.navigationController pushViewController:viewController animated:YES];
+    OrderListMemModel *model;
+    if (indexPath.section == 0)
+    {
+        model = [_unFinishdata objectAtIndex:indexPath.row];
+    }
+    else
+    {
+        model = [_finishdata objectAtIndex:indexPath.row];
+    }
+
+    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   model.order_sn, @"common_id",
+                                   [MyHelperNO getUid], @"uid",
+                                   [MyHelperNO getMyToken], @"token", nil];
+    [self post:@"order/ordercurrent" withParam:reqDic success:^(id responseObject) {
+        int code = [responseObject intForKey:@"status"];
+        NSLog(@"%@", responseObject);
+        NSString *msg = [responseObject stringForKey:@"msg"];
+        if (code == 200)
+        {
+            NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[responseObject objectForKey:@"data"]];
+            OrderDetailModel *omodel = [[OrderDetailModel alloc] initWithData:dic];
+            CKOrderDetailViewController *viewController = [[CKOrderDetailViewController alloc] initWithOrderDetailModel:omodel];
+            viewController.orderNum = model.order_sn;
+            [self.navigationController pushViewController:viewController animated:YES];
+            
+        }
+        else if (code == 300)
+        {
+            [self toast:@"身份认证已过期"];
+            [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+        }
+        else if (code == 400)
+        {
+            [self toast:msg];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

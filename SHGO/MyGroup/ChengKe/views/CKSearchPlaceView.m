@@ -101,17 +101,17 @@
 {
     if (textField == _cityTF)
     {
-        [self setTypeOfData:0 dataSource:nil];
+        [self setTypeOfData:DataSourceTypeCity dataSource:nil];
     }
     else
     {
         if (_placeTF.text.length == 0)
         {
-            [self setTypeOfData:1 dataSource:nil];
+            [self setTypeOfData:DataSourceTypeHot dataSource:nil];
         }
         else
         {
-            _typeOfData = 2;
+            _typeOfData = DataSourceTypeBaidu;
             if (_delegate && [_delegate respondsToSelector:@selector(CKSearchPlaceView:searchCity:keyWord:)])
             {
                 [_delegate CKSearchPlaceView:self searchCity:_cityTF.text keyWord:_placeTF.text];
@@ -237,6 +237,7 @@
         cell.textLabel.text = model.address;
         cell.detailTextLabel.text = model.detailAddress;
     }
+    
     return cell;
 }
 
@@ -273,24 +274,24 @@
     {
         if (_cityTF.text.length == 0)
         {
-            [self setTypeOfData:0 dataSource:nil];
+            [self setTypeOfData:DataSourceTypeCity dataSource:nil];
         }
         else
         {
-            [self setTypeOfData:1 dataSource:nil];
+            [self setTypeOfData:DataSourceTypeHot dataSource:nil];
         }
     }
     else
     {
-        [self setTypeOfData:2 dataSource:dataArray];
+        [self setTypeOfData:DataSourceTypeBaidu dataSource:dataArray];
     }
 }
 
--(void)setTypeOfData:(NSInteger)typeOfData dataSource:(NSMutableArray *)dataSource
+-(void)setTypeOfData:(DataSourceType)typeOfData dataSource:(NSMutableArray *)dataSource
 {
     _typeOfData = typeOfData;
     _dataArray = [NSMutableArray array];
-    if (typeOfData == 0)
+    if (typeOfData == DataSourceTypeCity)
     {
         [_cityTF becomeFirstResponder];
         for (int i = 0; i < _defaultModel.citysModel.count; i++)
@@ -301,7 +302,7 @@
         }
         [self.myTableView reloadData];
     }
-    else if (typeOfData == 1)
+    else if (typeOfData == DataSourceTypeHot)
     {
         [_placeTF becomeFirstResponder];
         if (_placeTF.text.length == 0)
@@ -329,7 +330,7 @@
         }
 
     }
-    else if (typeOfData == 2)
+    else if (typeOfData == DataSourceTypeBaidu)
     {
         [_placeTF becomeFirstResponder];
         for (int i = 0; i<dataSource.count; i++)
