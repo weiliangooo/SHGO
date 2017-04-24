@@ -3,7 +3,7 @@
 //  RentOutProject
 //
 //  Created by Abel on 16/6/27.
-//  Copyright © 2016年 Abel. All rights reserved.
+//  Copyright © 2016年 Alen. All rights reserved.
 //
 
 #import "ABRunLoopView.h"
