@@ -107,13 +107,16 @@
 {
     if (flag == 1)
     {
-        _ckBookCKSelectView = [[CKBookCKSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT) allData:_allCkModels selectData:_ckModels];
+        _ckBookCKSelectView = [[CKBookCKSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT) allData:_allCkModels selectData:[_ckModels mutableCopy]];
         _ckBookCKSelectView.detailView.delegate = self;
     }
     else if (flag == 2)
     {
+        if (_ckDiscoutView) {
+            _ckDiscoutView = nil;
+        }
         _ckDiscoutView = [[CKDiscoutSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT) data:_allActModels];
-        _ckDiscoutView.stActModel = _stActModel;
+        _ckDiscoutView.stActModel = [_stActModel mutableCopy];
         _ckDiscoutView.delegate = self;
     }
     
