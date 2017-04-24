@@ -91,7 +91,6 @@
         if ([model.ckOwn integerValue] == 1)
         {
             [_ckModels addObject:model];
-            break;
         }
     }
 }

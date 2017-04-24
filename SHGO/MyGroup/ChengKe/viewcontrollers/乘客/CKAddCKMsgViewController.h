@@ -10,4 +10,6 @@
 
 @interface CKAddCKMsgViewController : YHBaseViewController
 
+@property (nonatomic, copy)void (^SuccBlock)();
+
 @end

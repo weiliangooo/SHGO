@@ -9,10 +9,13 @@
 #import "CKListViewController.h"
 #import "CKEditCKMsgViewController.h"
 #import "CKAddCKMsgViewController.h"
+#import "CKListModel.h"
 
 @interface CKListViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *myTableView;
+
+@property (nonatomic, strong) CKListModel *dataSource;
 
 @end
 
@@ -39,8 +42,40 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     
     [self.view addSubview:self.myTableView];
-    
+    [self loadData];
 }
+
+-(void)loadData
+{
+    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   [MyHelperNO getUid], @"uid",
+                                   [MyHelperNO getMyToken], @"token", nil];
+    [self post:@"user/passenger" withParam:reqDic success:^(id responseObject) {
+        int code = [responseObject intForKey:@"status"];
+        NSLog(@"%@", responseObject);
+        NSString *msg = [responseObject stringForKey:@"msg"];
+        if (code == 200)
+        {
+            NSArray *array = [NSArray arrayWithArray:[responseObject arrayForKey:@"data"]];
+            _dataSource = [[CKListModel alloc] initWithData:array];
+            [self.myTableView reloadData];
+        }
+        else if (code == 300)
+        {
+            [self toast:@"身份认证已过期"];
+            [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+        }
+        else if (code == 400)
+        {
+            [self toast:msg];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+
+}
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -49,7 +84,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 19;
+    return self.dataSource.ckListModels.count;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -109,10 +144,18 @@
     {
         cell = [[CKListCell alloc] init];
     }
+    CKListSingelModel *model = self.dataSource.ckListModels[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor whiteColor];
+    cell.ckName = model.ckName;
+    cell.ckId = model.ckNumber;
+    cell.ckPhone = model.ckPhone;
+    __weak typeof(self) weakSelf = self;
     cell.changeBlock = ^(){
-        CKEditCKMsgViewController *viewController = [[CKEditCKMsgViewController alloc] init];
+        CKEditCKMsgViewController *viewController = [[CKEditCKMsgViewController alloc] initWithData:model];
+        viewController.SuccBlock = ^{
+            [weakSelf loadData];
+        };
         [self.navigationController pushViewController:viewController animated:YES];
     };
 //    cell.textLabel.text = [NSString stringWithFormat:@"%d", (int)indexPath.row];
@@ -122,6 +165,10 @@
 -(void)addBtnClickEvent:(UIButton *)button
 {
     CKAddCKMsgViewController *viewController = [[CKAddCKMsgViewController alloc] init];
+    __weak typeof(self) weakSelf = self;
+    viewController.SuccBlock = ^{
+        [weakSelf loadData];
+    };
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -143,6 +190,15 @@
 
 @end
 
+@interface CKListCell()
+
+@property (nonatomic, strong) UILabel *nameLB;
+
+@property (nonatomic, strong) UILabel *idLB;
+
+@property (nonatomic, strong) UILabel *phoneLB;
+
+@end
 
 @implementation CKListCell
 
@@ -174,6 +230,26 @@
         [self addSubview:_changeBtn];
     }
     return self;
+}
+
+-(void)setCkName:(NSString *)ckName
+{
+    _ckName = ckName;
+    _nameLB.text = _ckName;
+}
+
+-(void)setCkId:(NSString *)ckId
+{
+    _ckId = ckId;
+    _ckId = [_ckId stringByReplacingCharactersInRange:NSMakeRange(10, 4) withString:@"****"];
+    _idLB.text = _ckId;
+}
+
+-(void)setCkPhone:(NSString *)ckPhone
+{
+    _ckPhone = ckPhone;
+    _ckPhone = [_ckPhone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+    _phoneLB.text = _ckPhone;
 }
 
 -(void)buttonClickEvent:(UIButton *)button

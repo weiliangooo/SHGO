@@ -8,6 +8,11 @@
 
 #import "YHBaseViewController.h"
 
+@class CKListSingelModel;
 @interface CKEditCKMsgViewController : YHBaseViewController
+
+@property (nonatomic, copy)void (^SuccBlock)();
+
+-(instancetype)initWithData:(CKListSingelModel *)dataSoure;
 
 @end

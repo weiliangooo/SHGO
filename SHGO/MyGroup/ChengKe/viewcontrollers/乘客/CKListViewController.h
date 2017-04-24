@@ -15,11 +15,11 @@
 
 @interface CKListCell : UITableViewCell
 
-@property (nonatomic, strong) UILabel *nameLB;
+@property (nonatomic, strong) NSString *ckName;
 
-@property (nonatomic, strong) UILabel *idLB;
+@property (nonatomic, strong) NSString *ckId;
 
-@property (nonatomic, strong) UILabel *phoneLB;
+@property (nonatomic, strong) NSString *ckPhone;
 
 @property (nonatomic, strong) UIButton *changeBtn;
 

@@ -397,7 +397,7 @@
         if (i < _stCKData.count)
         {
             CKMsgModel *model = _stCKData[i];
-            CKBookCKSelectBtn * button = [[CKBookCKSelectBtn alloc] initWithFrame:CGRectMake(30*PROPORTION750+100*PROPORTION750*i, 29*PROPORTION750, 70*PROPORTION750, 30*PROPORTION750)];
+            CKBookCKSelectBtn * button = [[CKBookCKSelectBtn alloc] initWithFrame:CGRectMake(30*PROPORTION750+130*PROPORTION750*i, 29*PROPORTION750, 70*PROPORTION750, 30*PROPORTION750)];
             button.nameStr = model.ckName;
             button.isSelected = YES;
             button.delegate = self;
@@ -406,7 +406,7 @@
         }
         else
         {
-            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(150*PROPORTION750, 29*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
+            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750+130*PROPORTION750*i, 29*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
             [button setTitle:@"+" forState:UIControlStateNormal];
             [button setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
             [button addTarget:self action:@selector(buttonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
@@ -483,6 +483,7 @@
     }
     [_stCKData removeObjectAtIndex:btn.tag-100];
     btn.isSelected = NO;
+    [self setStCKData:_stCKData];
 }
 
 @end

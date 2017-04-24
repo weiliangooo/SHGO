@@ -182,49 +182,64 @@
 
 -(void)buttonClickEvent:(UIButton *)button
 {
-//    if (![Regular checkUserName:_nameTF.text])
-//    {
-//        [self toast:@"姓名填写错误"];
-//        return;
-//    }
-//    
-//    if (![Regular validateIdentityCard:_IdTF.text])
-//    {
-//        [self toast:@"身份证号填写错误"];
-//        return;
-//    }
-//    
-//    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-//                                   [MyHelperNO getUid], @"uid",
-//                                   _IdTF.text, @"passenger_number",
-//                                   _nameTF.text, @"passenger_name",
-//                                   [MyHelperNO getMyToken], @"token", nil];
-//    [self post:@"index/real_name" withParam:reqDic success:^(id responseObject) {
-//        
-//        int code = [responseObject intForKey:@"status"];
-//        NSLog(@"%@", responseObject);
-//        NSString *msg = [responseObject stringForKey:@"msg"];
-//        if (code == 200)
-//        {
-//            [USERDEFAULTS setObject:@"1" forKey:@"realName"];
-//            [self toast:@"提交成功"];
-//            [self performSelector:@selector(gotoCKMainViewController) withObject:nil afterDelay:1.5f];
-//        }
-//        else if (code == 300)
-//        {
-//            [self toast:@"身份认证已过期"];
-//            [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
-//        }
-//        else if (code == 400)
-//        {
-//            [self toast:msg];
-//        }
-//        
-//    } failure:^(NSError *error) {
-//        
-//    }];
+    [_nameTF resignFirstResponder];
+    [_IdTF resignFirstResponder];
+    [_phoneTF resignFirstResponder];
+    if (![Regular checkUserName:_nameTF.text])
+    {
+        [self toast:@"姓名填写错误"];
+        return;
+    }
+    
+    if (![Regular validateIdentityCard:_IdTF.text])
+    {
+        [self toast:@"身份证号填写错误"];
+        return;
+    }
+    
+    if (![Regular isMobileNumber:_phoneTF.text])
+    {
+        [self toast:@"手机号填写错误"];
+        return;
+    }
+    
+    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   _nameTF.text, @"passenger_name",
+                                   _IdTF.text, @"passenger_number",
+                                   _phoneTF.text, @"passenger_phone",
+                                   [MyHelperNO getUid], @"uid",
+                                   [MyHelperNO getMyToken], @"token", nil];
+    [self post:@"user/passenger_add" withParam:reqDic success:^(id responseObject) {
+        int code = [responseObject intForKey:@"status"];
+        NSLog(@"%@", responseObject);
+        NSString *msg = [responseObject stringForKey:@"msg"];
+        if (code == 200)
+        {
+            [self toast:@"提交成功"];
+            [self performSelector:@selector(saveSucc) withObject:nil afterDelay:1.5];
+        }
+        else if (code == 300)
+        {
+            [self toast:@"身份认证已过期"];
+            [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+        }
+        else if (code == 400)
+        {
+            [self toast:msg];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
     
 }
+
+-(void)saveSucc
+{
+    self.SuccBlock();
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 -(void)gotoCKMainViewController
 {
