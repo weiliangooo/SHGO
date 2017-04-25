@@ -144,6 +144,8 @@
                 [USERDEFAULTS setObject:[dic stringForKey:@"token"] forKey:@"token"];
                 [USERDEFAULTS setObject:[dic stringForKey:@"is_realname"] forKey:@"realName"];
                 [USERDEFAULTS setObject:[dic stringForKey:@"uid"] forKey:@"uid"];
+                [USERDEFAULTS setObject:[dic stringForKey:@"avatar"] forKey:@"headImage"];
+                [USERDEFAULTS setObject:_accountTF.myTextField.text forKey:@"mobilePhone"];
                 
                 if ([[responseObject objectForKey:@"data"] intForKey:@"is_realname"] == 2)
                 {

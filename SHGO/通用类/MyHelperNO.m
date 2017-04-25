@@ -68,7 +68,10 @@
 }
 
 
-
++(NSString *)getMyHeadImage
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"headImage"];
+}
 
 
 +(void)removeAllData

@@ -159,13 +159,13 @@
         _headView = [[UIImageView alloc] initWithFrame:CGRectMake(60*PROPORTION750, 100*PROPORTION750, 120*PROPORTION750, 120*PROPORTION750)];
         _headView.clipsToBounds = YES;
         _headView.layer.cornerRadius = 60*PROPORTION750;
-        _headView.image = [UIImage imageNamed:@"test001"];
+        [_headView sd_setImageWithURL:[NSURL URLWithString:[MyHelperNO getMyHeadImage]] placeholderImage:[UIImage imageNamed:@"default"]];
         _headView.userInteractionEnabled = YES;
         [_headView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headImgTapEvent:)]];
         [self addSubview:_headView];
         
         _phoneLB = [[UILabel alloc] initWithFrame:CGRectMake(_headView.right+100*PROPORTION750, 130*PROPORTION750, 200*PROPORTION750, 20*PROPORTION750)];
-        _phoneLB.text = @"130****5678";
+        _phoneLB.text = [[MyHelperNO getMyMobilePhone] stringByReplacingCharactersInRange:NSMakeRange(10, 4) withString:@"****"];
         _phoneLB.font = SYSF750(22);
         _phoneLB.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_phoneLB];

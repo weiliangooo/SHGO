@@ -14,7 +14,9 @@
 #import "XACameraController.h"
 
 @interface CKMsgChangeViewController ()<PopAleatViewDelegate,UIPickerViewDelegate, UIPickerViewDataSource>
-
+{
+    NSMutableArray *postArray;
+}
 @property (nonatomic, strong) UIImageView *headImg;
 
 @property (nonatomic, strong) UITextField *nameTF;
@@ -40,7 +42,7 @@
     _headImg = [[UIImageView alloc] initWithFrame:CGRectMake(40*PROPORTION750, 30*PROPORTION750, 120*PROPORTION750, 120*PROPORTION750)];
     _headImg.clipsToBounds = YES;
     _headImg.layer.cornerRadius = 60*PROPORTION750;
-    _headImg.image = [UIImage imageNamed:@"test001"];
+    [_headImg sd_setImageWithURL:[NSURL URLWithString:[MyHelperNO getMyHeadImage]] placeholderImage:[UIImage imageNamed:@"default"]];
     _headImg.userInteractionEnabled = YES;
     [_headImg addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headImageClickEvent:)]];
     [myView addSubview:_headImg];
@@ -57,7 +59,7 @@
     [myView addSubview:line];
     
     UILabel *tip2LB = [[UILabel alloc] initWithFrame:CGRectMake(40*PROPORTION750, line.bottom+32.5*PROPORTION750, 120*PROPORTION750, 35*PROPORTION750)];
-    tip2LB.text = @"昵称";
+    tip2LB.text = @"手机号";
     tip2LB.textColor = [UIColor colorWithHexString:@"#666666"];
     tip2LB.font = SYSF750(30);
     tip2LB.textAlignment = NSTextAlignmentLeft;
@@ -65,7 +67,8 @@
     
     _nameTF = [[UITextField alloc] initWithFrame:CGRectMake(tip2LB.right+30*PROPORTION750, line.bottom+32.5*PROPORTION750, 450*PROPORTION750, 35*PROPORTION750)];
     _nameTF.placeholder = @"请输入昵称";
-    _nameTF.text = @"可乐";
+    _nameTF.text = [[MyHelperNO getMyMobilePhone] stringByReplacingCharactersInRange:NSMakeRange(10, 4) withString:@"****"];
+    _nameTF.enabled = NO;
     _nameTF.textAlignment = NSTextAlignmentLeft;
     _nameTF.font = SYSF750(35);
     [myView addSubview:_nameTF];
@@ -88,7 +91,7 @@
         {
             [self presentViewController:[XACameraController cameraWithCaremaType:CameraTypeImage Completion:^(XAAssetData *result) {
                 if ([result isImageType]) {
-                    NSMutableArray *dataArr = [NSMutableArray array];
+                    postArray = [NSMutableArray array];
                     
                     XAAssetData *data = result;
                     _headImg.image = data.fullScreenImage;
@@ -111,7 +114,7 @@
                         picData.fileData = postData;
                         
                         NSLog(@"%lu", (unsigned long)postData.length);
-                        [dataArr addObject:picData];
+                        [postArray addObject:picData];
                     }
                 }
             } faile:^(NSError *error) {
@@ -131,7 +134,7 @@
             XAAssetData *resultData = [result objectAtIndex:0];
             _headImg.image = resultData.fullScreenImage;
             if ([resultData isImageType]) {
-                NSMutableArray *dataArr = [NSMutableArray array];
+                postArray = [NSMutableArray array];
                 
                 UploadFileData * picData = [[UploadFileData alloc]init];
                 if (resultData.fileData){
@@ -147,8 +150,9 @@
                     }
                     picData.fileData = postData;
                     picData.mimeType = resultData.MIMEType;
-                    [dataArr addObject:picData];
+                    [postArray addObject:picData];
                 }
+                
             }
             
         }];
@@ -158,6 +162,39 @@
 
 }
 
+-(void)rightBtn:(UIButton *)button
+{
+    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   [MyHelperNO getUid], @"uid",
+                                   [MyHelperNO getMyToken], @"token", nil];
+    [self POSTMultipartForm:@"user/avatar" param:reqDic files:postArray completion:^(id responseObject, NSError *error) {
+        int code = [responseObject intForKey:@"status"];
+        NSLog(@"%@", responseObject);
+        NSString *msg = [responseObject stringForKey:@"msg"];
+        if (code == 200)
+        {
+            [self toast:msg];
+            [USERDEFAULTS setObject:[responseObject stringForKey:@"data"] forKey:@"headImage"];
+            [self performSelector:@selector(exitCurrent) withObject:nil afterDelay:1.5f];
+        }
+        else if (code == 300)
+        {
+            [self toast:@"身份认证已过期"];
+            [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+        }
+        else if (code == 400)
+        {
+            [self toast:msg];
+        }
+    } progress:^(float progress) {
+        
+    }];
+}
+
+-(void)exitCurrent
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

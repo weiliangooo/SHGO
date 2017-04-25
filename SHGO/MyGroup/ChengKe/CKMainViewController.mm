@@ -19,6 +19,7 @@
 #import "CKSetUpViewController.h"
 #import "CKMsgChangeViewController.h"
 #import "SignAlertView.h"
+#import "CKMsgListViewController.h"
 
 @interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate>
 
@@ -113,7 +114,8 @@
 
 -(void)rightBtn:(UIButton *)button
 {
-    
+    CKMsgListViewController *viewController = [[CKMsgListViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma --mark CKPlaceTimeView 代理函数
@@ -712,6 +714,7 @@
     }
     else
     {
+        [_leftView.myTableHead.headView sd_setImageWithURL:[NSURL URLWithString:[MyHelperNO getMyHeadImage]] placeholderImage:[UIImage imageNamed:@"default"]];
         _maskView.hidden = NO;
         [UIView animateWithDuration:0.5f animations:^{
             _leftView.frame = CGRectMake(0, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);

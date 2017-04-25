@@ -313,6 +313,10 @@
 		F74F2BA81EAB3F0E006B2B27 /* WalletDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F2BA71EAB3F0E006B2B27 /* WalletDetailCell.m */; };
 		F74F2BAB1EAB44EE006B2B27 /* WalletDiscoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F2BAA1EAB44EE006B2B27 /* WalletDiscoutCell.m */; };
 		F75172081EA5D640007EC790 /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75172071EA5D640007EC790 /* ActivityModel.m */; };
+		F75C4C271EAED71800740030 /* WalletQuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C261EAED71800740030 /* WalletQuanModel.m */; };
+		F75C4C361EAF148100740030 /* CKMsgListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C351EAF148100740030 /* CKMsgListViewController.m */; };
+		F75C4C391EAF16B000740030 /* MsgListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C381EAF16B000740030 /* MsgListModel.m */; };
+		F75C4C3C1EAF3C4600740030 /* CKMsgDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C3B1EAF3C4600740030 /* CKMsgDetailViewController.m */; };
 		F761C2DD1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2DC1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m */; };
 		F761C2E01E98AAB600FCA6E3 /* CKWalletDQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2DF1E98AAB600FCA6E3 /* CKWalletDQuestionViewController.m */; };
 		F761C2E31E98AAD100FCA6E3 /* CKRedPackDRegularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2E21E98AAD100FCA6E3 /* CKRedPackDRegularViewController.m */; };
@@ -674,6 +678,14 @@
 		F74F2BAA1EAB44EE006B2B27 /* WalletDiscoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletDiscoutCell.m; sourceTree = "<group>"; };
 		F75172061EA5D640007EC790 /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
 		F75172071EA5D640007EC790 /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
+		F75C4C251EAED71800740030 /* WalletQuanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletQuanModel.h; sourceTree = "<group>"; };
+		F75C4C261EAED71800740030 /* WalletQuanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletQuanModel.m; sourceTree = "<group>"; };
+		F75C4C341EAF148100740030 /* CKMsgListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMsgListViewController.h; sourceTree = "<group>"; };
+		F75C4C351EAF148100740030 /* CKMsgListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMsgListViewController.m; sourceTree = "<group>"; };
+		F75C4C371EAF16B000740030 /* MsgListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgListModel.h; sourceTree = "<group>"; };
+		F75C4C381EAF16B000740030 /* MsgListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgListModel.m; sourceTree = "<group>"; };
+		F75C4C3A1EAF3C4600740030 /* CKMsgDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMsgDetailViewController.h; sourceTree = "<group>"; };
+		F75C4C3B1EAF3C4600740030 /* CKMsgDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMsgDetailViewController.m; sourceTree = "<group>"; };
 		F761C2DB1E98A8D800FCA6E3 /* CKRedPackDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRedPackDetailViewController.h; sourceTree = "<group>"; };
 		F761C2DC1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRedPackDetailViewController.m; sourceTree = "<group>"; };
 		F761C2DE1E98AAB600FCA6E3 /* CKWalletDQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKWalletDQuestionViewController.h; sourceTree = "<group>"; };
@@ -1507,6 +1519,8 @@
 			children = (
 				F74F2B9C1EAB33FE006B2B27 /* WalletMoneyModel.h */,
 				F74F2B9D1EAB33FE006B2B27 /* WalletMoneyModel.m */,
+				F75C4C251EAED71800740030 /* WalletQuanModel.h */,
+				F75C4C261EAED71800740030 /* WalletQuanModel.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -1876,6 +1890,10 @@
 				F7489B5F1E8C99A200CDBAEC /* CKOnTheWayViewController.m */,
 				F7B14F1B1EA4B91800D7CDB6 /* ResonForCancleViewController.h */,
 				F7B14F1C1EA4B91800D7CDB6 /* ResonForCancleViewController.m */,
+				F75C4C341EAF148100740030 /* CKMsgListViewController.h */,
+				F75C4C351EAF148100740030 /* CKMsgListViewController.m */,
+				F75C4C3A1EAF3C4600740030 /* CKMsgDetailViewController.h */,
+				F75C4C3B1EAF3C4600740030 /* CKMsgDetailViewController.m */,
 			);
 			path = ChengKe;
 			sourceTree = "<group>";
@@ -1924,6 +1942,8 @@
 				F73B0EA21E96413600FB468E /* CKSureOrderModel.m */,
 				F75172061EA5D640007EC790 /* ActivityModel.h */,
 				F75172071EA5D640007EC790 /* ActivityModel.m */,
+				F75C4C371EAF16B000740030 /* MsgListModel.h */,
+				F75C4C381EAF16B000740030 /* MsgListModel.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -2122,6 +2142,7 @@
 				F701C6C61E4844C2008ADFD6 /* CAAnimation+HCAnimation.m in Sources */,
 				F7F7D3ED1E8B8AD300BAD55F /* CKSendOrderViewController.m in Sources */,
 				F701C6DB1E4844C2008ADFD6 /* YHHelpper.m in Sources */,
+				F75C4C361EAF148100740030 /* CKMsgListViewController.m in Sources */,
 				F71275781E85215100238420 /* CKTimeSelectView.m in Sources */,
 				F701C80F1E4844E6008ADFD6 /* MJRefreshStateHeader.m in Sources */,
 				F701C86F1E4844E6008ADFD6 /* NSArrayExt.m in Sources */,
@@ -2164,6 +2185,7 @@
 				F701C8871E4844E6008ADFD6 /* UIViewExt.m in Sources */,
 				F701C87E1E4844E6008ADFD6 /* UIColor+ColorFrom16.m in Sources */,
 				F76D78091E9B6572003EFF67 /* ShareView.m in Sources */,
+				F75C4C391EAF16B000740030 /* MsgListModel.m in Sources */,
 				F70182011E8DED5000B28C59 /* PGSLeadViewController.m in Sources */,
 				F701C7EB1E4844E6008ADFD6 /* MJRefreshBackFooter.m in Sources */,
 				F761C2E01E98AAB600FCA6E3 /* CKWalletDQuestionViewController.m in Sources */,
@@ -2172,6 +2194,7 @@
 				F7B14F1D1EA4B91800D7CDB6 /* ResonForCancleViewController.m in Sources */,
 				F701C6CC1E4844C2008ADFD6 /* NoDataView.m in Sources */,
 				F701C84B1E4844E6008ADFD6 /* SDWebImageDecoder.m in Sources */,
+				F75C4C271EAED71800740030 /* WalletQuanModel.m in Sources */,
 				F701C6C91E4844C2008ADFD6 /* Frame.m in Sources */,
 				F7FD999E1E8B489F00A863DE /* CKBookCKSelectBtn.m in Sources */,
 				F71275751E84E2C600238420 /* CCMsgModel.m in Sources */,
@@ -2190,6 +2213,7 @@
 				F76D78A91E9B8158003EFF67 /* MD5DataSigner.m in Sources */,
 				F7C63F321E9788F5009EC70C /* CKWalletDetailViewController.m in Sources */,
 				F712757E1E88D90C00238420 /* CKBookView.m in Sources */,
+				F75C4C3C1EAF3C4600740030 /* CKMsgDetailViewController.m in Sources */,
 				F701C7AC1E4844E5008ADFD6 /* AFURLRequestSerialization.m in Sources */,
 				F761C2E61E98B3F100FCA6E3 /* CKDiscountViewController.m in Sources */,
 				F701C7A31E4844E5008ADFD6 /* AFNetworkReachabilityManager.m in Sources */,

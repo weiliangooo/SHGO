@@ -9,6 +9,7 @@
 #import "CKWalletViewController.h"
 #import "WalletMoneyModel.h"
 #import "WalletDetailViewController.h"
+#import "WalletQuanModel.h"
 
 @interface CKWalletViewController ()
 {
@@ -194,8 +195,33 @@
     }
     else
     {
-        WalletDetailViewController *viewController = [[WalletDetailViewController alloc] initWithType:walletType dataSource:nil];
-        [self.navigationController pushViewController:viewController animated:YES];
+        NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       [MyHelperNO getUid], @"uid",
+                                       [MyHelperNO getMyToken], @"token", nil];
+        [self post:@"user/coupon" withParam:reqDic success:^(id responseObject) {
+            int code = [responseObject intForKey:@"status"];
+            NSLog(@"%@", responseObject);
+            NSString *msg = [responseObject stringForKey:@"msg"];
+            if (code == 200)
+            {
+                NSArray *array = [NSArray arrayWithArray:[responseObject arrayForKey:@"data"]];
+                WalletQuanModel *model = [[WalletQuanModel alloc] initWithData:array];
+                WalletDetailViewController *viewController = [[WalletDetailViewController alloc] initWithType:walletType dataSource:model];
+                [self.navigationController pushViewController:viewController animated:YES];
+            }
+            else if (code == 300)
+            {
+                [self toast:@"身份认证已过期"];
+                [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+            }
+            else if (code == 400)
+            {
+                [self toast:msg];
+            }
+            
+        } failure:^(NSError *error) {
+            
+        }];
     }
     
 }

@@ -112,11 +112,8 @@
     }
     else if (flag == 2)
     {
-        if (_ckDiscoutView) {
-            _ckDiscoutView = nil;
-        }
         _ckDiscoutView = [[CKDiscoutSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT) data:_allActModels];
-        _ckDiscoutView.stActModel = [_stActModel mutableCopy];
+        _ckDiscoutView.stActModel = _stActModel;
         _ckDiscoutView.delegate = self;
     }
     

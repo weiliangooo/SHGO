@@ -7,6 +7,7 @@
 //
 
 #import "WalletDiscoutCell.h"
+#import "WalletQuanModel.h"
 
 @implementation WalletDiscoutCell
 
@@ -20,22 +21,20 @@
         bgImageView.image = [UIImage imageNamed:@"discout_Bg"];
         [self addSubview:bgImageView];
         
-        _titleLB = [[UILabel alloc] initWithFrame:CGRectMake(60*PROPORTION750, 32.5*PROPORTION750, 200*PROPORTION750, 40*PROPORTION750)];
-        _titleLB.text = @"优惠券";
-        _titleLB.font = SYSF750(40);
-        _titleLB.textAlignment = NSTextAlignmentLeft;
-        [self addSubview:_titleLB];
-        
-        _priceLB = [[UILabel alloc] initWithFrame:CGRectMake(370*PROPORTION750, 22.5*PROPORTION750, 240*PROPORTION750, 60*PROPORTION750)];
-        _priceLB.text = @"5.00¥";
-        _priceLB.font = SYSF750(60);
-        _priceLB.textAlignment = NSTextAlignmentRight;
+        _priceLB = [[UILabel alloc] initWithFrame:CGRectMake(60*PROPORTION750, 22.5*PROPORTION750, 200*PROPORTION750, 60*PROPORTION750)];
+        _priceLB.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_priceLB];
         
+        _titleLB = [[UILabel alloc] initWithFrame:CGRectMake(370*PROPORTION750, 32.5*PROPORTION750, 240*PROPORTION750, 40*PROPORTION750)];
+        _titleLB.textAlignment = NSTextAlignmentRight;
+        [self addSubview:_titleLB];
         
-        _timeLB = [[UILabel alloc] initWithFrame:CGRectMake(60*PROPORTION750, 135*PROPORTION750, 400*PROPORTION750, 25*PROPORTION750)];
-        _timeLB.text = @"有效期至2017-03-21";
-        _timeLB.textColor = [UIColor colorWithHexString:@"999999"];
+        _cityLB = [[UILabel alloc] initWithFrame:CGRectMake(60*PROPORTION750, 135*PROPORTION750, 400*PROPORTION750, 25*PROPORTION750)];
+        _cityLB.font = SYSF750(25);
+        _cityLB.textAlignment = NSTextAlignmentLeft;
+        [self addSubview:_cityLB];
+        
+        _timeLB = [[UILabel alloc] initWithFrame:CGRectMake(370*PROPORTION750, 135*PROPORTION750, 400*PROPORTION750, 25*PROPORTION750)];
         _timeLB.font = SYSF750(25);
         _timeLB.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_timeLB];
@@ -43,5 +42,13 @@
     return self;
 }
 
+-(void)setModel:(WalletQuanListModel *)model
+{
+    _model = model;
+    _priceLB.attributedText = _model.price;
+    _titleLB.attributedText = _model.title;
+    _cityLB.attributedText = _model.city;
+    _timeLB.attributedText = _model.end_time;
+}
 
 @end

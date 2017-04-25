@@ -12,7 +12,7 @@
 #import "WalletDetailCell.h"
 #import "WalletDiscoutCell.h"
 #import "WalletMoneyModel.h"
-
+#import "WalletQuanModel.h"
 
 @interface WalletDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -113,7 +113,7 @@
     }
     else
     {
-        return 10;
+        return ((WalletQuanModel *)_dataSource).listModels.count;
     }
 }
 
@@ -192,14 +192,28 @@
         view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 670*PROPORTION750, 90*PROPORTION750)];
         view.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
         
-        UIButton *tipBtn = [[UIButton alloc] initWithFrame:CGRectMake(520*PROPORTION750, 30*PROPORTION750, 150*PROPORTION750, 30*PROPORTION750)];
-        [tipBtn setImage:[UIImage imageNamed:@"regular_wallet"] forState:UIControlStateNormal];
-        [tipBtn setTitle:@"使用规则" forState:UIControlStateNormal];
-        [tipBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
-        tipBtn.titleLabel.textAlignment = NSTextAlignmentRight;
-        tipBtn.titleLabel.font = SYSF750(25);
-//        [tipBtn addTarget:self action:@selector(buttonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
-        [view addSubview:tipBtn];
+        if (((WalletQuanModel*)_dataSource).listModels.count == 0)
+        {
+            view.backgroundColor = [UIColor clearColor];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, view.width, view.height)];
+            label.text = @"暂无优惠券";
+            label.textColor = [UIColor colorWithHexString:@"999999"];
+            label.font = SYSF750(30);
+            label.textAlignment = NSTextAlignmentCenter;
+            [view addSubview:label];
+        }
+        else
+        {
+            UIButton *tipBtn = [[UIButton alloc] initWithFrame:CGRectMake(520*PROPORTION750, 30*PROPORTION750, 150*PROPORTION750, 30*PROPORTION750)];
+            [tipBtn setImage:[UIImage imageNamed:@"regular_wallet"] forState:UIControlStateNormal];
+            [tipBtn setTitle:@"使用规则" forState:UIControlStateNormal];
+            [tipBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
+            tipBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+            tipBtn.titleLabel.font = SYSF750(25);
+            //        [tipBtn addTarget:self action:@selector(buttonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
+            [view addSubview:tipBtn];
+        }
+        
     }
     
     
@@ -249,6 +263,9 @@
         {
             cell = [[WalletDiscoutCell alloc] init];
         }
+        WalletQuanListModel *model = [[WalletQuanListModel alloc] init];
+        model = ((WalletQuanModel *)_dataSource).listModels[indexPath.row];
+        cell.model = model;
         return cell;
     }
 }

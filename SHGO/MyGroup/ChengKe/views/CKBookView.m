@@ -430,7 +430,7 @@
     }
     else
     {
-        title = [NSString stringWithFormat:@"%@(没单优惠%@元)",_stActModel.actName,_stActModel.actPrice];
+        title = [NSString stringWithFormat:@"%@(每单优惠%@元)",_stActModel.actName,_stActModel.actPrice];
     }
     [self setDiscountString:title];
     [self refreshOther];

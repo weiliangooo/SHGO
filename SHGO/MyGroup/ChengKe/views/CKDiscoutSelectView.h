@@ -16,7 +16,6 @@
 
 @end
 
-@class CKDiscoutHeadView;
 @class CKDiscoutCell;
 @interface CKDiscoutSelectView : UIView <UITableViewDelegate, UITableViewDataSource>
 
@@ -29,13 +28,6 @@
 
 @end
 
-
-@interface CKDiscoutHeadView : UIView
-
-///点击返回的事件
-@property (nonatomic, copy) void (^backBlock)();
-
-@end
 
 
 @interface CKDiscoutCell : UITableViewCell

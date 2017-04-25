@@ -40,7 +40,7 @@
         
         self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
         _dataArray =  data;
-        CGFloat height = [self calTableViewHeightWithCellMaxNum:5 cellNum:_dataArray.count cellHeight:110*PROPORTION750 headerHeight:90*PROPORTION750 footHeight:0];
+        CGFloat height = [self calTableViewHeightWithCellMaxNum:5 cellNum:_dataArray.count cellHeight:110*PROPORTION750 headerHeight:90*PROPORTION750 footHeight:90*PROPORTION750];
         self.myTableView.frame = CGRectMake(0, self.height-height, self.width, height);
         [self addSubview:self.myTableView];
     }
@@ -60,15 +60,20 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    CKDiscoutHeadView *View = [[CKDiscoutHeadView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, 90*PROPORTION750)];
-    __weak typeof(self) weakSelf = self;
-    View.backBlock = ^(){
-        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(DiscoutSelectView:selectResult:)])
-        {
-            [weakSelf.delegate DiscoutSelectView:weakSelf selectResult:weakSelf.stActModel];
-        }
-    };
-    return View;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 90*PROPORTION750)];
+    view.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *titleLB = [[UILabel alloc] initWithFrame:CGRectMake(60*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-120*PROPORTION750, 30*PROPORTION750)];
+    titleLB.text = @"优惠活动";
+    titleLB.font = SYSF750(30);
+    titleLB.textAlignment = NSTextAlignmentCenter;
+    [view addSubview:titleLB];
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.height-2*PROPORTION750, AL_DEVICE_WIDTH, 2*PROPORTION750)];
+    line.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+    [view addSubview:line];
+    
+    return view;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -76,10 +81,37 @@
     return 90*PROPORTION750;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 90*PROPORTION750)];
+    view.backgroundColor = [UIColor whiteColor];
+    
+    UIButton *cancleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.width/2, 90*PROPORTION750)];
+    cancleBtn.tag = 100;
+    cancleBtn.backgroundColor = [UIColor colorWithHexString:@"#cccccc"];
+    [cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [cancleBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    cancleBtn.titleLabel.font = SYSF750(40);
+    [cancleBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:cancleBtn];
+    
+    UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.width/2, 0, self.width/2, 90*PROPORTION750)];
+    sureBtn.tag = 101;
+    sureBtn.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
+    [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    sureBtn.titleLabel.font = SYSF750(40);
+    [sureBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:sureBtn];
+    
+    return view;
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.05;
+    return 90*PROPORTION750;
 }
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -138,6 +170,18 @@
     }
 }
 
+-(void)buttonClickEvents:(UIButton *)button
+{
+    [self removeFromSuperview];
+    if (button.tag == 101)
+    {
+        if (_delegate && [_delegate respondsToSelector:@selector(DiscoutSelectView:selectResult:)])
+        {
+            [_delegate DiscoutSelectView:self selectResult:_stActModel];
+        }
+    }
+}
+
 -(CGFloat)calTableViewHeightWithCellMaxNum:(NSInteger)cellMaxNum
                                    cellNum:(NSInteger)cellNum
                                 cellHeight:(CGFloat)cellHeight
@@ -156,41 +200,6 @@
 
 @end
 
-
-@implementation CKDiscoutHeadView
-
--(instancetype)initWithFrame:(CGRect)frame
-{
-    if (self = [super initWithFrame:frame])
-    {
-        self.backgroundColor = [UIColor whiteColor];
-        
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 20*PROPORTION750, 30*PROPORTION750)];
-        [button setImage:[[UIImage imageNamed:@"rowback"] scaleImageByHeight:60*PROPORTION750] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(buttonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:button];
-        
-        UILabel *titleLB = [[UILabel alloc] initWithFrame:CGRectMake(60*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-120*PROPORTION750, 30*PROPORTION750)];
-        titleLB.text = @"优惠活动";
-        titleLB.font = SYSF750(30);
-        titleLB.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:titleLB];
-        
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.height-2*PROPORTION750, AL_DEVICE_WIDTH, 2*PROPORTION750)];
-        line.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
-        [self addSubview:line];
-        
-    }
-    return self;
-}
-
--(void)buttonClickEvent:(UIButton *)button
-{
-    self.backBlock();
-}
-
-
-@end
 
 
 @implementation CKDiscoutCell

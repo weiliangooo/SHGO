@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class WalletQuanListModel;
 @interface WalletDiscoutCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel *titleLB;
@@ -15,5 +16,9 @@
 @property (nonatomic, strong) UILabel *priceLB;
 
 @property (nonatomic, strong) UILabel *timeLB;
+
+@property (nonatomic, strong) UILabel *cityLB;
+
+@property (nonatomic, strong) WalletQuanListModel *model;
 
 @end

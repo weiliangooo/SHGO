@@ -36,6 +36,8 @@
 //真实姓名
 +(NSString *)getMyRealName;
 
+//用户图片
++(NSString *)getMyHeadImage;
 
 //移除userdefault 中所有数据
 +(void)removeAllData;
