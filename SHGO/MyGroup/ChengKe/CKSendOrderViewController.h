@@ -8,6 +8,15 @@
 
 #import "CKMapViewController.h"
 
+@class CKSureOrderModel;
 @interface CKSendOrderViewController : CKMapViewController
+
+@property (nonatomic, strong) CKSureOrderModel *dataSource;
+
+@property (nonatomic, strong) NSString *startEndCity;
+
+@property (nonatomic, strong) NSString *startTime; 
+
+@property (nonatomic, strong) NSString *orderNum;
 
 @end

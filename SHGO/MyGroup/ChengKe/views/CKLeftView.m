@@ -165,7 +165,7 @@
         [self addSubview:_headView];
         
         _phoneLB = [[UILabel alloc] initWithFrame:CGRectMake(_headView.right+100*PROPORTION750, 130*PROPORTION750, 200*PROPORTION750, 20*PROPORTION750)];
-        _phoneLB.text = [[MyHelperNO getMyMobilePhone] stringByReplacingCharactersInRange:NSMakeRange(10, 4) withString:@"****"];
+        _phoneLB.text = [[MyHelperNO getMyMobilePhone] stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
         _phoneLB.font = SYSF750(22);
         _phoneLB.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_phoneLB];

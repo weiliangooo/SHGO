@@ -90,7 +90,7 @@
     }
     else
     {
-        topString = @"我的优惠钱";
+        topString = @"我的优惠券";
         self.myTableView.frame = CGRectMake(40*PROPORTION750, 0, 670*PROPORTION750, AL_DEVICE_HEIGHT-64);
     }
     [self.view addSubview:self.myTableView];

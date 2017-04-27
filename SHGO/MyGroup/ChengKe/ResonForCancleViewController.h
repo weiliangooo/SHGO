@@ -10,6 +10,8 @@
 
 @interface ResonForCancleViewController : YHBaseViewController
 
+@property (nonatomic, strong) NSString *orderNum;
+
 @end
 
 
@@ -20,5 +22,7 @@
 @property (nonatomic, strong) UIImageView *checkView;
 
 @property (nonatomic, assign) BOOL isSelected;
+
+@property (nonatomic, copy) void (^selectBlock)();
 
 @end

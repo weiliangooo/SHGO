@@ -205,6 +205,11 @@
             if (code == 200)
             {
                 NSArray *array = [NSArray arrayWithArray:[responseObject arrayForKey:@"data"]];
+                if(array.count == 0)
+                {
+                    [self toast:@"您还没有优惠券"];
+                    return;
+                }
                 WalletQuanModel *model = [[WalletQuanModel alloc] initWithData:array];
                 WalletDetailViewController *viewController = [[WalletDetailViewController alloc] initWithType:walletType dataSource:model];
                 [self.navigationController pushViewController:viewController animated:YES];

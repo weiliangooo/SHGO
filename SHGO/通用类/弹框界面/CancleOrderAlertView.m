@@ -31,17 +31,9 @@
         
         UIImageView *tipImgView = [[UIImageView alloc]initWithFrame:CGRectMake(302.5*PROPORTION750, 30*PROPORTION750, 105*PROPORTION750, 105*PROPORTION750)];
         tipImgView.clipsToBounds = YES;
-        tipImgView.layer.cornerRadius = 57.5*PROPORTION750;
-        tipImgView.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
+        tipImgView.layer.cornerRadius = 52.5*PROPORTION750;
+        tipImgView.image = [UIImage imageNamed:@"alert_order_cancle"];
         [backView addSubview:tipImgView];
-        if(tipImage == nil)
-        {
-        
-        }
-        else
-        {
-            
-        }
         
         UILabel *tipLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 165*PROPORTION750, self.width, 30*PROPORTION750)];
         tipLB.text = title;

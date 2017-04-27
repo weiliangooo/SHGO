@@ -10,6 +10,7 @@
 #import "UIImage+ScalImage.h"
 #import "CancleOrderAlertView.h"
 #import "ResonForCancleViewController.h"
+#import "CKSureOrderModel.h"
 
 @interface CKSendOrderViewController ()<AlertClassDelegate>
 
@@ -29,7 +30,7 @@
     [self.view addSubview:msgView];
     
     UILabel * _startEndCityLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 298*PROPORTION750, 30*PROPORTION750)];
-    _startEndCityLB.text = @"合肥市——>桐城市";
+    _startEndCityLB.text = _startEndCity;
     _startEndCityLB.textColor = [UIColor colorWithHexString:@"#999999"];
     _startEndCityLB.font = SYSF750(30);
     [msgView addSubview:_startEndCityLB];
@@ -39,11 +40,12 @@
     [self.view addSubview:line1];
     
     UIImageView *timeImage = [[UIImageView alloc] initWithFrame:CGRectMake(line1.right+15*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
-    timeImage.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
+//    timeImage.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
+    timeImage.image = [UIImage imageNamed:@"time"];
     [msgView addSubview:timeImage];
     
     UILabel *timeLB = [[UILabel alloc]initWithFrame:CGRectMake(timeImage.right, 30*PROPORTION750, 305*PROPORTION750, 30*PROPORTION750)];
-    timeLB.text = @"今天（03-21）10:00 出发";
+    timeLB.text = [NSString stringWithFormat:@"%@ 出发",_startTime];
     timeLB.textColor = [UIColor colorWithHexString:@"#999999"];
     timeLB.font = SYSF750(25);
     [msgView addSubview:timeLB];
@@ -57,16 +59,16 @@
 //    msgLB.text = @"系统将于今天（03-21）10:00为您派单，并安排司机来接您。请留意手机提醒并保持手机畅通。";
     msgLB.font = SYSF750(25);
     msgLB.numberOfLines = 2;
-    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc] initWithString:@"系统将于今天（03-21）10:00为您派单，并安排司机来接您。请留意手机提醒并保持手机畅通。"];
+    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc] initWithString:@"系统预计将提前1小时为您派单，并安排司机来接您。请留意手机提醒并保持手机畅通。"];
     [AttributedStr addAttribute:NSForegroundColorAttributeName
                           value:[UIColor colorWithHexString:@"999999"]
-                          range:NSMakeRange(0, 4)];
+                          range:NSMakeRange(0, 5)];
     [AttributedStr addAttribute:NSForegroundColorAttributeName
                           value:[UIColor colorWithHexString:@"#1ead1a"]
-                          range:NSMakeRange(4, 14)];
+                          range:NSMakeRange(5, 5)];
     [AttributedStr addAttribute:NSForegroundColorAttributeName
                           value:[UIColor colorWithHexString:@"999999"]
-                          range:NSMakeRange(18, 29)];
+                          range:NSMakeRange(10, AttributedStr.length-10)];
     msgLB.attributedText = AttributedStr;
     [msgView addSubview:msgLB];
     
@@ -87,7 +89,7 @@
 
 -(void)canCleBtnClickEvent
 {
-    CancleOrderAlertView *alerView = [[CancleOrderAlertView alloc] initWithTipTitle:@"" TipImage:nil];
+    CancleOrderAlertView *alerView = [[CancleOrderAlertView alloc] initWithTipTitle:@"是否需要取消订单" TipImage:nil];
     alerView.delegate =self;
 }
 
@@ -97,6 +99,7 @@
     if (index == 100)
     {
         ResonForCancleViewController *viewController = [[ResonForCancleViewController alloc] init];
+        viewController.orderNum = _orderNum;
         [self.navigationController pushViewController:viewController animated:YES];
     }
     NSLog(@"%d",(int)index);

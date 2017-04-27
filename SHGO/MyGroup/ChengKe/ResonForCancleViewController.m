@@ -7,11 +7,15 @@
 //
 
 #import "ResonForCancleViewController.h"
+#import "CKMainViewController.h"
 
-
-@interface ResonForCancleViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface ResonForCancleViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
 {
     NSArray *titles;
+    
+    NSInteger selectTip;
+    
+    UITextView *textView;
 }
 @property (nonatomic, strong)UITableView *myTableView;
 
@@ -34,12 +38,37 @@
     return _myTableView;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //注册键盘出现的通知
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardWillShowNotification object:nil];
+    //注册键盘消失的通知
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.type = 1;
     self.topTitle = @"取消原因";
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+    
+    selectTip = 100;
     
     titles = @[@"行程有变，暂时不需要用车",@"信息填写错误，需要重新下单",@"赶时间，选择乘坐其他交通工具",@"联系不上司机",@"阿斯顿发撒的方式",@"112双方首发"];
     
@@ -57,7 +86,7 @@
     subBT.clipsToBounds = YES;
     subBT.layer.cornerRadius = 15.0f*PROPORTION750;
     subBT.tag = 101;
-//    [subBT addTarget:self action:@selector(bookBTClickEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [subBT addTarget:self action:@selector(subClickEvent) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:subBT];
     
     
@@ -113,8 +142,10 @@
     UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 710*PROPORTION750, 180*PROPORTION750)];
     backView.backgroundColor = [UIColor whiteColor];
     
-    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(40*PROPORTION750, 30*PROPORTION750, 630*PROPORTION750, 120*PROPORTION750)];
+    textView = [[UITextView alloc] initWithFrame:CGRectMake(40*PROPORTION750, 30*PROPORTION750, 630*PROPORTION750, 120*PROPORTION750)];
     textView.clipsToBounds = YES;
+//    textView.delegate = self;
+    textView.returnKeyType = UIReturnKeyDone;
     textView.layer.cornerRadius = 15*PROPORTION750;
     textView.layer.borderColor = [UIColor colorWithHexString:@"f4f4f4"].CGColor;
     textView.layer.borderWidth = 2*PROPORTION750;
@@ -137,9 +168,97 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.titleLB.text = titles[indexPath.row];
+    cell.selectBlock = ^(){
+        selectTip = indexPath.row;
+        [self.myTableView reloadData];
+    };
+    if (indexPath.row == selectTip)
+    {
+        cell.isSelected = YES;
+    }
+    else
+    {
+        cell.isSelected = NO;
+    }
     return cell;
 }
 
+-(void)keyboardWasShown:(NSNotification*)aNotification
+{
+    CGRect keyBoardFrame = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    if (keyBoardFrame.origin.y < self.myTableView.bottom)
+    {
+        [UIView animateWithDuration:1.0f animations:^{
+            self.view.frame = CGRectMake(0, -keyBoardFrame.origin.y+self.myTableView.bottom, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
+        }];
+    }
+}
+
+-(void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    [UIView animateWithDuration:1.0f animations:^{
+        self.view.frame = CGRectMake(0, 64, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
+    }];
+    
+}
+
+-(void)subClickEvent
+{
+    NSString *upTitle;
+    if (textView.text.length == 0)
+    {
+        if (selectTip == 100)
+        {
+            [self toast:@"请填写原因"];
+            return;
+        }
+        upTitle = titles[selectTip];
+    }
+    else
+    {
+        upTitle = textView.text;
+    }
+    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   _orderNum, @"order_sn",
+                                   upTitle,@"reason",
+                                   [MyHelperNO getUid], @"uid",
+                                   [MyHelperNO getMyToken], @"token", nil];
+    [self post:@"order/order_cansle" withParam:reqDic success:^(id responseObject) {
+        int code = [responseObject intForKey:@"status"];
+        NSLog(@"%@", responseObject);
+        NSString *msg = [responseObject stringForKey:@"msg"];
+        if (code == 200)
+        {
+            [self toast:@"提交成功"];
+            
+            [self performSelector:@selector(popToMainVC) withObject:nil afterDelay:1.5f];
+        }
+        else if (code == 300)
+        {
+            [self toast:@"身份认证已过期"];
+            [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+        }
+        else if (code == 400)
+        {
+            [self toast:msg];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+
+}
+
+-(void)popToMainVC
+{
+    for (YHBaseViewController *viewController in self.navigationController.viewControllers)
+    {
+        if ([viewController isKindOfClass:[CKMainViewController class]]) {
+            CKMainViewController *mainVC = (CKMainViewController *)viewController;
+            [self.navigationController popToViewController:mainVC animated:YES];
+        }
+    }
+}
 
 -(CGFloat)calTableViewHeightWithCellMaxNum:(NSInteger)cellMaxNum
                                    cellNum:(NSInteger)cellNum
@@ -203,14 +322,7 @@
 
 -(void)tapEvent
 {
-    if (_isSelected)
-    {
-        [self setIsSelected:NO];
-    }
-    else
-    {
-        [self setIsSelected:YES];
-    }
+    self.selectBlock();
 }
 
 -(void)setIsSelected:(BOOL)isSelected

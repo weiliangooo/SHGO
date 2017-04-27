@@ -67,7 +67,7 @@
     
     _nameTF = [[UITextField alloc] initWithFrame:CGRectMake(tip2LB.right+30*PROPORTION750, line.bottom+32.5*PROPORTION750, 450*PROPORTION750, 35*PROPORTION750)];
     _nameTF.placeholder = @"请输入昵称";
-    _nameTF.text = [[MyHelperNO getMyMobilePhone] stringByReplacingCharactersInRange:NSMakeRange(10, 4) withString:@"****"];
+    _nameTF.text = [[MyHelperNO getMyMobilePhone] stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
     _nameTF.enabled = NO;
     _nameTF.textAlignment = NSTextAlignmentLeft;
     _nameTF.font = SYSF750(35);
@@ -164,6 +164,10 @@
 
 -(void)rightBtn:(UIButton *)button
 {
+    if (postArray == nil)
+    {
+        return;
+    }
     NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    [MyHelperNO getUid], @"uid",
                                    [MyHelperNO getMyToken], @"token", nil];

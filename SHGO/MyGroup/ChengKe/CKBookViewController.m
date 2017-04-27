@@ -149,19 +149,72 @@
         NSLog(@"%@", responseObject);
         if (code == 200)
         {
-            
+//            NSDictionary *info = [_inputData objectForKey:@"info"];
+//            
+//            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+//            formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+//            [formatter setDateStyle:NSDateFormatterMediumStyle];
+//            [formatter setTimeStyle:NSDateFormatterShortStyle];
+//            [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+//            NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[[_inputData stringForKey:@"unix"] integerValue]];
+//            NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+//            
+//            CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
+//            viewController.startEndCity = [NSString stringWithFormat:@"%@——>%@", [info stringForKey:@"start_address_name"], [info stringForKey:@"end_address_name"]];
+//            viewController.startTime = confromTimespStr;
+//            viewController.orderNum = [responseObject objectForKey:@"data"];
+//            [self.navigationController pushViewController:viewController animated:YES];
+//            
+//            [_payView removeFromSuperview];
+
         }
         else if (code == 250)
         {
-        
+            ///线下下单成功
+//            [self toast:msg];
+            NSDictionary *info = [_inputData objectForKey:@"info"];
+            
+            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+            formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+            [formatter setDateStyle:NSDateFormatterMediumStyle];
+            [formatter setTimeStyle:NSDateFormatterShortStyle];
+            [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+            NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[[_inputData stringForKey:@"unix"] integerValue]];
+            NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+            
+            CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
+            viewController.startEndCity = [NSString stringWithFormat:@"%@——>%@", [info stringForKey:@"start_address_name"], [info stringForKey:@"end_address_name"]];
+            viewController.startTime = confromTimespStr;
+            viewController.orderNum = [responseObject objectForKey:@"data"];
+            [self.navigationController pushViewController:viewController animated:YES];
+            
+            [_payView removeFromSuperview];
         }
         else if (code == 350)
         {
-            
+            ///有未付款订单
+//            NSDictionary *info = [_inputData objectForKey:@"info"];
+//            
+//            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+//            formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+//            [formatter setDateStyle:NSDateFormatterMediumStyle];
+//            [formatter setTimeStyle:NSDateFormatterShortStyle];
+//            [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+//            NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[[_inputData stringForKey:@"unix"] integerValue]];
+//            NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+//            
+//            CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
+//            viewController.startEndCity = [NSString stringWithFormat:@"%@——>%@", [info stringForKey:@"start_address_name"], [info stringForKey:@"end_address_name"]];
+//            viewController.startTime = confromTimespStr;
+//            viewController.orderNum = [responseObject objectForKey:@"data"];
+//            [self.navigationController pushViewController:viewController animated:YES];
+//            
+//            [_payView removeFromSuperview];
+
         }
         else if (code == 360)
         {
-            
+            ///无法下单切换下一班次
         }
         else if (code == 300)
         {

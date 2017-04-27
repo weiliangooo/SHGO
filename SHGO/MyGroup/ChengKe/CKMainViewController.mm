@@ -123,7 +123,6 @@
 {
     if(flag == 100)
     {
-        _currentIsStart = YES;
         self.CKSPView.cityTF.placeholder = @"出发城市";
         if (_ccMsgModel.startPlaceModel.cityName.length == 0)
         {
@@ -155,7 +154,6 @@
     }
     else if (flag == 200)
     {
-        _currentIsStart = NO;
         self.CKSPView.cityTF.placeholder = @"到达城市";
         self.CKSPView.cityTF.text = @"";
         self.CKSPView.placeTF.text = @"";
@@ -283,14 +281,14 @@
 
 -(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView searchCity:(NSString *)searchCity keyWord:(NSString *)keyWord
 {
+    
     //发起检索
     BMKCitySearchOption *option = [[BMKCitySearchOption alloc]init];
     option.pageCapacity = 10;
     option.keyword = keyWord;
     option.city = searchCity;
-    option.requestPoiAddressInfoList = YES;
+    option.requestPoiAddressInfoList = NO;
     BOOL flag = [self.poiSearch poiSearchInCity:option];
-    
     if(flag)
     {
         NSLog(@"周边检索发送成功");
@@ -310,6 +308,7 @@
     
     if (CKSPView.preFlag == 1 || CKSPView.preFlag == 2)
     {
+        _currentIsStart = YES;
         self.ccMsgModel.startPlaceModel = locationModel;
         self.ptView.startPlaceTF.text = locationModel.address;
         self.startAnnotation.coordinate = locationModel.location;
@@ -322,6 +321,7 @@
     }
     else
     {
+        _currentIsStart = NO;
         self.ccMsgModel.endPlaceModel = locationModel;
         self.ptView.endPlaceTF.text = locationModel.address;
         self.endAnnotation.coordinate = locationModel.location;
@@ -348,7 +348,10 @@
         [addressArray removeAllObjects];
         for (BMKPoiInfo *objc in poiResult.poiInfoList)
         {
-            [addressArray addObject:objc];
+            if ([self isSupportCity:objc.city])
+            {
+                [addressArray addObject:objc];
+            }
         }
         [_CKSPView setDataArray:addressArray];
     }
@@ -777,8 +780,6 @@
     }
     return NO;
 }
-
-
 
 
 

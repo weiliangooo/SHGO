@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <BaiduMapAPI_Search/BMKPoiSearch.h>
-#import "CKCitysListModel.h"
-#import "PlaceModel.h"
+
 
 
 typedef enum : NSUInteger {
@@ -19,6 +18,8 @@ typedef enum : NSUInteger {
     DataSourceTypeBaidu = 2,     ///百度搜索返回的地点数据
 } DataSourceType;
 
+@class PlaceModel;
+@class CKCitysListModel;
 @class CKSearchPlaceView;
 @protocol CKSearchPlaceViewDelegate <NSObject>
 
@@ -48,7 +49,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSMutableArray *dataArray;
 ///从服务器获取的城市和热门地点的数据
 @property (nonatomic, strong) CKCitysListModel *defaultModel;
-@property (nonatomic, assign) DataSourceType typeOfData;
+@property (nonatomic, assign) DataSourceType typeOfData; 
 ///标示当前界面展示时的状态 1:选择出发地点 出发城市可用 2:选择出发地点 出发城市不可用 3:选择目的地点
 @property (nonatomic, assign) NSInteger preFlag;
 

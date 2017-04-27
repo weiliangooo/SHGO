@@ -7,6 +7,8 @@
 //
 
 #import "CKSearchPlaceView.h"
+#import "CKCitysListModel.h"
+#import "PlaceModel.h"
 
 @interface CKSearchPlaceView ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -14,18 +16,14 @@
 }
 
 @property (nonatomic, strong) UITableView *myTableView;
+///本地数据库的搜索历史数据
+@property (nonatomic, strong) NSMutableArray<PlaceModel *> *dbDataSoure;
+///当前要展示本地数据库的搜索历史数据
+@property (nonatomic, strong) NSMutableArray<PlaceModel *> *dbShowDataSoure;
 
 @end
 
 @implementation CKSearchPlaceView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 -(UITableView *)myTableView
 {
@@ -38,6 +36,14 @@
     }
     return _myTableView;
 }
+
+//-(NSMutableArray<PlaceModel *> *)dbDataSoure
+//{
+//    if (!_dbDataSoure) {
+//        _dbDataSoure = [NSMutableArray arrayWithArray:[[DBMake shareInstance] getPlaceHistory]];
+//    }
+//    return _dbDataSoure;
+//}
 
 
 -(instancetype)initWithFrame:(CGRect)frame
@@ -225,14 +231,28 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
-    cell.imageView.image = [UIImage imageNamed:@"ss"];
-    if (_typeOfData == 0)
+    if (_typeOfData == DataSourceTypeCity)
     {
         cell.textLabel.text = [_dataArray objectAtIndex:indexPath.row];
-        
+        cell.imageView.image = nil;
     }
-    else if (_typeOfData == 1 || _typeOfData == 2)
+    else if (_typeOfData == DataSourceTypeHot || _typeOfData == DataSourceTypeBaidu)
     {
+        if (_typeOfData == DataSourceTypeHot)
+        {
+            if (indexPath.row < _dbShowDataSoure.count)
+            {
+                cell.imageView.image = [UIImage imageNamed:@"p_history"];
+            }
+            else
+            {
+                cell.imageView.image = [UIImage imageNamed:@"p_hot"];
+            }
+        }
+        else
+        {
+            cell.imageView.image = [UIImage imageNamed:@"p_search"];
+        }
         PlaceModel *model = [_dataArray objectAtIndex:indexPath.row];
         cell.textLabel.text = model.address;
         cell.detailTextLabel.text = model.detailAddress;
@@ -257,10 +277,14 @@
     }
     else if(_typeOfData == 1 || _typeOfData == 2)
     {
+        PlaceModel *backModel = [[PlaceModel alloc] init];
+        backModel = [_dataArray objectAtIndex:indexPath.row];
+        if (_typeOfData == 1) {
+            [self.dbDataSoure addObject:backModel];
+            [[DBMake shareInstance] upDatePlace:[self.dbDataSoure mutableCopy]];
+        }
         if (_delegate && [_delegate respondsToSelector:@selector(CKSearchPlaceView:locationModel:)])
         {
-            PlaceModel *backModel = [[PlaceModel alloc] init];
-            backModel = [_dataArray objectAtIndex:indexPath.row];
             [_delegate CKSearchPlaceView:self locationModel:backModel];
         }
     }
@@ -327,6 +351,16 @@
                     }
                 }
             }
+            _dbDataSoure = [NSMutableArray arrayWithArray:[[DBMake shareInstance] getPlaceHistory]];
+            _dbShowDataSoure = [NSMutableArray array];
+            for (PlaceModel *model in _dbDataSoure)
+            {
+                if ([model.cityName isEqualToString:_cityTF.text])
+                {
+                    [_dbShowDataSoure addObject:model];
+                }
+            }
+            [_dataArray insertObjects:_dbShowDataSoure atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, _dbShowDataSoure.count)]];
         }
 
     }
@@ -336,7 +370,6 @@
         for (int i = 0; i<dataSource.count; i++)
         {
             BMKPoiInfo *dic = [dataSource objectAtIndex:i];
-            
             PlaceModel *backModel = [[PlaceModel alloc] init];
             backModel.cityName = _cityTF.text;
             backModel.address = dic.name;
