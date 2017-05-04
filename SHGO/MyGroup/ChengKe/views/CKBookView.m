@@ -319,6 +319,7 @@
 
 -(void)setCKNumString:(NSString *)CKNumString
 {
+    _CKNumString = CKNumString;
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:CKNumString];
     [string addAttribute:NSForegroundColorAttributeName
                     value:[UIColor blackColor]
@@ -336,6 +337,7 @@
 
 -(void)setPriceString:(NSString *)priceString
 {
+    _priceString = priceString;
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:priceString];
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, 3)];
     [string addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, 3)];
@@ -347,6 +349,7 @@
 
 -(void)setDiscountString:(NSString *)discountString
 {
+    _discountString = discountString;
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@>",discountString]];
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#ff4d00"] range:NSMakeRange(0, string.length-1)];
     [string addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, string.length-1)];
@@ -358,6 +361,7 @@
 
 -(void)setAmoutString:(NSString *)amoutString
 {
+    _amoutString = amoutString;
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:amoutString];
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, 3)];
     [string addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, 3)];
@@ -442,6 +446,7 @@
     {
         return;
     }
+    [self setCKNumString:[NSString stringWithFormat:@"共%d位乘客",(int)_stCKData.count]];
     double discountPrice = [_stActModel.actPrice doubleValue];
     if (_useWallet)
     {

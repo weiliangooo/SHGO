@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIFileSharingEnabled</key>
-	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -36,6 +34,14 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>tencent1106092284</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>haomaxmcx</string>
 			</array>
 		</dict>
 	</array>
@@ -86,6 +92,8 @@
 	<string>小马出行需要您的同意,才能在使用期间访问位置</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>小马出行需要您的同意,才能在使用相册</string>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

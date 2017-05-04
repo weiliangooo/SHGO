@@ -15,6 +15,7 @@
 #import "CKOnTheWayViewController.h"
 #import "CKPayView.h"
 #import "CKSureOrderModel.h"
+#import "PayViewController.h"
 
 @interface CKBookViewController ()<BMKMapViewDelegate,CKBookViewDelegate,CKBookMsgViewDelegate,CKPayViewDelegate,DiscoutSelectViewDelegate,BookCKSelectDetailViewDelegate>
 
@@ -98,7 +99,10 @@
 #pragma --mark CKBookView 代理
 -(void)CKBookViewClickSureBtn
 {
+    NSString *string = _bookView.ckBookMsgView.amoutLB.text;
+    string = [string substringFromIndex:3];
     _payView = [[CKPayView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
+    [_payView.payBtn setTitle:[NSString stringWithFormat:@"确认付款%@",string] forState:UIControlStateNormal];
     _payView.delegate = self;
 }
 
@@ -123,7 +127,9 @@
 #pragma --mark CKPayView 代理
 -(void)CKPayViwePayEventsWithFlag:(NSInteger)flag
 {
-//    [_payView removeFromSuperview];
+//    [[PayViewController shareManager] zhifubaoInit];
+    
+    [_payView removeFromSuperview];
 //    CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
 //    [self.navigationController pushViewController:viewController animated:YES];
     [self MySureOrderModel:flag];
@@ -148,25 +154,27 @@
         NSString *msg = [responseObject stringForKey:@"msg"];
         NSLog(@"%@", responseObject);
         if (code == 200)
-        {
-//            NSDictionary *info = [_inputData objectForKey:@"info"];
-//            
-//            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-//            formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
-//            [formatter setDateStyle:NSDateFormatterMediumStyle];
-//            [formatter setTimeStyle:NSDateFormatterShortStyle];
-//            [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-//            NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[[_inputData stringForKey:@"unix"] integerValue]];
-//            NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
-//            
-//            CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
-//            viewController.startEndCity = [NSString stringWithFormat:@"%@——>%@", [info stringForKey:@"start_address_name"], [info stringForKey:@"end_address_name"]];
-//            viewController.startTime = confromTimespStr;
-//            viewController.orderNum = [responseObject objectForKey:@"data"];
-//            [self.navigationController pushViewController:viewController animated:YES];
-//            
-//            [_payView removeFromSuperview];
-
+        {//微信
+            
+            
+        }
+        else if (code == 220)
+        {//支付宝
+            NSString *ordNum = [responseObject stringForKey:@"data"];
+            NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                           ordNum,@"order_sn",
+                                           [MyHelperNO getUid], @"uid",
+                                           [MyHelperNO getMyToken], @"token", nil];
+            [self post:@"order/ali_pay" withParam:reqDic success:^(id responseObject) {
+                int code = [responseObject intForKey:@"status"];
+                NSString *msg = [responseObject stringForKey:@"msg"];
+                NSLog(@"%@", responseObject);
+                if (code == 200) {
+                    [[PayViewController shareManager] zhifubaoInit:responseObject];
+                }
+            }failure:^(NSError *error) {
+                
+            }];
         }
         else if (code == 250)
         {
@@ -191,30 +199,12 @@
             [_payView removeFromSuperview];
         }
         else if (code == 350)
-        {
-            ///有未付款订单
-//            NSDictionary *info = [_inputData objectForKey:@"info"];
-//            
-//            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-//            formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
-//            [formatter setDateStyle:NSDateFormatterMediumStyle];
-//            [formatter setTimeStyle:NSDateFormatterShortStyle];
-//            [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-//            NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[[_inputData stringForKey:@"unix"] integerValue]];
-//            NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
-//            
-//            CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
-//            viewController.startEndCity = [NSString stringWithFormat:@"%@——>%@", [info stringForKey:@"start_address_name"], [info stringForKey:@"end_address_name"]];
-//            viewController.startTime = confromTimespStr;
-//            viewController.orderNum = [responseObject objectForKey:@"data"];
-//            [self.navigationController pushViewController:viewController animated:YES];
-//            
-//            [_payView removeFromSuperview];
-
+        {///有未付款订单
+            [self toast:@"您有一笔未付款订单"];
         }
         else if (code == 360)
-        {
-            ///无法下单切换下一班次
+        {///无法下单切换下一班次
+            [self toast:@"当前班次无法下单，请重新选择班次！"];
         }
         else if (code == 300)
         {

@@ -45,6 +45,8 @@
 ///签到和头像点击的回调函数 flag : 1 点击头像  2 点击签到按钮
 @property (nonatomic, copy)void (^leftHeadBlock)(NSInteger flag);
 
+-(void)setUpSignBtnStauts:(BOOL)isSelected;
+
 @end
 
 

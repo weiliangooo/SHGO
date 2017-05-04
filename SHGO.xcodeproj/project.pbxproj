@@ -299,6 +299,8 @@
 		F71275781E85215100238420 /* CKTimeSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = F71275771E85215100238420 /* CKTimeSelectView.m */; };
 		F712757B1E88AD1800238420 /* CKBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F712757A1E88AD1800238420 /* CKBookViewController.m */; };
 		F712757E1E88D90C00238420 /* CKBookView.m in Sources */ = {isa = PBXBuildFile; fileRef = F712757D1E88D90C00238420 /* CKBookView.m */; };
+		F712CD091EBAFD9300B67880 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F712CD081EBAFD9300B67880 /* UIKit.framework */; };
+		F712CD0B1EBAFDA600B67880 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F712CD0A1EBAFDA600B67880 /* Foundation.framework */; };
 		F73B0EA01E96197000FB468E /* CKDiscoutSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B0E9F1E96197000FB468E /* CKDiscoutSelectView.m */; };
 		F73B0EA31E96413600FB468E /* CKSureOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B0EA21E96413600FB468E /* CKSureOrderModel.m */; };
 		F73B80201E9721330005EC11 /* CKPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B801F1E9721330005EC11 /* CKPayView.m */; };
@@ -656,6 +658,8 @@
 		F712757A1E88AD1800238420 /* CKBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKBookViewController.m; sourceTree = "<group>"; };
 		F712757C1E88D90C00238420 /* CKBookView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKBookView.h; sourceTree = "<group>"; };
 		F712757D1E88D90C00238420 /* CKBookView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKBookView.m; sourceTree = "<group>"; };
+		F712CD081EBAFD9300B67880 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F712CD0A1EBAFDA600B67880 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F73B0E9E1E96197000FB468E /* CKDiscoutSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKDiscoutSelectView.h; sourceTree = "<group>"; };
 		F73B0E9F1E96197000FB468E /* CKDiscoutSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKDiscoutSelectView.m; sourceTree = "<group>"; };
 		F73B0EA11E96413600FB468E /* CKSureOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSureOrderModel.h; sourceTree = "<group>"; };
@@ -948,6 +952,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F712CD0B1EBAFDA600B67880 /* Foundation.framework in Frameworks */,
+				F712CD091EBAFD9300B67880 /* UIKit.framework in Frameworks */,
 				F76944101EB04C3D00A6F82A /* libsqlite3.tbd in Frameworks */,
 				F76D78B71E9B837F003EFF67 /* CoreMotion.framework in Frameworks */,
 				F76D78B51E9B836D003EFF67 /* CFNetwork.framework in Frameworks */,
@@ -1900,6 +1906,8 @@
 		F79F0C981E82227800EAD30B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F712CD0A1EBAFDA600B67880 /* Foundation.framework */,
+				F712CD081EBAFD9300B67880 /* UIKit.framework */,
 				F769440F1EB04C3D00A6F82A /* libsqlite3.tbd */,
 				F76D78B61E9B837F003EFF67 /* CoreMotion.framework */,
 				F76D78B41E9B836D003EFF67 /* CFNetwork.framework */,

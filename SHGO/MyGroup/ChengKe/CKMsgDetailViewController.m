@@ -37,10 +37,11 @@
     
     CGSize size = [self currentText:_model.msgContent textFont:SYSF750(30) maxSize:CGSizeMake(650*PROPORTION750, 600*PROPORTION750)];
     
-    UILabel * contentLB = [[UILabel alloc] initWithFrame:CGRectMake(tipLB.left+50*PROPORTION750, tipLB.bottom+30*PROPORTION750, size.width, size.height)];
+    UILabel * contentLB = [[UILabel alloc] initWithFrame:CGRectMake(tipLB.left, tipLB.bottom+30*PROPORTION750, size.width, size.height)];
     contentLB.text = _model.msgContent;
     contentLB.font = SYSF750(30);
     contentLB.textAlignment = NSTextAlignmentLeft;
+    contentLB.numberOfLines = 0;
     [backView addSubview:contentLB];
     
     backView.height = 120*PROPORTION750 + size.height;

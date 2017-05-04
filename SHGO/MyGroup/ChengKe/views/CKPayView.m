@@ -90,15 +90,15 @@
             [myView addSubview:cell];
         }
         
-        UIButton *payBtn = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, 405*PROPORTION750, self.width-60*PROPORTION750, 100*PROPORTION750)];
-        payBtn.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
-        payBtn.clipsToBounds = YES;
-        payBtn.layer.cornerRadius = 15*PROPORTION750;
-        [payBtn setTitle:@"确认付款¥15.50" forState:UIControlStateNormal];
-        payBtn.titleLabel.font = SYSF750(35);
-        payBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [payBtn addTarget:self action:@selector(payBtnClickEvent:) forControlEvents:UIControlEventTouchUpInside];
-        [myView addSubview:payBtn];
+        _payBtn = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, 405*PROPORTION750, self.width-60*PROPORTION750, 100*PROPORTION750)];
+        _payBtn.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
+        _payBtn.clipsToBounds = YES;
+        _payBtn.layer.cornerRadius = 15*PROPORTION750;
+        [_payBtn setTitle:@"确认付款¥15.50" forState:UIControlStateNormal];
+        _payBtn.titleLabel.font = SYSF750(35);
+        _payBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [_payBtn addTarget:self action:@selector(payBtnClickEvent:) forControlEvents:UIControlEventTouchUpInside];
+        [myView addSubview:_payBtn];
         
     }
     return self;

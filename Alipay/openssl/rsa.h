@@ -61,8 +61,6 @@
 
 #include <openssl/asn1.h>
 
-//#include "asn1.h"
-
 #ifndef OPENSSL_NO_BIO
 #include <openssl/bio.h>
 #endif

@@ -75,6 +75,8 @@
 
 @property (nonatomic, assign) BOOL useWallet;
 
+
+
 -(instancetype)initWithFrame:(CGRect)frame inputData:(NSDictionary *)inputData;
 
 @end

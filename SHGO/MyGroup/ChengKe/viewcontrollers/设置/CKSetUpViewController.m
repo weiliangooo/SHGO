@@ -26,7 +26,7 @@
 {
     if (!_myTableView)
     {
-        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 450*PROPORTION750) style:UITableViewStylePlain];
+        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 360*PROPORTION750) style:UITableViewStylePlain];
         _myTableView.backgroundColor = [UIColor whiteColor];
         _myTableView.clipsToBounds = YES;
         _myTableView.layer.cornerRadius = 15*PROPORTION750;
@@ -46,9 +46,20 @@
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     
-    titles = @[@"账号与安全",@"分享有礼",@"小马帮助",@"法律条款",@"关于我们"];
+    titles = @[@"分享有礼",@"小马帮助",@"法律条款",@"关于我们"];
  
     [self.view addSubview:self.myTableView];
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(20*PROPORTION750, _myTableView.bottom+60*PROPORTION750, 710*PROPORTION750, 90*PROPORTION750)];
+    button.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
+    button.clipsToBounds = YES;
+    button.layer.cornerRadius = 15*PROPORTION750;
+    [button setTitle:@"退出登录" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    button.titleLabel.font = SYSF750(40);
+    button.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [button addTarget:self action:@selector(exitBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -96,19 +107,19 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
-        case 0:
+        case 100:
         {
             CKSUAcountSecurityViewController *viewController = [[CKSUAcountSecurityViewController  alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
-        case 1:
+        case 0:
         {
             CKShareViewController *viewController = [[CKShareViewController  alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
-        case 2:
+        case 1:
         {
             HelpViewController *viewController = [[HelpViewController  alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
@@ -118,6 +129,11 @@
         default:
             break;
     }
+}
+
+-(void)exitBtnClick:(UIButton *)button
+{
+    [self gotoLoginViewController];
 }
 
 

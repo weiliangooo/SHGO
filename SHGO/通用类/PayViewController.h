@@ -12,7 +12,7 @@
 
 #import "Order.h"
 #import <AlipaySDK/AlipaySDK.h>
-#import "DataSigner.h"
+//#import "DataSigner.h"
 
 #import "WXApi.h"
 
@@ -35,20 +35,13 @@
 
 +(PayViewController *)shareManager;
 
+-(void)zhifubaoInit;
+
 -(void)zhifubaoInit:(id)responseObject;
 
 -(void)weinxinInit:(id)responseObject;
 
 
-////获取当前的debug信息
-//-(NSString *) getDebugInfo;
-//
-////获取预支付订单信息（核心是一个prepayID）
-//- (NSMutableDictionary*)getPrepayWithOrderName:(NSString *)name
-//                                         price:(NSString *)price
-//                                      payOrder:(NSString *)pay_sn;
-//
-//
-//-(void)checkOrder:(NSString *)paySN payBy:(NSString *)payClient;
+
 
 @end

@@ -279,10 +279,10 @@
     {
         PlaceModel *backModel = [[PlaceModel alloc] init];
         backModel = [_dataArray objectAtIndex:indexPath.row];
-        if (_typeOfData == 1) {
+//        if (_typeOfData == 1) {
             [self.dbDataSoure addObject:backModel];
             [[DBMake shareInstance] upDatePlace:[self.dbDataSoure mutableCopy]];
-        }
+//        }
         if (_delegate && [_delegate respondsToSelector:@selector(CKSearchPlaceView:locationModel:)])
         {
             [_delegate CKSearchPlaceView:self locationModel:backModel];

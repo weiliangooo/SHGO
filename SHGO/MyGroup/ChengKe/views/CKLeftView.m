@@ -191,13 +191,9 @@
 
 -(void)signBtnClickEvent:(UIButton *)button
 {
-//    if (!button.selected)
-//    {
-//        button.selected = YES;
-//        _signBtn.backgroundColor = [UIColor colorWithHexString:@"#e9ede9"];
-//    }
-    self.leftHeadBlock(2);
-    
+    if (!button.selected) {
+        self.leftHeadBlock(2);
+    }
 }
 
 -(void)headImgTapEvent:(UITapGestureRecognizer *)tap
@@ -207,6 +203,7 @@
 
 -(void)setUpSignBtnStauts:(BOOL)isSelected
 {
+    [_signBtn setSelected:isSelected];
     if (isSelected)
     {
         _signBtn.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];

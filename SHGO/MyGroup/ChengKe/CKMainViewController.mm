@@ -699,7 +699,34 @@
                     
                     _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
                     _maskView.hidden = YES;
-                    SignAlertView *alerView = [[SignAlertView alloc] initWithTipTitle:@"获得红包5.00元"];
+                    
+                    NSMutableDictionary *reqDic= [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                  [MyHelperNO getUid], @"uid",
+                                                  [MyHelperNO getMyToken], @"token", nil];
+                    [self post:@"user/sign" withParam:reqDic success:^(id responseObject) {
+                        int code = [responseObject intForKey:@"status"];
+                        NSString *msg = [responseObject stringForKey:@"msg"];
+                        NSLog(@"%@", responseObject);
+                        if (code == 200)
+                        {
+                            [_leftView.myTableHead setUpSignBtnStauts:true];
+                            SignAlertView *alerView = [[SignAlertView alloc] initWithTipTitle:[NSString stringWithFormat:@"获得红包%@元", [responseObject stringForKey:@"data"]]];
+                        }
+                        else if (code == 300)
+                        {
+                            [self toast:@"身份认证已过期"];
+                            [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+                        }
+                        else if (code == 400)
+                        {
+                            [_leftView.myTableHead setUpSignBtnStauts:true];
+                            [self toast:msg];
+                        }
+                    } failure:^(NSError *error) {
+                        
+                    }];
+
+                    
                 }
                     break;
                     

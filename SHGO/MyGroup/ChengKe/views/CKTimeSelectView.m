@@ -174,6 +174,9 @@
     }
     else
     {
+        if (timeArray.count == 0) {
+            return;
+        }
         [[timeArray objectAtIndex:row] stringForKey:@"start_time"];
     }
 }

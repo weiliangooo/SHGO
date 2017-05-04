@@ -20,6 +20,7 @@
 @interface CKPayView : UIView
 
 @property (nonatomic, assign) id<CKPayViewDelegate> delegate;
+@property (nonatomic, strong) UIButton *payBtn;
 
 @end
 
