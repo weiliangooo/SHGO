@@ -42,30 +42,27 @@
 
 @implementation CKMainViewController
 
--(void)viewWillAppear:(BOOL)animated
-{
+-(void)viewWillAppear:(BOOL)animated{
     [_mapView viewWillAppear];
     [self.navigationController.navigationBar setTranslucent:false];
-    _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
+    // 此处记得不用的时候需要置nil，否则影响内存的释放
+    _mapView.delegate = self;
 }
 
-
--(void)viewWillDisappear:(BOOL)animated
-{
+-(void)viewWillDisappear:(BOOL)animated{
     [_mapView viewWillDisappear];
-    _mapView.delegate = nil; // 不用时，置nil
+    _mapView.delegate = nil;
 }
 
-//懒加载baidu poi搜索
--(BMKPoiSearch *)poiSearch
-{
-    if (!_poiSearch)
-    {
+#pragma --mark 懒加载
+-(BMKPoiSearch *)poiSearch{
+    if (!_poiSearch){
         _poiSearch = [[BMKPoiSearch alloc] init];
         _poiSearch.delegate =self;
     }
     return _poiSearch;
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -210,14 +207,12 @@
                 _ckTimeSelectView.CKTimeSelectBlock = ^(BOOL isCancle, NSString *timeStr, NSString *timeId){
                     if (!isCancle)
                     {
-                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-                        NSDate* date = [formatter dateFromString:timeStr];
-                        NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[date timeIntervalSince1970]];
-                        weakSelf.ccMsgModel.aboardTime = timeSp;
+                        NSString *timeSp = [MyHelperTool normalTimeToTimeSP:timeStr];
+//                        weakSelf.ccMsgModel.aboardTime = timeSp;
                         
-                        NSString *startLocal = [weakSelf.ccMsgModel.startPlaceModel locationToString];
-                        NSString *endLocal = [weakSelf.ccMsgModel.endPlaceModel locationToString];
+                        NSString *startLocal = [MyHelperTool locationCoordinateToLocationString:weakSelf.ccMsgModel.startPlaceModel.location];
+                        NSString *endLocal = [MyHelperTool locationCoordinateToLocationString:weakSelf.ccMsgModel.endPlaceModel.location];
+
                         NSMutableDictionary *reqDic2 = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                        timeSp, @"choose_time",
                                                        timeId, @"banci_id",
@@ -808,21 +803,9 @@
     return NO;
 }
 
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

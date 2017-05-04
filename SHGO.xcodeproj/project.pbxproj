@@ -301,6 +301,7 @@
 		F712757E1E88D90C00238420 /* CKBookView.m in Sources */ = {isa = PBXBuildFile; fileRef = F712757D1E88D90C00238420 /* CKBookView.m */; };
 		F712CD091EBAFD9300B67880 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F712CD081EBAFD9300B67880 /* UIKit.framework */; };
 		F712CD0B1EBAFDA600B67880 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F712CD0A1EBAFDA600B67880 /* Foundation.framework */; };
+		F712CD0E1EBB208900B67880 /* MyHelperTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F712CD0D1EBB208900B67880 /* MyHelperTool.m */; };
 		F73B0EA01E96197000FB468E /* CKDiscoutSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B0E9F1E96197000FB468E /* CKDiscoutSelectView.m */; };
 		F73B0EA31E96413600FB468E /* CKSureOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B0EA21E96413600FB468E /* CKSureOrderModel.m */; };
 		F73B80201E9721330005EC11 /* CKPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B801F1E9721330005EC11 /* CKPayView.m */; };
@@ -660,6 +661,8 @@
 		F712757D1E88D90C00238420 /* CKBookView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKBookView.m; sourceTree = "<group>"; };
 		F712CD081EBAFD9300B67880 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F712CD0A1EBAFDA600B67880 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F712CD0C1EBB208900B67880 /* MyHelperTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHelperTool.h; sourceTree = "<group>"; };
+		F712CD0D1EBB208900B67880 /* MyHelperTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelperTool.m; sourceTree = "<group>"; };
 		F73B0E9E1E96197000FB468E /* CKDiscoutSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKDiscoutSelectView.h; sourceTree = "<group>"; };
 		F73B0E9F1E96197000FB468E /* CKDiscoutSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKDiscoutSelectView.m; sourceTree = "<group>"; };
 		F73B0EA11E96413600FB468E /* CKSureOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSureOrderModel.h; sourceTree = "<group>"; };
@@ -1477,6 +1480,8 @@
 				F70182001E8DED5000B28C59 /* PGSLeadViewController.m */,
 				F7A08EC51EA7837A000F41CC /* MyWebViewController.h */,
 				F7A08EC61EA7837A000F41CC /* MyWebViewController.m */,
+				F712CD0C1EBB208900B67880 /* MyHelperTool.h */,
+				F712CD0D1EBB208900B67880 /* MyHelperTool.m */,
 			);
 			path = "通用类";
 			sourceTree = "<group>";
@@ -2279,6 +2284,7 @@
 				F701C7AC1E4844E5008ADFD6 /* AFURLRequestSerialization.m in Sources */,
 				F761C2E61E98B3F100FCA6E3 /* CKDiscountViewController.m in Sources */,
 				F701C7A31E4844E5008ADFD6 /* AFNetworkReachabilityManager.m in Sources */,
+				F712CD0E1EBB208900B67880 /* MyHelperTool.m in Sources */,
 				F712756C1E83B99300238420 /* CKRealNameViewController.m in Sources */,
 				F701C6CF1E4844C2008ADFD6 /* XAClient.m in Sources */,
 				F73FCC9A1EA87CAC00EB45CD /* OrderListModel.m in Sources */,
@@ -2682,6 +2688,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = HA8YBCBL7M;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SHGO/MyGroup/ThridSDK",
@@ -2720,6 +2727,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: meiling Sun (54B77Z8WJ5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = HA8YBCBL7M;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SHGO/MyGroup/ThridSDK",

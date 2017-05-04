@@ -23,12 +23,12 @@
         _orderStatus = [dataSource stringForKey:@"status"];
         PlaceModel *start = [[PlaceModel alloc] init];
         start.address = [dataSource stringForKey:@"start_name"];
-        start.location = [start stringToLocation:[dataSource stringForKey:@"start_local"]];
+        start.location = [MyHelperTool locationStringToLocationCoordinate:[dataSource stringForKey:@"start_local"]];
         _startPlace = start;
         
         PlaceModel *end = [[PlaceModel alloc] init];
         end.address = [dataSource stringForKey:@"end_name"];
-        end.location = [start stringToLocation:[dataSource stringForKey:@"end_local"]];
+        end.location = [MyHelperTool locationStringToLocationCoordinate:[dataSource stringForKey:@"end_local"]];
         _endPlace = end;
         
         NSArray *array = [dataSource arrayForKey:@"passenger_name"];

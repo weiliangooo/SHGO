@@ -346,7 +346,7 @@
                         myModel.cityName = model.cityName;
                         myModel.address = hotModel.place_name;
                         myModel.detailAddress = hotModel.place_address;
-                        myModel.location = [myModel stringToLocation:hotModel.local];
+                        myModel.location = [MyHelperTool locationStringToLocationCoordinate:hotModel.local];
                         [_dataArray addObject:myModel];
                     }
                 }

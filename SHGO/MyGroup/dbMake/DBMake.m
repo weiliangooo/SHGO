@@ -54,7 +54,7 @@
         array = [self filterdPlaceData:array];
         for (PlaceModel *model in array)
         {
-            [[self myDB] executeUpdate:@"INSERT INTO placetable (cityname, address, detailaddress, location) VALUES (?,?,?,?);",model.cityName,model.address,model.detailAddress,[model locationToString]];
+            [[self myDB] executeUpdate:@"INSERT INTO placetable (cityname, address, detailaddress, location) VALUES (?,?,?,?);",model.cityName,model.address,model.detailAddress,[MyHelperTool locationCoordinateToLocationString:model.location]];
         }
     }
     else
@@ -75,7 +75,7 @@
         model.cityName = [resultSet stringForColumn:@"cityname"];
         model.address = [resultSet stringForColumn:@"address"];
         model.detailAddress = [resultSet stringForColumn:@"detailaddress"];
-        model.location = [model stringToLocation:[resultSet stringForColumn:@"location"]];
+        model.location = [MyHelperTool locationStringToLocationCoordinate:[resultSet stringForColumn:@"location"]];
         [array addObject:model];
     }
     [[self myDB] close];
@@ -92,7 +92,7 @@
         {
             PlaceModel *model2 = [[PlaceModel alloc] init];
             model2 = dataSource[j];
-            if ([[model1 locationToString] isEqualToString:[model2 locationToString]])
+            if ([[MyHelperTool locationCoordinateToLocationString:model1.location] isEqualToString:[MyHelperTool locationCoordinateToLocationString:model2.location]])
             {
                 [dataSource removeObjectAtIndex:j];
                 break;

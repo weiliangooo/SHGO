@@ -12,13 +12,11 @@
 #import "PlaceModel.h"
 
 @interface CCMsgModel : NSObject
-
+///记录出发地点
 @property (nonatomic, strong)PlaceModel *startPlaceModel;
-
+///记录目的地点
 @property (nonatomic, strong)PlaceModel *endPlaceModel;
-
-@property (nonatomic, strong)NSString *aboardTime;
-
+//乘客数据
 @property (nonatomic, strong)NSMutableArray <CKMsgModel *>* aboardPeople;
 
 @end
