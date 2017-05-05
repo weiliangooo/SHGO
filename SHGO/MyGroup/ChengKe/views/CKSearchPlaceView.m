@@ -37,15 +37,6 @@
     return _myTableView;
 }
 
-//-(NSMutableArray<PlaceModel *> *)dbDataSoure
-//{
-//    if (!_dbDataSoure) {
-//        _dbDataSoure = [NSMutableArray arrayWithArray:[[DBMake shareInstance] getPlaceHistory]];
-//    }
-//    return _dbDataSoure;
-//}
-
-
 -(instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame])
@@ -172,9 +163,13 @@
 
 - (void)textFieldDidChangeValue:(id)sender
 {
-    if (_delegate && [_delegate respondsToSelector:@selector(CKSearchPlaceView:searchCity:keyWord:)])
-    {
-        [_delegate CKSearchPlaceView:self searchCity:_cityTF.text keyWord:_placeTF.text];
+    if (_placeTF.isFirstResponder && _placeTF.text.length == 0) {
+        [self setTypeOfData:DataSourceTypeHot dataSource:nil];
+    }else{
+        if (_delegate && [_delegate respondsToSelector:@selector(CKSearchPlaceView:searchCity:keyWord:)])
+        {
+            [_delegate CKSearchPlaceView:self searchCity:_cityTF.text keyWord:_placeTF.text];
+        }
     }
 }
 
