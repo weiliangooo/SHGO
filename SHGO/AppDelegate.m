@@ -120,7 +120,7 @@
 - (void)configUSharePlatforms
 {
     /* 设置微信的appKey和appSecret */
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx96f0e15a8ab1ac0e" appSecret:@"a1349a4dde5775d00e4e563f93f48dc4" redirectURL:@"http://mobile.umeng.com/social"];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx6c8ba4f0f1cdd17f" appSecret:@"23f1af939161e7009af95b9ac62f235f" redirectURL:@"http://mobile.umeng.com/social"];
     /*
      * 移除相应平台的分享，如微信收藏
      */

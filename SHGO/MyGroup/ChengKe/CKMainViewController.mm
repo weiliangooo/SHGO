@@ -33,7 +33,7 @@
 @property (nonatomic, strong)BMKLocationService *locService;
 ///搜索位置时，显示的view
 @property (nonatomic, strong)CKSearchPlaceView *CKSPView;
-///搜索当前位置类，返回的是地点名称
+//百度搜索服务类
 @property (nonatomic, strong)BMKPoiSearch *poiSearch;
 ///选择时间的view
 @property (nonatomic, strong)CKTimeSelectView *ckTimeSelectView;
@@ -54,13 +54,20 @@
     _mapView.delegate = nil;
 }
 
-#pragma --mark 懒加载
--(BMKPoiSearch *)poiSearch{
-    if (!_poiSearch){
-        _poiSearch = [[BMKPoiSearch alloc] init];
-        _poiSearch.delegate =self;
-    }
-    return _poiSearch;
+///初始化数据
+-(void)myInit{
+    _poiSearch = [[BMKPoiSearch alloc] init];
+    _poiSearch.delegate =self;
+    
+    _ccMsgModel = [[CCMsgModel alloc] init];
+    
+    _currentIsStart = YES;
+    
+    _startAnnotation = [[BMKPointAnnotation alloc]init];
+    _startAnnotation.title = @"起点";
+    
+    _endAnnotation = [[BMKPointAnnotation alloc]init];
+    _endAnnotation.title = @"终点";
 }
 
 
@@ -72,8 +79,7 @@
     [self.rightBtn setImage:[UIImage imageNamed:@"right_msg"] forState:UIControlStateNormal];
     self.topTitle = @"小马出行";
     
-    _ccMsgModel = [[CCMsgModel alloc] init];
-    _currentIsStart = YES;
+    [self myInit];
     
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
     _mapView.zoomLevel = 17;
@@ -81,26 +87,18 @@
     _mapView.zoomEnabledWithTap = NO;
     _mapView.overlookEnabled = NO;
     _mapView.rotateEnabled = NO;
-//    _mapView.trafficEnabled = YES;
     _mapView.delegate = self;
     self.view = _mapView;
-    
-    _startAnnotation = [[BMKPointAnnotation alloc]init];
-    _startAnnotation.title = @"起点";
-    
-    _endAnnotation = [[BMKPointAnnotation alloc]init];
-    _endAnnotation.title = @"终点";
-    
 
     _CKSPView = [[CKSearchPlaceView alloc] initWithFrame:CGRectMake(0, AL_DEVICE_HEIGHT, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
     _CKSPView.delegate = self;
     AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [de.window addSubview:_CKSPView];
-
+    
     _ptView = [[CKPlaceTimeView alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 690*PROPORTION750, 300*PROPORTION750)];
     _ptView.delegate = self;
     [self.view addSubview:_ptView];
-
+    
     [self requestForPlaces];
 }
 
@@ -146,7 +144,6 @@
             {
                 [self.CKSPView.placeTF becomeFirstResponder];
             }
-            
         }];
     }
     else if (flag == 200)
@@ -176,20 +173,19 @@
             return ;
         }
         
-        NSString *startCityId = [self getCityIdWithCityName:_ccMsgModel.startPlaceModel.cityName];
+        NSString *startCityId = [self getCityIdWithCityName:_ccMsgModel.startPlaceModel];
         if (startCityId == nil)
         {
             [self toast:@"出发城市选择暂不支持"];
             return;
         }
         
-        NSString *endCityId = [self getCityIdWithCityName:_ccMsgModel.endPlaceModel.cityName];
+        NSString *endCityId = [self getCityIdWithCityName:_ccMsgModel.endPlaceModel];
         if (endCityId == nil)
         {
             [self toast:@"目的城市选择暂不支持"];
             return;
         }
-        
         
         NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        startCityId, @"start_address",
@@ -303,7 +299,6 @@
     
     if (CKSPView.preFlag == 1 || CKSPView.preFlag == 2)
     {
-        _currentIsStart = YES;
         self.ccMsgModel.startPlaceModel = locationModel;
         self.ptView.startPlaceTF.text = locationModel.address;
         self.startAnnotation.coordinate = locationModel.location;
@@ -311,8 +306,8 @@
         self.ccMsgModel.endPlaceModel = nil;
         self.ptView.endPlaceTF.text = @"";
         [_mapView removeAnnotation:self.endAnnotation];
-        
         [self onlyShowStartPlace];
+        _currentIsStart = YES;
     }
     else
     {
@@ -321,7 +316,6 @@
         self.ptView.endPlaceTF.text = locationModel.address;
         self.endAnnotation.coordinate = locationModel.location;
         [_mapView addAnnotation:self.endAnnotation];
-        
         [self getMapViewVisbleRect];
     }
     
@@ -373,61 +367,15 @@
             CLPlacemark *placemark = [array objectAtIndex:0];
             if (placemark != nil) {
                 NSString *city=placemark.locality;
-//                NSData *data = [NSJSONSerialization dataWithJSONObject:placemark.addressDictionary options:NSJSONWritingPrettyPrinted error:nil];
-//                NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//                NSLog(@"%@", jsonString);
-                if (city.length != 0)
-                {
-                    if ([self isSupportCity:placemark.locality])
-                    {
-                        city = placemark.locality;
-                        PlaceModel *model = [[PlaceModel alloc] init];
-                        model.cityName = city;
-                        model.address = placemark.name;
-                        model.detailAddress = placemark.thoroughfare;
-                        model.location = CLLocationCoordinate2DMake(userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
-                        self.ccMsgModel.startPlaceModel = model;
-                        _ptView.startPlaceTF.text = model.address;
-                    }
-                    else if ([self isSupportCity:placemark.subLocality])
-                    {
-                        city = placemark.subLocality;
-                        PlaceModel *model = [[PlaceModel alloc] init];
-                        model.cityName = city;
-                        model.address = placemark.name;
-                        model.detailAddress = placemark.thoroughfare;
-                        model.location = CLLocationCoordinate2DMake(userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
-                        self.ccMsgModel.startPlaceModel = model;
-                        _ptView.startPlaceTF.text = model.address;
-                    }
-                    else
-                    {
-                        [self toast:@"当前城市不支持!"];
-                        _ptView.startPlaceTF.text = @"";
-                    }
-                    
+                if (city.length != 0){
                     [_locService stopUserLocationService];
-                    
                     [self hideLoading];
-//                    [self requestForPlaces];
                 }
-                
-//                //初始化地理编码类
-//                BMKGeoCodeSearch *_geoCodeSearch = [[BMKGeoCodeSearch alloc]init];
-//                _geoCodeSearch.delegate = self;
-//                //初始化逆地理编码类
-//                BMKReverseGeoCodeOption *reverseGeoCodeOption= [[BMKReverseGeoCodeOption alloc] init];
-//                //需要逆地理编码的坐标位置
-//                reverseGeoCodeOption.reverseGeoPoint = userLocation.location.coordinate;
-//                [_geoCodeSearch reverseGeoCode:reverseGeoCodeOption];
-                
-                
             }
         }
     }];
     //设置地图的中心
     [_mapView setCenterCoordinate:userLocation.location.coordinate];
-    _startAnnotation.coordinate = userLocation.location.coordinate;
     [_mapView addAnnotation:_startAnnotation];
 }
 
@@ -507,29 +455,58 @@
     {
         self.ccMsgModel.startPlaceModel.location = mapView.centerCoordinate;
         _startAnnotation.coordinate = mapView.centerCoordinate;
-//        if (self.ccMsgModel.endDetailAddress.length > 0 || self.ccMsgModel.endDetailAddress != nil)
-//        {
-//            [self getMapViewVisbleRect];
-//        }
     }
     [_geoCodeSearch reverseGeoCode:reverseGeoCodeOption];
     
 }
 
-//    BMKGeoCodeSearch *_searcher =[[BMKGeoCodeSearch alloc]init];
-//    _searcher.delegate = self;
-//    BMKGeoCodeSearchOption *geoCodeSearchOption = [[BMKGeoCodeSearchOption alloc]init];
-//    geoCodeSearchOption.city= locationModel.city;
-//    geoCodeSearchOption.address = locationModel.detailAddress;
-//    BOOL flag = [_searcher geoCode:geoCodeSearchOption];
-//    if(flag)
-//    {
-//        NSLog(@"geo检索发送成功");
-//    }
-//    else
-//    {
-//        NSLog(@"geo检索发送失败");
-//    }
+/**
+ *返回反地理编码搜索结果
+ *@param searcher 搜索对象
+ *@param result 搜索结果
+ *@param error 错误号，@see BMKSearchErrorCode
+ */
+- (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
+{
+    //BMKReverseGeoCodeResult是编码的结果，包括地理位置，道路名称，uid，城市名等信息
+    if(_currentIsStart)
+    {
+        BMKPoiInfo *info = [[BMKPoiInfo alloc] init];
+        info = result.poiList[0];
+        
+        NSString *city;
+        if ([self isSupportCity:result.addressDetail.city])
+        {
+            city = result.addressDetail.city;
+            PlaceModel *model = [[PlaceModel alloc] init];
+            model.cityName = city;
+            model.address = info.name;
+            model.detailAddress = info.address;
+            model.location = result.location;
+            self.ccMsgModel.startPlaceModel = model;
+            _ptView.startPlaceTF.text = model.address;
+        }
+        else if ([self isSupportCity:result.addressDetail.district])
+        {
+            city = result.addressDetail.district;
+            PlaceModel *model = [[PlaceModel alloc] init];
+            model.cityName = city;
+            model.address = info.name;
+            model.detailAddress = info.address;
+            model.location = result.location;
+            self.ccMsgModel.startPlaceModel = model;
+            _ptView.startPlaceTF.text = model.address;
+        }
+        else
+        {
+            self.ccMsgModel.startPlaceModel = nil;
+            _ptView.startPlaceTF.text = @"";
+//            [self toast:@"当前城市不支持"];
+        }
+    }
+    
+}
+
 
 - (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error{
     if (error == BMK_SEARCH_NO_ERROR)
@@ -555,51 +532,6 @@
     }
 }
 
-/**
- *返回反地理编码搜索结果
- *@param searcher 搜索对象
- *@param result 搜索结果
- *@param error 错误号，@see BMKSearchErrorCode
- */
-- (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
-{
-    //BMKReverseGeoCodeResult是编码的结果，包括地理位置，道路名称，uid，城市名等信息
-    if(_currentIsStart)
-    {
-        BMKPoiInfo *info = [[BMKPoiInfo alloc] init];
-        info = result.poiList[0];
-   
-        NSString *city;
-        if ([self isSupportCity:result.addressDetail.city])
-        {
-            city = result.addressDetail.city;
-            PlaceModel *model = [[PlaceModel alloc] init];
-            model.cityName = city;
-            model.address = info.name;
-            model.detailAddress = info.address;
-            model.location = result.location;
-            self.ccMsgModel.startPlaceModel = model;
-            _ptView.startPlaceTF.text = model.address;
-        }
-        else if ([self isSupportCity:result.addressDetail.district])
-        {
-            city = result.addressDetail.city;
-            PlaceModel *model = [[PlaceModel alloc] init];
-            model.cityName = city;
-            model.address = info.name;
-            model.detailAddress = info.address;
-            model.location = result.location;
-            self.ccMsgModel.startPlaceModel = model;
-            _ptView.startPlaceTF.text = model.address;
-        }
-        else
-        {
-            self.ccMsgModel.startPlaceModel = nil;
-            _ptView.startPlaceTF.text = @"";
-        }
-    }
-    
-}
 
 
 //计算地图显示区域
@@ -618,7 +550,6 @@
         {
             if (distance < [zoomLevelArr[j] intValue] && distance > [zoomLevelArr[j+1] intValue] )
             {
-//                [_mapView setZoomLevel:j+6];
                 zoomLe = j+7;
                 break;
             }
@@ -761,14 +692,17 @@
 
 
 ///通过城市的名称 获取城市在服务器对应的id
--(NSString *)getCityIdWithCityName:(NSString *)cityName
+-(NSString *)getCityIdWithCityName:(PlaceModel *)placeModel
 {
     for (int i = 0; i < _cityListModel.citysModel.count; i++)
     {
         CKCitysModel *model = [[CKCitysModel alloc] init];
         model = [_cityListModel.citysModel objectAtIndex:i];
-        if ([model.cityName hasPrefix:cityName])
-        {
+        
+        if ([placeModel.detailAddress rangeOfString:model.cityName].location == NSNotFound && [placeModel.cityName rangeOfString:model.cityName].location == NSNotFound) {
+            NSLog(@"string 不存在 martin");
+        } else {
+            NSLog(@"string 包含 martin");
             return model.cityId;
         }
     }
@@ -793,6 +727,7 @@
     {
         return NO;
     }
+    
     for (CKCitysModel *model in _cityListModel.citysModel)
     {
         if ([model.cityName hasPrefix:city])

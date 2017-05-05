@@ -108,8 +108,8 @@
     order.biz_content.subject = [data stringForKey:@"subject"];
     order.biz_content.out_trade_no = [data stringForKey:@"out_trade_no"]; //订单ID（由商家自行制定）
     order.biz_content.timeout_express = @"15m"/*[data stringForKey:@"it_b_pay"]*/; //超时时间设置
-    order.biz_content.total_amount = [NSString stringWithFormat:@"%@", [data stringForKey:@"total_fee"]]; //商品价格
-//    order.biz_content.total_amount = [NSString stringWithFormat:@"%.2f", 0.01];
+//    order.biz_content.total_amount = [NSString stringWithFormat:@"%@", [data stringForKey:@"total_fee"]]; //商品价格
+    order.biz_content.total_amount = [NSString stringWithFormat:@"%.2f", 0.01];
     order.biz_content.seller_id = [data stringForKey:@"seller_id"];
     
     //将商品信息拼接成字符串

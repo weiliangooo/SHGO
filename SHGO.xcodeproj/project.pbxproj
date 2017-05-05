@@ -308,8 +308,6 @@
 		F73B80271E9754680005EC11 /* CKListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B80261E9754680005EC11 /* CKListViewController.m */; };
 		F73FCC961EA846FE00EB45CD /* PlaceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F73FCC951EA846FE00EB45CD /* PlaceModel.m */; };
 		F73FCC9A1EA87CAC00EB45CD /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F73FCC991EA87CAC00EB45CD /* OrderListModel.m */; };
-		F7489B601E8C99A200CDBAEC /* CKOnTheWayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7489B5F1E8C99A200CDBAEC /* CKOnTheWayViewController.m */; };
-		F7489B631E8C9E4B00CDBAEC /* Star.m in Sources */ = {isa = PBXBuildFile; fileRef = F7489B611E8C9E4B00CDBAEC /* Star.m */; };
 		F74F2B9E1EAB33FE006B2B27 /* WalletMoneyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F2B9D1EAB33FE006B2B27 /* WalletMoneyModel.m */; };
 		F74F2BA11EAB3CDA006B2B27 /* WalletDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F2BA01EAB3CDA006B2B27 /* WalletDetailViewController.m */; };
 		F74F2BA51EAB3D8F006B2B27 /* WalletDetailHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F2BA41EAB3D8F006B2B27 /* WalletDetailHeadView.m */; };
@@ -676,10 +674,6 @@
 		F73FCC981EA87CAC00EB45CD /* OrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListModel.h; sourceTree = "<group>"; };
 		F73FCC991EA87CAC00EB45CD /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListModel.m; sourceTree = "<group>"; };
 		F7409E4E1EA483FF007AB779 /* HeFei.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HeFei.gpx; sourceTree = "<group>"; };
-		F7489B5E1E8C99A200CDBAEC /* CKOnTheWayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKOnTheWayViewController.h; sourceTree = "<group>"; };
-		F7489B5F1E8C99A200CDBAEC /* CKOnTheWayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKOnTheWayViewController.m; sourceTree = "<group>"; };
-		F7489B611E8C9E4B00CDBAEC /* Star.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Star.m; sourceTree = "<group>"; };
-		F7489B621E8C9E4B00CDBAEC /* Star.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Star.h; sourceTree = "<group>"; };
 		F74F2B9C1EAB33FE006B2B27 /* WalletMoneyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletMoneyModel.h; sourceTree = "<group>"; };
 		F74F2B9D1EAB33FE006B2B27 /* WalletMoneyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletMoneyModel.m; sourceTree = "<group>"; };
 		F74F2B9F1EAB3CDA006B2B27 /* WalletDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletDetailViewController.h; sourceTree = "<group>"; };
@@ -1951,8 +1945,6 @@
 				F712757A1E88AD1800238420 /* CKBookViewController.m */,
 				F7F7D3EB1E8B8AD300BAD55F /* CKSendOrderViewController.h */,
 				F7F7D3EC1E8B8AD300BAD55F /* CKSendOrderViewController.m */,
-				F7489B5E1E8C99A200CDBAEC /* CKOnTheWayViewController.h */,
-				F7489B5F1E8C99A200CDBAEC /* CKOnTheWayViewController.m */,
 				F7B14F1B1EA4B91800D7CDB6 /* ResonForCancleViewController.h */,
 				F7B14F1C1EA4B91800D7CDB6 /* ResonForCancleViewController.m */,
 				F75C4C341EAF148100740030 /* CKMsgListViewController.h */,
@@ -1966,8 +1958,6 @@
 		F79F0D2D1E82284300EAD30B /* views */ = {
 			isa = PBXGroup;
 			children = (
-				F7489B621E8C9E4B00CDBAEC /* Star.h */,
-				F7489B611E8C9E4B00CDBAEC /* Star.m */,
 				F7D943971E825266000C9F8F /* CKCenterView.h */,
 				F7D943981E825266000C9F8F /* CKCenterView.m */,
 				F7D9439A1E825721000C9F8F /* CKLeftView.h */,
@@ -2321,14 +2311,12 @@
 				F76D78A71E9B8158003EFF67 /* DataSigner.m in Sources */,
 				F7B53D251E8B7C4D0011F04A /* CKMapViewController.m in Sources */,
 				F701C8781E4844E6008ADFD6 /* NSString+NSStringExt.m in Sources */,
-				F7489B601E8C99A200CDBAEC /* CKOnTheWayViewController.m in Sources */,
 				F701C8091E4844E6008ADFD6 /* MJRefreshGifHeader.m in Sources */,
 				F701C87B1E4844E6008ADFD6 /* UIButton+ButtonUserInfo.m in Sources */,
 				F76D78A51E9B8158003EFF67 /* Order.m in Sources */,
 				F76D78AD1E9B8158003EFF67 /* RSADataVerifier.m in Sources */,
 				F701C84E1E4844E6008ADFD6 /* SDWebImageDownloader.m in Sources */,
 				F701C8451E4844E6008ADFD6 /* SDImageCache.m in Sources */,
-				F7489B631E8C9E4B00CDBAEC /* Star.m in Sources */,
 				F75172081EA5D640007EC790 /* ActivityModel.m in Sources */,
 				F73B0EA01E96197000FB468E /* CKDiscoutSelectView.m in Sources */,
 				F71275691E83A23D00238420 /* CKLoginTextField.m in Sources */,

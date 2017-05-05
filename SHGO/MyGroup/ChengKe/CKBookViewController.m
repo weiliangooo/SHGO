@@ -12,7 +12,6 @@
 #import "CKBookCKSelectView.h"
 #import "CKDiscoutSelectView.h"
 #import "CKSendOrderViewController.h"
-#import "CKOnTheWayViewController.h"
 #import "CKPayView.h"
 #import "CKSureOrderModel.h"
 #import "PayViewController.h"
@@ -40,7 +39,6 @@
 @end
 
 @implementation CKBookViewController
-
 
 
 - (void)viewDidLoad {
@@ -117,21 +115,16 @@
     else if (flag == 2)
     {
         _ckDiscoutView = [[CKDiscoutSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT) data:_allActModels];
-        _ckDiscoutView.stActModel = _stActModel;
+        _ckDiscoutView.stActModel = [_stActModel mutableCopy];
         _ckDiscoutView.delegate = self;
     }
-    
 }
 
 
 #pragma --mark CKPayView 代理
 -(void)CKPayViwePayEventsWithFlag:(NSInteger)flag
 {
-//    [[PayViewController shareManager] zhifubaoInit];
-    
     [_payView removeFromSuperview];
-//    CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
-//    [self.navigationController pushViewController:viewController animated:YES];
     [self MySureOrderModel:flag];
     NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    _sureOrderModel.up_message,@"message",
@@ -283,20 +276,9 @@
     }
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
