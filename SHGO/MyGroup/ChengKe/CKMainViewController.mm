@@ -22,6 +22,10 @@
 #import "CKMsgListViewController.h"
 
 @interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate>
+{
+    ///用来记录当前所要搜索的城市 判断百度返回结果城市是否为要搜索的城市
+    NSString *poiSearchCity;
+}
 
 ///左边的菜单界面
 @property (nonatomic, strong)CKLeftView *leftView;
@@ -272,12 +276,12 @@
 
 -(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView searchCity:(NSString *)searchCity keyWord:(NSString *)keyWord
 {
-    
+    poiSearchCity = searchCity;
     //发起检索
     BMKCitySearchOption *option = [[BMKCitySearchOption alloc]init];
     option.pageCapacity = 10;
     option.keyword = keyWord;
-    option.city = searchCity;
+    option.city = poiSearchCity;
     option.requestPoiAddressInfoList = NO;
     BOOL flag = [self.poiSearch poiSearchInCity:option];
     if(flag)
@@ -327,58 +331,7 @@
     [self alert:toast];
 }
 
-
-//城市检索回调
-- (void)onGetPoiResult:(BMKPoiSearch*)searcher result:(BMKPoiResult*)poiResult errorCode:(BMKSearchErrorCode)errorCode
-{
-    if(errorCode == BMK_SEARCH_NO_ERROR)
-    {
-        NSMutableArray *addressArray = [NSMutableArray array];
-        [addressArray removeAllObjects];
-        for (BMKPoiInfo *objc in poiResult.poiInfoList)
-        {
-            if ([self isSupportCity:objc.city])
-            {
-                [addressArray addObject:objc];
-            }
-        }
-        [_CKSPView setDataArray:addressArray];
-    }
-}
-
-
-
-
-//实现相关delegate 处理位置信息更新
-//处理位置坐标更新
-- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
-{
-    //获取当前城市
-    BMKCoordinateRegion region;
-    
-    region.center.latitude  = userLocation.location.coordinate.latitude;
-    region.center.longitude = userLocation.location.coordinate.longitude;
-    region.span.latitudeDelta = 0;
-    region.span.longitudeDelta = 0;
-    
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation: userLocation.location completionHandler:^(NSArray *array, NSError *error) {
-        if (array.count > 0) {
-            CLPlacemark *placemark = [array objectAtIndex:0];
-            if (placemark != nil) {
-                NSString *city=placemark.locality;
-                if (city.length != 0){
-                    [_locService stopUserLocationService];
-                    [self hideLoading];
-                }
-            }
-        }
-    }];
-    //设置地图的中心
-    [_mapView setCenterCoordinate:userLocation.location.coordinate];
-    [_mapView addAnnotation:_startAnnotation];
-}
-
+///进入主界面时请求数据
 -(void)requestForPlaces
 {
     
@@ -436,6 +389,36 @@
     }
     
     return nil;
+}
+
+//实现相关delegate 处理位置信息更新
+//处理位置坐标更新
+- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
+{
+    //获取当前城市
+    BMKCoordinateRegion region;
+    
+    region.center.latitude  = userLocation.location.coordinate.latitude;
+    region.center.longitude = userLocation.location.coordinate.longitude;
+    region.span.latitudeDelta = 0;
+    region.span.longitudeDelta = 0;
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation: userLocation.location completionHandler:^(NSArray *array, NSError *error) {
+        if (array.count > 0) {
+            CLPlacemark *placemark = [array objectAtIndex:0];
+            if (placemark != nil) {
+                NSString *city=placemark.locality;
+                if (city.length != 0){
+                    [_locService stopUserLocationService];
+                    [self hideLoading];
+                }
+            }
+        }
+    }];
+    //设置地图的中心
+    [_mapView setCenterCoordinate:userLocation.location.coordinate];
+    [_mapView addAnnotation:_startAnnotation];
 }
 
 
@@ -504,9 +487,25 @@
 //            [self toast:@"当前城市不支持"];
         }
     }
-    
 }
 
+//城市检索回调
+- (void)onGetPoiResult:(BMKPoiSearch*)searcher result:(BMKPoiResult*)poiResult errorCode:(BMKSearchErrorCode)errorCode
+{
+    if(errorCode == BMK_SEARCH_NO_ERROR)
+    {
+        NSMutableArray *addressArray = [NSMutableArray array];
+        [addressArray removeAllObjects];
+        for (BMKPoiInfo *objc in poiResult.poiInfoList)
+        {
+            if ([poiSearchCity isEqualToString:objc.city])
+            {
+                [addressArray addObject:objc];
+            }
+        }
+        [_CKSPView setDataArray:addressArray];
+    }
+}
 
 - (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error{
     if (error == BMK_SEARCH_NO_ERROR)
@@ -531,7 +530,6 @@
         NSLog(@"抱歉，未找到结果");
     }
 }
-
 
 
 //计算地图显示区域
@@ -651,8 +649,6 @@
                     } failure:^(NSError *error) {
                         
                     }];
-
-                    
                 }
                     break;
                     

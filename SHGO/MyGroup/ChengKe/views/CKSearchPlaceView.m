@@ -275,14 +275,14 @@
         [_placeTF becomeFirstResponder];
         [self setTypeOfData:1 dataSource:nil];
     }
-    else if(_typeOfData == 1 || _typeOfData == 2)
+    else if(_typeOfData == DataSourceTypeHot || _typeOfData == DataSourceTypeBaidu)
     {
         PlaceModel *backModel = [[PlaceModel alloc] init];
         backModel = [_dataArray objectAtIndex:indexPath.row];
-//        if (_typeOfData == 1) {
+        if (_typeOfData == DataSourceTypeBaidu) {
             [self.dbDataSoure addObject:backModel];
             [[DBMake shareInstance] upDatePlace:[self.dbDataSoure mutableCopy]];
-//        }
+        }
         if (_delegate && [_delegate respondsToSelector:@selector(CKSearchPlaceView:locationModel:)])
         {
             [_delegate CKSearchPlaceView:self locationModel:backModel];
