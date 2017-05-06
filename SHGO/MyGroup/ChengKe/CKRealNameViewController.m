@@ -10,21 +10,19 @@
 #import "CKMainViewController.h"
 
 @interface CKRealNameViewController ()
-
+///用作底部容器
 @property (nonatomic, strong) UIScrollView *myScrollView;
-
+///姓名输入框
 @property (nonatomic, strong) UITextField *nameTF;
-
+///身份证输入框
 @property (nonatomic, strong) UITextField *IdTF;
 
 @end
 
 @implementation CKRealNameViewController
 
--(UIScrollView *)myScrollView
-{
-    if (!_myScrollView)
-    {
+-(UIScrollView *)myScrollView{
+    if (!_myScrollView){
         _myScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
         _myScrollView.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
     }
@@ -44,13 +42,10 @@
     
     [self.view addSubview:self.myScrollView];
     
-    
     [self createTitleView];
 }
 
-
--(void)createTitleView
-{
+-(void)createTitleView{
     UILabel *title1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 30*PROPORTION750, AL_DEVICE_WIDTH, 30*PROPORTION750)];
     title1.text = @"遇到意外怎么办？有小马出行免费乘车意外险";
     title1.textColor = [UIColor colorWithHexString:@"1aad19"];
@@ -68,8 +63,7 @@
     [self createNameIdView:title2];
 }
 
--(void)createNameIdView:(UIView *)lastView
-{
+-(void)createNameIdView:(UIView *)lastView{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(20*PROPORTION750, lastView.bottom+30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 180*PROPORTION750)];
     view.backgroundColor = [UIColor whiteColor];
     view.clipsToBounds = YES;
@@ -91,9 +85,7 @@
     [self createXYView:view];
 }
 
-
--(void)createXYView:(UIView *)lastView
-{
+-(void)createXYView:(UIView *)lastView{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(20*PROPORTION750, lastView.bottom+30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 300*PROPORTION750)];
     view.backgroundColor = [UIColor whiteColor];
     view.clipsToBounds = YES;
@@ -150,9 +142,7 @@
     
 }
 
-
--(void)createSaveBtn:(UIView *)lastView
-{
+-(void)createSaveBtn:(UIView *)lastView{
     UIButton *saveBT = [[UIButton alloc] initWithFrame:CGRectMake(20*PROPORTION750, lastView.bottom+50*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 90*PROPORTION750)];
     saveBT.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
     [saveBT setTitle:@"保存" forState:UIControlStateNormal];
@@ -176,16 +166,13 @@
 }
 
 
--(void)buttonClickEvent:(UIButton *)button
-{
-    if (![Regular checkUserName:_nameTF.text])
-    {
+-(void)buttonClickEvent:(UIButton *)button{
+    if (![Regular checkUserName:_nameTF.text]){
         [self toast:@"姓名填写错误"];
         return;
     }
     
-    if (![Regular validateIdentityCard:_IdTF.text])
-    {
+    if (![Regular validateIdentityCard:_IdTF.text]){
         [self toast:@"身份证号填写错误"];
         return;
     }
@@ -200,19 +187,14 @@
         int code = [responseObject intForKey:@"status"];
         NSLog(@"%@", responseObject);
         NSString *msg = [responseObject stringForKey:@"msg"];
-        if (code == 200)
-        {
+        if (code == 200){
             [USERDEFAULTS setObject:@"1" forKey:@"realName"];
             [self toast:@"提交成功"];
             [self performSelector:@selector(gotoCKMainViewController) withObject:nil afterDelay:1.5f];
-        }
-        else if (code == 300)
-        {
+        }else if (code == 300){
             [self toast:@"身份认证已过期"];
             [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
-        }
-        else if (code == 400)
-        {
+        }else if (code == 400){
             [self toast:msg];
         }
         
@@ -222,8 +204,7 @@
     
 }
 
--(void)gotoCKMainViewController
-{
+-(void)gotoCKMainViewController{
     CKMainViewController *viewController = [[CKMainViewController alloc] init];
     [self.navigationController pushViewController:viewController animated:YES];
 }
@@ -234,14 +215,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
