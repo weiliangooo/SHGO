@@ -38,7 +38,7 @@
         [self addSubview:imageView1];
         
         
-        _startPlaceTF = [[UITextField alloc] initWithFrame:CGRectMake(90*PROPORTION750, 0*PROPORTION750, self.width-100*PROPORTION750, 99*PROPORTION750)];
+        _startPlaceTF = [[UITextField alloc] initWithFrame:CGRectMake(90*PROPORTION750, 0*PROPORTION750, self.width-120*PROPORTION750, 99*PROPORTION750)];
         _startPlaceTF.placeholder = @"您要从哪儿出发";
         _startPlaceTF.font = SYSF(12);
         _startPlaceTF.textAlignment = NSTextAlignmentCenter;

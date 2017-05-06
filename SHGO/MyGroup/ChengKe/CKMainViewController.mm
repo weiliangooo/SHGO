@@ -24,11 +24,10 @@
     ///用来记录当前所要搜索的城市 判断百度返回结果城市是否为要搜索的城市
     NSString *poiSearchCity;
 }
-
-///左边的菜单界面
-@property (nonatomic, strong)CKLeftView *leftView;
 ///地图view
 @property (nonatomic, strong)BMKMapView *mapView;
+///左边的菜单界面
+@property (nonatomic, strong)CKLeftView *leftView;
 ///搜索当前位置类，返回的是经纬度
 @property (nonatomic, strong)BMKLocationService *locService;
 ///搜索位置时，显示的view
