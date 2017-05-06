@@ -5,37 +5,53 @@
 //  Created by Alen on 2017/3/22.
 //  Copyright © 2017年 Alen. All rights reserved.
 //
-
 #import "CKMainViewController.h"
+#import <BaiduMapAPI_Map/BMKMapComponent.h>
+#import <BaiduMapAPI_Location/BMKLocationComponent.h>
+#import <BaiduMapAPI_Search/BMKSearchComponent.h>
+#import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
 #import "CKLeftView.h"
 #import "CKSearchPlaceView.h"
 #import "CKTimeSelectView.h"
+#import "CKPlaceTimeView.h"
+#import "SignAlertView.h"
+#import "CCMsgModel.h"
+#import "CKCitysListModel.h"
+#import "CKMsgListViewController.h"
 #import "CKBookViewController.h"
 #import "CKListViewController.h"
 #import "CKWalletViewController.h"
 #import "CKOrderViewController.h"
 #import "CKSetUpViewController.h"
 #import "CKMsgChangeViewController.h"
-#import "SignAlertView.h"
-#import "CKMsgListViewController.h"
 
-@interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate,CKLeftViewDelegate>
+@interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKPoiSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate,CKLeftViewDelegate>
 {
     ///用来记录当前所要搜索的城市 判断百度返回结果城市是否为要搜索的城市
     NSString *poiSearchCity;
+    ///标示当前是否正在设置起始位置
+    BOOL currentIsStart;
+    ///存放后台传过来的地址数据
+    CKCitysListModel *cityListModel;
 }
 ///地图view
 @property (nonatomic, strong)BMKMapView *mapView;
+///展示乘客选择乘车起始位置 乘车时间的view
+@property (nonatomic, strong)CKPlaceTimeView *ptView;
+///起始位置的大头钉
+@property (nonatomic, strong)BMKPointAnnotation *startAnnotation;
+///终点位置的大头钉
+@property (nonatomic, strong)BMKPointAnnotation *endAnnotation;
 ///左边的菜单界面
 @property (nonatomic, strong)CKLeftView *leftView;
-///搜索当前位置类，返回的是经纬度
-@property (nonatomic, strong)BMKLocationService *locService;
 ///搜索位置时，显示的view
 @property (nonatomic, strong)CKSearchPlaceView *CKSPView;
-//百度搜索服务类
-@property (nonatomic, strong)BMKPoiSearch *poiSearch;
 ///选择时间的view
 @property (nonatomic, strong)CKTimeSelectView *ckTimeSelectView;
+///搜索当前位置类，返回的是经纬度
+@property (nonatomic, strong)BMKLocationService *locService;
+//百度搜索服务类
+@property (nonatomic, strong)BMKPoiSearch *poiSearch;
 
 @end
 
@@ -61,7 +77,7 @@
     
     _ccMsgModel = [[CCMsgModel alloc] init];
     
-    _currentIsStart = YES;
+    currentIsStart = YES;
     
     _startAnnotation = [[BMKPointAnnotation alloc]init];
     _startAnnotation.title = @"起点";
@@ -247,9 +263,9 @@
         self.ptView.endPlaceTF.text = @"";
         [_mapView removeAnnotation:self.endAnnotation];
         [self onlyShowStartPlace];
-        _currentIsStart = YES;
+        currentIsStart = YES;
     }else{
-        _currentIsStart = NO;
+        currentIsStart = NO;
         self.ccMsgModel.endPlaceModel = locationModel;
         self.ptView.endPlaceTF.text = locationModel.address;
         self.endAnnotation.coordinate = locationModel.location;
@@ -272,8 +288,8 @@
         if (code == 200)
         {
             NSArray *data = [NSArray arrayWithArray:[responseObject arrayForKey:@"data"]];
-            _cityListModel = [[CKCitysListModel alloc] initWithData:data];
-            _CKSPView.defaultModel = _cityListModel;
+            cityListModel = [[CKCitysListModel alloc] initWithData:data];
+            _CKSPView.defaultModel = cityListModel;
             
             _locService = [[BMKLocationService alloc]init];
             _locService.delegate = self;
@@ -361,7 +377,7 @@
     BMKReverseGeoCodeOption *reverseGeoCodeOption= [[BMKReverseGeoCodeOption alloc] init];
     //需要逆地理编码的坐标位置
     reverseGeoCodeOption.reverseGeoPoint = mapView.centerCoordinate;
-    if (_currentIsStart)
+    if (currentIsStart)
     {
         self.ccMsgModel.startPlaceModel.location = mapView.centerCoordinate;
         _startAnnotation.coordinate = mapView.centerCoordinate;
@@ -379,7 +395,7 @@
 - (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
 {
     //BMKReverseGeoCodeResult是编码的结果，包括地理位置，道路名称，uid，城市名等信息
-    if(_currentIsStart)
+    if(currentIsStart)
     {
         BMKPoiInfo *info = [[BMKPoiInfo alloc] init];
         info = result.poiList[0];
@@ -438,7 +454,7 @@
 - (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error{
     if (error == BMK_SEARCH_NO_ERROR)
     {
-        if (_currentIsStart)
+        if (currentIsStart)
         {
             self.ccMsgModel.startPlaceModel.location = result.location;
             _startAnnotation.coordinate = result.location;
@@ -576,10 +592,10 @@
 ///通过城市的名称 获取城市在服务器对应的id
 -(NSString *)getCityIdWithCityName:(PlaceModel *)placeModel
 {
-    for (int i = 0; i < _cityListModel.citysModel.count; i++)
+    for (int i = 0; i < cityListModel.citysModel.count; i++)
     {
         CKCitysModel *model = [[CKCitysModel alloc] init];
-        model = [_cityListModel.citysModel objectAtIndex:i];
+        model = [cityListModel.citysModel objectAtIndex:i];
         
         if ([placeModel.detailAddress rangeOfString:model.cityName].location == NSNotFound && [placeModel.cityName rangeOfString:model.cityName].location == NSNotFound) {
             NSLog(@"string 不存在 martin");
@@ -610,7 +626,7 @@
         return NO;
     }
     
-    for (CKCitysModel *model in _cityListModel.citysModel)
+    for (CKCitysModel *model in cityListModel.citysModel)
     {
         if ([model.cityName hasPrefix:city])
         {
