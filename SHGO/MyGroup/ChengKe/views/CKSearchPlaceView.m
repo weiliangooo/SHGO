@@ -9,6 +9,8 @@
 #import "CKSearchPlaceView.h"
 #import "CKCitysListModel.h"
 #import "PlaceModel.h"
+#import "AppDelegate.h"
+#import "YHBaseViewController.h"
 
 @interface CKSearchPlaceView ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -20,6 +22,8 @@
 @property (nonatomic, strong) NSMutableArray<PlaceModel *> *dbDataSoure;
 ///当前要展示本地数据库的搜索历史数据
 @property (nonatomic, strong) NSMutableArray<PlaceModel *> *dbShowDataSoure;
+
+@property (nonatomic, strong) YHBaseViewController *parentViewController;
 
 @end
 
@@ -37,10 +41,13 @@
     return _myTableView;
 }
 
--(instancetype)initWithFrame:(CGRect)frame
+-(instancetype)initWithParentViewController:(YHBaseViewController *)viewController
 {
-    if (self = [super initWithFrame:frame])
+    if (self = [super initWithFrame:CGRectMake(0, AL_DEVICE_HEIGHT, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)])
     {
+        _parentViewController = viewController;
+        AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [de.window addSubview:self];
         self.backgroundColor = [UIColor colorWithWhite:0.6 alpha:0.6];
         [self createNaviView];
         [self addSubview:self.myTableView];
@@ -83,14 +90,41 @@
     [naviView addSubview:cancleBT];
 }
 
--(void)cancleBtnClickEvent:(UIButton *)button
-{
+-(void)showViewWithPreFlag:(CKSPViewStartStatus)flag startCityName:(NSString *)cityName{
+    _preFlag = flag;
+    [_dataArray removeAllObjects];
+    _cityTF.placeholder = flag == CKSPViewStartStatusEnd?@"到达城市":@"出发城市";
+    _cityTF.text = flag == CKSPViewStartStatusStartTrue?cityName:@"";
+    _placeTF.placeholder = flag == CKSPViewStartStatusEnd?@"您要去哪儿":@"您现在在哪儿";
+    _placeTF.text = @"";
+
+    [UIView animateWithDuration:0.5f animations:^{
+        self.frame = CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
+        [_parentViewController.navigationController setNavigationBarHidden:YES];
+    } completion:^(BOOL finished) {
+        if (_preFlag == CKSPViewStartStatusStartFalse || _preFlag == CKSPViewStartStatusEnd)
+        {
+            [_cityTF becomeFirstResponder];
+        }
+        else
+        {
+            [_placeTF becomeFirstResponder];
+        }
+    }];
+}
+
+-(void)hiddenView{
     [_cityTF resignFirstResponder];
     [_placeTF resignFirstResponder];
-    if (_delegate && [_delegate respondsToSelector:@selector(CKSearchPlaceView:cancleBtnClick:)])
-    {
-        [_delegate CKSearchPlaceView:self cancleBtnClick:button];
-    }
+    [UIView animateWithDuration:0.5f animations:^{
+        self.frame = CGRectMake(0, AL_DEVICE_HEIGHT, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
+        [_parentViewController.navigationController setNavigationBarHidden:NO];
+    }];
+}
+
+///点击取消按钮 后隐藏地址搜索界面
+-(void)cancleBtnClickEvent:(UIButton *)button{
+    [self hiddenView];
 }
 
 #pragma --mark textField Delegate
@@ -124,10 +158,7 @@
     {
         if (_cityTF.text.length == 0)
         {
-            if (_delegate && [_delegate respondsToSelector:@selector(CKSearchPlaceView:toast:)])
-            {
-                [_delegate CKSearchPlaceView:self toast:@"请先填写城市"];
-            }
+            [_parentViewController alert:@"请先填写城市"];
             return NO;
         }
         
@@ -375,6 +406,8 @@
     }
     [self.myTableView reloadData];
 }
+
+
 
 
 

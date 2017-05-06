@@ -414,7 +414,6 @@
 		F7C63F2F1E977220009EC70C /* CKWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C63F2E1E977220009EC70C /* CKWalletViewController.m */; };
 		F7C63F321E9788F5009EC70C /* CKWalletDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C63F311E9788F5009EC70C /* CKWalletDetailViewController.m */; };
 		F7D943961E823FA2000C9F8F /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F7D943951E823FA2000C9F8F /* mapapi.bundle */; };
-		F7D943991E825266000C9F8F /* CKCenterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D943981E825266000C9F8F /* CKCenterView.m */; };
 		F7D9439C1E825721000C9F8F /* CKLeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D9439B1E825721000C9F8F /* CKLeftView.m */; };
 		F7F625CA1E8E2A3900B025DC /* CKCitysListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F625C91E8E2A3900B025DC /* CKCitysListModel.m */; };
 		F7F7D3ED1E8B8AD300BAD55F /* CKSendOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F7D3EC1E8B8AD300BAD55F /* CKSendOrderViewController.m */; };
@@ -930,8 +929,6 @@
 		F7C63F301E9788F5009EC70C /* CKWalletDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKWalletDetailViewController.h; sourceTree = "<group>"; };
 		F7C63F311E9788F5009EC70C /* CKWalletDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKWalletDetailViewController.m; sourceTree = "<group>"; };
 		F7D943951E823FA2000C9F8F /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
-		F7D943971E825266000C9F8F /* CKCenterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCenterView.h; sourceTree = "<group>"; };
-		F7D943981E825266000C9F8F /* CKCenterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCenterView.m; sourceTree = "<group>"; };
 		F7D9439A1E825721000C9F8F /* CKLeftView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLeftView.h; sourceTree = "<group>"; };
 		F7D9439B1E825721000C9F8F /* CKLeftView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKLeftView.m; sourceTree = "<group>"; };
 		F7F625C81E8E2A3900B025DC /* CKCitysListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCitysListModel.h; sourceTree = "<group>"; };
@@ -1958,8 +1955,6 @@
 		F79F0D2D1E82284300EAD30B /* views */ = {
 			isa = PBXGroup;
 			children = (
-				F7D943971E825266000C9F8F /* CKCenterView.h */,
-				F7D943981E825266000C9F8F /* CKCenterView.m */,
 				F7D9439A1E825721000C9F8F /* CKLeftView.h */,
 				F7D9439B1E825721000C9F8F /* CKLeftView.m */,
 				F71275611E82650900238420 /* CKPlaceTimeView.h */,
@@ -2204,7 +2199,6 @@
 				F701C86F1E4844E6008ADFD6 /* NSArrayExt.m in Sources */,
 				F701C8361E4844E6008ADFD6 /* TADotView.m in Sources */,
 				F7B14F131EA4944100D7CDB6 /* AlertClassView.m in Sources */,
-				F7D943991E825266000C9F8F /* CKCenterView.m in Sources */,
 				F764CA581EA9999B00B91253 /* CKOrderDetailViewController.m in Sources */,
 				F701C7DC1E4844E6008ADFD6 /* XAAssetPickerController.m in Sources */,
 				F701C7AF1E4844E5008ADFD6 /* AFURLResponseSerialization.m in Sources */,

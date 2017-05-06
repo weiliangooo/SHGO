@@ -7,9 +7,7 @@
 //
 
 #import "CKMainViewController.h"
-#import "AppDelegate.h"
 #import "CKLeftView.h"
-#import "CKCenterView.h"
 #import "CKSearchPlaceView.h"
 #import "CKTimeSelectView.h"
 #import "CKBookViewController.h"
@@ -93,10 +91,8 @@
     _mapView.delegate = self;
     self.view = _mapView;
 
-    _CKSPView = [[CKSearchPlaceView alloc] initWithFrame:CGRectMake(0, AL_DEVICE_HEIGHT, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
+    _CKSPView = [[CKSearchPlaceView alloc] initWithParentViewController:self];
     _CKSPView.delegate = self;
-    AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [de.window addSubview:_CKSPView];
     
     _ptView = [[CKPlaceTimeView alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 690*PROPORTION750, 300*PROPORTION750)];
     _ptView.delegate = self;
@@ -105,13 +101,12 @@
     [self requestForPlaces];
 }
 
--(void)leftBtn:(UIButton *)button
-{
+#pragma --mark 重写父类的方法
+-(void)leftBtn:(UIButton *)button{
     [self showLeftView];
 }
 
--(void)rightBtn:(UIButton *)button
-{
+-(void)rightBtn:(UIButton *)button{
     CKMsgListViewController *viewController = [[CKMsgListViewController alloc] init];
     [self.navigationController pushViewController:viewController animated:YES];
 }
@@ -119,73 +114,32 @@
 #pragma --mark CKPlaceTimeView 代理函数
 -(void)CKPlaceTimeViewClickEvents:(NSInteger)flag
 {
-    if(flag == 100)
-    {
-        self.CKSPView.cityTF.placeholder = @"出发城市";
-        if (_ccMsgModel.startPlaceModel.cityName.length == 0)
-        {
-            self.CKSPView.cityTF.text = @"";
-            self.CKSPView.preFlag = 2;
+    if(flag == 100){
+        if (_ccMsgModel.startPlaceModel.cityName.length == 0){
+            [self.CKSPView showViewWithPreFlag:CKSPViewStartStatusStartFalse startCityName:@""];
+        }else{
+            [self.CKSPView showViewWithPreFlag:CKSPViewStartStatusStartTrue startCityName:self.ccMsgModel.startPlaceModel.cityName];
         }
-        else
-        {
-            self.CKSPView.cityTF.text = self.ccMsgModel.startPlaceModel.cityName;
-            self.CKSPView.preFlag = 1;
-        }
-        self.CKSPView.placeTF.text = @"";
-        self.CKSPView.placeTF.placeholder = @"您现在在哪儿";
-        [self.CKSPView.dataArray removeAllObjects];
-        [UIView animateWithDuration:0.5f animations:^{
-            self.CKSPView.frame = CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
-            [self.navigationController setNavigationBarHidden:YES];
-        } completion:^(BOOL finished) {
-            if (self.ccMsgModel.startPlaceModel.cityName.length == 0)
-            {
-                [self.CKSPView.cityTF becomeFirstResponder];
-            }
-            else
-            {
-                [self.CKSPView.placeTF becomeFirstResponder];
-            }
-        }];
-    }
-    else if (flag == 200)
-    {
-        self.CKSPView.cityTF.placeholder = @"到达城市";
-        self.CKSPView.cityTF.text = @"";
-        self.CKSPView.placeTF.text = @"";
-        self.CKSPView.preFlag = 3;
-        [self.CKSPView.dataArray removeAllObjects];
-        [UIView animateWithDuration:0.5f animations:^{
-            self.CKSPView.frame = CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
-            [self.navigationController setNavigationBarHidden:YES];
-        } completion:^(BOOL finished) {
-            [self.CKSPView.cityTF becomeFirstResponder];
-        }];
-    }
-    else
-    {
-        if (_ccMsgModel.startPlaceModel.address.length == 0)
-        {
+    }else if (flag == 200){
+        [self.CKSPView showViewWithPreFlag:CKSPViewStartStatusEnd startCityName:@""];
+    }else{
+        if (_ccMsgModel.startPlaceModel.address.length == 0){
             [self toast:@"请填写出发地点"];
             return ;
         }
-        if (_ccMsgModel.endPlaceModel.address.length == 0)
-        {
+        if (_ccMsgModel.endPlaceModel.address.length == 0){
             [self toast:@"请填写目的地点"];
             return ;
         }
         
         NSString *startCityId = [self getCityIdWithCityName:_ccMsgModel.startPlaceModel];
-        if (startCityId == nil)
-        {
+        if (startCityId == nil){
             [self toast:@"出发城市选择暂不支持"];
             return;
         }
         
         NSString *endCityId = [self getCityIdWithCityName:_ccMsgModel.endPlaceModel];
-        if (endCityId == nil)
-        {
+        if (endCityId == nil){
             [self toast:@"目的城市选择暂不支持"];
             return;
         }
@@ -265,14 +219,6 @@
 }
 
 #pragma --mark CKSearchPlaceView 代理函数
--(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView cancleBtnClick:(UIButton *)cancleBtn
-{
-    [UIView animateWithDuration:0.5f animations:^{
-        CKSPView.frame = CGRectMake(0, AL_DEVICE_HEIGHT, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
-        [self.navigationController setNavigationBarHidden:NO];
-    }];
-}
-
 -(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView searchCity:(NSString *)searchCity keyWord:(NSString *)keyWord
 {
     poiSearchCity = searchCity;
@@ -283,25 +229,17 @@
     option.city = poiSearchCity;
     option.requestPoiAddressInfoList = NO;
     BOOL flag = [self.poiSearch poiSearchInCity:option];
-    if(flag)
-    {
+    if(flag){
         NSLog(@"周边检索发送成功");
-    }
-    else
-    {
+    }else{
         NSLog(@"周边检索发送失败");
     }
 }
 
 -(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView locationModel:(PlaceModel *)locationModel
 {
-    [UIView animateWithDuration:0.5f animations:^{
-        CKSPView.frame = CGRectMake(0, AL_DEVICE_HEIGHT, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
-        [self.navigationController setNavigationBarHidden:NO];
-    }];
-    
-    if (CKSPView.preFlag == 1 || CKSPView.preFlag == 2)
-    {
+    [CKSPView hiddenView];
+    if (CKSPView.preFlag == CKSPViewStartStatusStartTrue || CKSPView.preFlag == CKSPViewStartStatusStartTrue){
         self.ccMsgModel.startPlaceModel = locationModel;
         self.ptView.startPlaceTF.text = locationModel.address;
         self.startAnnotation.coordinate = locationModel.location;
@@ -311,9 +249,7 @@
         [_mapView removeAnnotation:self.endAnnotation];
         [self onlyShowStartPlace];
         _currentIsStart = YES;
-    }
-    else
-    {
+    }else{
         _currentIsStart = NO;
         self.ccMsgModel.endPlaceModel = locationModel;
         self.ptView.endPlaceTF.text = locationModel.address;
@@ -321,13 +257,6 @@
         [_mapView addAnnotation:self.endAnnotation];
         [self getMapViewVisbleRect];
     }
-    
-    
-}
-
--(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView toast:(NSString *)toast
-{
-    [self alert:toast];
 }
 
 ///进入主界面时请求数据
@@ -557,7 +486,8 @@
     BMKMapStatus *status = [[BMKMapStatus alloc] init];
     status.fLevel = zoomLe;
     status.targetScreenPt = CGPointMake(AL_DEVICE_WIDTH/2, 750*PROPORTION750);
-    status.targetGeoPt = CLLocationCoordinate2DMake((self.ccMsgModel.startPlaceModel.location.latitude+self.ccMsgModel.endPlaceModel.location.latitude)/2,
+    status.targetGeoPt = CLLocationCoordinate2DMake(
+                                                    (self.ccMsgModel.startPlaceModel.location.latitude+self.ccMsgModel.endPlaceModel.location.latitude)/2,
                                                     (self.ccMsgModel.startPlaceModel.location.longitude+self.ccMsgModel.endPlaceModel.location.longitude)/2);
     [_mapView setMapStatus:status withAnimation:YES];
     
