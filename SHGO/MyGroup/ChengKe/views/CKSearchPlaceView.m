@@ -224,7 +224,6 @@
 }
 
 #pragma --mark uitableview 代理
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -317,7 +316,6 @@
     
 }
 
-
 -(void)setDataArray:(NSMutableArray *)dataArray
 {
     if (dataArray.count == 0)
@@ -406,9 +404,6 @@
     }
     [self.myTableView reloadData];
 }
-
-
-
 
 
 @end

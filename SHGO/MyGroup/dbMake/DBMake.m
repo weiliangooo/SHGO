@@ -76,7 +76,7 @@
         model.address = [resultSet stringForColumn:@"address"];
         model.detailAddress = [resultSet stringForColumn:@"detailaddress"];
         model.location = [MyHelperTool locationStringToLocationCoordinate:[resultSet stringForColumn:@"location"]];
-        [array addObject:model];
+        [array insertObject:model atIndex:0];
     }
     [[self myDB] close];
     return [array mutableCopy];
