@@ -8,19 +8,7 @@
 
 #import "CKPlaceTimeView.h"
 
-@interface CKPlaceTimeView()<UITextFieldDelegate>
-
-@end
-
 @implementation CKPlaceTimeView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 -(instancetype)initWithFrame:(CGRect)frame
 {
@@ -30,13 +18,11 @@
         self.clipsToBounds = YES;
         self.layer.cornerRadius = 15.0f;
         
-        
         UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(30*PROPORTION750, 35*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
         imageView1.clipsToBounds = YES;
         imageView1.layer.cornerRadius = 15.f*PROPORTION750;
         imageView1.backgroundColor = [UIColor colorWithHexString:@"#19ac18"];
         [self addSubview:imageView1];
-        
         
         _startPlaceTF = [[UITextField alloc] initWithFrame:CGRectMake(90*PROPORTION750, 0*PROPORTION750, self.width-120*PROPORTION750, 99*PROPORTION750)];
         _startPlaceTF.placeholder = @"您要从哪儿出发";

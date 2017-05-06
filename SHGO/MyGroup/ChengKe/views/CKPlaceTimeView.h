@@ -16,7 +16,7 @@
 
 @end
 
-@interface CKPlaceTimeView : UIView
+@interface CKPlaceTimeView : UIView<UITextFieldDelegate>
 
 @property (nonatomic, assign) id<CKPlaceTimeViewDelegate> delegate;
 @property (nonatomic, strong) UITextField *timeTF;
