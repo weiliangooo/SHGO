@@ -12,18 +12,27 @@
 @class CKLeftCell;
 @class CKLeftHeadView;
 @class CKLeftFootView;
+@class CKLeftView;
+
+@protocol CKLeftViewDelegate <NSObject>
+
+-(void)CKLeftView:(CKLeftView *)leftView didSelectFlag:(NSInteger)flag;
+
+@end
 
 @interface CKLeftView : UIView <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) UITableView *myTableView;
+@property (nonatomic, assign) id<CKLeftViewDelegate> delegate;
 
 @property (nonatomic, strong) CKLeftHeadView *myTableHead;
 
-@property (nonatomic, strong) CKLeftFootView *myTableFoot;
+-(instancetype)initWithViewController:(YHBaseViewController *)viewController;
 
-@property (nonatomic, copy) void (^didSelectedBlock)(NSInteger row);
+-(void)showView;
 
--(instancetype)initWithFrame:(CGRect)frame withViewController:(YHBaseViewController *)viewController;
+-(void)hiddenView;
+
+-(void)hiddenViewAtonce;
 
 @end
 
@@ -42,8 +51,6 @@
 @property (nonatomic, strong)UILabel *phoneLB;
 ///签到按钮
 @property (nonatomic, strong)UIButton *signBtn;
-///签到和头像点击的回调函数 flag : 1 点击头像  2 点击签到按钮
-@property (nonatomic, copy)void (^leftHeadBlock)(NSInteger flag);
 
 -(void)setUpSignBtnStauts:(BOOL)isSelected;
 
@@ -51,7 +58,5 @@
 
 
 @interface CKLeftFootView : UIView
-
-@property (nonatomic, copy) void (^phoneOfKFBlock)(NSString *phoneNum);
 
 @end

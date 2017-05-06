@@ -7,29 +7,29 @@
 //
 
 #import "CKLeftView.h"
+#import "AppDelegate.h"
 
-@interface CKLeftView ()
+@interface CKLeftView ()<UIGestureRecognizerDelegate>
 {
     NSArray *dataArray;
+    
+    UIView *leftView;
 }
 
+@property (nonatomic, strong) YHBaseViewController *parentViewController;
+
+@property (nonatomic, strong) UITableView *myTableView;
+
+@property (nonatomic, strong) CKLeftFootView *myTableFoot;
 
 @end
 
 @implementation CKLeftView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 -(UITableView *)myTableView
 {
-    if(!_myTableView)
-    {
-        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height) style:UITableViewStylePlain];
+    if(!_myTableView){
+        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, leftView.width, leftView.height) style:UITableViewStylePlain];
         _myTableView.delegate = self;
         _myTableView.dataSource = self;
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -38,47 +38,50 @@
     return _myTableView;
 }
 
-
--(instancetype)initWithFrame:(CGRect)frame withViewController:(YHBaseViewController *)viewController
+-(instancetype)initWithViewController:(YHBaseViewController *)viewController
 {
-    if (self = [super initWithFrame:frame])
+    if (self = [super initWithFrame:[UIScreen mainScreen].bounds])
     {
-        self.backgroundColor = [UIColor whiteColor];
+        _parentViewController = viewController;
+        AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
+        self.userInteractionEnabled = true;
+        UITapGestureRecognizer *maskTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenView)];
+        maskTap.delegate = self;
+        [self addGestureRecognizer:maskTap];
+        [de.window addSubview:self];
+        
+        
+        leftView = [[UIView alloc] initWithFrame:CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height)];
+        leftView.backgroundColor = [UIColor whiteColor];
+        [self addSubview:leftView];
         
         dataArray = @[@{@"head":@"left_wallet",@"title":@"钱包"},
                       @{@"head":@"left_order",@"title":@"行程"},
                       @{@"head":@"left_ck",@"title":@"乘客"},
                       @{@"head":@"left_setup",@"title":@"设置"}];
         
-        _myTableHead = [[CKLeftHeadView alloc] initWithFrame:CGRectMake(0, 0, self.width, 270*PROPORTION750)];
-        _myTableHead.leftHeadBlock = ^(NSInteger flag){
-            if (flag == 1)
-            {
-                self.didSelectedBlock(100);
-            }
-            else if (flag == 2)
-            {
-                self.didSelectedBlock(200);
-            }
-        };
+        _myTableHead = [[CKLeftHeadView alloc] initWithFrame:CGRectMake(0, 0, leftView.width, 270*PROPORTION750)];
+        _myTableHead.headView.userInteractionEnabled = true;
+        [_myTableHead.headView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headViewTapEvent)]];
+        [_myTableHead.signBtn addTarget:self action:@selector(signBtnClickEvent) forControlEvents:UIControlEventTouchUpInside];
         
-        _myTableFoot = [[CKLeftFootView alloc] initWithFrame:CGRectMake(0, self.height-100*PROPORTION750, self.width, 100*PROPORTION750)];
-        _myTableFoot.phoneOfKFBlock = ^(NSString *phoneNum)
-        {
-            [viewController phoneAlertView:phoneNum];
-        };
+        _myTableFoot = [[CKLeftFootView alloc] initWithFrame:CGRectMake(0, leftView.height-100*PROPORTION750, leftView.width, 100*PROPORTION750)];
+        _myTableFoot.userInteractionEnabled = YES;
+        [_myTableFoot addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(footViewTapEvent)]];
         
         
         self.myTableView.tableHeaderView = _myTableHead;
         
-//        self.myTableView.tableFooterView = _myTableFoot;
-
-        [self addSubview:self.myTableView];
+        [leftView addSubview:self.myTableView];
         
-        [self addSubview:_myTableFoot];
+        [leftView addSubview:_myTableFoot];
+        
+        [self showView];
     }
     return self;
 }
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -116,8 +119,56 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.didSelectedBlock(indexPath.row);
+    if (_delegate && [_delegate respondsToSelector:@selector(CKLeftView:didSelectFlag:)]) {
+        [_delegate CKLeftView:self didSelectFlag:indexPath.row+100];
+    }
 }
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return YES;
+}
+
+-(void)headViewTapEvent{
+    if (_delegate && [_delegate respondsToSelector:@selector(CKLeftView:didSelectFlag:)]) {
+        [_delegate CKLeftView:self didSelectFlag:201];
+    }
+}
+
+-(void)signBtnClickEvent{
+    if(!_myTableHead.signBtn.selected){
+        if (_delegate && [_delegate respondsToSelector:@selector(CKLeftView:didSelectFlag:)]) {
+            [_delegate CKLeftView:self didSelectFlag:202];
+        }
+    }
+}
+
+-(void)footViewTapEvent{
+    [_parentViewController phoneAlertView:@"400-966-3655"];
+}
+
+-(void)showView{
+    self.hidden = false;
+    [UIView animateWithDuration:0.5f animations:^{
+        leftView.frame = CGRectMake(0, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
+    } completion:nil];
+}
+
+-(void)hiddenView{
+    [UIView animateWithDuration:0.5f animations:^{
+        leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
+    } completion:^(BOOL finished) {
+        self.hidden = true;
+    }];
+}
+
+-(void)hiddenViewAtonce{
+    leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
+    self.hidden = true;
+}
+
 
 @end
 
@@ -160,8 +211,6 @@
         _headView.clipsToBounds = YES;
         _headView.layer.cornerRadius = 60*PROPORTION750;
         [_headView sd_setImageWithURL:[NSURL URLWithString:[MyHelperNO getMyHeadImage]] placeholderImage:[UIImage imageNamed:@"default"]];
-        _headView.userInteractionEnabled = YES;
-        [_headView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headImgTapEvent:)]];
         [self addSubview:_headView];
         
         _phoneLB = [[UILabel alloc] initWithFrame:CGRectMake(_headView.right+100*PROPORTION750, 130*PROPORTION750, 200*PROPORTION750, 20*PROPORTION750)];
@@ -175,7 +224,6 @@
         _signBtn.clipsToBounds = YES;
         _signBtn.layer.cornerRadius = 8*PROPORTION750;
         _signBtn.titleLabel.font = SYSF750(22);
-        [_signBtn addTarget:self action:@selector(signBtnClickEvent:) forControlEvents:UIControlEventTouchUpInside];
         [_signBtn setImage:[UIImage imageNamed:@"sign_no"] forState:UIControlStateNormal];
         [_signBtn setTitle:@"签到" forState:UIControlStateNormal];
         [_signBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -187,18 +235,6 @@
         [self addSubview:_signBtn];
     }
     return self;
-}
-
--(void)signBtnClickEvent:(UIButton *)button
-{
-    if (!button.selected) {
-        self.leftHeadBlock(2);
-    }
-}
-
--(void)headImgTapEvent:(UITapGestureRecognizer *)tap
-{
-    self.leftHeadBlock(1);
 }
 
 -(void)setUpSignBtnStauts:(BOOL)isSelected
@@ -226,8 +262,6 @@
     if (self = [super initWithFrame:frame])
     {
         self.backgroundColor = [UIColor whiteColor];
-        self.userInteractionEnabled = YES;
-        [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dialKFPhone)]];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 2*PROPORTION750)];
         line.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
@@ -247,11 +281,6 @@
         [self addSubview:phoneLB];
     }
     return self;
-}
-
--(void)dialKFPhone
-{
-    self.phoneOfKFBlock(@"400-966-3655");
 }
 
 @end

@@ -21,7 +21,7 @@
 #import "SignAlertView.h"
 #import "CKMsgListViewController.h"
 
-@interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate>
+@interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate,CKLeftViewDelegate>
 {
     ///用来记录当前所要搜索的城市 判断百度返回结果城市是否为要搜索的城市
     NSString *poiSearchCity;
@@ -29,8 +29,6 @@
 
 ///左边的菜单界面
 @property (nonatomic, strong)CKLeftView *leftView;
-///展示左边菜单栏时 显示的遮罩view
-@property (nonatomic, strong)UIView *maskView;
 ///地图view
 @property (nonatomic, strong)BMKMapView *mapView;
 ///搜索当前位置类，返回的是经纬度
@@ -43,6 +41,7 @@
 @property (nonatomic, strong)CKTimeSelectView *ckTimeSelectView;
 
 @end
+
 
 @implementation CKMainViewController
 
@@ -485,6 +484,7 @@
             self.ccMsgModel.startPlaceModel = nil;
             _ptView.startPlaceTF.text = @"";
 //            [self toast:@"当前城市不支持"];
+//            _mapView
         }
     }
 }
@@ -566,124 +566,81 @@
 //用来弹出左边菜单栏
 -(void)showLeftView
 {
-    if (!_maskView)
-    {
-        AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        _maskView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        _maskView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
-        _maskView.userInteractionEnabled = YES;
-        [_maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissLeftView)]];
-        [de.window addSubview:_maskView];
-        
-        _leftView = [[CKLeftView alloc] initWithFrame:CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height) withViewController:self];
-        _leftView.didSelectedBlock = ^(NSInteger row){
-            switch (row) {
-                case 0:
-                {
-                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
-                    _maskView.hidden = YES;
-                    CKWalletViewController *viewController = [[CKWalletViewController alloc] init];
-                    [self.navigationController pushViewController:viewController animated:YES];
-                }
-                    break;
-                case 1:
-                {
-                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
-                    _maskView.hidden = YES;
-                    CKOrderViewController *viewController = [[CKOrderViewController alloc] init];
-                    [self.navigationController pushViewController:viewController animated:YES];
-                }
-                    break;
-                case 2:
-                {
-                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
-                    _maskView.hidden = YES;
-                    CKListViewController *viewController = [[CKListViewController alloc] init];
-                    [self.navigationController pushViewController:viewController animated:YES];
-                }
-                    break;
-                case 3:
-                {
-                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
-                    _maskView.hidden = YES;
-                    CKSetUpViewController *viewController = [[CKSetUpViewController alloc] init];
-                    [self.navigationController pushViewController:viewController animated:YES];
-                }
-                    break;
-                case 100:
-                {
-                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
-                    _maskView.hidden = YES;
-                    CKMsgChangeViewController *viewController = [[CKMsgChangeViewController alloc] init];
-                    [self.navigationController pushViewController:viewController animated:YES];
-                }
-                    break;
-                case 200:
-                {
-                    
-                    _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
-                    _maskView.hidden = YES;
-                    
-                    NSMutableDictionary *reqDic= [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                  [MyHelperNO getUid], @"uid",
-                                                  [MyHelperNO getMyToken], @"token", nil];
-                    [self post:@"user/sign" withParam:reqDic success:^(id responseObject) {
-                        int code = [responseObject intForKey:@"status"];
-                        NSString *msg = [responseObject stringForKey:@"msg"];
-                        NSLog(@"%@", responseObject);
-                        if (code == 200)
-                        {
-                            [_leftView.myTableHead setUpSignBtnStauts:true];
-                            SignAlertView *alerView = [[SignAlertView alloc] initWithTipTitle:[NSString stringWithFormat:@"获得红包%@元", [responseObject stringForKey:@"data"]]];
-                        }
-                        else if (code == 300)
-                        {
-                            [self toast:@"身份认证已过期"];
-                            [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
-                        }
-                        else if (code == 400)
-                        {
-                            [_leftView.myTableHead setUpSignBtnStauts:true];
-                            [self toast:msg];
-                        }
-                    } failure:^(NSError *error) {
-                        
-                    }];
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
-        };
-        _leftView.backgroundColor = [UIColor whiteColor];
-        [de.window addSubview:_leftView];
-        
-        [UIView animateWithDuration:0.5f animations:^{
-            _leftView.frame = CGRectMake(0, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
-        } completion:nil];
-        
-    }
-    else
-    {
-        [_leftView.myTableHead.headView sd_setImageWithURL:[NSURL URLWithString:[MyHelperNO getMyHeadImage]] placeholderImage:[UIImage imageNamed:@"default"]];
-        _maskView.hidden = NO;
-        [UIView animateWithDuration:0.5f animations:^{
-            _leftView.frame = CGRectMake(0, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
-        } completion:nil];
+    if (!_leftView) {
+        _leftView = [[CKLeftView alloc] initWithViewController:self];
+        _leftView.delegate = self;
+    }else{
+        [_leftView showView];
     }
 }
 
+#pragma --mark CKLeftViewDelegate
+-(void)CKLeftView:(CKLeftView *)leftView didSelectFlag:(NSInteger)flag{
+    [leftView hiddenViewAtonce];
+    switch (flag) {
+        case 100:
+        {
+            CKWalletViewController *viewController = [[CKWalletViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+            break;
+        case 101:
+        {
+            CKOrderViewController *viewController = [[CKOrderViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+            break;
+        case 102:
+        {
+            CKListViewController *viewController = [[CKListViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+            break;
+        case 103:
+        {
+            CKSetUpViewController *viewController = [[CKSetUpViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+            break;
+        case 201:
+        {
+            CKMsgChangeViewController *viewController = [[CKMsgChangeViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+            break;
+        case 202:
+        {
+            NSMutableDictionary *reqDic= [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                          [MyHelperNO getUid], @"uid",
+                                          [MyHelperNO getMyToken], @"token", nil];
+            [self post:@"user/sign" withParam:reqDic success:^(id responseObject) {
+                int code = [responseObject intForKey:@"status"];
+                NSString *msg = [responseObject stringForKey:@"msg"];
+                NSLog(@"%@", responseObject);
+                if (code == 200)
+                {
+                    [_leftView.myTableHead setUpSignBtnStauts:true];
+                    SignAlertView *alerView = [[SignAlertView alloc] initWithTipTitle:[NSString stringWithFormat:@"获得红包%@元", [responseObject stringForKey:@"data"]]];
+                }
+                else if (code == 300)
+                {
+                    [self toast:@"身份认证已过期"];
+                    [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+                }
+                else if (code == 400)
+                {
+                    [_leftView.myTableHead setUpSignBtnStauts:true];
+                    [self toast:msg];
+                }
+            } failure:^(NSError *error) {
+                
+            }];
+        }
+            break;
+        default:
+            break;
+    }
 
-
-//隐藏左边菜单栏
--(void)dismissLeftView
-{
-    [UIView animateWithDuration:0.5f animations:^{
-        _leftView.frame = CGRectMake(-480*PROPORTION750, 0, 480*PROPORTION750, [UIScreen mainScreen].bounds.size.height);
-    } completion:^(BOOL finished) {
-        _maskView.hidden = YES;
-    }];
 }
 
 
