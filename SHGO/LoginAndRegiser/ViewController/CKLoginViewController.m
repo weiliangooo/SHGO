@@ -5,7 +5,6 @@
 //  Created by Alen on 2017/3/23.
 //  Copyright © 2017年 Alen. All rights reserved.
 //
-
 #import "CKLoginViewController.h"
 #import "CKLoginTextField.h"
 #import "CKMainViewController.h"
@@ -93,30 +92,21 @@
 }
 
 
--(void)buttonClickEvents:(UIButton *)button
-{
-    if (button.tag == 100)
-    {
-        if (![Regular isMobileNumber:_accountTF.myTextField.text])
-        {
+-(void)buttonClickEvents:(UIButton *)button{
+    if (button.tag == 100){
+        if (![Regular isMobileNumber:_accountTF.myTextField.text]){
             [self toast:@"请输入正确的手机号码"];
             return;
-        }
-        else
-        {
+        }else{
             [self getVerificationCode];
         }
-    }
-    else if (button.tag == 101)
-    {
-        if (_accountTF.myTextField.text.length == 0)
-        {
+    }else if (button.tag == 101){
+        if (_accountTF.myTextField.text.length == 0){
             [self toast:@"请输入手机号码"];
             return;
         }
         
-        if (_codeTF.myTextField.text.length == 0)
-        {
+        if (_codeTF.myTextField.text.length == 0){
             [self toast:@"请输入验证码"];
             return;
         }
@@ -158,19 +148,16 @@
         
         
     }
-    else if (button.tag == 102)
-    {
+    else if (button.tag == 102){
 //        [button setSelected:!button.selected];
     }
 }
 
--(void)xyLBClickEvent:(UITapGestureRecognizer *)tap
-{
+-(void)xyLBClickEvent:(UITapGestureRecognizer *)tap{
     NSLog(@"xieyi");
 }
 
-- (void)getVerificationCode
-{
+- (void)getVerificationCode{
     NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:_accountTF.myTextField.text, @"phone", nil];
     [self post:@"login/index" withParam:reqDic success:^(id responseObject) {
         int code = [responseObject intForKey:@"status"];
@@ -188,19 +175,15 @@
     
 }
 
--(void)countDown
-{
+-(void)countDown{
     countDownTime--;
-    if (countDownTime < 0||countDownTime ==60)
-    {
+    if (countDownTime < 0||countDownTime ==60){
         _codeBT.userInteractionEnabled = YES;
         [_codeBT setTitle:@"获取验证码" forState:UIControlStateNormal];
         [timer invalidate];
         timer = nil;
         _codeBT.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
-    }
-    else
-    {
+    }else{
         _codeBT.backgroundColor = [UIColor colorWithHexString:@"#cccccc"];
         [_codeBT setTitle:[NSString stringWithFormat:@"(%ds)重新获取",countDownTime] forState:UIControlStateNormal];
         _codeBT.userInteractionEnabled = NO;
