@@ -28,7 +28,7 @@
     
     _myWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT-64)];
     _myWebView.delegate = self;
-    [_myWebView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://m.xiaomachuxing.com/Xm/qrcode/phpqrcode/id/%@", [MyHelperNO getUid]]]]];
+    [_myWebView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://m.xiaomachuxing.com/Xm/qrcode/phpqrcode/id/%@", [MyHelperNO getUid]]]]];
     [self.view addSubview:_myWebView];
 }
 
@@ -36,7 +36,7 @@
 {
     NSURL *url = [request URL];
     
-    NSURL *myUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.xiaomachuxing.com/Xm/qrcode/phpqrcode/id/%@#app", [MyHelperNO getUid]]];
+    NSURL *myUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://m.xiaomachuxing.com/Xm/qrcode/phpqrcode/id/%@#app", [MyHelperNO getUid]]];
     
     if ([url isEqual:myUrl])
     {
@@ -70,10 +70,10 @@
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
     //创建网页内容对象
-    NSString* thumbURL =  @"http://m.xiaomachuxing.com";
+    NSString* thumbURL =  @"https://m.xiaomachuxing.com";
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"欢迎使用 小马出行" descr:@"欢迎使用 小马出行 优惠 便捷 一键即达！" thumImage:thumbURL];
     //设置网页地址
-    shareObject.webpageUrl = @"http://m.xiaomachuxing.com";
+    shareObject.webpageUrl = @"https://m.xiaomachuxing.com";
     
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;

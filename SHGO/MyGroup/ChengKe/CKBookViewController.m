@@ -16,7 +16,9 @@
 #import "PayViewController.h"
 
 @interface CKBookViewController ()<BMKMapViewDelegate,CKBookViewDelegate,CKBookMsgViewDelegate,CKPayViewDelegate,DiscoutSelectViewDelegate,BookCKSelectDetailViewDelegate>
-
+{
+    NSString *orderSn;
+}
 ///显示界面
 @property (nonatomic, strong)CKBookView *bookView;
 ///选择乘车成员界面
@@ -35,10 +37,10 @@
 @property (nonatomic, strong)NSMutableArray <CKMsgModel *> *allCkModels;
 ///选中的乘客
 @property (nonatomic, strong)NSMutableArray <CKMsgModel *> *ckModels;
+
 @end
 
 @implementation CKBookViewController
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,6 +56,14 @@
     _bookView.ckBookMsgView.stCKData = self.ckModels;
     _bookView.ckBookMsgView.stActModel = self.stActModel;
     [self.view addSubview:_bookView];
+    
+    //获取通知中心单例对象
+    NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
+    //添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
+    [center addObserver:self selector:@selector(zhifubaoNotice:) name:@"zhifubaonotice" object:nil];
+    [center addObserver:self selector:@selector(weixinNotice:) name:@"weixinnotice" object:@"1"];
+
+    
 }
 
 ///获取所有活动和乘客 和 设置默认乘客、默认优惠
@@ -114,7 +124,7 @@
     else if (flag == 2)
     {
         _ckDiscoutView = [[CKDiscoutSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT) data:_allActModels];
-        _ckDiscoutView.stActModel = [_stActModel mutableCopy];
+        _ckDiscoutView.stActModel = _stActModel;
         _ckDiscoutView.delegate = self;
     }
 }
@@ -145,13 +155,12 @@
         int code = [responseObject intForKey:@"status"];
         NSString *msg = [responseObject stringForKey:@"msg"];
         NSLog(@"%@", responseObject);
-        if (code == 200)
-        {//微信
-            
+        if (code == 200){//微信
+            orderSn = [responseObject objectForKey:@"data"];  
             
         }
-        else if (code == 220)
-        {//支付宝
+        else if (code == 220){//支付宝
+            orderSn = [responseObject objectForKey:@"data"];
             NSString *ordNum = [responseObject stringForKey:@"data"];
             NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                            ordNum,@"order_sn",
@@ -168,27 +177,15 @@
                 
             }];
         }
-        else if (code == 250)
-        {
-            ///线下下单成功
-//            [self toast:msg];
-            NSDictionary *info = [_inputData objectForKey:@"info"];
+        else if (code == 250){///线下下单成功
+            orderSn = [responseObject objectForKey:@"data"];
+            [self succToNext];
             
-            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-            formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
-            [formatter setDateStyle:NSDateFormatterMediumStyle];
-            [formatter setTimeStyle:NSDateFormatterShortStyle];
-            [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-            NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[[_inputData stringForKey:@"unix"] integerValue]];
-            NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
-            
-            CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
-            viewController.startEndCity = [NSString stringWithFormat:@"%@——>%@", [info stringForKey:@"start_address_name"], [info stringForKey:@"end_address_name"]];
-            viewController.startTime = confromTimespStr;
-            viewController.orderNum = [responseObject objectForKey:@"data"];
-            [self.navigationController pushViewController:viewController animated:YES];
-            
-            [_payView removeFromSuperview];
+        }else if (code == 260){///钱包支付成功
+            orderSn = [responseObject objectForKey:@"data"];
+            [self toast:msg];
+            [self performSelector:@selector(succToNext) withObject:nil afterDelay:1.5];
+//            [self succToNext];
         }
         else if (code == 350)
         {///有未付款订单
@@ -274,6 +271,80 @@
         return;
     }
 }
+
+
+-(void)zhifubaoNotice:(NSNotification *)obj
+{
+    
+    NSLog(@"obj ======= ======= ===== %@", obj);
+    NSString * status = [obj.userInfo stringForKey:@"status"];
+    if([status isEqualToString:@"6002"]){//网络连接出错
+        [self toast:@"网络连接出错"];
+    }
+    if([status isEqualToString:@"6001"]){//用户中途取消
+        [self toast:@"用户中途取消"];
+    }
+    if([status isEqualToString:@"9000"]){//成功
+        [self toast:@"订单支付成功"];
+        [self performSelector:@selector(succToNext) withObject:nil afterDelay:1.5];
+        //        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    if([status isEqualToString:@"8000"]){//正在处理中
+        [self toast:@"正在处理中"];
+    }
+    if([status isEqualToString:@"4000"]){//订单支付失败
+        [self toast:@"订单支付失败"];
+        
+    }
+}
+-(void)weixinNotice:(NSNotification *)obj
+{
+    NSLog(@"obj ======= ======= ===== %@", obj);
+    NSString * status = [obj.userInfo stringForKey:@"status"];
+    NSString *strMsg;
+    //支付返回结果，实际支付结果需要去微信服务器端查询
+    switch ([status intValue]) {
+        case 0:
+            strMsg = @"订单支付成功";
+            [self toast:strMsg];
+            [self performSelector:@selector(succToNext) withObject:nil afterDelay:1.5];
+            //            [self.navigationController popToRootViewControllerAnimated:YES];
+            break;
+        case -1:
+            strMsg = @"订单支付失败";
+            [self toast:strMsg];
+            break;
+        case -2:
+            strMsg = @"用户中途取消";
+            [self toast:strMsg];
+            break;
+        default:
+            strMsg = @"未知错误";
+            [self toast:strMsg];
+            break;
+    }
+}
+-(void)succToNext
+{
+    NSDictionary *info = [_inputData objectForKey:@"info"];
+    
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[[_inputData stringForKey:@"unix"] integerValue]];
+    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+    
+    CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
+    viewController.startEndCity = [NSString stringWithFormat:@"%@——>%@", [info stringForKey:@"start_address_name"], [info stringForKey:@"end_address_name"]];
+    viewController.startTime = confromTimespStr;
+    viewController.orderNum = orderSn;
+    [self.navigationController pushViewController:viewController animated:YES];
+    
+    [_payView removeFromSuperview];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

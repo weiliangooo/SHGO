@@ -135,7 +135,7 @@
         cell.tipLB.text = [NSString stringWithFormat:@"(每单优惠%@元)",model.actPrice];
     }
     [cell sizeToFit];
-    if ([model.actName isEqualToString:_stActModel.actName])
+    if ([model.actId isEqualToString:_stActModel.actId])
     {
         [cell.mySwitch setOn:YES];
     }

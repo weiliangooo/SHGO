@@ -178,16 +178,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end
 
 @interface CKListCell()
@@ -241,14 +231,18 @@
 -(void)setCkId:(NSString *)ckId
 {
     _ckId = ckId;
-    _ckId = [_ckId stringByReplacingCharactersInRange:NSMakeRange(10, 4) withString:@"****"];
+    if ([Regular validateIdentityCard:_ckId]) {
+        _ckId = [_ckId stringByReplacingCharactersInRange:NSMakeRange(10, 4) withString:@"****"];
+    }
     _idLB.text = _ckId;
 }
 
 -(void)setCkPhone:(NSString *)ckPhone
 {
     _ckPhone = ckPhone;
-    _ckPhone = [_ckPhone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+    if ([Regular isMobileNumber:_ckPhone]) {
+        _ckPhone = [_ckPhone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+    }
     _phoneLB.text = _ckPhone;
 }
 

@@ -101,7 +101,7 @@
     order.version = @"1.0";// NOTE: 支付版本
     order.sign_type = @"RSA";// NOTE: sign_type设置
     
-    order.notify_url = @"http://m.xiaomachuxing.com/xmapp/index/api_notify";
+    order.notify_url = [data stringForKey:@"notify_url"];
     // NOTE: 商品数据
     order.biz_content = [BizContent new];
     order.biz_content.body = [data stringForKey:@"body"];

@@ -13,7 +13,10 @@
 #import "CKMainViewController.h"
 #import "CKRealNameViewController.h"
 #import <UMSocialCore/UMSocialCore.h>
-@interface AppDelegate ()
+#import "WXApi.h"
+#import <AlipaySDK/AlipaySDK.h>
+
+@interface AppDelegate ()<WXApiDelegate>
 
 @end
 
@@ -163,12 +166,53 @@
 // 支持所有iOS系统
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    // 其他如支付等SDK的回调
+    if ([url.host isEqualToString:@"pay"] && [url.scheme isEqualToString:@"wx4a3b7ba9ccd06971"])
+    {
+        return [WXApi handleOpenURL:url delegate:self];
+    }
+    
+    
+    if ([url.host isEqualToString:@"safepay"])
+    {
+        NSLog(@"支付宝返回url_2： = %@", url);
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            
+            NSString *status = resultDic[@"resultStatus"];
+            
+            //创建一个消息对象
+            NSNotification * notice = [NSNotification notificationWithName:@"zhifubaonotice" object:nil userInfo:@{@"status":status}];
+            //发送消息
+            [[NSNotificationCenter defaultCenter]postNotification:notice];
+        }];
+        
+    }
+    
+    if ([url.host isEqualToString:@"platformapi"]){//支付宝钱包快登授权返回 authCode
+        [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            
+        }];
+    }
     //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
     if (!result) {
-        // 其他如支付等SDK的回调
+        
     }
     return result;
+}
+
+//微信回调
+-(void)onResp:(BaseResp *)resp
+{//微信支付回调函数
+    //    NSString *strMsg = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
+    if([resp isKindOfClass:[PayResp class]]){
+        //创建一个消息对象
+        NSNotification * notice = [NSNotification notificationWithName:@"weixinnotice" object:nil userInfo:@{@"status":[NSString stringWithFormat:@"%d",resp.errCode]}];
+        //发送消息
+        [[NSNotificationCenter defaultCenter]postNotification:notice];
+    }
+    
 }
 
 

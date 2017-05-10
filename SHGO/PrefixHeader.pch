@@ -62,7 +62,7 @@
 // 弱引用
 #define WeakSelf __weak typeof(self) weakSelf = self;
 
-#define YH_REQUEST_DOMAIN @"http://m.xiaomachuxing.com/xmapp/"//域名
+#define YH_REQUEST_DOMAIN @"https://m.xiaomachuxing.com/xmapp/"//域名
 
 //与4寸屏宽度比
 #define HW fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.width)/320

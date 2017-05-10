@@ -171,7 +171,7 @@
             NSLog(@"%@", responseObject);
             if (code == 200)
             {
-                _ckTimeSelectView = [[CKTimeSelectView alloc] initWithData:[responseObject objectForKey:@"data"]];
+                _ckTimeSelectView = [[CKTimeSelectView alloc] initWithData:[[responseObject objectForKey:@"data"] mutableCopy]];
                 _ckTimeSelectView.CKTimeSelectBlock = ^(BOOL isCancle, NSString *timeStr, NSString *timeId){
                     if (!isCancle)
                     {

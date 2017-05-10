@@ -13,13 +13,6 @@
 
 @implementation OrderDetailView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 -(instancetype)initWithFrame:(CGRect)frame dataSourece:(OrderDetailModel *)dataSource
 {
     if (self = [super initWithFrame:frame])
@@ -52,15 +45,16 @@
 
         MyStar *myStar = [[MyStar alloc] initWithFrame:CGRectMake(170*PROPORTION750, 145*PROPORTION750, 350*PROPORTION750, 30*PROPORTION750) space:30*PROPORTION750];
         myStar.isCanTap = NO;
-        [myStar setScore:[_orderDetailModel.driverScore doubleValue]];
+        [myStar setScore:1.00];
+//        [myStar setScore:[_orderDetailModel.driverScore isEqualToString:@"" ]?1.00: [_orderDetailModel.driverScore doubleValue]];
         [self addSubview:myStar];
         
         
         UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(0, 218*PROPORTION750, 690*PROPORTION750, 2*PROPORTION750)];
         line1.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
         [self addSubview:line1];
-        
-        NSMutableAttributedString *price = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"共%@元", _orderDetailModel.orderPrice ]];
+
+        NSMutableAttributedString *price = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"共%.2f元", [_orderDetailModel.orderPrice doubleValue]]];
         [price addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, 1)];
         [price addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(price.length-1, 1)];
         [price addAttribute:NSFontAttributeName value:SYSF750(50) range:NSMakeRange(1, price.length-2)];

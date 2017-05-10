@@ -8,6 +8,8 @@
 
 #import "MyWebViewController.h"
 
+#import "UIImage+ScalImage.h"
+
 @interface MyWebViewController ()
 
 @property (nonatomic, strong) UIWebView *myWebView;
@@ -33,6 +35,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.type = 1;
+//    [self.rightBtn setImage:[[UIImage imageNamed:@"pay_close"] scaleImageByWidth:30*PROPORTION750] forState:UIControlStateNormal];
     self.topTitle = _webTitle;
     
     _myWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT-64)];
@@ -41,9 +45,16 @@
 //    webView.detectsPhoneNumbers = YES;//自动检测网页上的电话号码，单击可以拨打
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     [_myWebView loadRequest:request];
+    [self.view addSubview:_myWebView];
 }
 
+-(void)leftBtn:(UIButton *)button{
+    [self dismissViewControllerAnimated:true completion:nil];
+}
 
+//-(void)rightBtn:(UIButton *)button{
+//    [self dismissViewControllerAnimated:true completion:nil];
+//}
 
 
 - (void)didReceiveMemoryWarning {

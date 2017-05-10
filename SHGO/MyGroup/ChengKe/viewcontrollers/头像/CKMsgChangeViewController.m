@@ -166,6 +166,7 @@
 {
     if (postArray == nil)
     {
+        [self toast:@"请选择要上传的图片！"];
         return;
     }
     NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:

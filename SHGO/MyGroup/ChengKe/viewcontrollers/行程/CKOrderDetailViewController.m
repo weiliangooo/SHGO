@@ -57,7 +57,7 @@
     headImgView.layer.cornerRadius = 75*PROPORTION750;
     headImgView.layer.borderColor = [UIColor whiteColor].CGColor;
     headImgView.layer.borderWidth = 8*PROPORTION750;
-    headImgView.image = [UIImage imageNamed:@"head"];
+    headImgView.image = [UIImage imageNamed:@"default"];
     [self.view addSubview:headImgView];
     
     UILabel *carNumLB = [[UILabel alloc] initWithFrame:CGRectMake(300*PROPORTION750, _detailView.top+85*PROPORTION750, 150*PROPORTION750, 40*PROPORTION750)];
@@ -128,10 +128,10 @@
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
     //创建网页内容对象
-    NSString* thumbURL =  @"http://m.xiaomachuxing.com";
+    NSString* thumbURL =  @"https://m.xiaomachuxing.com";
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"欢迎使用 小马出行" descr:@"欢迎使用 小马出行 优惠 便捷 一键即达！" thumImage:thumbURL];
     //设置网页地址
-    shareObject.webpageUrl = @"http://m.xiaomachuxing.com";
+    shareObject.webpageUrl = @"https://m.xiaomachuxing.com";
     
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;

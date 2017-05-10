@@ -10,6 +10,9 @@
 #import "CKMainViewController.h"
 #import "CKRealNameViewController.h"
 
+#import "BaseNavViewController.h"
+#import "MyWebViewController.h"
+
 @interface CKLoginViewController ()
 {
     ///定时器
@@ -154,7 +157,9 @@
 }
 
 -(void)xyLBClickEvent:(UITapGestureRecognizer *)tap{
-    NSLog(@"xieyi");
+    MyWebViewController *viewController = [[MyWebViewController alloc] initWithTopTitle:@"使用协议及隐私条款" urlString:@"https://m.xiaomachuxing.com/index/agreement"];
+    BaseNavViewController *navi = [[BaseNavViewController alloc] initWithRootViewController:viewController];
+    [self presentViewController:navi animated:true completion:nil];
 }
 
 - (void)getVerificationCode{

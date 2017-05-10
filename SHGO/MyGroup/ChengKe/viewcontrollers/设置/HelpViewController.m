@@ -22,7 +22,7 @@
     
     UIWebView *myWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT-64)];
     myWebView.delegate = self;
-    [myWebView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://m.xiaomachuxing.com/Xm/index/help"]]];
+    [myWebView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://m.xiaomachuxing.com/Xm/index/help"]]];
     [self.view addSubview:myWebView];
 }
 

@@ -117,6 +117,18 @@
         _rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15*PROPORTION750);
         [_rightBtn addTarget:self action:@selector(rightBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self ios7RightBarButtonItems:[[UIBarButtonItem alloc]initWithCustomView:_rightBtn]];
+    }else if (type == 7){
+        _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _leftBtn.frame = CGRectMake(0, 0, 38*PROPORTION750, 30*PROPORTION750);
+        _leftBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 20*PROPORTION750, 0, 0);
+        [_leftBtn addTarget:self action:@selector(leftBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [self ios7LeftBarButtonItems:[[UIBarButtonItem alloc]initWithCustomView:_leftBtn]];
+        
+        _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _rightBtn.frame = CGRectMake(0, 0, 30*PROPORTION, 30*PROPORTION);
+        [_rightBtn addTarget:self action:@selector(rightBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_rightBtn setImage:[UIImage imageNamed:@"messagenotification"] forState:UIControlStateNormal];
+        [self ios7RightBarButtonItems:[[UIBarButtonItem alloc]initWithCustomView:_rightBtn]];
     }
 }
 

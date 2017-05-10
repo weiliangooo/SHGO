@@ -29,12 +29,12 @@
 
 @implementation CKSearchPlaceView
 
--(UITableView *)myTableView
-{
-    if (!_myTableView)
-    {
+-(UITableView *)myTableView{
+    if (!_myTableView){
         _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 165*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, AL_DEVICE_HEIGHT-165*PROPORTION750) style:UITableViewStyleGrouped];
         _myTableView.backgroundColor = [UIColor whiteColor];
+        _myTableView.clipsToBounds = true;
+        _myTableView.layer.cornerRadius = 15*PROPORTION750;
         _myTableView.delegate = self;
         _myTableView.dataSource = self;
     }
@@ -259,6 +259,7 @@
     if (_typeOfData == DataSourceTypeCity)
     {
         cell.textLabel.text = [_dataArray objectAtIndex:indexPath.row];
+        cell.detailTextLabel.text = @"";
         cell.imageView.image = nil;
     }
     else if (_typeOfData == DataSourceTypeHot || _typeOfData == DataSourceTypeBaidu)

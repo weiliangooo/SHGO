@@ -444,13 +444,13 @@
         if ([_stActModel.actType isEqualToString:@"event"] || [_stActModel.actType isEqualToString:@"extra"])
         {
             
-            [self setPriceString:[NSString stringWithFormat:@"小计：¥%.2f",(_singlePrice+_otherPrice)*_stCKData.count-_money]];
-            [self setAmoutString:[NSString stringWithFormat:@"合计：¥%.2f",(_singlePrice+_otherPrice-discountPrice)*_stCKData.count-_money]];
+            [self setPriceString:[NSString stringWithFormat:@"小计：¥%.2f",(_singlePrice+_otherPrice)*_stCKData.count-_money>0?(_singlePrice+_otherPrice)*_stCKData.count-_money:0.00]];
+            [self setAmoutString:[NSString stringWithFormat:@"合计：¥%.2f",(_singlePrice+_otherPrice-discountPrice)*_stCKData.count-_money>0?(_singlePrice+_otherPrice-discountPrice)*_stCKData.count-_money:0.00]];
         }
         else
         {
-            [self setPriceString:[NSString stringWithFormat:@"小计：¥%.2f",(_singlePrice+_otherPrice)*_stCKData.count-_money]];
-            [self setAmoutString:[NSString stringWithFormat:@"合计：¥%.2f",(_singlePrice+_otherPrice)*_stCKData.count-discountPrice-_money]];
+            [self setPriceString:[NSString stringWithFormat:@"小计：¥%.2f",(_singlePrice+_otherPrice)*_stCKData.count-_money>0?(_singlePrice+_otherPrice)*_stCKData.count-_money:0.00]];
+            [self setAmoutString:[NSString stringWithFormat:@"合计：¥%.2f",(_singlePrice+_otherPrice)*_stCKData.count-discountPrice-_money>0?(_singlePrice+_otherPrice)*_stCKData.count-discountPrice-_money:0.00]];
         }
 
     }
