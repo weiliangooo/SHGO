@@ -11,6 +11,7 @@
 #import "CancleOrderAlertView.h"
 #import "ResonForCancleViewController.h"
 #import "CKSureOrderModel.h"
+#import "CKMainViewController.h"
 
 @interface CKSendOrderViewController ()<AlertClassDelegate>
 
@@ -88,17 +89,23 @@
     
 }
 
--(void)canCleBtnClickEvent
-{
+-(void)leftBtn:(UIButton *)button{
+    for (YHBaseViewController *viewController in self.navigationController.viewControllers){
+        if ([viewController isKindOfClass:[CKMainViewController class]]) {
+            CKMainViewController *mainVC = (CKMainViewController *)viewController;
+            [self.navigationController popToViewController:mainVC animated:YES];
+        }
+    }
+}
+
+-(void)canCleBtnClickEvent{
     CancleOrderAlertView *alerView = [[CancleOrderAlertView alloc] initWithTipTitle:@"是否需要取消订单" TipImage:nil];
     alerView.delegate =self;
 }
 
--(void)AlertClassView:(id)alertView clickIndex:(NSInteger)index
-{
+-(void)AlertClassView:(id)alertView clickIndex:(NSInteger)index{
     [alertView removeFromSuperview];
-    if (index == 100)
-    {
+    if (index == 100){
         ResonForCancleViewController *viewController = [[ResonForCancleViewController alloc] init];
         viewController.orderNum = _orderNum;
         [self.navigationController pushViewController:viewController animated:YES];
