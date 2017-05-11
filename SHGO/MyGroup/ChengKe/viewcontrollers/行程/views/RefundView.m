@@ -27,6 +27,7 @@
         _myTableView.layer.cornerRadius = 15*PROPORTION750;
         _myTableView.delegate = self;
         _myTableView.dataSource = self;
+        _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _myTableView;
 }
@@ -50,7 +51,6 @@
     closeBtn.backgroundColor = [UIColor clearColor];
     UIImage *image = [UIImage imageNamed:@"closeBtn"];
     [closeBtn setImage:[image scaleImageByWidth:100*PROPORTION750] forState:UIControlStateNormal];
-    //        [closeBtn setImage:image forState:UIControlStateNormal];
     [closeBtn addTarget:self action:@selector(closeBtnClickEvent) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:closeBtn];
 }
@@ -76,19 +76,34 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    RefundCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-
-    if (!cell) {
-        cell = [[RefundCell alloc] init];
+    if (_isCheck) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] init];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 88*PROPORTION750, 500*PROPORTION750, 2*PROPORTION750)];
+        line.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
+        [cell addSubview:line];
+        ckModel *cModel = [[ckModel alloc] init];
+        cModel = _dataSource[indexPath.row];
+        cell.textLabel.text = cModel.name;
+        return cell;
+    }else{
+        RefundCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        
+        if (!cell) {
+            cell = [[RefundCell alloc] init];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        ckModel *cModel = [[ckModel alloc] init];
+        cModel = _dataSource[indexPath.row];
+        cell.model = cModel;
+        cell.buttonClick = ^(UIButton *button){
+            self.dataBlock(cModel, button);
+        };
+        return cell;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    ckModel *cModel = [[ckModel alloc] init];
-    cModel = _dataSource[indexPath.row];
-    cell.model = cModel;
-    cell.buttonClick = ^(UIButton *button){
-        self.dataBlock(cModel, button);
-    };
-    return cell;
 }
 
 -(void)closeBtnClickEvent{
@@ -115,6 +130,10 @@
         [_refundBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_refundBtn addTarget:self action:@selector(buttonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_refundBtn];
+        
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 88*PROPORTION750, 500*PROPORTION750, 2*PROPORTION750)];
+        line.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
+        [self addSubview:line];
     }
     return self;
 }

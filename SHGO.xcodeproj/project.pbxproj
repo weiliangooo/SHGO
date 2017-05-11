@@ -302,6 +302,7 @@
 		F712CD091EBAFD9300B67880 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F712CD081EBAFD9300B67880 /* UIKit.framework */; };
 		F712CD0B1EBAFDA600B67880 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F712CD0A1EBAFDA600B67880 /* Foundation.framework */; };
 		F712CD0E1EBB208900B67880 /* MyHelperTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F712CD0D1EBB208900B67880 /* MyHelperTool.m */; };
+		F720C2001EC4954F0067EA18 /* UpCommenView.m in Sources */ = {isa = PBXBuildFile; fileRef = F720C1FF1EC4954F0067EA18 /* UpCommenView.m */; };
 		F73B0EA01E96197000FB468E /* CKDiscoutSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B0E9F1E96197000FB468E /* CKDiscoutSelectView.m */; };
 		F73B0EA31E96413600FB468E /* CKSureOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B0EA21E96413600FB468E /* CKSureOrderModel.m */; };
 		F73B80201E9721330005EC11 /* CKPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B801F1E9721330005EC11 /* CKPayView.m */; };
@@ -671,6 +672,8 @@
 		F712CD0A1EBAFDA600B67880 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F712CD0C1EBB208900B67880 /* MyHelperTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHelperTool.h; sourceTree = "<group>"; };
 		F712CD0D1EBB208900B67880 /* MyHelperTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelperTool.m; sourceTree = "<group>"; };
+		F720C1FE1EC4954F0067EA18 /* UpCommenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpCommenView.h; sourceTree = "<group>"; };
+		F720C1FF1EC4954F0067EA18 /* UpCommenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpCommenView.m; sourceTree = "<group>"; };
 		F73B0E9E1E96197000FB468E /* CKDiscoutSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKDiscoutSelectView.h; sourceTree = "<group>"; };
 		F73B0E9F1E96197000FB468E /* CKDiscoutSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKDiscoutSelectView.m; sourceTree = "<group>"; };
 		F73B0EA11E96413600FB468E /* CKSureOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSureOrderModel.h; sourceTree = "<group>"; };
@@ -1687,6 +1690,8 @@
 				F753B9BD1EC4248D0063781A /* OrderDetailHadCommedView.m */,
 				F753B9BF1EC45D9E0063781A /* RefundView.h */,
 				F753B9C01EC45D9E0063781A /* RefundView.m */,
+				F720C1FE1EC4954F0067EA18 /* UpCommenView.h */,
+				F720C1FF1EC4954F0067EA18 /* UpCommenView.m */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -2309,6 +2314,7 @@
 				F7FD999E1E8B489F00A863DE /* CKBookCKSelectBtn.m in Sources */,
 				F71275751E84E2C600238420 /* CCMsgModel.m in Sources */,
 				F701C8751E4844E6008ADFD6 /* NSDictionaryExt.m in Sources */,
+				F720C2001EC4954F0067EA18 /* UpCommenView.m in Sources */,
 				F701C82A1E4844E6008ADFD6 /* SDCollectionViewCell.m in Sources */,
 				F7D9439C1E825721000C9F8F /* CKLeftView.m in Sources */,
 				F701C8631E4844E6008ADFD6 /* UIImage+WebP.m in Sources */,
