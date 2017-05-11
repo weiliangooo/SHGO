@@ -1,0 +1,287 @@
+//
+//  OrderDetailBaseView.m
+//  SHGO
+//
+//  Created by 魏亮 on 2017/5/11.
+//  Copyright © 2017年 Alen. All rights reserved.
+//
+
+#import "OrderDetailBaseView.h"
+#import "OrderDetailNoPayview.h"
+#import "OrderDetailSystemCancelview.h"
+#import "OrederDetailCancleView.h"
+#import "OrderDetailRefundView.h"
+#import "OrderDetailCarPayView.h"
+#import "OrderDetailHadPayView.h"
+#import "OrderDetailHadCarView.h"
+#import "OrderDetailFinishedView.h"
+#import "OrderDetailHadCommedView.h"
+#import "UIImage+ScalImage.h"
+#import "MyStar.h"
+#import "OrderDetailModel.h"
+
+@implementation OrderDetailBaseView
+
+-(instancetype)init{
+    if (self = [super init]) {
+        self.frame = CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT-64);
+        self.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
+        
+        _scollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT-64)];
+        _scollerView.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
+        [self addSubview:_scollerView];
+        
+        _orderMsgView = [[UIView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 20*PROPORTION750, 710*PROPORTION750, 1000)];
+        _orderMsgView.backgroundColor = [UIColor whiteColor];
+        _orderMsgView.clipsToBounds = true;
+        _orderMsgView.layer.cornerRadius = 15*PROPORTION750;
+        [_scollerView addSubview:_orderMsgView];
+        
+        UILabel *tipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 0, 650*PROPORTION750, 90*PROPORTION750)];
+        tipLB.text = @"订单信息";
+        tipLB.font = SYSF750(30);
+        tipLB.textAlignment = NSTextAlignmentLeft;
+        [_orderMsgView addSubview:tipLB];
+        
+        UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(0, 90*PROPORTION750, _orderMsgView.width, 2*PROPORTION750)];
+        line1.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+        [_orderMsgView addSubview:line1];
+        
+        UILabel *startTipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, line1.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+        startTipLB.text = @"出发地点";
+        startTipLB.font = SYSF750(30);
+        startTipLB.textAlignment = NSTextAlignmentLeft;
+        [_orderMsgView addSubview:startTipLB];
+        
+        _startLB = [[UILabel alloc] initWithFrame:CGRectMake(355*PROPORTION750, line1.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+        _startLB.text = @"和地广场北97米";
+        _startLB.textColor = [UIColor colorWithHexString:@"999999"];
+        _startLB.font = SYSF750(30);
+        _startLB.textAlignment = NSTextAlignmentRight;
+        [_orderMsgView addSubview:_startLB];
+        
+        UILabel *endTipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, startTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+        endTipLB.text = @"到达地点";
+        endTipLB.font = SYSF750(30);
+        endTipLB.textAlignment = NSTextAlignmentLeft;
+        [_orderMsgView addSubview:endTipLB];
+        
+        _endLB = [[UILabel alloc] initWithFrame:CGRectMake(355*PROPORTION750, startTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+        _endLB.text = @"新都市北97米";
+        _endLB.textColor = [UIColor colorWithHexString:@"999999"];
+        _endLB.font = SYSF750(30);
+        _endLB.textAlignment = NSTextAlignmentRight;
+        [_orderMsgView addSubview:_endLB];
+        
+        UILabel *timeTipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, endTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+        timeTipLB.text = @"出发时间";
+        timeTipLB.font = SYSF750(30);
+        timeTipLB.textAlignment = NSTextAlignmentLeft;
+        [_orderMsgView addSubview:timeTipLB];
+        
+        _timeLB = [[UILabel alloc] initWithFrame:CGRectMake(355*PROPORTION750, endTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+        _timeLB.text = @"2017-05-08 17:45";
+        _timeLB.textColor = [UIColor colorWithHexString:@"999999"];
+        _timeLB.font = SYSF750(30);
+        _timeLB.textAlignment = NSTextAlignmentRight;
+        [_orderMsgView addSubview:_timeLB];
+        
+        UILabel *ckTipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, timeTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+        ckTipLB.text = @"乘客信息";
+        ckTipLB.font = SYSF750(30);
+        ckTipLB.textAlignment = NSTextAlignmentLeft;
+        [_orderMsgView addSubview:ckTipLB];
+        
+        _ckLB = [[UILabel alloc] initWithFrame:CGRectMake(355*PROPORTION750, timeTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+        _ckLB.text = @"香蕉 苹果 芥子";
+        _ckLB.textColor = [UIColor colorWithHexString:@"999999"];
+        _ckLB.font = SYSF750(30);
+        _ckLB.textAlignment = NSTextAlignmentRight;
+        [_orderMsgView addSubview:_ckLB];
+        
+        UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, ckTipLB.bottom, _orderMsgView.width, 2*PROPORTION750)];
+        line2.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+        [_orderMsgView addSubview:line2];
+        
+        NSMutableAttributedString *price = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"共%.2f元", 192.00]];
+        [price addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, 1)];
+        [price addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(price.length-1, 1)];
+        [price addAttribute:NSFontAttributeName value:SYSF750(50) range:NSMakeRange(1, price.length-2)];
+        [price addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"999999"] range:NSMakeRange(0, 1)];
+        [price addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(price.length-1, 1)];
+        [price addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(1, price.length-2)];
+        
+        _priceLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, line2.bottom+30*PROPORTION750, 280*PROPORTION750, 50*PROPORTION750)];
+        _priceLB.textAlignment = NSTextAlignmentLeft;
+        _priceLB.attributedText = price;
+        [_orderMsgView addSubview:_priceLB];
+        
+        UIButton *detailBtn = [[UIButton alloc] initWithFrame:CGRectMake(530*PROPORTION750, line2.bottom+42.5*PROPORTION750, 130*PROPORTION750, 25*PROPORTION750)];
+        detailBtn.tag = 102;
+        [detailBtn setTitle:@"查看明细" forState:UIControlStateNormal];
+        [detailBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
+        detailBtn.titleLabel.font = SYSF750(25);
+        [detailBtn setImage:[[UIImage imageNamed:@"right_wallet"] scaleImageByHeight:25*PROPORTION750] forState:UIControlStateNormal];
+        detailBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 130*PROPORTION750, 0, -130*PROPORTION750);
+        detailBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -15*PROPORTION750, 0, 15*PROPORTION750);
+//        [detailBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+        [_orderMsgView addSubview:detailBtn];
+        
+        _orderMsgView.height = line2.bottom+110*PROPORTION750;
+        
+//        [self driverMsgWithView:_orderMsgView];
+        
+    }
+    return self;
+}
+
+-(void)driverMsgWithView:(UIView *)lastView{
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(20*PROPORTION750, lastView.bottom+20*PROPORTION750, 710*PROPORTION750, 1000)];
+    backView.backgroundColor = [UIColor whiteColor];
+    backView.clipsToBounds = true;
+    backView.layer.cornerRadius = 15*PROPORTION750;
+    [self addSubview:backView];
+    
+    UILabel *tipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 0, 650*PROPORTION750, 90*PROPORTION750)];
+    tipLB.text = @"车辆人员概况";
+    tipLB.font = SYSF750(30);
+    tipLB.textAlignment = NSTextAlignmentLeft;
+    [backView addSubview:tipLB];
+    
+    UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(0, 90*PROPORTION750, backView.width, 2*PROPORTION750)];
+    line1.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+    [backView addSubview:line1];
+    
+    UILabel *startTipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, line1.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+    startTipLB.text = @"王师傅";
+    startTipLB.font = SYSF750(30);
+    startTipLB.textAlignment = NSTextAlignmentLeft;
+    [backView addSubview:startTipLB];
+    
+    MyStar *startLB = [[MyStar alloc] initWithFrame:CGRectMake(355*PROPORTION750, line1.bottom, 325*PROPORTION750, 90*PROPORTION750) space:20*PROPORTION750];
+    [startLB setScore:4.2];
+    [backView addSubview:startLB];
+    
+    UILabel *carTypeTipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, startTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+    carTypeTipLB.text = @"车辆品牌";
+    carTypeTipLB.font = SYSF750(30);
+    carTypeTipLB.textAlignment = NSTextAlignmentLeft;
+    [backView addSubview:carTypeTipLB];
+    
+    UILabel *carTypeLB = [[UILabel alloc] initWithFrame:CGRectMake(355*PROPORTION750, startTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+    carTypeLB.text = @"海马V70";
+    carTypeLB.textColor = [UIColor colorWithHexString:@"999999"];
+    carTypeLB.font = SYSF750(30);
+    carTypeLB.textAlignment = NSTextAlignmentRight;
+    [backView addSubview:carTypeLB];
+    
+    UILabel *carNumTipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, carTypeTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+    carNumTipLB.text = @"车辆牌照";
+    carNumTipLB.font = SYSF750(30);
+    carNumTipLB.textAlignment = NSTextAlignmentLeft;
+    [backView addSubview:carNumTipLB];
+    
+    UILabel *carNumLB = [[UILabel alloc] initWithFrame:CGRectMake(355*PROPORTION750, carTypeTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+    carNumLB.text = @"皖A12345";
+    carNumLB.textColor = [UIColor colorWithHexString:@"999999"];
+    carNumLB.font = SYSF750(30);
+    carNumLB.textAlignment = NSTextAlignmentRight;
+    [backView addSubview:carNumLB];
+    
+    UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, carNumTipLB.bottom, backView.width, 2*PROPORTION750)];
+    line2.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+    [backView addSubview:line2];
+    
+    UIButton *detailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, line2.bottom, 710*PROPORTION750, 90*PROPORTION750)];
+    detailBtn.tag = 102;
+    [detailBtn setTitle:@"联系司机" forState:UIControlStateNormal];
+    [detailBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
+    detailBtn.titleLabel.font = SYSF750(25);
+    //        [detailBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+    [backView addSubview:detailBtn];
+    
+    backView.height = line2.bottom+90*PROPORTION750;
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"如有其他问题请联系客服"];
+    [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"999999"] range:NSMakeRange(0, 7)];
+    [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"1aad19"] range:NSMakeRange(7, 4)];
+    
+    UIButton *kfBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, backView.bottom+20*PROPORTION750, 710*PROPORTION750, 25*PROPORTION750)];
+    kfBtn.tag = 102;
+    [kfBtn setAttributedTitle:string forState:UIControlStateNormal];
+    kfBtn.titleLabel.font = SYSF750(25);
+    //        [detailBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:kfBtn];
+}
+
+-(void)setModel:(OrderDetailModel *)model{
+    _model = model;
+    _startLB.text = _model.startPlace.address;
+    _endLB.text = _model.endPlace.address;
+    // 格式化时间
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[_model.startTime integerValue]];
+    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+    _timeLB.text = confromTimespStr;
+//    [NSString stringWithFormat:@"%@（下单）", confromTimespStr];
+//    _timeLB.text = _model.startTime;
+    NSString *ckString = @"";
+    for (int i = 0 ; i < model.ckMsgs.count; i++) {
+        ckModel *cmodel = _model.ckMsgs[i];
+        ckString = [ckString stringByAppendingString:[NSString stringWithFormat:@" %@",cmodel.name]];
+    }
+    ckString = [ckString stringByAppendingString:@" >"];
+    _ckLB.text = ckString;
+    [self setPriceString:_model.orderPrice];
+}
+
+-(void)setPriceString:(NSString *)string{
+    NSMutableAttributedString *price = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"共%.2f元", [string doubleValue]]];
+    [price addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, 1)];
+    [price addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(price.length-1, 1)];
+    [price addAttribute:NSFontAttributeName value:SYSF750(50) range:NSMakeRange(1, price.length-2)];
+    [price addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"999999"] range:NSMakeRange(0, 1)];
+    [price addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(price.length-1, 1)];
+    [price addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(1, price.length-2)];
+    
+    _priceLB.attributedText = price;
+}
+
+-(void)buttonClickEvents:(UIButton *)button{
+    if (_delegate && [_delegate respondsToSelector:@selector(OrderDetailBaseViewClickWithTitle:)]) {
+        [_delegate OrderDetailBaseViewClickWithTitle:button.titleLabel.text];
+    }
+}
+
+
++(OrderDetailBaseView *)orderDetailViewWithType:(OrederStatus)type{
+    switch (type) {
+        case OrederStatusNoPay:
+            return [[OrderDetailNoPayview alloc] init];
+        case OrederStatusSystemCancle:
+            return [[OrderDetailSystemCancelview alloc] init];
+        case OrederStatusCancle:
+            return [[OrederDetailCancleView alloc] init];
+        case OrederStatusRefund:
+            return [[OrderDetailRefundView alloc] init];
+        case OrederStatusCarPay:
+            return [[OrderDetailCarPayView alloc] init];
+        case OrederStatusHadPay:
+            return [[OrderDetailHadPayView alloc] init];
+        case OrederStatusHadCar:
+            return [[OrderDetailHadCarView alloc] init];
+        case OrederStatusFinished:
+            return [[OrderDetailFinishedView alloc] init];
+        case OrederStatusHadCommed:
+            return [[OrderDetailHadCommedView alloc] init];
+        default:
+            return [[OrderDetailBaseView alloc] init];
+            break;
+    }
+}
+
+@end

@@ -21,6 +21,9 @@
         _carName = [dataSource stringForKey:@"car_name"];
         _orderPrice = [dataSource stringForKey:@"price"];
         _orderStatus = [dataSource stringForKey:@"status"];
+        _startTime = [dataSource stringForKey:@"start_unixtime"];
+        _is_pj = [dataSource stringForKey:@"is_pj"];
+        
         PlaceModel *start = [[PlaceModel alloc] init];
         start.address = [dataSource stringForKey:@"start_name"];
         start.location = [MyHelperTool locationStringToLocationCoordinate:[dataSource stringForKey:@"start_local"]];
@@ -31,11 +34,11 @@
         end.location = [MyHelperTool locationStringToLocationCoordinate:[dataSource stringForKey:@"end_local"]];
         _endPlace = end;
         
-        NSArray *array = [dataSource arrayForKey:@"passenger_name"];
-        _ckNames = [NSMutableArray array];
-        for (int i = 0; i < array.count; i++)
-        {
-            [_ckNames addObject:[array objectAtIndex:i]];
+        NSArray *array = [dataSource arrayForKey:@"info"];
+        _ckMsgs = [NSMutableArray array];
+        for (int i = 0; i < array.count; i++){
+            ckModel *model = [[ckModel alloc] initWithData:array[i]];
+            [_ckMsgs addObject:model];
         }
     }
     return self;
@@ -43,3 +46,28 @@
 
 
 @end
+
+
+@implementation ckModel
+
+-(instancetype)initWithData:(NSDictionary *)dataSource{
+    if (self = [super init]) {
+        _name = [dataSource stringForKey:@"name"];
+        _orderId = [dataSource stringForKey:@"order_id"];
+        _orderStatus = [dataSource stringForKey:@"order_status"];
+        _orderStatus_ = [dataSource stringForKey:@"status"];
+    }
+    return self;
+}
+
+
+@end
+
+
+
+
+
+
+
+
+

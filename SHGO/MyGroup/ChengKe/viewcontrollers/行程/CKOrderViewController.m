@@ -31,8 +31,18 @@
         _myTableView.delegate = self;
         _myTableView.dataSource = self;
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        MJRefreshHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [self loadData];
+        }];
+        _myTableView.mj_header = header;
     }
     return _myTableView;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self loadData];
 }
 
 - (void)viewDidLoad {
@@ -42,22 +52,24 @@
     self.topTitle = @"我的行程";
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
-    _finishdata = [NSMutableArray array] ;
-    _unFinishdata = [NSMutableArray array] ;
     [self.view addSubview:self.myTableView];
     
-    [self loadData];
+//    [self loadData];
 }
 
 -(void)loadData
 {
+    
     NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[MyHelperNO getUid], @"uid", [MyHelperNO getMyToken], @"token", nil];
     [self post:@"order/orderlist" withParam:reqDic success:^(id responseObject) {
+        [_myTableView.mj_header endRefreshing];
         int code = [responseObject intForKey:@"status"];
         NSLog(@"%@", responseObject);
         NSString *msg = [responseObject stringForKey:@"msg"];
         if (code == 200)
         {
+            _finishdata = [NSMutableArray array];
+            _unFinishdata = [NSMutableArray array];
             NSArray *fin = [NSArray arrayWithArray:[responseObject arrayForKey:@"over"]];
             _finishdata = [NSMutableArray array];
             for (int i = 0 ; i < fin.count; i++)
@@ -187,37 +199,15 @@
     {
         model = [_finishdata objectAtIndex:indexPath.row];
     }
+    
+    CKOrderDetailViewController *viewController = [[CKOrderDetailViewController alloc] init];
+    viewController.order_sn = model.order_sn;
+    [self.navigationController pushViewController:viewController animated:true];
 
-    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                   model.order_sn, @"common_id",
-                                   [MyHelperNO getUid], @"uid",
-                                   [MyHelperNO getMyToken], @"token", nil];
-    [self post:@"order/ordercurrent" withParam:reqDic success:^(id responseObject) {
-        int code = [responseObject intForKey:@"status"];
-        NSLog(@"%@", responseObject);
-        NSString *msg = [responseObject stringForKey:@"msg"];
-        if (code == 200)
-        {
-            NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[responseObject objectForKey:@"data"]];
-            OrderDetailModel *omodel = [[OrderDetailModel alloc] initWithData:dic];
-            CKOrderDetailViewController *viewController = [[CKOrderDetailViewController alloc] initWithOrderDetailModel:omodel];
-            viewController.orderNum = model.order_sn;
-            [self.navigationController pushViewController:viewController animated:YES];
-            
-        }
-        else if (code == 300)
-        {
-            [self toast:@"身份认证已过期"];
-            [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
-        }
-        else if (code == 400)
-        {
-            [self toast:msg];
-        }
-        
-    } failure:^(NSError *error) {
-        
-    }];
+}
+
+-(void)alReLoadData{
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {

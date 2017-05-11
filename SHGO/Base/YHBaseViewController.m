@@ -19,14 +19,39 @@
 }
 
 @end
-
 @implementation YHBaseViewController
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setTranslucent:false];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    de.noticeFlag = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"YHBaseViewController" object:NSStringFromClass([self class])];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.topTitle = @"";
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self setUpForDismissKeyboard];
+    AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    de.noticeFlag = NSStringFromClass([self class]);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alReLoadData) name:NSStringFromClass([self class]) object:nil];
 }
 /**
  1只有返回按钮
@@ -132,46 +157,16 @@
     }
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    [self.navigationController.navigationBar setTranslucent:false];
-//    for (UIView *view in [self.tabBarController.tabBar subviews]) {
-//        if ([view isKindOfClass:[UIControl class]]) {
-//            [view removeFromSuperview];
-//        }
-//        if ([view isKindOfClass:[UIImageView class]]) {
-//            [view removeFromSuperview];
-//        }
-//    }
-    
-//    [self setUpForDismissKeyboard];
-}
+
 
 -(void)leftBtn:(UIButton *)button{
-    
     [self.navigationController popViewControllerAnimated:YES];
-   
 }
+
 -(void)rightBtn:(UIButton *)button{
 
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
--(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self.view endEditing:YES];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
--(void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-}
 //点击屏幕键盘消失
 - (void)setUpForDismissKeyboard {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -600,25 +595,11 @@
 }
 
 //消除多余的线
-- (void) makeExtraCellLineHidden: (UITableView *)tableView
-{
+- (void) makeExtraCellLineHidden: (UITableView *)tableView{
     UIView *view = [[UIView alloc] init];
     [view setBackgroundColor:[UIColor clearColor]];
     [tableView setTableFooterView:view];
 }
-
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
-
-
 
 //弹出提示
 -(void)alert:(NSString *)message
@@ -645,16 +626,18 @@
     }];
 }
 
--(void)backToLastVC
-{
+-(void)backToLastVC{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)gotoLoginViewController
-{
+-(void)gotoLoginViewController{
     CKLoginViewController *viewController = [[CKLoginViewController alloc] init];
     BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
     [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+-(void)alReLoadData{
+    NSLog(@"%@ notice ", NSStringFromClass([self class]));
 }
 
 @end

@@ -17,6 +17,8 @@ typedef enum : NSUInteger {
     OrderStatusClose,     ///已关闭
 } OrderStatus;
 
+@class ckModel;
+
 @interface OrderDetailModel : NSObject
 
 @property (nonatomic, strong) NSString *driverName;
@@ -29,11 +31,15 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) NSString *carName;
 
-@property (nonatomic, strong) NSMutableArray<NSString *> *ckNames;
+@property (nonatomic, strong) NSMutableArray<ckModel *> *ckMsgs;
 
 @property (nonatomic, strong) NSString *orderPrice;
 
 @property (nonatomic, strong) NSString *orderStatus;
+
+@property (nonatomic, strong) NSString *startTime;
+
+@property (nonatomic, strong) NSString *is_pj;
 
 @property (nonatomic, strong) PlaceModel *startPlace;
 
@@ -42,3 +48,15 @@ typedef enum : NSUInteger {
 -(instancetype)initWithData:(NSDictionary *)dataSource;
 
 @end
+
+@interface ckModel : NSObject
+
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *orderId;
+@property (nonatomic, strong) NSString *orderStatus;
+@property (nonatomic, strong) NSString *orderStatus_;
+
+-(instancetype)initWithData:(NSDictionary *)dataSource;
+
+@end
+

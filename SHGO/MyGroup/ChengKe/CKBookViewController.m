@@ -172,6 +172,8 @@
                 NSLog(@"%@", responseObject);
                 if (code == 200) {
                     [[PayViewController shareManager] zhifubaoInit:responseObject];
+                }else{
+                    [self toast:msg];
                 }
             }failure:^(NSError *error) {
                 

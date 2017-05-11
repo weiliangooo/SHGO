@@ -9,13 +9,11 @@
 #import "CKMapViewController.h"
 
 
+
+
 @class OrderDetailModel;
 @interface CKOrderDetailViewController : CKMapViewController
 
-@property (nonatomic, strong) OrderDetailModel *dataSouce;
-
-@property (nonatomic, strong) NSString *orderNum;
-
--(instancetype)initWithOrderDetailModel:(OrderDetailModel *)orderDetailModel;
+@property (nonatomic, strong) NSString *order_sn;
 
 @end

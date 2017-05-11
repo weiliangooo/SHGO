@@ -128,5 +128,6 @@
 
 -(void)gotoLoginViewController;
 
+-(void)alReLoadData;
 
 @end

@@ -314,6 +314,17 @@
 		F74F2BA81EAB3F0E006B2B27 /* WalletDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F2BA71EAB3F0E006B2B27 /* WalletDetailCell.m */; };
 		F74F2BAB1EAB44EE006B2B27 /* WalletDiscoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F2BAA1EAB44EE006B2B27 /* WalletDiscoutCell.m */; };
 		F75172081EA5D640007EC790 /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75172071EA5D640007EC790 /* ActivityModel.m */; };
+		F753B9A31EC419820063781A /* OrderDetailBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9A21EC419820063781A /* OrderDetailBaseView.m */; };
+		F753B9A61EC421FD0063781A /* OrderDetailNoPayview.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9A51EC421FD0063781A /* OrderDetailNoPayview.m */; };
+		F753B9A91EC423900063781A /* OrderDetailSystemCancelview.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9A81EC423900063781A /* OrderDetailSystemCancelview.m */; };
+		F753B9AC1EC423B20063781A /* OrederDetailCancleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9AB1EC423B20063781A /* OrederDetailCancleView.m */; };
+		F753B9AF1EC423CD0063781A /* OrderDetailRefundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9AE1EC423CD0063781A /* OrderDetailRefundView.m */; };
+		F753B9B21EC424090063781A /* OrderDetailCarPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9B11EC424090063781A /* OrderDetailCarPayView.m */; };
+		F753B9B51EC424310063781A /* OrderDetailHadPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9B41EC424310063781A /* OrderDetailHadPayView.m */; };
+		F753B9B81EC424520063781A /* OrderDetailHadCarView.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9B71EC424520063781A /* OrderDetailHadCarView.m */; };
+		F753B9BB1EC424700063781A /* OrderDetailFinishedView.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9BA1EC424700063781A /* OrderDetailFinishedView.m */; };
+		F753B9BE1EC4248D0063781A /* OrderDetailHadCommedView.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9BD1EC4248D0063781A /* OrderDetailHadCommedView.m */; };
+		F753B9C11EC45D9E0063781A /* RefundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9C01EC45D9E0063781A /* RefundView.m */; };
 		F75C4C271EAED71800740030 /* WalletQuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C261EAED71800740030 /* WalletQuanModel.m */; };
 		F75C4C361EAF148100740030 /* CKMsgListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C351EAF148100740030 /* CKMsgListViewController.m */; };
 		F75C4C391EAF16B000740030 /* MsgListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C381EAF16B000740030 /* MsgListModel.m */; };
@@ -685,6 +696,28 @@
 		F74F2BAA1EAB44EE006B2B27 /* WalletDiscoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletDiscoutCell.m; sourceTree = "<group>"; };
 		F75172061EA5D640007EC790 /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
 		F75172071EA5D640007EC790 /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
+		F753B9A11EC419820063781A /* OrderDetailBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailBaseView.h; sourceTree = "<group>"; };
+		F753B9A21EC419820063781A /* OrderDetailBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailBaseView.m; sourceTree = "<group>"; };
+		F753B9A41EC421FD0063781A /* OrderDetailNoPayview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailNoPayview.h; sourceTree = "<group>"; };
+		F753B9A51EC421FD0063781A /* OrderDetailNoPayview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailNoPayview.m; sourceTree = "<group>"; };
+		F753B9A71EC423900063781A /* OrderDetailSystemCancelview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailSystemCancelview.h; sourceTree = "<group>"; };
+		F753B9A81EC423900063781A /* OrderDetailSystemCancelview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailSystemCancelview.m; sourceTree = "<group>"; };
+		F753B9AA1EC423B20063781A /* OrederDetailCancleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrederDetailCancleView.h; sourceTree = "<group>"; };
+		F753B9AB1EC423B20063781A /* OrederDetailCancleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrederDetailCancleView.m; sourceTree = "<group>"; };
+		F753B9AD1EC423CD0063781A /* OrderDetailRefundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailRefundView.h; sourceTree = "<group>"; };
+		F753B9AE1EC423CD0063781A /* OrderDetailRefundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailRefundView.m; sourceTree = "<group>"; };
+		F753B9B01EC424090063781A /* OrderDetailCarPayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailCarPayView.h; sourceTree = "<group>"; };
+		F753B9B11EC424090063781A /* OrderDetailCarPayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailCarPayView.m; sourceTree = "<group>"; };
+		F753B9B31EC424310063781A /* OrderDetailHadPayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailHadPayView.h; sourceTree = "<group>"; };
+		F753B9B41EC424310063781A /* OrderDetailHadPayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailHadPayView.m; sourceTree = "<group>"; };
+		F753B9B61EC424520063781A /* OrderDetailHadCarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailHadCarView.h; sourceTree = "<group>"; };
+		F753B9B71EC424520063781A /* OrderDetailHadCarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailHadCarView.m; sourceTree = "<group>"; };
+		F753B9B91EC424700063781A /* OrderDetailFinishedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailFinishedView.h; sourceTree = "<group>"; };
+		F753B9BA1EC424700063781A /* OrderDetailFinishedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailFinishedView.m; sourceTree = "<group>"; };
+		F753B9BC1EC4248D0063781A /* OrderDetailHadCommedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailHadCommedView.h; sourceTree = "<group>"; };
+		F753B9BD1EC4248D0063781A /* OrderDetailHadCommedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailHadCommedView.m; sourceTree = "<group>"; };
+		F753B9BF1EC45D9E0063781A /* RefundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefundView.h; sourceTree = "<group>"; };
+		F753B9C01EC45D9E0063781A /* RefundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefundView.m; sourceTree = "<group>"; };
 		F75C4C251EAED71800740030 /* WalletQuanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletQuanModel.h; sourceTree = "<group>"; };
 		F75C4C261EAED71800740030 /* WalletQuanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletQuanModel.m; sourceTree = "<group>"; };
 		F75C4C341EAF148100740030 /* CKMsgListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMsgListViewController.h; sourceTree = "<group>"; };
@@ -1632,6 +1665,28 @@
 				F764CA6A1EA9FDDA00B91253 /* MyStar.m */,
 				F764CA6C1EAA00E600B91253 /* StarImageView.h */,
 				F764CA6D1EAA00E600B91253 /* StarImageView.m */,
+				F753B9A11EC419820063781A /* OrderDetailBaseView.h */,
+				F753B9A21EC419820063781A /* OrderDetailBaseView.m */,
+				F753B9A41EC421FD0063781A /* OrderDetailNoPayview.h */,
+				F753B9A51EC421FD0063781A /* OrderDetailNoPayview.m */,
+				F753B9A71EC423900063781A /* OrderDetailSystemCancelview.h */,
+				F753B9A81EC423900063781A /* OrderDetailSystemCancelview.m */,
+				F753B9AA1EC423B20063781A /* OrederDetailCancleView.h */,
+				F753B9AB1EC423B20063781A /* OrederDetailCancleView.m */,
+				F753B9AD1EC423CD0063781A /* OrderDetailRefundView.h */,
+				F753B9AE1EC423CD0063781A /* OrderDetailRefundView.m */,
+				F753B9B01EC424090063781A /* OrderDetailCarPayView.h */,
+				F753B9B11EC424090063781A /* OrderDetailCarPayView.m */,
+				F753B9B31EC424310063781A /* OrderDetailHadPayView.h */,
+				F753B9B41EC424310063781A /* OrderDetailHadPayView.m */,
+				F753B9B61EC424520063781A /* OrderDetailHadCarView.h */,
+				F753B9B71EC424520063781A /* OrderDetailHadCarView.m */,
+				F753B9B91EC424700063781A /* OrderDetailFinishedView.h */,
+				F753B9BA1EC424700063781A /* OrderDetailFinishedView.m */,
+				F753B9BC1EC4248D0063781A /* OrderDetailHadCommedView.h */,
+				F753B9BD1EC4248D0063781A /* OrderDetailHadCommedView.m */,
+				F753B9BF1EC45D9E0063781A /* RefundView.h */,
+				F753B9C01EC45D9E0063781A /* RefundView.m */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -2181,12 +2236,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F712757B1E88AD1800238420 /* CKBookViewController.m in Sources */,
+				F753B9BE1EC4248D0063781A /* OrderDetailHadCommedView.m in Sources */,
 				F764CA5F1EA99C0600B91253 /* OrderDetailModel.m in Sources */,
+				F753B9A61EC421FD0063781A /* OrderDetailNoPayview.m in Sources */,
 				F764CA6E1EAA00E600B91253 /* StarImageView.m in Sources */,
 				F701C6D51E4844C2008ADFD6 /* YHBaseViewController+ext.m in Sources */,
 				F761C2EE1E98C2BA00FCA6E3 /* CKSetUpViewController.m in Sources */,
 				F701C8301E4844E6008ADFD6 /* TAAbstractDotView.m in Sources */,
 				F76D78AA1E9B8158003EFF67 /* NSDataEx.m in Sources */,
+				F753B9B21EC424090063781A /* OrderDetailCarPayView.m in Sources */,
 				F76D78001E9B2FAE003EFF67 /* CKDiscountRegularViewController.m in Sources */,
 				F701C7F71E4844E6008ADFD6 /* MJRefreshAutoGifFooter.m in Sources */,
 				F701C6C61E4844C2008ADFD6 /* CAAnimation+HCAnimation.m in Sources */,
@@ -2239,6 +2297,7 @@
 				F75C4C391EAF16B000740030 /* MsgListModel.m in Sources */,
 				F70182011E8DED5000B28C59 /* PGSLeadViewController.m in Sources */,
 				F701C7EB1E4844E6008ADFD6 /* MJRefreshBackFooter.m in Sources */,
+				F753B9AC1EC423B20063781A /* OrederDetailCancleView.m in Sources */,
 				F761C2E01E98AAB600FCA6E3 /* CKWalletDQuestionViewController.m in Sources */,
 				F701C7F41E4844E6008ADFD6 /* MJRefreshHeader.m in Sources */,
 				F73B80271E9754680005EC11 /* CKListViewController.m in Sources */,
@@ -2264,11 +2323,13 @@
 				F76D78A91E9B8158003EFF67 /* MD5DataSigner.m in Sources */,
 				F7C63F321E9788F5009EC70C /* CKWalletDetailViewController.m in Sources */,
 				F712757E1E88D90C00238420 /* CKBookView.m in Sources */,
+				F753B9A31EC419820063781A /* OrderDetailBaseView.m in Sources */,
 				F75C4C3C1EAF3C4600740030 /* CKMsgDetailViewController.m in Sources */,
 				F701C7AC1E4844E5008ADFD6 /* AFURLRequestSerialization.m in Sources */,
 				F761C2E61E98B3F100FCA6E3 /* CKDiscountViewController.m in Sources */,
 				F701C7A31E4844E5008ADFD6 /* AFNetworkReachabilityManager.m in Sources */,
 				F712CD0E1EBB208900B67880 /* MyHelperTool.m in Sources */,
+				F753B9B51EC424310063781A /* OrderDetailHadPayView.m in Sources */,
 				F712756C1E83B99300238420 /* CKRealNameViewController.m in Sources */,
 				F701C6CF1E4844C2008ADFD6 /* XAClient.m in Sources */,
 				F73FCC9A1EA87CAC00EB45CD /* OrderListModel.m in Sources */,
@@ -2284,11 +2345,13 @@
 				F701C8241E4844E6008ADFD6 /* PopAleatView.m in Sources */,
 				F76D78A81E9B8158003EFF67 /* DataVerifier.m in Sources */,
 				F76D78061E9B4681003EFF67 /* CKShareViewController.m in Sources */,
+				F753B9B81EC424520063781A /* OrderDetailHadCarView.m in Sources */,
 				F761C2F11E98C77100FCA6E3 /* CKSUAcountSecurityViewController.m in Sources */,
 				F764CA5C1EA99B6300B91253 /* OrderDetailView.m in Sources */,
 				F7C63F2B1E976EE9009EC70C /* CKAddCKMsgViewController.m in Sources */,
 				F701C7C11E4844E6008ADFD6 /* AssetPickerCell.m in Sources */,
 				F701C7E21E4844E6008ADFD6 /* MBProgressHUD+Add.m in Sources */,
+				F753B9A91EC423900063781A /* OrderDetailSystemCancelview.m in Sources */,
 				F73B0EA31E96413600FB468E /* CKSureOrderModel.m in Sources */,
 				F74F2BA11EAB3CDA006B2B27 /* WalletDetailViewController.m in Sources */,
 				F701C8481E4844E6008ADFD6 /* SDWebImageCompat.m in Sources */,
@@ -2314,6 +2377,7 @@
 				F75172081EA5D640007EC790 /* ActivityModel.m in Sources */,
 				F73B0EA01E96197000FB468E /* CKDiscoutSelectView.m in Sources */,
 				F71275691E83A23D00238420 /* CKLoginTextField.m in Sources */,
+				F753B9BB1EC424700063781A /* OrderDetailFinishedView.m in Sources */,
 				F701C82D1E4844E6008ADFD6 /* SDCycleScrollView.m in Sources */,
 				F764CA6B1EA9FDDA00B91253 /* MyStar.m in Sources */,
 				F701C8541E4844E6008ADFD6 /* SDWebImageManager.m in Sources */,
@@ -2340,9 +2404,11 @@
 				F701C67E1E48440D008ADFD6 /* main.m in Sources */,
 				F701C7FD1E4844E6008ADFD6 /* MJRefreshAutoStateFooter.m in Sources */,
 				F701C8271E4844E6008ADFD6 /* Regular.m in Sources */,
+				F753B9AF1EC423CD0063781A /* OrderDetailRefundView.m in Sources */,
 				F7C63F281E976910009EC70C /* CKEditCKMsgViewController.m in Sources */,
 				F7B14F1A1EA4A15500D7CDB6 /* SignAlertView.m in Sources */,
 				F701C7DF1E4844E6008ADFD6 /* XACameraController.m in Sources */,
+				F753B9C11EC45D9E0063781A /* RefundView.m in Sources */,
 				F761C2FB1E98CF7C00FCA6E3 /* CKSUVerifyCurrentPhoneViewController.m in Sources */,
 				F701C7BE1E4844E6008ADFD6 /* AssetGroupCell.m in Sources */,
 				F701C8511E4844E6008ADFD6 /* SDWebImageDownloaderOperation.m in Sources */,

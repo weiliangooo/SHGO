@@ -12,9 +12,12 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
 @property (nonatomic, strong) UITabBarController *tabBar;
 
 @property (nonatomic, strong) BMKMapManager *BMManager;
+
+@property (nonatomic, strong) NSString *noticeFlag;
 
 
 

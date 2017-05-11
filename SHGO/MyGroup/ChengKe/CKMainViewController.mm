@@ -275,9 +275,7 @@
 }
 
 ///进入主界面时请求数据
--(void)requestForPlaces
-{
-    
+-(void)requestForPlaces{
     NSMutableDictionary *reqDic= [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [MyHelperNO getUid], @"uid",
                                   [MyHelperNO getMyToken], @"token", nil];
@@ -285,8 +283,7 @@
         int code = [responseObject intForKey:@"status"];
         NSString *msg = [responseObject stringForKey:@"msg"];
         NSLog(@"%@", responseObject);
-        if (code == 200)
-        {
+        if (code == 200){
             NSArray *data = [NSArray arrayWithArray:[responseObject arrayForKey:@"data"]];
             cityListModel = [[CKCitysListModel alloc] initWithData:data];
             _CKSPView.defaultModel = cityListModel;
@@ -297,13 +294,11 @@
             [_locService startUserLocationService];
             [self showLoading:@"正在加载..."];
         }
-        else if (code == 300)
-        {
+        else if (code == 300){
             [self toast:@"身份认证已过期"];
             [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
         }
-        else if (code == 400)
-        {
+        else if (code == 400){
             [self toast:msg];
         }
     } failure:^(NSError *error) {
@@ -590,10 +585,8 @@
 
 
 ///通过城市的名称 获取城市在服务器对应的id
--(NSString *)getCityIdWithCityName:(PlaceModel *)placeModel
-{
-    for (int i = 0; i < cityListModel.citysModel.count; i++)
-    {
+-(NSString *)getCityIdWithCityName:(PlaceModel *)placeModel{
+    for (int i = 0; i < cityListModel.citysModel.count; i++){
         CKCitysModel *model = [[CKCitysModel alloc] init];
         model = [cityListModel.citysModel objectAtIndex:i];
         
@@ -608,8 +601,7 @@
 }
 
 ///只显示起始地点地图配置
--(void)onlyShowStartPlace
-{
+-(void)onlyShowStartPlace{
     BMKMapStatus *status = [[BMKMapStatus alloc] init];
     status.fLevel = 17;
     status.targetScreenPt = CGPointMake(AL_DEVICE_WIDTH/2, _ptView.bottom+210*PROPORTION750);
@@ -619,21 +611,21 @@
 }
 
 ///判断当前定位城市是否支持
--(BOOL)isSupportCity:(NSString *)city
-{
-    if (city == nil)
-    {
+-(BOOL)isSupportCity:(NSString *)city{
+    if (city == nil){
         return NO;
     }
     
-    for (CKCitysModel *model in cityListModel.citysModel)
-    {
-        if ([model.cityName hasPrefix:city])
-        {
+    for (CKCitysModel *model in cityListModel.citysModel){
+        if ([model.cityName hasPrefix:city]){
             return YES;
         }
     }
     return NO;
+}
+
+-(void)alReLoadData{
+    
 }
 
 - (void)didReceiveMemoryWarning {

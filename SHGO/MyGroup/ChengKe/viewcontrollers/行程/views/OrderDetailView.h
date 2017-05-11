@@ -32,6 +32,4 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, copy) OrderDetailModel *orderDetailModel;
 
--(instancetype)initWithFrame:(CGRect)frame dataSourece:(OrderDetailModel *)dataSource;
-
 @end

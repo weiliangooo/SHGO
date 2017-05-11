@@ -156,6 +156,13 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    //创建一个消息对象
+    if (_noticeFlag != nil) {
+        NSNotification * notice = [NSNotification notificationWithName:_noticeFlag object:nil userInfo:nil];
+        //发送消息
+        [[NSNotificationCenter defaultCenter] postNotification:notice];
+    }
+    
 }
 
 
@@ -210,7 +217,7 @@
         //创建一个消息对象
         NSNotification * notice = [NSNotification notificationWithName:@"weixinnotice" object:nil userInfo:@{@"status":[NSString stringWithFormat:@"%d",resp.errCode]}];
         //发送消息
-        [[NSNotificationCenter defaultCenter]postNotification:notice];
+        [[NSNotificationCenter defaultCenter] postNotification:notice];
     }
     
 }
