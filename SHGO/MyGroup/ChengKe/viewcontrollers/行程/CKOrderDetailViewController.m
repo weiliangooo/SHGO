@@ -119,76 +119,76 @@
     ckModel *model = [[ckModel alloc] init];
     model = _orderDetailModel.ckMsgs[0];
     self.topTitle = model.orderStatus_;
-//    switch ([model.orderStatus integerValue]) {
-//        case 0:{
-//            if ([model.orderStatus_ isEqualToString:@"系统取消"]) {
-//                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusSystemCancle];
-//                [_detailView setModel:_orderDetailModel];
-//                _detailView.delegate = self;
-//                [self.view addSubview:_detailView];
-//            }else{
-//                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusNoPay];
-//                [_detailView setModel:_orderDetailModel];
-//                _detailView.delegate = self;
-//                [self.view addSubview:_detailView];
-//            }
-//        }
-//            break;
-//        case 10:{
-//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusCancle];
-//            [_detailView setModel:_orderDetailModel];
-//            _detailView.delegate = self;
-//            [self.view addSubview:_detailView];
-//        }
-//            break;
-//        case 20:{
-//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusRefund];
-//            [_detailView setModel:_orderDetailModel];
-//            _detailView.delegate = self;
-//            [self.view addSubview:_detailView];
-//        }
-//            break;
-//            
-//        case 25:{
-//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusCarPay];
-//            [_detailView setModel:_orderDetailModel];
-//            _detailView.delegate = self;
-//            [self.view addSubview:_detailView];
-//        }
-//            break;
-//        case 30:{
+    switch ([model.orderStatus integerValue]) {
+        case 0:{
+            if ([model.orderStatus_ isEqualToString:@"系统取消"]) {
+                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusSystemCancle];
+                [_detailView setModel:_orderDetailModel];
+                _detailView.delegate = self;
+                [self.view addSubview:_detailView];
+            }else{
+                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusNoPay];
+                [_detailView setModel:_orderDetailModel];
+                _detailView.delegate = self;
+                [self.view addSubview:_detailView];
+            }
+        }
+            break;
+        case 10:{
+            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusCancle];
+            [_detailView setModel:_orderDetailModel];
+            _detailView.delegate = self;
+            [self.view addSubview:_detailView];
+        }
+            break;
+        case 20:{
+            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusRefund];
+            [_detailView setModel:_orderDetailModel];
+            _detailView.delegate = self;
+            [self.view addSubview:_detailView];
+        }
+            break;
+            
+        case 25:{
+            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusCarPay];
+            [_detailView setModel:_orderDetailModel];
+            _detailView.delegate = self;
+            [self.view addSubview:_detailView];
+        }
+            break;
+        case 30:{
             _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadPay];
             [_detailView setModel:_orderDetailModel];
             _detailView.delegate = self;
             [self.view addSubview:_detailView];
-//        }
-//            break;
-//        case 40:{
-//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCar];
-//            [_detailView setModel:_orderDetailModel];
-//            _detailView.delegate = self;
-//            [self.view addSubview:_detailView];
-//        }
-//            break;
-//        case 50:{
-//            if ([_orderDetailModel.is_pj isEqualToString:@"1"]) {
-//                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCommed];
-//                [_detailView setModel:_orderDetailModel];
-//                _detailView.delegate = self;
-//                [self.view addSubview:_detailView];
-//            }else{
-//                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusFinished];
-//                [_detailView setModel:_orderDetailModel];
-//                _detailView.delegate = self;
-//                [self.view addSubview:_detailView];
-//            }
-//            
-//        }
-//            break;
-//            
-//        default:
-//            break;
-//    }
+        }
+            break;
+        case 40:{
+            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCar];
+            [_detailView setModel:_orderDetailModel];
+            _detailView.delegate = self;
+            [self.view addSubview:_detailView];
+        }
+            break;
+        case 50:{
+            if ([_orderDetailModel.is_pj isEqualToString:@"1"]) {
+                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCommed];
+                [_detailView setModel:_orderDetailModel];
+                _detailView.delegate = self;
+                [self.view addSubview:_detailView];
+            }else{
+                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusFinished];
+                [_detailView setModel:_orderDetailModel];
+                _detailView.delegate = self;
+                [self.view addSubview:_detailView];
+            }
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
     
 //    self.topTitle = _orderDetailModel.orderStatus;
 //    self.startAnnotation.subtitle = _orderDetailModel.startPlace.address;
