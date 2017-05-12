@@ -13,8 +13,8 @@
 
 -(instancetype)init{
     if(self =[super init]){
-        self.scollerView.frame = CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT-64-130*PROPORTION750);
-        self.scollerView.contentSize = CGSizeMake(AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT-64-130*PROPORTION750+1);
+        self.scollerView.frame = CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT-64);
+        self.scollerView.contentSize = CGSizeMake(AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT-64+1);
         [self driverMsgWithView:self.orderMsgView];
     }
     return self;
@@ -25,7 +25,7 @@
     backView.backgroundColor = [UIColor whiteColor];
     backView.clipsToBounds = true;
     backView.layer.cornerRadius = 15*PROPORTION750;
-    [self addSubview:backView];
+    [self.scollerView addSubview:backView];
     
     UILabel *tipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 0, 650*PROPORTION750, 90*PROPORTION750)];
     tipLB.text = @"车辆人员概况";
@@ -82,7 +82,7 @@
     [detailBtn setTitle:@"联系司机" forState:UIControlStateNormal];
     [detailBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
     detailBtn.titleLabel.font = SYSF750(25);
-    //        [detailBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+    [detailBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:detailBtn];
     
     backView.height = line2.bottom+90*PROPORTION750;
@@ -95,8 +95,12 @@
     kfBtn.tag = 102;
     [kfBtn setAttributedTitle:string forState:UIControlStateNormal];
     kfBtn.titleLabel.font = SYSF750(25);
-    //        [detailBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:kfBtn];
+    [kfBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+    [self.scollerView addSubview:kfBtn];
+    
+    if (self.scollerView.height < kfBtn.bottom) {
+        self.scollerView.contentSize = CGSizeMake(AL_DEVICE_WIDTH, kfBtn.bottom+20*PROPORTION750);
+    }
 }
 
 

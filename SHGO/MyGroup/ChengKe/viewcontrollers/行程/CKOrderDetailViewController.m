@@ -21,7 +21,9 @@
 #import "PayViewController.h"
 #import "RefundView.h"
 
-@interface CKOrderDetailViewController ()<OrderDetailDelegate,OrderDetailBaseViewDelgate,PopAleatViewDelegate,AlertClassDelegate>
+#import "UpCommenView.h"
+
+@interface CKOrderDetailViewController ()<OrderDetailDelegate,OrderDetailBaseViewDelgate,PopAleatViewDelegate,AlertClassDelegate,UpCommenViewDelegate>
 {
     UIImageView *headImgView;
     
@@ -189,7 +191,6 @@
         default:
             break;
     }
-    
 //    self.topTitle = _orderDetailModel.orderStatus;
 //    self.startAnnotation.subtitle = _orderDetailModel.startPlace.address;
 //    self.startAnnotation.coordinate = _orderDetailModel.startPlace.location;
@@ -211,6 +212,40 @@
         [self canCleBtnClickEvent];
     }else if ([title isEqualToString:@"如有其他问题请联系客服"]){
         [self phoneAlertView:@"400-966-3655"];
+    }else if ([title isEqualToString:@"乘客信息"]){
+        RefundView *view = [[RefundView alloc] init];
+        view.dataSource = _orderDetailModel.ckMsgs;
+        view.isCheck = true;
+    }else if ([title isEqualToString:@"查看明细"]){
+        NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       _order_sn, @"common_id",
+                                       [MyHelperNO getUid], @"uid",
+                                       [MyHelperNO getMyToken], @"token", nil];
+        [self post:@"order/price_order" withParam:reqDic success:^(id responseObject) {
+            int code = [responseObject intForKey:@"status"];
+            NSLog(@"%@", responseObject);
+            NSString *msg = [responseObject stringForKey:@"msg"];
+            if (code == 200)
+            {
+                NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[responseObject objectForKey:@"data"]];
+                OrderPriceModel *model = [[OrderPriceModel alloc] initWithData:dic];
+                OrderPriceDetailViewController *viewController = [[OrderPriceDetailViewController alloc] initWithOrderPriceModel:model];
+                [self.navigationController pushViewController:viewController animated:YES];
+                
+            }
+            else if (code == 300)
+            {
+                [self toast:@"身份认证已过期"];
+                [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+            }
+            else if (code == 400)
+            {
+                [self toast:msg];
+            }
+            
+        } failure:^(NSError *error) {
+            
+        }];
     }else if ([title isEqualToString:@"我要退款"]){
         RefundView *view = [[RefundView alloc] init];
         view.dataSource = _orderDetailModel.ckMsgs;
@@ -234,6 +269,16 @@
             }];
         };
 
+    }else if ([title isEqualToString:@"联系司机"]){
+        [self phoneAlertView:_orderDetailModel.driverPhone];
+    }else if ([title isEqualToString:@"去评价"]){
+        UpCommenView *view = [[UpCommenView alloc] init];
+        view.delegate = self;
+    }else if ([title isEqualToString:@"分享行程"]){
+        ShareView *shareView = [[ShareView alloc] init];
+        shareView.shareBlock = ^(NSInteger flag){
+            [self shareWebPageToPlatformType:flag];
+        };
     }
 }
 
@@ -323,8 +368,37 @@
     }
 }
 
+#pragma upCommendView delegate
+-(void)upCommenView:(UpCommenView *)view score1:(CGFloat)score1 score2:(CGFloat)score2 score3:(CGFloat)score3 score4:(CGFloat)score4 text:(NSString *)text{
+    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   _order_sn, @"common_id",
+                                   [NSString stringWithFormat:@"%.2f", score1], @"td",
+                                   [NSString stringWithFormat:@"%.2f", score2], @"zj",
+                                   [NSString stringWithFormat:@"%.2f", score3], @"js",
+                                   [NSString stringWithFormat:@"%.2f", score4], @"sx",
+                                   text, @"content",
+                                   [MyHelperNO getUid], @"uid",
+                                   [MyHelperNO getMyToken], @"token", nil];
+    [self post:@"order/orderevaluation" withParam:reqDic success:^(id responseObject) {
+        int code = [responseObject intForKey:@"status"];
+        NSLog(@"%@", responseObject);
+        NSString *msg = [responseObject stringForKey:@"msg"];
+        if (code == 200){
+            [view removeFromSuperview];
+        }else if (code == 300){
+            [self toast:@"身份认证已过期"];
+            [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+        }else if (code == 400){
+            [self toast:msg];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 -(void)alReLoadData{
-//    [self loadData];
+    [self loadData];
 }
 
 

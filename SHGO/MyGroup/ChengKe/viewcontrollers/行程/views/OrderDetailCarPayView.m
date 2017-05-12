@@ -37,7 +37,7 @@
         [payBtn setTitle:@"取消订单" forState:UIControlStateNormal];
         payBtn.titleLabel.font = SYSF750(35);
         payBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        //        [payBtn addTarget:self action:@selector(payBtnClickEvent:) forControlEvents:UIControlEventTouchUpInside];
+        [payBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
         [btnView addSubview:payBtn];
     }
     return self;

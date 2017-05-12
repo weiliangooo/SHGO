@@ -15,6 +15,8 @@
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
+@property (nonatomic, assign) BOOL isCheck;
+
 @property (nonatomic, copy) void (^dataBlock)(ckModel *model, UIButton *button);
 
 @end
