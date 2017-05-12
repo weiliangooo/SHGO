@@ -14,7 +14,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame space:(CGFloat)space;
 
--(CGFloat)getScore;
+-(NSString *)getScore;
 -(void)setScore:(CGFloat)score;
 
 @end

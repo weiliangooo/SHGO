@@ -10,26 +10,13 @@
 
 @implementation StarImageView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
--(void)setCurStatus:(StarImageViewStatus)curStatus
-{
-    if (curStatus == StarImageViewStatusOff)
-    {
+-(void)setCurStatus:(StarImageViewStatus)curStatus{
+    _curStatus = curStatus;
+    if (_curStatus == StarImageViewStatusOff){
         self.image = [UIImage imageNamed:@"star_0"];
-    }
-    else if (curStatus == StarImageViewStatusHalf)
-    {
+    }else if (_curStatus == StarImageViewStatusHalf){
         self.image = [UIImage imageNamed:@"star_1"];
-    }
-    else if(curStatus == StarImageViewStatusOn)
-    {
+    }else if(_curStatus == StarImageViewStatusOn){
         self.image = [UIImage imageNamed:@"star_2"];
     }
 }

@@ -11,11 +11,11 @@
 typedef enum : NSUInteger {
     OrederStatusNoPay,
     OrederStatusSystemCancle,
-    OrederStatusCancle,
-    OrederStatusRefund,
-    OrederStatusCarPay,
-    OrederStatusHadPay,
-    OrederStatusHadCar,
+    OrederStatusCancle = 10,
+    OrederStatusRefund = 20,
+    OrederStatusCarPay = 25,
+    OrederStatusHadPay = 30,
+    OrederStatusHadCar = 40,
     OrederStatusFinished,
     OrederStatusHadCommed,
 } OrederStatus;
@@ -27,6 +27,7 @@ typedef enum : NSUInteger {
 @end
 
 @class OrderDetailModel;
+@class MyStar;
 
 @interface OrderDetailBaseView : UIView
 
@@ -35,7 +36,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) UIScrollView *scollerView;
 
 @property (nonatomic, strong) UIView *orderMsgView;
-
+/*订单信息*/
 @property (nonatomic, strong) UILabel *startLB;
 
 @property (nonatomic, strong) UILabel *endLB;
@@ -47,6 +48,16 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) UILabel *priceLB;
 
 @property (nonatomic, strong) OrderDetailModel *model;
+
+/*车人信息*/
+@property (nonatomic, strong) UILabel *driverNameLB;
+
+@property (nonatomic, strong) MyStar *starView;
+
+@property (nonatomic, strong) UILabel *carNameLB;
+
+@property (nonatomic, strong) UILabel *carNumLB;
+
 
 +(OrderDetailBaseView *)orderDetailViewWithType:(OrederStatus )type;
 

@@ -89,9 +89,9 @@
 
 -(void)buttonClickEvents:(UIButton *)button{
     [self dismissView];
-    if ([_timeStr isEqualToString:@"无可乘班次"]){
-        return;
-    }
+//    if ([_timeStr isEqualToString:@"无可乘班次"]){
+//        return;
+//    }
     NSString *timeSting = [_dateStr stringByAppendingString:@" 00:00:00"];
     self.CKTimeSelectBlock(button.tag == 100, timeSting, _timeId);
 }
@@ -143,6 +143,7 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     if (component == 0){
+        _dateStr = [[_dataArray objectAtIndex:row] stringForKey:@"date"];
         timeArray = [[_dataArray objectAtIndex:row] arrayForKey:@"runs"];
         [pickerView selectRow:0 inComponent:1 animated:YES];
         [pickerView reloadComponent:1];

@@ -65,6 +65,7 @@
         CGFloat starViewWidth = 470*PROPORTION750-tip1.width + starViewSpace;
         
         _starView1 = [[MyStar alloc] initWithFrame:CGRectMake(tip1.right+40*PROPORTION750, tipLB.bottom+25*PROPORTION750, starViewWidth, 40*PROPORTION750) space:starViewSpace];
+        [_starView1 setScore:5.0];
         _starView1.isCanTap = true;
         [backView addSubview:_starView1];
         
@@ -77,6 +78,7 @@
         
         _starView2 = [[MyStar alloc] initWithFrame:CGRectMake(tip1.right+40*PROPORTION750, tip1.bottom+25*PROPORTION750, starViewWidth, 40*PROPORTION750) space:starViewSpace];
         _starView2.isCanTap = true;
+        [_starView2 setScore:5.0];
         [backView addSubview:_starView2];
         
         UILabel *tip3 = [[UILabel alloc] initWithFrame:CGRectMake(100*PROPORTION750, tip2.bottom+30*PROPORTION750, 150*PROPORTION750, 40*PROPORTION750)];
@@ -88,6 +90,7 @@
         
         _starView3 = [[MyStar alloc] initWithFrame:CGRectMake(tip1.right+40*PROPORTION750, tip2.bottom+25*PROPORTION750, starViewWidth, 40*PROPORTION750) space:starViewSpace];
         _starView3.isCanTap = true;
+        [_starView3 setScore:5.0];
         [backView addSubview:_starView3];
         
         UILabel *tip4 = [[UILabel alloc] initWithFrame:CGRectMake(100*PROPORTION750, tip3.bottom+30*PROPORTION750, 150*PROPORTION750, 40*PROPORTION750)];
@@ -99,6 +102,7 @@
         
         _starView4 = [[MyStar alloc] initWithFrame:CGRectMake(tip1.right+40*PROPORTION750, tip3.bottom+25*PROPORTION750, starViewWidth, 40*PROPORTION750) space:starViewSpace];
         _starView4.isCanTap = true;
+        [_starView4 setScore:5.0];
         [backView addSubview:_starView4];
         
         _pjTextView = [[UITextView alloc] initWithFrame:CGRectMake(100*PROPORTION750, tip4.bottom+30*PROPORTION750, 510*PROPORTION750, 200*PROPORTION750)];
@@ -174,13 +178,19 @@
 }
 
 -(void)buttonClickEvent{
+    NSString *score1 = [_starView1 getScore];
+    NSString *score2 = [_starView2 getScore];
+    NSString *score3 = [_starView3 getScore];
+    NSString *score4 = [_starView4 getScore];
+    NSString *content = _pjTextView.text;
+
     if (_delegate && [_delegate respondsToSelector:@selector(upCommenView:score1:score2:score3:score4:text:)]) {
         [_delegate upCommenView:self
-                         score1:_starView1.getScore
-                         score2:_starView2.getScore
-                         score3:_starView3.getScore
-                         score4:_starView4.getScore
-                           text:_pjTextView.text];
+                         score1:score1
+                         score2:score2
+                         score3:score3
+                         score4:score4
+                           text:content];
     }
 }
 

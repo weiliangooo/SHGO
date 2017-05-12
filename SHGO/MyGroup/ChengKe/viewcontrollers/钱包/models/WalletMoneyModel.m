@@ -34,7 +34,7 @@
     if (self = [super init])
     {
         _money = [NSString stringWithFormat:@"%@元", dataSource[0]];
-        _time = [self timeWithTimeIntervalString:dataSource[1]];
+        _time = dataSource[1];
         _type = dataSource[2];
     }
     return self;

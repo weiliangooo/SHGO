@@ -24,13 +24,8 @@
 #import "UpCommenView.h"
 
 @interface CKOrderDetailViewController ()<OrderDetailDelegate,OrderDetailBaseViewDelgate,PopAleatViewDelegate,AlertClassDelegate,UpCommenViewDelegate>
-{
-    UIImageView *headImgView;
-    
-    UILabel *carNumLB;
-}
 
-@property (nonatomic, strong)OrderDetailBaseView *detailView;
+@property (nonatomic, strong) OrderDetailBaseView *detailView;
 
 @property (nonatomic, strong) OrderDetailModel *orderDetailModel;
 
@@ -54,7 +49,7 @@
     [self.rightBtn setImage:[UIImage imageNamed:@"regular_wallet"] forState:UIControlStateNormal];
     
     self.topTitle = @"订单详情";
-    
+//    self.mapView.hidden = true;
 //    OrderDetailBaseView *view = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCar];
 //    [self.view addSubview:view];
     
@@ -121,76 +116,106 @@
     ckModel *model = [[ckModel alloc] init];
     model = _orderDetailModel.ckMsgs[0];
     self.topTitle = model.orderStatus_;
-    switch ([model.orderStatus integerValue]) {
-        case 0:{
-            if ([model.orderStatus_ isEqualToString:@"系统取消"]) {
-                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusSystemCancle];
-                [_detailView setModel:_orderDetailModel];
-                _detailView.delegate = self;
-                [self.view addSubview:_detailView];
-            }else{
-                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusNoPay];
-                [_detailView setModel:_orderDetailModel];
-                _detailView.delegate = self;
-                [self.view addSubview:_detailView];
-            }
-        }
-            break;
-        case 10:{
-            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusCancle];
+    if ([model.orderStatus integerValue] == 0) {
+        if ([model.orderStatus_ isEqualToString:@"系统取消"]) {
+            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusSystemCancle];
+            [_detailView setModel:_orderDetailModel];
+            _detailView.delegate = self;
+            [self.view addSubview:_detailView];
+        }else{
+            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusNoPay];
             [_detailView setModel:_orderDetailModel];
             _detailView.delegate = self;
             [self.view addSubview:_detailView];
         }
-            break;
-        case 20:{
-            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusRefund];
+    }else if ([model.orderStatus integerValue] == 50){
+        if ([_orderDetailModel.is_pj isEqualToString:@"1"]) {
+            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCommed];
+            [_detailView setModel:_orderDetailModel];
+            _detailView.delegate = self;
+            [self.view addSubview:_detailView];
+        }else{
+            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusFinished];
             [_detailView setModel:_orderDetailModel];
             _detailView.delegate = self;
             [self.view addSubview:_detailView];
         }
-            break;
-            
-        case 25:{
-            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusCarPay];
-            [_detailView setModel:_orderDetailModel];
-            _detailView.delegate = self;
-            [self.view addSubview:_detailView];
-        }
-            break;
-        case 30:{
-            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadPay];
-            [_detailView setModel:_orderDetailModel];
-            _detailView.delegate = self;
-            [self.view addSubview:_detailView];
-        }
-            break;
-        case 40:{
-            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCar];
-            [_detailView setModel:_orderDetailModel];
-            _detailView.delegate = self;
-            [self.view addSubview:_detailView];
-        }
-            break;
-        case 50:{
-            if ([_orderDetailModel.is_pj isEqualToString:@"1"]) {
-                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCommed];
-                [_detailView setModel:_orderDetailModel];
-                _detailView.delegate = self;
-                [self.view addSubview:_detailView];
-            }else{
-                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusFinished];
-                [_detailView setModel:_orderDetailModel];
-                _detailView.delegate = self;
-                [self.view addSubview:_detailView];
-            }
-            
-        }
-            break;
-            
-        default:
-            break;
+    }else{
+        _detailView = [OrderDetailBaseView orderDetailViewWithType:[model.orderStatus integerValue]];
+        [_detailView setModel:_orderDetailModel];
+        _detailView.delegate = self;
+        [self.view addSubview:_detailView];
     }
+//    switch ([model.orderStatus integerValue]) {
+//        case 0:{
+//            if ([model.orderStatus_ isEqualToString:@"系统取消"]) {
+//                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusSystemCancle];
+//                [_detailView setModel:_orderDetailModel];
+//                _detailView.delegate = self;
+//                [self.view addSubview:_detailView];
+//            }else{
+//                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusNoPay];
+//                [_detailView setModel:_orderDetailModel];
+//                _detailView.delegate = self;
+//                [self.view addSubview:_detailView];
+//            }
+//        }
+//            break;
+//        case 10:{
+//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusCancle];
+//            [_detailView setModel:_orderDetailModel];
+//            _detailView.delegate = self;
+//            [self.view addSubview:_detailView];
+//        }
+//            break;
+//        case 20:{
+//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusRefund];
+//            [_detailView setModel:_orderDetailModel];
+//            _detailView.delegate = self;
+//            [self.view addSubview:_detailView];
+//        }
+//            break;
+//            
+//        case 25:{
+//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusCarPay];
+//            [_detailView setModel:_orderDetailModel];
+//            _detailView.delegate = self;
+//            [self.view addSubview:_detailView];
+//        }
+//            break;
+//        case 30:{
+//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadPay];
+//            [_detailView setModel:_orderDetailModel];
+//            _detailView.delegate = self;
+//            [self.view addSubview:_detailView];
+//        }
+//            break;
+//        case 40:{
+//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCar];
+//            [_detailView setModel:_orderDetailModel];
+//            _detailView.delegate = self;
+//            [self.view addSubview:_detailView];
+//        }
+//            break;
+//        case 50:{
+//            if ([_orderDetailModel.is_pj isEqualToString:@"1"]) {
+//                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCommed];
+//                [_detailView setModel:_orderDetailModel];
+//                _detailView.delegate = self;
+//                [self.view addSubview:_detailView];
+//            }else{
+//                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusFinished];
+//                [_detailView setModel:_orderDetailModel];
+//                _detailView.delegate = self;
+//                [self.view addSubview:_detailView];
+//            }
+//            
+//        }
+//            break;
+//            
+//        default:
+//            break;
+//    }
 //    self.topTitle = _orderDetailModel.orderStatus;
 //    self.startAnnotation.subtitle = _orderDetailModel.startPlace.address;
 //    self.startAnnotation.coordinate = _orderDetailModel.startPlace.location;
@@ -251,7 +276,7 @@
         view.dataSource = _orderDetailModel.ckMsgs;
         view.dataBlock = ^(ckModel *model, UIButton*button){
             NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                           model.orderId,@"order_sn",
+                                           model.orderId,@"order_id",
                                            [MyHelperNO getUid], @"uid",
                                            [MyHelperNO getMyToken], @"token", nil];
             [self post:@"order/refund" withParam:reqDic success:^(id responseObject) {
@@ -259,6 +284,7 @@
                 NSString *msg = [responseObject stringForKey:@"msg"];
                 NSLog(@"%@", responseObject);
                 if (code == 200) {
+                    [self loadData];
                     button.backgroundColor = [UIColor colorWithHexString:@"999999"];
                     [button setTitle:@"已退款" forState:UIControlStateNormal];
                 }else{
@@ -369,13 +395,18 @@
 }
 
 #pragma upCommendView delegate
--(void)upCommenView:(UpCommenView *)view score1:(CGFloat)score1 score2:(CGFloat)score2 score3:(CGFloat)score3 score4:(CGFloat)score4 text:(NSString *)text{
+-(void)upCommenView:(UpCommenView *)view
+             score1:(NSString *)score1
+             score2:(NSString *)score2
+             score3:(NSString *)score3
+             score4:(NSString *)score4
+               text:(NSString *)text{
     NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                   _order_sn, @"common_id",
-                                   [NSString stringWithFormat:@"%.2f", score1], @"td",
-                                   [NSString stringWithFormat:@"%.2f", score2], @"zj",
-                                   [NSString stringWithFormat:@"%.2f", score3], @"js",
-                                   [NSString stringWithFormat:@"%.2f", score4], @"sx",
+                                   _order_sn, @"order_sn",
+                                   score1, @"td",
+                                   score2, @"zj",
+                                   score3, @"js",
+                                   score4, @"sx",
                                    text, @"content",
                                    [MyHelperNO getUid], @"uid",
                                    [MyHelperNO getMyToken], @"token", nil];
@@ -384,6 +415,8 @@
         NSLog(@"%@", responseObject);
         NSString *msg = [responseObject stringForKey:@"msg"];
         if (code == 200){
+            [self toast:@"感谢您的评价！"];
+            [self loadData];
             [view removeFromSuperview];
         }else if (code == 300){
             [self toast:@"身份认证已过期"];
@@ -391,7 +424,7 @@
         }else if (code == 400){
             [self toast:msg];
         }
-        
+     
     } failure:^(NSError *error) {
         
     }];

@@ -11,7 +11,12 @@
 @class UpCommenView;
 @protocol UpCommenViewDelegate <NSObject>
 
--(void)upCommenView:(UpCommenView *)view score1:(CGFloat)score1 score2:(CGFloat)score2 score3:(CGFloat)score3 score4:(CGFloat)score4 text:(NSString *)text;
+-(void)upCommenView:(UpCommenView *)view
+             score1:(NSString *)score1
+             score2:(NSString *)score2
+             score3:(NSString *)score3
+             score4:(NSString *)score4
+               text:(NSString *)text;
 
 @end
 

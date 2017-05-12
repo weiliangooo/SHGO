@@ -18,21 +18,10 @@
 
 @implementation MyStar
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
--(instancetype)initWithFrame:(CGRect)frame space:(CGFloat)space
-{
-    if (self = [super initWithFrame:frame])
-    {
+-(instancetype)initWithFrame:(CGRect)frame space:(CGFloat)space{
+    if (self = [super initWithFrame:frame]){
         starSize = (self.width-6*space)/5;
-        
-        for (int i = 0; i < 5 ; i++)
-        {
+        for (int i = 0; i < 5 ; i++){
             StarImageView *button = [[StarImageView alloc] initWithFrame:CGRectMake(space + (space+starSize)*i, (self.height-starSize)/2, starSize, starSize)];
             button.tag = 100+i;
             button.curStatus = StarImageViewStatusOff;
@@ -44,46 +33,33 @@
     return self;
 }
 
--(void)viewTapEvents:(UITapGestureRecognizer *)tap
-{
-    if (_isCanTap)
-    {
-        for (int i = 0; i < 5 ; i++)
-        {
+-(void)viewTapEvents:(UITapGestureRecognizer *)tap{
+    if (_isCanTap){
+        for (int i = 0; i < 5 ; i++){
             StarImageView *button = [self viewWithTag:100+i];
-            if (i+100 <= [tap view].tag)
-            {
+            if (i+100 <= [tap view].tag){
                 button.curStatus = StarImageViewStatusOn;
-            }
-            else
-            {
+            }else{
                 button.curStatus = StarImageViewStatusOff;
             }
         }
-    }
-    else
-    {
+    }else{
         NSLog(@"haha");
     }
 }
 
--(CGFloat)getScore
-{
+-(NSString *)getScore{
     CGFloat score = 0.00;
     for (int i = 0; i < 5 ; i++)
     {
         StarImageView *button = [self viewWithTag:100+i];
-
-        if(button.curStatus == StarImageViewStatusOn)
-        {
+        if(button.curStatus == StarImageViewStatusOn){
             score = score + 1;
-        }
-        else if(button.curStatus == StarImageViewStatusHalf)
-        {
+        }else if(button.curStatus == StarImageViewStatusHalf){
             score = score + 0.5;
         }
     }
-    return score;
+    return [NSString stringWithFormat:@"%.2f",score];
 }
 
 -(void)setScore:(CGFloat)score

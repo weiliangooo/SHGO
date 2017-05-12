@@ -52,28 +52,28 @@
     line1.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     [backView addSubview:line1];
     
-    UILabel *startTipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, line1.bottom, 325*PROPORTION750, 90*PROPORTION750)];
-    startTipLB.text = @"王师傅";
-    startTipLB.font = SYSF750(30);
-    startTipLB.textAlignment = NSTextAlignmentLeft;
-    [backView addSubview:startTipLB];
+    self.driverNameLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, line1.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+    self.driverNameLB.text = @"王师傅";
+    self.driverNameLB.font = SYSF750(30);
+    self.driverNameLB.textAlignment = NSTextAlignmentLeft;
+    [backView addSubview:self.driverNameLB];
     
-    MyStar *startLB = [[MyStar alloc] initWithFrame:CGRectMake(355*PROPORTION750, line1.bottom, 325*PROPORTION750, 90*PROPORTION750) space:20*PROPORTION750];
-    [startLB setScore:4.2];
-    [backView addSubview:startLB];
+    self.starView = [[MyStar alloc] initWithFrame:CGRectMake(355*PROPORTION750, line1.bottom, 325*PROPORTION750, 90*PROPORTION750) space:20*PROPORTION750];
+    [self.starView setScore:4.2];
+    [backView addSubview:self.starView];
     
-    UILabel *carTypeTipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, startTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+    UILabel *carTypeTipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, self.driverNameLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
     carTypeTipLB.text = @"车辆品牌";
     carTypeTipLB.font = SYSF750(30);
     carTypeTipLB.textAlignment = NSTextAlignmentLeft;
     [backView addSubview:carTypeTipLB];
     
-    UILabel *carTypeLB = [[UILabel alloc] initWithFrame:CGRectMake(355*PROPORTION750, startTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
-    carTypeLB.text = @"海马V70";
-    carTypeLB.textColor = [UIColor colorWithHexString:@"999999"];
-    carTypeLB.font = SYSF750(30);
-    carTypeLB.textAlignment = NSTextAlignmentRight;
-    [backView addSubview:carTypeLB];
+    self.carNameLB = [[UILabel alloc] initWithFrame:CGRectMake(355*PROPORTION750, self.driverNameLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+    self.carNameLB .text = @"海马V70";
+    self.carNameLB .textColor = [UIColor colorWithHexString:@"999999"];
+    self.carNameLB .font = SYSF750(30);
+    self.carNameLB .textAlignment = NSTextAlignmentRight;
+    [backView addSubview:self.carNameLB ];
     
     UILabel *carNumTipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, carTypeTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
     carNumTipLB.text = @"车辆牌照";
@@ -81,12 +81,12 @@
     carNumTipLB.textAlignment = NSTextAlignmentLeft;
     [backView addSubview:carNumTipLB];
     
-    UILabel *carNumLB = [[UILabel alloc] initWithFrame:CGRectMake(355*PROPORTION750, carTypeTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
-    carNumLB.text = @"皖A12345";
-    carNumLB.textColor = [UIColor colorWithHexString:@"999999"];
-    carNumLB.font = SYSF750(30);
-    carNumLB.textAlignment = NSTextAlignmentRight;
-    [backView addSubview:carNumLB];
+    self.carNumLB = [[UILabel alloc] initWithFrame:CGRectMake(355*PROPORTION750, carTypeTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+    self.carNumLB.text = @"皖A12345";
+    self.carNumLB.textColor = [UIColor colorWithHexString:@"999999"];
+    self.carNumLB.font = SYSF750(30);
+    self.carNumLB.textAlignment = NSTextAlignmentRight;
+    [backView addSubview:self.carNumLB];
     
     UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, carNumTipLB.bottom, backView.width, 2*PROPORTION750)];
     line2.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
@@ -107,6 +107,7 @@
     [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"1aad19"] range:NSMakeRange(7, 4)];
     
     UIButton *kfBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, backView.bottom+20*PROPORTION750, 710*PROPORTION750, 25*PROPORTION750)];
+    kfBtn.tag = 102;
     [kfBtn setAttributedTitle:string forState:UIControlStateNormal];
     kfBtn.titleLabel.font = SYSF750(25);
     [kfBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];

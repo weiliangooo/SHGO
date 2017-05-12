@@ -160,6 +160,8 @@
     ckString = [ckString stringByAppendingString:@" >"];
     _ckLB.text = ckString;
     [self setPriceString:_model.orderPrice];
+    
+    [self setCarMsg];
 }
 
 -(void)setPriceString:(NSString *)string{
@@ -173,6 +175,19 @@
     
     _priceLB.attributedText = price;
 }
+
+-(void)setCarMsg{
+    ckModel *model = [[ckModel alloc] init];
+    model = _model.ckMsgs[0];
+    if ([model.orderStatus integerValue] > 30) {
+        _driverNameLB.text = _model.driverName;
+        [_starView setScore:[_model.driverScore doubleValue]];
+        _carNameLB.text = _model.carName;
+        _carNumLB.text = _model.carCode;
+    }
+}
+
+
 
 -(void)buttonClickEvents:(UIButton *)button{
     if (_delegate && [_delegate respondsToSelector:@selector(OrderDetailBaseViewClickWithTitle:)]) {
