@@ -432,6 +432,11 @@
 
 -(void)alReLoadData{
     [self loadData];
+    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC));
+    
+    dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+        [self hideLoading];
+    });
 }
 
 
@@ -442,7 +447,7 @@
     
     //创建网页内容对象
     NSString* thumbURL =  @"https://m.xiaomachuxing.com";
-    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"欢迎使用 小马出行" descr:@"欢迎使用 小马出行 优惠 便捷 一键即达！" thumImage:thumbURL];
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"欢迎使用 小马出行" descr:@"欢迎使用 小马出行 优惠 便捷 一键即达！" thumImage:[UIImage imageNamed:@"default"]];
     //设置网页地址
     shareObject.webpageUrl = @"https://m.xiaomachuxing.com";
     

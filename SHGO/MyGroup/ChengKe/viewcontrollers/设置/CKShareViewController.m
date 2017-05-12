@@ -66,12 +66,14 @@
 
 - (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
 {
+    
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
+    
     //创建网页内容对象
     NSString* thumbURL =  @"https://m.xiaomachuxing.com";
-    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"欢迎使用 小马出行" descr:@"欢迎使用 小马出行 优惠 便捷 一键即达！" thumImage:thumbURL];
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"欢迎使用 小马出行" descr:@"欢迎使用 小马出行 优惠 便捷 一键即达！" thumImage:[UIImage imageNamed:@"default"]];
     //设置网页地址
     shareObject.webpageUrl = @"https://m.xiaomachuxing.com";
     

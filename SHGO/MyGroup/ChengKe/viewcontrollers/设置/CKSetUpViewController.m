@@ -11,8 +11,9 @@
 #import "CKSUAcountSecurityViewController.h"
 #import "CKShareViewController.h"
 #import "HelpViewController.h"
+#import "CancleOrderAlertView.h"
 
-@interface CKSetUpViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface CKSetUpViewController ()<UITableViewDelegate, UITableViewDataSource, AlertClassDelegate>
 {
     NSArray *titles;
 }
@@ -133,9 +134,19 @@
 
 -(void)exitBtnClick:(UIButton *)button
 {
-    [self gotoLoginViewController];
+    CancleOrderAlertView *alerView = [[CancleOrderAlertView alloc] initWithTipTitle:@"是否需要取消订单" TipImage:nil];
+    alerView.delegate =self;
+    
 }
 
+#pragma --mark AlertClassDelegate
+-(void)AlertClassView:(id)alertView clickIndex:(NSInteger)index{
+    [alertView removeFromSuperview];
+    if (index == 100){
+       [self gotoLoginViewController]; 
+    }
+    NSLog(@"%d",(int)index);
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
