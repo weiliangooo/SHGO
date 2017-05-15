@@ -8,11 +8,11 @@
 
 #import "CKMapViewController.h"
 
-
+#import "YHBaseViewController.h"
 
 
 @class OrderDetailModel;
-@interface CKOrderDetailViewController : CKMapViewController
+@interface CKOrderDetailViewController : YHBaseViewController
 
 @property (nonatomic, strong) NSString *order_sn;
 

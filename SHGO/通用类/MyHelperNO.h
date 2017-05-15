@@ -42,6 +42,6 @@
 //移除userdefault 中所有数据
 +(void)removeAllData;
 
-
++ (NSString *)getIpAddresses;
 
 @end

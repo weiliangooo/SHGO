@@ -251,8 +251,7 @@
     }
 }
 
--(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView locationModel:(PlaceModel *)locationModel
-{
+-(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView locationModel:(PlaceModel *)locationModel{
     [CKSPView hiddenView];
     if (CKSPView.preFlag == CKSPViewStartStatusStartTrue || CKSPView.preFlag == CKSPViewStartStatusStartTrue){
         self.ccMsgModel.startPlaceModel = locationModel;
@@ -308,24 +307,19 @@
 
 
 ///设置起始位置 和 终点位置 的大头钉的图片
-- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
-{
-    if ([annotation isKindOfClass:[BMKPointAnnotation class]])
-    {
-        if (annotation == _startAnnotation)
-        {
+- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation{
+    if ([annotation isKindOfClass:[BMKPointAnnotation class]]){
+        if (annotation == _startAnnotation){
             BMKAnnotationView *newStart = [[BMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startAnnotation"];
             newStart.image = [UIImage imageNamed:@"startPoint"];   //把大头针换成别的图片
+            newStart.centerOffset = CGPointMake(0, -25*PROPORTION750);
             return newStart;
-        }
-        else
-        {
+        }else{
             BMKAnnotationView *newEnd = [[BMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endAnnotation"];
             newEnd.image = [UIImage imageNamed:@"endPoint"];   //把大头针换成别的图片
             return newEnd;
         }
     }
-    
     return nil;
 }
 
@@ -615,7 +609,6 @@
     if (city == nil){
         return NO;
     }
-    
     for (CKCitysModel *model in cityListModel.citysModel){
         if ([model.cityName hasPrefix:city]){
             return YES;

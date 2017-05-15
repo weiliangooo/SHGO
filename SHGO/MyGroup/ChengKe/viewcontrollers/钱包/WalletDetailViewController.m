@@ -13,6 +13,7 @@
 #import "WalletDiscoutCell.h"
 #import "WalletMoneyModel.h"
 #import "WalletQuanModel.h"
+#import "MyWebViewController.h"
 
 @interface WalletDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -80,8 +81,14 @@
         [_ckWalletHeader.tipBtn setTitle:helpString forState:UIControlStateNormal];
         __weak typeof(self) weakSelf = self;
         _ckWalletHeader.buttonBlock = ^(){
-            //        CKWalletDQuestionViewController *viewController = [[CKWalletDQuestionViewController alloc] init];
-            //        [weakSelf.navigationController pushViewController:viewController animated:YES];
+            if (_walletType == WalletTypeBalance) {
+                MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"常见问题" urlString:@"https://m.xiaomachuxing.com/index/cproblem#balance"];
+                [weakSelf.navigationController pushViewController:viewController animated:YES];
+            }else{
+                MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"使用规则" urlString:@"https://m.xiaomachuxing.com/index/cproblem#packs"];
+                [weakSelf.navigationController pushViewController:viewController animated:YES];
+            }
+            
         };
         [self.view addSubview:_ckWalletHeader];
         
@@ -210,7 +217,7 @@
             [tipBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
             tipBtn.titleLabel.textAlignment = NSTextAlignmentRight;
             tipBtn.titleLabel.font = SYSF750(25);
-            //        [tipBtn addTarget:self action:@selector(buttonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
+            [tipBtn addTarget:self action:@selector(buttonClickEvent) forControlEvents:UIControlEventTouchUpInside];
             [view addSubview:tipBtn];
         }
         
@@ -270,6 +277,10 @@
     }
 }
 
+-(void)buttonClickEvent{
+    MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"使用规则" urlString:@"https://m.xiaomachuxing.com/index/cproblem#coupon"];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

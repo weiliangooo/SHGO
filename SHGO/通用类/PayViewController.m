@@ -138,30 +138,9 @@
     }
 }
 
-
 #pragma --mark 微信支付
 -(void)weinxinInit:(id)responseObject
 {
-     NSDictionary *dic = [[responseObject objectForKey:@"data"] objectForKey:@"payinfo"];
-    if (![WXApi isWXAppInstalled])
-    {
-        NSLog(@"未安装微信");
-        return ;
-    }
-    
-    if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]])
-    {
-        NSLog(@"未安装微信");
-        return ;
-    }
-    
-    else if (![WXApi isWXAppSupportApi])
-    {
-        NSLog(@"不支持微信支付");
-        return ;
-    }
-    
-    
     //============================================================
     // V3&V4支付流程实现
     // 注意:参数配置请查看服务器端Demo
@@ -179,43 +158,40 @@
         NSMutableDictionary *dict = NULL;
         //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
         dict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-        
         NSLog(@"url:%@",urlString);
-        if(dict != nil)
-        {
-            NSMutableString *retcode = [dict objectForKey:@"retcode"];
-            if (retcode.intValue == 0){
-                //                NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
-                
-                //调起微信支付
-                PayReq* req             = [[PayReq alloc] init];
-                //                req.partnerId           = [dict objectForKey:@"partnerid"];
-                //                req.prepayId            = [dict objectForKey:@"prepayid"];
-                //                req.nonceStr            = [dict objectForKey:@"noncestr"];
-                //                req.timeStamp           = stamp.intValue;
-                //                req.package             = [dict objectForKey:@"package"];
-                //                req.sign                = [dict objectForKey:@"sign"];
-                req.partnerId = [dic stringForKey:@"partnerid"];
-                req.prepayId = [dic stringForKey:@"prepayid"];
-                req.package = [dic stringForKey:@"package"];
-                req.nonceStr = [dic stringForKey:@"noncestr"];
-                req.timeStamp = [dic intForKey:@"timestamp"];
-                req.sign = [dic stringForKey:@"sign"];
-                [WXApi sendReq:req];
-                //日志输出
-                //                NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
-                NSLog(@"appid=%@\npartid=%@\nprepayid=%@\npackage=%@\nnoncestr=%@\ntimestamp=%ld\nsign=%@",@"wxe763c87543526e0b",req.partnerId,req.prepayId,req.package,req.nonceStr,(long)req.timeStamp,req.sign );
-//                return @"";
-            }
-//            else{
-//                return [dict objectForKey:@"retmsg"];
-//            }
-//        }else{
-//            return @"服务器返回错误，未获取到json对象";
-        }
-//    }else{
-//        return @"服务器返回错误";
     }
+    
+    NSDictionary *dic = [responseObject objectForKey:@"data"];
+    if (![WXApi isWXAppInstalled])
+    {
+        NSLog(@"未安装微信");
+        return ;
+    }
+    
+    if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]])
+    {
+        NSLog(@"未安装微信");
+        return ;
+    }
+    
+    else if (![WXApi isWXAppSupportApi])
+    {
+        NSLog(@"不支持微信支付");
+        return ;
+    }
+
+        if(dic != nil){
+            //调起微信支付
+            PayReq* req             = [[PayReq alloc] init];
+            req.partnerId = [dic stringForKey:@"partnerid"];
+            req.prepayId = [dic stringForKey:@"prepayid"];
+            req.package = @"Sign=WXPay";
+            req.nonceStr = [dic stringForKey:@"noncestr"];
+            req.timeStamp = [[dic stringForKey:@"timestamp"] doubleValue];
+            req.sign = [dic stringForKey:@"sign"];
+            [WXApi sendReq:req];
+        }
+
 
 }
 
@@ -235,14 +211,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

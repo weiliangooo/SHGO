@@ -57,20 +57,26 @@
     line2.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
     [msgView addSubview:line2];
     
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+    NSDate *date = [formatter dateFromString:_startTime];
+    NSTimeInterval timeInterval = [date timeIntervalSince1970];
+    NSString *start2 = [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:(timeInterval - 3600)]];
+    
     UILabel *msgLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, line2.bottom+30*PROPORTION750, 630*PROPORTION750, 70*PROPORTION750)];
 //    msgLB.text = @"系统将于今天（03-21）10:00为您派单，并安排司机来接您。请留意手机提醒并保持手机畅通。";
     msgLB.font = SYSF750(25);
     msgLB.numberOfLines = 2;
-    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc] initWithString:@"系统预计将提前1小时为您派单，并安排司机来接您。请留意手机提醒并保持手机畅通。"];
+    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"系统将于%@为您派单，并安排司机来接您，请留意手机提醒并保持手机畅通。", start2]];
     [AttributedStr addAttribute:NSForegroundColorAttributeName
                           value:[UIColor colorWithHexString:@"999999"]
-                          range:NSMakeRange(0, 5)];
+                          range:NSMakeRange(0, 4)];
     [AttributedStr addAttribute:NSForegroundColorAttributeName
                           value:[UIColor colorWithHexString:@"#1ead1a"]
-                          range:NSMakeRange(5, 5)];
+                          range:NSMakeRange(4, 16)];
     [AttributedStr addAttribute:NSForegroundColorAttributeName
                           value:[UIColor colorWithHexString:@"999999"]
-                          range:NSMakeRange(10, AttributedStr.length-10)];
+                          range:NSMakeRange(20, AttributedStr.length-20)];
     msgLB.attributedText = AttributedStr;
     [msgView addSubview:msgLB];
     

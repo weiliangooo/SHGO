@@ -8,6 +8,7 @@
 
 #import "CKRealNameViewController.h"
 #import "CKMainViewController.h"
+#import "MyWebViewController.h"
 
 @interface CKRealNameViewController ()
 ///用作底部容器
@@ -93,11 +94,13 @@
     [_myScrollView addSubview:view];
     
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, 460*PROPORTION750, 30*PROPORTION750)];
-    title.text = @"《小马出行免费乘车意外险协议》";
+    title.text = @"《共享租车协议》";
     title.textColor = [UIColor colorWithHexString:@"1aad19"];
     title.font = SYSF750(30);
     title.textAlignment = NSTextAlignmentLeft;
     [view addSubview:title];
+    title.userInteractionEnabled = true;
+    [title addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoWebViewController)]];
     
     UIButton *gouBT = [[UIButton alloc] initWithFrame:CGRectMake(view.width-220*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
     [gouBT setImage:[UIImage imageNamed:@"ckunselected"] forState:UIControlStateNormal];
@@ -202,6 +205,11 @@
         
     }];
     
+}
+
+-(void)gotoWebViewController{
+    MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"共享租车协议" urlString:@"https://m.xiaomachuxing.com/Xm/index/rentalagreement"];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 -(void)gotoCKMainViewController{

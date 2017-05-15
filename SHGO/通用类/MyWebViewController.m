@@ -50,6 +50,7 @@
 
 -(void)leftBtn:(UIButton *)button{
     [self dismissViewControllerAnimated:true completion:nil];
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 //-(void)rightBtn:(UIButton *)button{

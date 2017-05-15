@@ -14,6 +14,8 @@
 #import "CKPayView.h"
 #import "CKSureOrderModel.h"
 #import "PayViewController.h"
+#import "CKOrderDetailViewController.h"
+#import "BaseNavViewController.h"
 
 @interface CKBookViewController ()<BMKMapViewDelegate,CKBookViewDelegate,CKBookMsgViewDelegate,CKPayViewDelegate,DiscoutSelectViewDelegate,BookCKSelectDetailViewDelegate>
 {
@@ -155,9 +157,33 @@
         int code = [responseObject intForKey:@"status"];
         NSString *msg = [responseObject stringForKey:@"msg"];
         NSLog(@"%@", responseObject);
-        if (code == 200){//微信
-            orderSn = [responseObject objectForKey:@"data"];  
+        if (code == 200){//
+//            orderSn = [responseObject objectForKey:@"data"];
+//            
+//            [[PayViewController shareManager] weinxinInit];
+        }else if (code == 210){//微信
+            orderSn = [responseObject objectForKey:@"data"];
             
+//            NSLog(@"%@", [MyHelperNO getIpAddresses]);
+            
+            NSString *ordNum = [responseObject stringForKey:@"data"];
+            NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                           ordNum,@"order_sn",
+                                           [MyHelperNO getIpAddresses], @"scip",
+                                           [MyHelperNO getUid], @"uid",
+                                           [MyHelperNO getMyToken], @"token", nil];
+            [self post:@"order/wechat_pay" withParam:reqDic success:^(id responseObject) {
+                int code = [responseObject intForKey:@"status"];
+                NSString *msg = [responseObject stringForKey:@"msg"];
+                NSLog(@"%@", responseObject);
+                if (code == 200) {
+                    [[PayViewController shareManager] weinxinInit:responseObject];
+                }else{
+                    [self toast:msg];
+                }
+            }failure:^(NSError *error) {
+                
+            }];
         }
         else if (code == 220){//支付宝
             orderSn = [responseObject objectForKey:@"data"];
@@ -187,11 +213,14 @@
             orderSn = [responseObject objectForKey:@"data"];
             [self toast:msg];
             [self performSelector:@selector(succToNext) withObject:nil afterDelay:1.5];
-//            [self succToNext];
         }
         else if (code == 350)
         {///有未付款订单
-            [self toast:@"您有一笔未付款订单"];
+//            [self toast:@"您有一笔未付款订单"];
+            CKOrderDetailViewController *viewController = [[CKOrderDetailViewController alloc] init];
+            viewController.order_sn = [responseObject objectForKey:@"data"];
+            BaseNavViewController *naviController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
+            [self presentViewController:naviController animated:true completion:nil];
         }
         else if (code == 360)
         {///无法下单切换下一班次

@@ -12,6 +12,7 @@
 #import "CKShareViewController.h"
 #import "HelpViewController.h"
 #import "CancleOrderAlertView.h"
+#import "MyWebViewController.h"
 
 @interface CKSetUpViewController ()<UITableViewDelegate, UITableViewDataSource, AlertClassDelegate>
 {
@@ -114,15 +115,25 @@
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
-        case 0:
-        {
+        case 0:{
             CKShareViewController *viewController = [[CKShareViewController  alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
-        case 1:
-        {
-            HelpViewController *viewController = [[HelpViewController  alloc] init];
+        case 1:{
+//            HelpViewController *viewController = [[HelpViewController  alloc] init];
+//            [self.navigationController pushViewController:viewController animated:YES];
+            MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"小马帮助" urlString:@"https://m.xiaomachuxing.com/index/cproblem"];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+            break;
+        case 2:{
+            MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"法律条款" urlString:@"https://m.xiaomachuxing.com/index/agreement"];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+            break;
+        case 3:{
+            MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"关于我们" urlString:@"https://m.xiaomachuxing.com/index/about"];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;

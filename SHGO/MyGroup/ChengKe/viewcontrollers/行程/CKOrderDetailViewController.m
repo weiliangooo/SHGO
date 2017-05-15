@@ -23,6 +23,8 @@
 
 #import "UpCommenView.h"
 
+#import "MyWebViewController.h"
+
 @interface CKOrderDetailViewController ()<OrderDetailDelegate,OrderDetailBaseViewDelgate,PopAleatViewDelegate,AlertClassDelegate,UpCommenViewDelegate>
 
 @property (nonatomic, strong) OrderDetailBaseView *detailView;
@@ -77,6 +79,11 @@
 //    carNumLB.layer.borderWidth = 1.0f;
 //    [self.view addSubview:carNumLB];
     
+}
+
+-(void)leftBtn:(UIButton *)button{
+    [self dismissViewControllerAnimated:true completion:nil];
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 -(void)loadData{
@@ -328,7 +335,23 @@
             
         }];
     }else{
-        
+        NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       _order_sn,@"order_sn",
+                                       [MyHelperNO getIpAddresses], @"scip",
+                                       [MyHelperNO getUid], @"uid",
+                                       [MyHelperNO getMyToken], @"token", nil];
+        [self post:@"order/wechat_pay" withParam:reqDic success:^(id responseObject) {
+            int code = [responseObject intForKey:@"status"];
+            NSString *msg = [responseObject stringForKey:@"msg"];
+            NSLog(@"%@", responseObject);
+            if (code == 200) {
+                [[PayViewController shareManager] weinxinInit:responseObject];
+            }else{
+                [self toast:msg];
+            }
+        }failure:^(NSError *error) {
+            
+        }];
     }
 }
 
@@ -439,6 +462,10 @@
     });
 }
 
+-(void)rightBtn:(UIButton *)button{
+    MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"常见问题" urlString:@"https://m.xiaomachuxing.com/index/cproblem#coupon"];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
 
 - (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
 {
@@ -476,30 +503,30 @@
 
 
 //计算地图显示区域
--(void)getMapViewVisbleRect{
-    BMKMapPoint point1 = BMKMapPointForCoordinate(_orderDetailModel.startPlace.location);
-    BMKMapPoint point2 = BMKMapPointForCoordinate(_orderDetailModel.endPlace.location);
-    CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
-    
-    //这个数组就是百度地图比例尺对应的物理距离，其中2000000对应的比例是3，5对应的是21；可能有出入可以根据情况累加
-    float zoomLe = 0.00;
-    NSArray *zoomLevelArr = [[NSArray alloc]initWithObjects:@"2000000", @"1000000", @"500000", @"200000", @"100000", @"50000", @"25000", @"20000", @"10000", @"5000", @"2000", @"1000", @"500", @"200", @"100", @"50", @"20", @"10", @"5", nil];
-    for (int j=0; j<zoomLevelArr.count; j++){
-        if (j + 1 < zoomLevelArr.count){
-            if (distance < [zoomLevelArr[j] intValue] && distance > [zoomLevelArr[j+1] intValue] ){
-                zoomLe = j+6.4;
-                break;
-            }
-        }
-    }
-    BMKMapStatus *status = [[BMKMapStatus alloc] init];
-    status.fLevel = zoomLe;
-    status.targetScreenPt = CGPointMake(AL_DEVICE_WIDTH/2, 450*PROPORTION750);
-    status.targetGeoPt = CLLocationCoordinate2DMake((_orderDetailModel.startPlace.location.latitude+_orderDetailModel.endPlace.location.latitude)/2,
-                                                    (_orderDetailModel.startPlace.location.longitude+_orderDetailModel.endPlace.location.longitude)/2);
-    [self.mapView setMapStatus:status withAnimation:YES];
-    
-}
+//-(void)getMapViewVisbleRect{
+//    BMKMapPoint point1 = BMKMapPointForCoordinate(_orderDetailModel.startPlace.location);
+//    BMKMapPoint point2 = BMKMapPointForCoordinate(_orderDetailModel.endPlace.location);
+//    CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
+//    
+//    //这个数组就是百度地图比例尺对应的物理距离，其中2000000对应的比例是3，5对应的是21；可能有出入可以根据情况累加
+//    float zoomLe = 0.00;
+//    NSArray *zoomLevelArr = [[NSArray alloc]initWithObjects:@"2000000", @"1000000", @"500000", @"200000", @"100000", @"50000", @"25000", @"20000", @"10000", @"5000", @"2000", @"1000", @"500", @"200", @"100", @"50", @"20", @"10", @"5", nil];
+//    for (int j=0; j<zoomLevelArr.count; j++){
+//        if (j + 1 < zoomLevelArr.count){
+//            if (distance < [zoomLevelArr[j] intValue] && distance > [zoomLevelArr[j+1] intValue] ){
+//                zoomLe = j+6.4;
+//                break;
+//            }
+//        }
+//    }
+//    BMKMapStatus *status = [[BMKMapStatus alloc] init];
+//    status.fLevel = zoomLe;
+//    status.targetScreenPt = CGPointMake(AL_DEVICE_WIDTH/2, 450*PROPORTION750);
+//    status.targetGeoPt = CLLocationCoordinate2DMake((_orderDetailModel.startPlace.location.latitude+_orderDetailModel.endPlace.location.latitude)/2,
+//                                                    (_orderDetailModel.startPlace.location.longitude+_orderDetailModel.endPlace.location.longitude)/2);
+//    [self.mapView setMapStatus:status withAnimation:YES];
+//    
+//}
 
 
 - (void)didReceiveMemoryWarning {

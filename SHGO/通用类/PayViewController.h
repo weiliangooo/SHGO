@@ -35,8 +35,6 @@
 
 +(PayViewController *)shareManager;
 
--(void)zhifubaoInit;
-
 -(void)zhifubaoInit:(id)responseObject;
 
 -(void)weinxinInit:(id)responseObject;
