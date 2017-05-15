@@ -101,13 +101,12 @@
     }
     else if(type == 4)
     {
-        
         _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _rightBtn.frame = CGRectMake(0, 0, 60*PROPORTION, 20);
-        [_rightBtn setTitle:@"取消订单" forState:UIControlStateNormal];
-        [_rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _rightBtn.frame = CGRectMake(0, 0, 60*PROPORTION, 30*PROPORTION750);
+//        [_rightBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+        [_rightBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
         _rightBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-        _rightBtn.titleLabel.font = [UIFont systemFontOfSize:14*PROPORTION];
+        _rightBtn.titleLabel.font = SYSF750(25);
         [_rightBtn addTarget:self action:@selector(rightBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self ios7RightBarButtonItems:[[UIBarButtonItem alloc]initWithCustomView:_rightBtn]];
     }

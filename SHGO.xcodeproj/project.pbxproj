@@ -303,6 +303,9 @@
 		F712CD0B1EBAFDA600B67880 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F712CD0A1EBAFDA600B67880 /* Foundation.framework */; };
 		F712CD0E1EBB208900B67880 /* MyHelperTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F712CD0D1EBB208900B67880 /* MyHelperTool.m */; };
 		F720C2001EC4954F0067EA18 /* UpCommenView.m in Sources */ = {isa = PBXBuildFile; fileRef = F720C1FF1EC4954F0067EA18 /* UpCommenView.m */; };
+		F732818D1EC99E06001DA376 /* SetPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F732818C1EC99E06001DA376 /* SetPassWordViewController.m */; };
+		F73281901EC9ABA9001DA376 /* PassLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F732818F1EC9ABA9001DA376 /* PassLoginViewController.m */; };
+		F73281931EC9AE14001DA376 /* ForgetPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73281921EC9AE14001DA376 /* ForgetPassViewController.m */; };
 		F73B0EA01E96197000FB468E /* CKDiscoutSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B0E9F1E96197000FB468E /* CKDiscoutSelectView.m */; };
 		F73B0EA31E96413600FB468E /* CKSureOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B0EA21E96413600FB468E /* CKSureOrderModel.m */; };
 		F73B80201E9721330005EC11 /* CKPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B801F1E9721330005EC11 /* CKPayView.m */; };
@@ -674,6 +677,12 @@
 		F712CD0D1EBB208900B67880 /* MyHelperTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelperTool.m; sourceTree = "<group>"; };
 		F720C1FE1EC4954F0067EA18 /* UpCommenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpCommenView.h; sourceTree = "<group>"; };
 		F720C1FF1EC4954F0067EA18 /* UpCommenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpCommenView.m; sourceTree = "<group>"; };
+		F732818B1EC99E06001DA376 /* SetPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPassWordViewController.h; sourceTree = "<group>"; };
+		F732818C1EC99E06001DA376 /* SetPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPassWordViewController.m; sourceTree = "<group>"; };
+		F732818E1EC9ABA9001DA376 /* PassLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassLoginViewController.h; sourceTree = "<group>"; };
+		F732818F1EC9ABA9001DA376 /* PassLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassLoginViewController.m; sourceTree = "<group>"; };
+		F73281911EC9AE14001DA376 /* ForgetPassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPassViewController.h; sourceTree = "<group>"; };
+		F73281921EC9AE14001DA376 /* ForgetPassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPassViewController.m; sourceTree = "<group>"; };
 		F73B0E9E1E96197000FB468E /* CKDiscoutSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKDiscoutSelectView.h; sourceTree = "<group>"; };
 		F73B0E9F1E96197000FB468E /* CKDiscoutSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKDiscoutSelectView.m; sourceTree = "<group>"; };
 		F73B0EA11E96413600FB468E /* CKSureOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSureOrderModel.h; sourceTree = "<group>"; };
@@ -1482,6 +1491,10 @@
 			children = (
 				F71275641E83A0FF00238420 /* CKLoginViewController.h */,
 				F71275651E83A0FF00238420 /* CKLoginViewController.m */,
+				F732818E1EC9ABA9001DA376 /* PassLoginViewController.h */,
+				F732818F1EC9ABA9001DA376 /* PassLoginViewController.m */,
+				F73281911EC9AE14001DA376 /* ForgetPassViewController.h */,
+				F73281921EC9AE14001DA376 /* ForgetPassViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1635,6 +1648,8 @@
 				F76D78051E9B4681003EFF67 /* CKShareViewController.m */,
 				F76D78341E9B7BAA003EFF67 /* HelpViewController.h */,
 				F76D78351E9B7BAA003EFF67 /* HelpViewController.m */,
+				F732818B1EC99E06001DA376 /* SetPassWordViewController.h */,
+				F732818C1EC99E06001DA376 /* SetPassWordViewController.m */,
 			);
 			path = "设置";
 			sourceTree = "<group>";
@@ -2259,6 +2274,7 @@
 				F75C4C361EAF148100740030 /* CKMsgListViewController.m in Sources */,
 				F71275781E85215100238420 /* CKTimeSelectView.m in Sources */,
 				F701C80F1E4844E6008ADFD6 /* MJRefreshStateHeader.m in Sources */,
+				F73281901EC9ABA9001DA376 /* PassLoginViewController.m in Sources */,
 				F701C86F1E4844E6008ADFD6 /* NSArrayExt.m in Sources */,
 				F701C8361E4844E6008ADFD6 /* TADotView.m in Sources */,
 				F7B14F131EA4944100D7CDB6 /* AlertClassView.m in Sources */,
@@ -2298,6 +2314,7 @@
 				F701C83F1E4844E6008ADFD6 /* MKAnnotationView+WebCache.m in Sources */,
 				F701C8871E4844E6008ADFD6 /* UIViewExt.m in Sources */,
 				F701C87E1E4844E6008ADFD6 /* UIColor+ColorFrom16.m in Sources */,
+				F73281931EC9AE14001DA376 /* ForgetPassViewController.m in Sources */,
 				F76D78091E9B6572003EFF67 /* ShareView.m in Sources */,
 				F75C4C391EAF16B000740030 /* MsgListModel.m in Sources */,
 				F70182011E8DED5000B28C59 /* PGSLeadViewController.m in Sources */,
@@ -2384,6 +2401,7 @@
 				F73B0EA01E96197000FB468E /* CKDiscoutSelectView.m in Sources */,
 				F71275691E83A23D00238420 /* CKLoginTextField.m in Sources */,
 				F753B9BB1EC424700063781A /* OrderDetailFinishedView.m in Sources */,
+				F732818D1EC99E06001DA376 /* SetPassWordViewController.m in Sources */,
 				F701C82D1E4844E6008ADFD6 /* SDCycleScrollView.m in Sources */,
 				F764CA6B1EA9FDDA00B91253 /* MyStar.m in Sources */,
 				F701C8541E4844E6008ADFD6 /* SDWebImageManager.m in Sources */,

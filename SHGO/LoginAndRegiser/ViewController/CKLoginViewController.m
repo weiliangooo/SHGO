@@ -12,6 +12,7 @@
 
 #import "BaseNavViewController.h"
 #import "MyWebViewController.h"
+#import "PassLoginViewController.h"
 
 @interface CKLoginViewController ()
 {
@@ -34,8 +35,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.type = 100;
+    self.type = 4;
     self.topTitle = @"登录";
+    [self.rightBtn setTitle:@"密码登录" forState:UIControlStateNormal];
     self.view.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
     ///每次只要调用登录界面则清除 本地数据
     [MyHelperNO removeAllData];
@@ -193,6 +195,11 @@
         [_codeBT setTitle:[NSString stringWithFormat:@"(%ds)重新获取",countDownTime] forState:UIControlStateNormal];
         _codeBT.userInteractionEnabled = NO;
     }
+}
+
+-(void)rightBtn:(UIButton *)button{
+    PassLoginViewController *viewController = [[PassLoginViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:true];
 }
 
 - (void)didReceiveMemoryWarning {

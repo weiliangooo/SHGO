@@ -24,6 +24,7 @@
 #import "UpCommenView.h"
 
 #import "MyWebViewController.h"
+#import "UIImage+ScalImage.h"
 
 @interface CKOrderDetailViewController ()<OrderDetailDelegate,OrderDetailBaseViewDelgate,PopAleatViewDelegate,AlertClassDelegate,UpCommenViewDelegate>
 
@@ -48,7 +49,7 @@
     self.leftBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 20*PROPORTION750, 0, 0);
     [self.leftBtn setImage:[UIImage imageNamed:@"rowback"] forState:UIControlStateNormal];
     self.rightBtn.frame = CGRectMake(0, 0, 35*PROPORTION, 35*PROPORTION);
-    [self.rightBtn setImage:[UIImage imageNamed:@"regular_wallet"] forState:UIControlStateNormal];
+    [self.rightBtn setImage:[[UIImage imageNamed:@"what_right"] scaleImageByWidth:35*PROPORTION750] forState:UIControlStateNormal];
     
     self.topTitle = @"订单详情";
 //    self.mapView.hidden = true;

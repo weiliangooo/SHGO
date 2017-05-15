@@ -13,8 +13,10 @@
 #import "HelpViewController.h"
 #import "CancleOrderAlertView.h"
 #import "MyWebViewController.h"
+#import "PopAleatView.h"
+#import "SetPassWordViewController.h"
 
-@interface CKSetUpViewController ()<UITableViewDelegate, UITableViewDataSource, AlertClassDelegate>
+@interface CKSetUpViewController ()<UITableViewDelegate, UITableViewDataSource, AlertClassDelegate, PopAleatViewDelegate>
 {
     NSArray *titles;
 }
@@ -24,10 +26,8 @@
 
 @implementation CKSetUpViewController
 
--(UITableView *)myTableView
-{
-    if (!_myTableView)
-    {
+-(UITableView *)myTableView{
+    if (!_myTableView){
         _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 360*PROPORTION750) style:UITableViewStylePlain];
         _myTableView.backgroundColor = [UIColor whiteColor];
         _myTableView.clipsToBounds = YES;
@@ -48,7 +48,7 @@
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     
-    titles = @[@"分享有礼",@"小马帮助",@"法律条款",@"关于我们"];
+    titles = @[@"修改密码",@"分享有礼",@"小马帮助",@"法律条款",@"关于我们"];
  
     [self.view addSubview:self.myTableView];
     
@@ -109,30 +109,30 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
-        case 100:
-        {
-            CKSUAcountSecurityViewController *viewController = [[CKSUAcountSecurityViewController  alloc] init];
-            [self.navigationController pushViewController:viewController animated:YES];
+        case 0:{
+            PopAleatView *aleatView = [[PopAleatView alloc] init];
+            [aleatView setButtonStr1:@"通过旧密码方式" Str2:@"通过手机验证码方式"];
+            aleatView.delegate = self;
         }
             break;
-        case 0:{
+        case 1:{
             CKShareViewController *viewController = [[CKShareViewController  alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
-        case 1:{
+        case 2:{
 //            HelpViewController *viewController = [[HelpViewController  alloc] init];
 //            [self.navigationController pushViewController:viewController animated:YES];
             MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"小马帮助" urlString:@"https://m.xiaomachuxing.com/index/cproblem"];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
-        case 2:{
+        case 3:{
             MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"法律条款" urlString:@"https://m.xiaomachuxing.com/index/agreement"];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
-        case 3:{
+        case 4:{
             MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"关于我们" urlString:@"https://m.xiaomachuxing.com/index/about"];
             [self.navigationController pushViewController:viewController animated:YES];
         }
@@ -143,9 +143,8 @@
     }
 }
 
--(void)exitBtnClick:(UIButton *)button
-{
-    CancleOrderAlertView *alerView = [[CancleOrderAlertView alloc] initWithTipTitle:@"是否需要取消订单" TipImage:nil];
+-(void)exitBtnClick:(UIButton *)button{
+    CancleOrderAlertView *alerView = [[CancleOrderAlertView alloc] initWithTipTitle:@"是否退出登录" TipImage:nil];
     alerView.delegate =self;
     
 }
@@ -158,6 +157,18 @@
     }
     NSLog(@"%d",(int)index);
 }
+
+-(void)onClick:(UIButton *)sender setbtn:(UIButton *)btn popAleatView:(id)popAleatView{
+    SetPassWordViewController *viewController = [[SetPassWordViewController alloc] init];
+    if (sender.tag == 0) {
+        viewController.isNormal = true;
+    }else if (sender.tag == 1){
+        viewController.isNormal = false;
+    }
+    [self.navigationController pushViewController:viewController animated:true];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
