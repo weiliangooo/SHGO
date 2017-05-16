@@ -191,14 +191,7 @@
             req.sign = [dic stringForKey:@"sign"];
             [WXApi sendReq:req];
         }
-
-
 }
-
-
-
-
-
 
 
 - (void)viewDidLoad {

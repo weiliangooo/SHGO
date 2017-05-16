@@ -157,7 +157,7 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     // 其他如支付等SDK的回调
-    if ([url.host isEqualToString:@"pay"] && [url.scheme isEqualToString:@"wx4a3b7ba9ccd06971"])
+    if ([url.host isEqualToString:@"pay"] && [url.scheme isEqualToString:@"wx6c8ba4f0f1cdd17f"])
     {
         return [WXApi handleOpenURL:url delegate:self];
     }

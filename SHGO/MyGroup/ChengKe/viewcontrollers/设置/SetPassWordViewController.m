@@ -172,28 +172,99 @@
         }else{
             tf2.secureTextEntry = true;
         }
-    }else if (button.tag == 300){
-        
     }else{
-        
+        NSMutableDictionary *reqDic;
+        if (button.tag == 300){
+            if (tf1.text.length == 0) {
+                [self toast:@"请填写旧密码"];
+                return;
+            }
+            
+            if (tf2.text.length == 0) {
+                [self toast:@"请填写新密码"];
+                return;
+            }
+            
+            if (tf1.text.length < 6) {
+                [self toast:@"请正确填写旧密码"];
+                return;
+            }
+            
+            if (tf2.text.length < 6) {
+                [self toast:@"密码不得少于6位"];
+                return;
+            }
+            
+            if ([tf2.text isEqualToString:tf1.text]) {
+                [self toast:@"新密码不能与旧密码相同"];
+                return;
+            }
+            
+            reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                      tf1.text, @"old_pass",
+                      tf2.text, @"pass",
+                      [MyHelperNO getUid], @"uid",
+                      [MyHelperNO getMyToken], @"token", nil];
+            
+        }else{
+            if (tf1.text.length == 0) {
+                [self toast:@"请填写验证码"];
+                return;
+            }
+            
+            if (tf2.text.length == 0) {
+                [self toast:@"请填写新密码"];
+                return;
+            }
+            
+            if (tf2.text.length < 6) {
+                [self toast:@"密码不得少于6位"];
+                return;
+            }
+            
+            reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                      tf1.text, @"code",
+                      tf2.text, @"pass",
+                      [MyHelperNO getUid], @"uid",
+                      [MyHelperNO getMyToken], @"token", nil];
+        }
+//        reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[MyHelperNO getUid], @"uid",[MyHelperNO getMyToken], @"token", nil];
+        [self post:@"user/update_pass" withParam:reqDic success:^(id responseObject) {
+            int code = [responseObject intForKey:@"status"];
+            NSLog(@"%@", responseObject);
+            NSString *msg = [responseObject stringForKey:@"msg"];
+            if (code == 200){
+                [self toast:@"修改成功"];
+                [self performSelector:@selector(gotoRootViewController) withObject:nil afterDelay:1.5];
+            }else if (code == 300){
+                [self toast:@"身份认证已过期"];
+                [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+            }else{
+                [self toast:msg];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+
     }
 }
 
 - (void)getVerificationCode{
-//    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:_accountTF.myTextField.text, @"phone", nil];
-//    [self post:@"login/index" withParam:reqDic success:^(id responseObject) {
-//        int code = [responseObject intForKey:@"status"];
-//        NSLog(@"%@", responseObject);
-//        if (code == 200)
-//        {
+    
+    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[MyHelperNO getUid], @"uid",[MyHelperNO getMyToken], @"token", nil];
+    [self post:@"user/send_code" withParam:reqDic success:^(id responseObject) {
+        int code = [responseObject intForKey:@"status"];
+        NSLog(@"%@", responseObject);
+        if (code == 200)
+        {
             countDownTime = 60;
             timer = [[NSTimer alloc]init];
             timer= [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
             [timer setFireDate:[NSDate distantPast]];
-//        }
-//    } failure:^(NSError *error) {
-//        
-//    }];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
     
 }
 
@@ -212,6 +283,10 @@
     }
 }
 
+
+-(void)gotoRootViewController{
+    [self.navigationController popViewControllerAnimated:true];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

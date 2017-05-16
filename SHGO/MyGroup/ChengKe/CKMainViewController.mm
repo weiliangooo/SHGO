@@ -24,6 +24,7 @@
 #import "CKOrderViewController.h"
 #import "CKSetUpViewController.h"
 #import "CKMsgChangeViewController.h"
+#import "UIImage+ScalImage.h"
 
 @interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKPoiSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate,CKLeftViewDelegate>
 {
@@ -80,10 +81,10 @@
     currentIsStart = YES;
     
     _startAnnotation = [[BMKPointAnnotation alloc]init];
-    _startAnnotation.title = @"起点";
+//    _startAnnotation.title = @"起点";
     
     _endAnnotation = [[BMKPointAnnotation alloc]init];
-    _endAnnotation.title = @"终点";
+//    _endAnnotation.title = @"终点";
 }
 
 
@@ -254,21 +255,25 @@
 -(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView locationModel:(PlaceModel *)locationModel{
     [CKSPView hiddenView];
     if (CKSPView.preFlag == CKSPViewStartStatusStartTrue || CKSPView.preFlag == CKSPViewStartStatusStartTrue){
+        currentIsStart = YES;
         self.ccMsgModel.startPlaceModel = locationModel;
         self.ptView.startPlaceTF.text = locationModel.address;
+        [_mapView removeAnnotation: self.startAnnotation];
         self.startAnnotation.coordinate = locationModel.location;
-        
+        [_mapView addAnnotation:self.startAnnotation];
         self.ccMsgModel.endPlaceModel = nil;
         self.ptView.endPlaceTF.text = @"";
         [_mapView removeAnnotation:self.endAnnotation];
         [self onlyShowStartPlace];
-        currentIsStart = YES;
     }else{
         currentIsStart = NO;
         self.ccMsgModel.endPlaceModel = locationModel;
         self.ptView.endPlaceTF.text = locationModel.address;
         self.endAnnotation.coordinate = locationModel.location;
         [_mapView addAnnotation:self.endAnnotation];
+        [_mapView removeAnnotation: self.startAnnotation];
+        self.startAnnotation.coordinate = _ccMsgModel.startPlaceModel.location;
+        [_mapView addAnnotation:self.startAnnotation];
         [self getMapViewVisbleRect];
     }
 }
@@ -311,12 +316,18 @@
     if ([annotation isKindOfClass:[BMKPointAnnotation class]]){
         if (annotation == _startAnnotation){
             BMKAnnotationView *newStart = [[BMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startAnnotation"];
-            newStart.image = [UIImage imageNamed:@"startPoint"];   //把大头针换成别的图片
-            newStart.centerOffset = CGPointMake(0, -25*PROPORTION750);
+            if (currentIsStart) {
+                newStart.image = [UIImage imageNamed:@"startPoint1"];   //把大头针换成别的图片
+                newStart.centerOffset = CGPointMake(0, -newStart.image.size.height/2);
+            }else{
+                newStart.image = [UIImage imageNamed:@"starPoint"];   //把大头针换成别的图片
+                newStart.centerOffset = CGPointMake(0, -newStart.image.size.height/2);
+            }
             return newStart;
         }else{
             BMKAnnotationView *newEnd = [[BMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endAnnotation"];
             newEnd.image = [UIImage imageNamed:@"endPoint"];   //把大头针换成别的图片
+            newEnd.centerOffset = CGPointMake(0, -newEnd.image.size.height/2);
             return newEnd;
         }
     }

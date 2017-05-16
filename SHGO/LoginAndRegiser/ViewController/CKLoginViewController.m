@@ -61,7 +61,34 @@
     [_codeBT addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_codeBT];
     
-    UIButton *loginBT = [[UIButton alloc] initWithFrame:CGRectMake(20*PROPORTION750, _codeBT.bottom+50*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 90*PROPORTION750)];
+    
+    
+    
+//    UIButton *gouBT = [[UIButton alloc] initWithFrame:CGRectMake(205*PROPORTION750, loginBT.bottom+30*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
+//    [gouBT setImage:[UIImage imageNamed:@"ckunselected"] forState:UIControlStateNormal];
+//    [gouBT setImage:[UIImage imageNamed:@"ckselected"] forState:UIControlStateSelected];
+//    [gouBT setSelected:YES];
+//    gouBT.tag = 102;
+//    [gouBT addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:gouBT];
+    
+    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:@"温馨提示：未注册小马出行账号的手机号，登录时将自动注册，且代表您已同意《使用协议及隐私条款》"];
+    [AttributedStr addAttribute:NSForegroundColorAttributeName
+                          value:[UIColor colorWithHexString:@"1aad19"]
+                          range:NSMakeRange(AttributedStr.length-10, 9)];
+    
+    UILabel *xyLB = [[UILabel alloc] initWithFrame:CGRectMake(20*PROPORTION750, _codeBT.bottom+50*PROPORTION750, 710*PROPORTION750, 100*PROPORTION750)];
+    xyLB.textAlignment = NSTextAlignmentLeft;
+    xyLB.font = SYSF750(25);
+    xyLB.attributedText = AttributedStr;
+    xyLB.userInteractionEnabled = YES;
+    [xyLB addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(xyLBClickEvent:)]];
+    xyLB.numberOfLines = 0;
+    [xyLB sizeToFit];
+    [self.view addSubview:xyLB];
+    
+    
+    UIButton *loginBT = [[UIButton alloc] initWithFrame:CGRectMake(20*PROPORTION750, xyLB.bottom+50*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 90*PROPORTION750)];
     loginBT.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
     [loginBT setTitle:@"登录" forState:UIControlStateNormal];
     loginBT.titleLabel.font = SYSF750(40);
@@ -71,28 +98,6 @@
     loginBT.tag = 101;
     [loginBT addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginBT];
-    
-    
-    UIButton *gouBT = [[UIButton alloc] initWithFrame:CGRectMake(205*PROPORTION750, loginBT.bottom+30*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
-    [gouBT setImage:[UIImage imageNamed:@"ckunselected"] forState:UIControlStateNormal];
-    [gouBT setImage:[UIImage imageNamed:@"ckselected"] forState:UIControlStateSelected];
-    [gouBT setSelected:YES];
-    gouBT.tag = 102;
-    [gouBT addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:gouBT];
-    
-    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:@"同意《使用协议及隐私条款》"];
-    [AttributedStr addAttribute:NSForegroundColorAttributeName
-                          value:[UIColor colorWithHexString:@"1aad19"]
-                          range:NSMakeRange(3, 9)];
-    
-    UILabel *xyLB = [[UILabel alloc] initWithFrame:CGRectMake(245*PROPORTION750, gouBT.top, 400*PROPORTION750, 30*PROPORTION750)];
-    xyLB.textAlignment = NSTextAlignmentLeft;
-    xyLB.font = SYSF750(25);
-    xyLB.attributedText = AttributedStr;
-    xyLB.userInteractionEnabled = YES;
-    [xyLB addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(xyLBClickEvent:)]];
-    [self.view addSubview:xyLB];
     
 }
 
@@ -108,6 +113,11 @@
     }else if (button.tag == 101){
         if (_accountTF.myTextField.text.length == 0){
             [self toast:@"请输入手机号码"];
+            return;
+        }
+        
+        if (![Regular isMobileNumber:_accountTF.myTextField.text]){
+            [self toast:@"请输入正确的手机号码"];
             return;
         }
         

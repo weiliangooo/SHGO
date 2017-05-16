@@ -161,11 +161,36 @@
 -(void)onClick:(UIButton *)sender setbtn:(UIButton *)btn popAleatView:(id)popAleatView{
     SetPassWordViewController *viewController = [[SetPassWordViewController alloc] init];
     if (sender.tag == 0) {
-        viewController.isNormal = true;
+        
+        NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       [MyHelperNO getUid], @"uid",
+                                       [MyHelperNO getMyToken], @"token", nil];
+        [self post:@"user/has_pass" withParam:reqDic success:^(id responseObject) {
+            int code = [responseObject intForKey:@"status"];
+            NSLog(@"%@", responseObject);
+//            NSString *msg = [responseObject stringForKey:@"msg"];
+            if (code == 200){
+                viewController.isNormal = true;
+                [self.navigationController pushViewController:viewController animated:true];
+            }
+            else if (code == 300){
+                [self toast:@"身份认证已过期"];
+                [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+            }
+            else if (code == 400){
+                viewController.isNormal = false;
+                [self.navigationController pushViewController:viewController animated:true];
+            }
+            
+        } failure:^(NSError *error) {
+            
+        }];
+        
     }else if (sender.tag == 1){
         viewController.isNormal = false;
+        [self.navigationController pushViewController:viewController animated:true];
     }
-    [self.navigationController pushViewController:viewController animated:true];
+    
 }
 
 

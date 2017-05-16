@@ -9,6 +9,8 @@
 #import "PassLoginViewController.h"
 #import "UIImage+ScalImage.h"
 #import "ForgetPassViewController.h"
+#import "CKRealNameViewController.h"
+#import "CKMainViewController.h"
 
 @interface PassLoginViewController ()
 {
@@ -35,7 +37,8 @@
     tf1 = [[UITextField alloc] initWithFrame:CGRectMake(30*PROPORTION750, 20*PROPORTION750, 610*PROPORTION750, 50*PROPORTION750)];
     tf1.placeholder = @"手机号／用户名";
     tf1.font = SYSF750(30);
-    tf1.secureTextEntry = true;
+//    tf1.secureTextEntry = true;
+    tf1.keyboardType = UIKeyboardTypeNumberPad;
     [back1 addSubview:tf1];
     
     UIView *back2 = [[UIView alloc] initWithFrame:CGRectMake(20*PROPORTION750, back1.bottom+30*PROPORTION750, 710*PROPORTION750, 90*PROPORTION750)];
@@ -89,7 +92,56 @@
             tf2.secureTextEntry = true;
         }
     }else if (button.tag == 300){
+        if (tf1.text.length == 0) {
+            [self toast:@"请填写手机号码"];
+            return;
+        }
+        if (![Regular isMobileNumber:tf1.text]) {
+            [self toast:@"请填写正确手机号码"];
+            return;
+        }
         
+        if (tf2.text.length == 0) {
+            [self toast:@"请填写密码"];
+            return;
+        }
+        
+//        NSDictionary *reqDic = @{@"phone":tf1.text, @"password":tf2.text};
+        NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       tf1.text, @"phone",
+                                       tf2.text, @"password", nil];
+        [self post:@"login/pass_login" withParam:reqDic success:^(id responseObject) {
+            int code = [responseObject intForKey:@"status"];
+            NSString *msg = [responseObject stringForKey:@"msg"];
+            NSLog(@"%@", responseObject);
+            if (code == 200)
+            {
+                NSDictionary *dic = [responseObject objectForKey:@"data"];
+                [USERDEFAULTS setObject:[dic stringForKey:@"token"] forKey:@"token"];
+                [USERDEFAULTS setObject:[dic stringForKey:@"is_realname"] forKey:@"realName"];
+                [USERDEFAULTS setObject:[dic stringForKey:@"uid"] forKey:@"uid"];
+                [USERDEFAULTS setObject:[dic stringForKey:@"avatar"] forKey:@"headImage"];
+                [USERDEFAULTS setObject:tf1.text forKey:@"mobilePhone"];
+                
+                if ([[responseObject objectForKey:@"data"] intForKey:@"is_realname"] == 2)
+                {
+                    CKRealNameViewController *viewController = [[CKRealNameViewController alloc] init];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                }
+                else
+                {
+                    CKMainViewController *viewController = [[CKMainViewController alloc] init];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                }
+            }
+            else if (code == 400)
+            {
+                [self toast:msg];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+
     }
 }
 

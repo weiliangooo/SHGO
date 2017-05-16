@@ -38,7 +38,10 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadData];
+//    if (![self.topTitle isEqualToString:@"订单详情"]) {
+        [self loadData];
+//    }
+    
 }
 
 - (void)viewDidLoad {
@@ -51,7 +54,8 @@
     self.rightBtn.frame = CGRectMake(0, 0, 35*PROPORTION, 35*PROPORTION);
     [self.rightBtn setImage:[[UIImage imageNamed:@"what_right"] scaleImageByWidth:35*PROPORTION750] forState:UIControlStateNormal];
     
-    self.topTitle = @"订单详情";
+//    self.topTitle = @"订单详情";
+//    [self loadData];
 //    self.mapView.hidden = true;
 //    OrderDetailBaseView *view = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCar];
 //    [self.view addSubview:view];

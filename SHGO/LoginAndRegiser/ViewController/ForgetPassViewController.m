@@ -42,7 +42,8 @@
     tf0 = [[UITextField alloc] initWithFrame:CGRectMake(30*PROPORTION750, 20*PROPORTION750, 610*PROPORTION750, 50*PROPORTION750)];
     tf0.placeholder = @"手机号";
     tf0.font = SYSF750(30);
-    tf0.secureTextEntry = true;
+//    tf0.secureTextEntry = true;
+    tf0.keyboardType = UIKeyboardTypeNumberPad;
     [back0 addSubview:tf0];
     
     UIView *back1 = [[UIView alloc] initWithFrame:CGRectMake(20*PROPORTION750, back0.bottom+30*PROPORTION750, 470*PROPORTION750, 90*PROPORTION750)];
@@ -54,6 +55,7 @@
     tf1 = [[UITextField alloc] initWithFrame:CGRectMake(30*PROPORTION750, 20*PROPORTION750, 410*PROPORTION750, 50*PROPORTION750)];
     tf1.placeholder = @"验证码";
     tf1.font = SYSF750(30);
+    tf1.keyboardType = UIKeyboardTypeNumberPad;
     [back1 addSubview:tf1];
     
     codeBtn = [[UIButton alloc] initWithFrame:CGRectMake(back1.right+30*PROPORTION750, back1.top, 210*PROPORTION750, 90*PROPORTION750)];
@@ -100,27 +102,31 @@
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     button.titleLabel.font = SYSF750(40);
     button.titleLabel.textAlignment = NSTextAlignmentCenter;
-//    [button addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(buttonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
     button.tag = 300;
     [self.view addSubview:button];
 }
 
 
 - (void)getVerificationCode{
-    //    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:_accountTF.myTextField.text, @"phone", nil];
-    //    [self post:@"login/index" withParam:reqDic success:^(id responseObject) {
-    //        int code = [responseObject intForKey:@"status"];
-    //        NSLog(@"%@", responseObject);
-    //        if (code == 200)
-    //        {
-    countDownTime = 60;
-    timer = [[NSTimer alloc]init];
-    timer= [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
-    [timer setFireDate:[NSDate distantPast]];
-    //        }
-    //    } failure:^(NSError *error) {
-    //
-    //    }];
+    if (![Regular isMobileNumber:tf0.text]){
+        [self toast:@"请输入正确的手机号码"];
+        return;
+    }
+    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:tf0.text, @"phone", nil];
+    [self post:@"login/forget_pass" withParam:reqDic success:^(id responseObject) {
+        int code = [responseObject intForKey:@"status"];
+        NSLog(@"%@", responseObject);
+        if (code == 200)
+        {
+            countDownTime = 60;
+            timer = [[NSTimer alloc]init];
+            timer= [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+            [timer setFireDate:[NSDate distantPast]];
+        }
+    } failure:^(NSError *error) {
+
+    }];
     
 }
 
@@ -139,19 +145,70 @@
     }
 }
 
+-(void)buttonClickEvent:(UIButton *)button{
+
+    if (tf0.text.length == 0){
+        [self toast:@"请输入手机号码"];
+        return;
+    }
+    
+    if (![Regular isMobileNumber:tf0.text]){
+        [self toast:@"请输入正确的手机号码"];
+        return;
+    }
+    
+    if (tf1.text.length == 0){
+        [self toast:@"请输入验证码"];
+        return;
+    }
+    
+    if (tf2.text.length == 0){
+        [self toast:@"请输入新密码"];
+        return;
+    }
+    
+    if (tf3.text.length == 0){
+        [self toast:@"请输入确认密码"];
+        return;
+    }
+    
+    if (![tf3.text isEqualToString:tf2.text]){
+        [self toast:@"两次输入的密码不一样"];
+        return;
+    }
+    
+    
+    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   tf1.text, @"code",
+                                   tf2.text, @"pass", nil];
+    [self post:@"login/update_pass" withParam:reqDic success:^(id responseObject) {
+        int code = [responseObject intForKey:@"status"];
+        NSString *msg = [responseObject stringForKey:@"msg"];
+        NSLog(@"%@", responseObject);
+        if (code == 200)
+        {
+            [self toast:@"修改成功！"];
+            [self performSelector:@selector(gotoRootViewController) withObject:nil afterDelay:1.5];
+        }
+        else if (code == 400)
+        {
+            [self toast:msg];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
+-(void)gotoRootViewController{
+    [self.navigationController popViewControllerAnimated:true];
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
