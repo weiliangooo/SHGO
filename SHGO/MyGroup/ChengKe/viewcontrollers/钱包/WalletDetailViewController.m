@@ -59,7 +59,7 @@
     self.type = 1;
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
-    
+    NSString *tipString;
     NSString *topString;
     NSString *helpString;
     
@@ -67,16 +67,19 @@
     {
         if (_walletType == WalletTypeBalance)
         {
+            tipString = @"余额（元）";
             topString = @"我的余额";
             helpString = @"常见问题";
         }
         else if (_walletType == WalletTypeRed)
         {
+            tipString = @"红包（元）";
             topString = @"我的红包";
             helpString = @"使用规则";
         }
         
         _ckWalletHeader = [[WalletDetailHeadView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 280*PROPORTION750)];
+        _ckWalletHeader.titleLB.text = tipString;
         _ckWalletHeader.priceLB.text = ((WalletMoneyModel *)_dataSource).allMoney;
         [_ckWalletHeader.tipBtn setTitle:helpString forState:UIControlStateNormal];
         __weak typeof(self) weakSelf = self;

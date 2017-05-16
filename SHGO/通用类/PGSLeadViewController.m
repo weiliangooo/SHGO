@@ -34,14 +34,12 @@
     _myScrollView.pagingEnabled = YES;
     [self.view addSubview:_myScrollView];
     
-    for (int i = 0 ; i < pics.count; i++)
-    {
+    for (int i = 0 ; i < pics.count; i++){
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(AL_DEVICE_WIDTH*i, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
         imageView.image = [UIImage imageNamed:pics[i]];
         [_myScrollView addSubview:imageView];
         
-        if (i == 2)
-        {
+        if (i == 2){
             imageView.userInteractionEnabled = YES;
             [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToLoginInterface:)]];
         }
@@ -49,8 +47,7 @@
     
 }
 
--(void)goToLoginInterface:(UITapGestureRecognizer *)tap
-{
+-(void)goToLoginInterface:(UITapGestureRecognizer *)tap{
     CKLoginViewController *viewController = [[CKLoginViewController alloc] init];
     BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
     [self presentViewController:navigationController animated:YES completion:nil];

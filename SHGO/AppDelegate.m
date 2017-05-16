@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "BaseNavViewController.h"
+#import "XMAdViewController.h"
 #import "PGSLeadViewController.h"
 #import "CKLoginViewController.h"
 #import "CKMainViewController.h"
@@ -54,36 +55,26 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    if ([MyHelperNO  isFirstLogin])
-    {
+    if ([MyHelperNO  isFirstLogin]){
         [USERDEFAULTS setBool:YES forKey:@"hadLogin"];
         PGSLeadViewController *viewController = [[PGSLeadViewController alloc] init];
         self.window.rootViewController = viewController;
-    }
-    else
-    {
-        if ([MyHelperNO getMyToken].length == 0)
-        {
+    }else{
+//        XMAdViewController *viewController = [[XMAdViewController alloc] init];
+//        self.window.rootViewController = viewController;
+        if ([MyHelperNO getMyToken].length == 0){
             CKLoginViewController *viewController = [[CKLoginViewController alloc] init];
             BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
-            
             self.window.rootViewController = navigationController;
-        }
-        else
-        {
-            if([MyHelperNO isHadAuthentication])
-            {
+        }else{
+            if([MyHelperNO isHadAuthentication]){
                 CKMainViewController *viewController = [[CKMainViewController alloc] init];
                 BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
                 navigationController.navigationBar.hidden = NO;
-                
                 self.window.rootViewController = navigationController;
-            }
-            else
-            {
+            }else{
                 CKRealNameViewController *viewController = [[CKRealNameViewController alloc] init];
                 BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
-                
                 self.window.rootViewController = navigationController;
             }
         }

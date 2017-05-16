@@ -10,6 +10,8 @@
 
 @interface WalletDetailHeadView : UIView
 
+@property (nonatomic, strong) UILabel *titleLB;
+
 @property (nonatomic, strong) UILabel *priceLB;
 
 @property (nonatomic, strong) UIButton *tipBtn;

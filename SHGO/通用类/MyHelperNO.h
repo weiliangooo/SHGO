@@ -42,6 +42,12 @@
 //移除userdefault 中所有数据
 +(void)removeAllData;
 
+//今天是否弹出广告
++(BOOL)canPreAdView;
+
+//存储弹广告的时间
++(void)savePreTime;
+
 + (NSString *)getIpAddresses;
 
 @end

@@ -18,12 +18,12 @@
         self.clipsToBounds = YES;
         self.layer.cornerRadius = 15*PROPORTION750;
         
-        UILabel *titleLB = [[UILabel alloc] initWithFrame:CGRectMake(40*PROPORTION750, 30*PROPORTION750, 380*PROPORTION750, 25*PROPORTION750)];
-        titleLB.text = @"余额（元）";
-        titleLB.textColor = [UIColor colorWithHexString:@"999999"];
-        titleLB.textAlignment = NSTextAlignmentLeft;
-        titleLB.font = SYSF750(25);
-        [self addSubview:titleLB];
+        _titleLB = [[UILabel alloc] initWithFrame:CGRectMake(40*PROPORTION750, 30*PROPORTION750, 380*PROPORTION750, 25*PROPORTION750)];
+        _titleLB.text = @"余额（元）";
+        _titleLB.textColor = [UIColor colorWithHexString:@"999999"];
+        _titleLB.textAlignment = NSTextAlignmentLeft;
+        _titleLB.font = SYSF750(25);
+        [self addSubview:_titleLB];
         
         _tipBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.width-180*PROPORTION750, 27.5*PROPORTION750, 150*PROPORTION750, 30*PROPORTION750)];
         [_tipBtn setImage:[UIImage imageNamed:@"regular_wallet"] forState:UIControlStateNormal];

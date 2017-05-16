@@ -93,9 +93,44 @@
     [defs synchronize];
 }
 
+//今天是否弹出广告
++(BOOL)canPreAdView{
+    NSTimeInterval timeSp = [[NSUserDefaults standardUserDefaults] doubleForKey:@"preTime"];
+    NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+    formatter1.dateFormat = @"YYYY-MM-dd";
+    
+    NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
+    formatter2.dateFormat = @"YYYY-MM-dd HH:mm:ss";
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeSp];
+    NSString *time = [formatter1 stringFromDate:date];
+    time = [NSString stringWithFormat:@"%@ 23:59:59", time];
+    
+    date = [formatter2 dateFromString:time];
+    
+    NSTimeInterval timeSp2 = [date timeIntervalSince1970];
+    
+    NSDate *dateNow = [NSDate date];
+    NSTimeInterval timeSpNow = [dateNow timeIntervalSince1970];
+    
+    if (timeSpNow > timeSp2) {
+        return true;
+    }else{
+        return false;
+    }
+}
+
+//存储弹广告的时间
++(void)savePreTime{
+    NSDate *dateNow = [NSDate date];
+    NSTimeInterval timeSp = [dateNow timeIntervalSince1970];
+    [[NSUserDefaults standardUserDefaults] setDouble:timeSp forKey:@"preTime"];
+}
+
+
 //获取ip地址
 + (NSString *)getIpAddresses{
-    NSString *address = @"error";
+    NSString *address = @"127.0.0.1";
     struct ifaddrs *interfaces = NULL;
     struct ifaddrs *temp_addr = NULL;
     int success = 0;

@@ -55,7 +55,7 @@
     [_myScrollView addSubview:title1];
     
     UILabel *title2 = [[UILabel alloc] initWithFrame:CGRectMake(0, title1.bottom+30*PROPORTION750, AL_DEVICE_WIDTH, 25*PROPORTION750)];
-    title2.text = @"保险需登记真实姓名和身份证号，一经登记将无法修改";
+    title2.text = @"保险需进行真实姓名和身份证号登记";
     //    title2.textColor = [UIColor colorWithHexString:@"1aad19"];
     title2.font = SYSF750(25);
     title2.textAlignment = NSTextAlignmentCenter;
@@ -98,41 +98,41 @@
 
 -(void)createXYView:(UIView *)lastView
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(20*PROPORTION750, lastView.bottom+30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 300*PROPORTION750)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(20*PROPORTION750, lastView.bottom+30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 210*PROPORTION750)];
     view.backgroundColor = [UIColor whiteColor];
     view.clipsToBounds = YES;
     view.layer.cornerRadius = 15.0f*PROPORTION750;
     [_myScrollView addSubview:view];
     
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, 460*PROPORTION750, 30*PROPORTION750)];
-    title.text = @"《小马出行免费乘车意外险协议》";
-    title.textColor = [UIColor colorWithHexString:@"1aad19"];
-    title.font = SYSF750(30);
-    title.textAlignment = NSTextAlignmentLeft;
-    [view addSubview:title];
+//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, 460*PROPORTION750, 30*PROPORTION750)];
+//    title.text = @"《小马出行免费乘车意外险协议》";
+//    title.textColor = [UIColor colorWithHexString:@"1aad19"];
+//    title.font = SYSF750(30);
+//    title.textAlignment = NSTextAlignmentLeft;
+//    [view addSubview:title];
+//    
+//    UIButton *gouBT = [[UIButton alloc] initWithFrame:CGRectMake(view.width-220*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
+//    [gouBT setImage:[UIImage imageNamed:@"ckunselected"] forState:UIControlStateNormal];
+//    [gouBT setImage:[UIImage imageNamed:@"ckselected"] forState:UIControlStateSelected];
+//    [gouBT setSelected:YES];
+//    [view addSubview:gouBT];
+//    
+//    UILabel *acceptLB = [[UILabel alloc] initWithFrame:CGRectMake(gouBT.right+10*PROPORTION750, gouBT.top, 400*PROPORTION750, 30*PROPORTION750)];
+//    acceptLB.text = @"我已同意";
+//    acceptLB.textAlignment = NSTextAlignmentLeft;
+//    acceptLB.font = SYSF750(25);
+//    [view addSubview:acceptLB];
+//    
+//    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 89*PROPORTION750, view.width, 2*PROPORTION750)];
+//    line.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
+//    [view addSubview:line];
     
-    UIButton *gouBT = [[UIButton alloc] initWithFrame:CGRectMake(view.width-220*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
-    [gouBT setImage:[UIImage imageNamed:@"ckunselected"] forState:UIControlStateNormal];
-    [gouBT setImage:[UIImage imageNamed:@"ckselected"] forState:UIControlStateSelected];
-    [gouBT setSelected:YES];
-    [view addSubview:gouBT];
     
-    UILabel *acceptLB = [[UILabel alloc] initWithFrame:CGRectMake(gouBT.right+10*PROPORTION750, gouBT.top, 400*PROPORTION750, 30*PROPORTION750)];
-    acceptLB.text = @"我已同意";
-    acceptLB.textAlignment = NSTextAlignmentLeft;
-    acceptLB.font = SYSF750(25);
-    [view addSubview:acceptLB];
-    
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 89*PROPORTION750, view.width, 2*PROPORTION750)];
-    line.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
-    [view addSubview:line];
-    
-    
-    NSArray *array = @[@"保险期限：自拼车之日起，当天有效；",@"保险责任：驾驶机动车，乘坐机动车期间；",@"保险金额：意外事故最高可达30万元赔偿；"];
+    NSArray *array = @[@"保险期限：自拼车之日起，当天有效；",@"保险责任：驾驶机动车，乘坐机动车期间；",@"保险金额：意外事故最高可达80万元赔偿；"];
     
     for (int i = 0; i < 3; i++)
     {
-        UILabel *orderNum = [[UILabel alloc] initWithFrame:CGRectMake(20*PROPORTION750, 90*PROPORTION750+30*PROPORTION750+60*PROPORTION750*i, 30*PROPORTION750, 30*PROPORTION750)];
+        UILabel *orderNum = [[UILabel alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750+60*PROPORTION750*i, 30*PROPORTION750, 30*PROPORTION750)];
         orderNum.backgroundColor = [UIColor colorWithHexString:@"1aad19"];
         orderNum.clipsToBounds = YES;
         orderNum.layer.cornerRadius = 15*PROPORTION750;
@@ -142,7 +142,7 @@
         orderNum.textAlignment = NSTextAlignmentCenter;
         [view addSubview:orderNum];
         
-        UILabel *content = [[UILabel alloc] initWithFrame:CGRectMake(orderNum.right+10*PROPORTION750, 90*PROPORTION750+30*PROPORTION750+60*PROPORTION750*i, 650*PROPORTION750, 30*PROPORTION750)];
+        UILabel *content = [[UILabel alloc] initWithFrame:CGRectMake(orderNum.right+10*PROPORTION750, 30*PROPORTION750+60*PROPORTION750*i, 650*PROPORTION750, 30*PROPORTION750)];
         content.text = array[i];
         //        content.textColor = [UIColor whiteColor];
         content.font = SYSF750(25);

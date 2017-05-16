@@ -468,7 +468,7 @@
 }
 
 -(void)rightBtn:(UIButton *)button{
-    MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"常见问题" urlString:@"https://m.xiaomachuxing.com/index/cproblem#coupon"];
+    MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"常见问题" urlString:@"https://m.xiaomachuxing.com/index/cproblem#order"];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

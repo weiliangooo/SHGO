@@ -25,6 +25,9 @@
 #import "CKSetUpViewController.h"
 #import "CKMsgChangeViewController.h"
 #import "UIImage+ScalImage.h"
+#import "ADView.h"
+#import "MyWebViewController.h"
+#import "BaseNavViewController.h"
 
 @interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKPoiSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate,CKLeftViewDelegate>
 {
@@ -296,7 +299,24 @@
             _locService.delegate = self;
             //启动LocationService
             [_locService startUserLocationService];
-            [self showLoading:@"正在加载..."];
+//            [self showLoading:@"正在加载..."];
+            if (![[responseObject stringForKey:@"img"] isEqualToString:@"0"] && [MyHelperNO canPreAdView]) {
+                [MyHelperNO savePreTime];
+                dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0/*延迟执行时间*/ * NSEC_PER_SEC));
+                
+                dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+                    ADView *view = [[ADView alloc] init];
+                    [view.imageView sd_setImageWithURL:[NSURL URLWithString:[responseObject stringForKey:@"img"]]];
+                    view.imageTapBlock = ^(){
+                        if(![[responseObject stringForKey:@"url"] isEqualToString:@"0"]){
+                            MyWebViewController *viewController = [[MyWebViewController alloc] initWithTopTitle:@"活动介绍" urlString:[responseObject stringForKey:@"url"]];
+                            BaseNavViewController *nv = [[BaseNavViewController alloc] initWithRootViewController:viewController];
+                            [self presentViewController:nv animated:true completion:nil];
+                        }
+                    };
+
+                });
+            }
         }
         else if (code == 300){
             [self toast:@"身份认证已过期"];
