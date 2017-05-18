@@ -37,7 +37,7 @@
         _msgMemberId = [dataSource stringForKey:@"member_id"];
         _msgWebUrl = [dataSource stringForKey:@"wapurl"];
         _sendTime = [self timeWithTimeIntervalString:[dataSource stringForKey:@"send_time"]];
-        if ([[dataSource stringForKey:@"member_id"] isEqualToString:@"1"])
+        if ([[dataSource stringForKey:@"is_read"] isEqualToString:@"1"])
         {
             _isRead = YES;
         }

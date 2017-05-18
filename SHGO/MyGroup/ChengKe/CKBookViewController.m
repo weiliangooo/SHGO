@@ -216,11 +216,16 @@
         }
         else if (code == 350)
         {///有未付款订单
-//            [self toast:@"您有一笔未付款订单"];
-            CKOrderDetailViewController *viewController = [[CKOrderDetailViewController alloc] init];
-            viewController.order_sn = [responseObject objectForKey:@"data"];
-            BaseNavViewController *naviController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
-            [self presentViewController:naviController animated:true completion:nil];
+            [self toast:@"您有一笔未付款订单"];
+            
+            dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0/*延迟执行时间*/ * NSEC_PER_SEC));
+            
+            dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+                CKOrderDetailViewController *viewController = [[CKOrderDetailViewController alloc] init];
+                viewController.order_sn = [responseObject objectForKey:@"data"];
+                BaseNavViewController *naviController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
+                [self presentViewController:naviController animated:true completion:nil];
+            });
         }
         else if (code == 360)
         {///无法下单切换下一班次

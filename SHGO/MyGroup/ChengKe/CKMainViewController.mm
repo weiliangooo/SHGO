@@ -28,6 +28,7 @@
 #import "ADView.h"
 #import "MyWebViewController.h"
 #import "BaseNavViewController.h"
+#import "CKShareViewController.h"
 
 @interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKPoiSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate,CKLeftViewDelegate>
 {
@@ -97,7 +98,11 @@
     self.type = 2;
     [self.leftBtn setImage:[UIImage imageNamed:@"left_menu"] forState:UIControlStateNormal];
     [self.rightBtn setImage:[UIImage imageNamed:@"right_msg"] forState:UIControlStateNormal];
-    self.topTitle = @"小马出行";
+//    self.topTitle = @"小马出行";
+    UIImageView *titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
+    titleView.contentMode = UIViewContentModeScaleAspectFill;
+    titleView.frame = CGRectMake(0, 0, 75, 20);
+    self.navigationItem.titleView = titleView;
     
     [self myInit];
     
@@ -117,7 +122,42 @@
     _ptView.delegate = self;
     [self.view addSubview:_ptView];
     
+    UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, 680*PROPORTION750, 70*PROPORTION750, 70*PROPORTION750)];
+    shareBtn.backgroundColor = [UIColor clearColor];
+    [shareBtn setImage:[[UIImage imageNamed:@"sy_share"] scaleImageByWidth:70*PROPORTION750] forState:UIControlStateNormal];
+    shareBtn.tag = 500;
+    [shareBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:shareBtn];
+    
+    UIButton *locationBtn = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, shareBtn.bottom+30*PROPORTION750, 70*PROPORTION750, 70*PROPORTION750)];
+//    locationBtn.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
+    locationBtn.tag = 501;
+    [locationBtn setImage:[[UIImage imageNamed:@"sy_location"] scaleImageByWidth:70*PROPORTION750] forState:UIControlStateNormal];
+    [locationBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:locationBtn];
+    
     [self requestForPlaces];
+}
+
+-(void)buttonClickEvents:(UIButton *)button{
+    if (button.tag == 500) {
+        CKShareViewController *viewController = [[CKShareViewController  alloc] init];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }else{
+        [self reloadCurrent];
+    }
+}
+
+///reload data
+-(void)reloadCurrent{
+    currentIsStart = true;
+    [_mapView removeAnnotation:_startAnnotation];
+    [_mapView removeAnnotation:_endAnnotation];
+    _ptView.startPlaceTF.text = @"";
+    _ptView.endPlaceTF.text = @"";
+//    _mapView.zoomLevel = 17;
+    _ccMsgModel = [[CCMsgModel alloc] init];
+    [_locService startUserLocationService];
 }
 
 #pragma --mark 重写父类的方法
@@ -291,6 +331,11 @@
         NSString *msg = [responseObject stringForKey:@"msg"];
         NSLog(@"%@", responseObject);
         if (code == 200){
+            if([[responseObject stringForKey:@"mes"] isEqualToString:@"1"]){
+                [self.rightBtn setImage:[[UIImage imageNamed:@"right_msg_true"] scaleImageByWidth:35*PROPORTION750] forState:UIControlStateNormal];
+            }else{
+                [self.rightBtn setImage:[[UIImage imageNamed:@"right_msg"] scaleImageByWidth:35*PROPORTION750] forState:UIControlStateNormal];
+            }
             NSArray *data = [NSArray arrayWithArray:[responseObject arrayForKey:@"data"]];
             cityListModel = [[CKCitysListModel alloc] initWithData:data];
             _CKSPView.defaultModel = cityListModel;
@@ -373,6 +418,7 @@
             if (placemark != nil) {
                 NSString *city=placemark.locality;
                 if (city.length != 0){
+                    [self onlyShowStartPlace];
                     [_locService stopUserLocationService];
                     [self hideLoading];
                 }
@@ -397,8 +443,7 @@
     BMKReverseGeoCodeOption *reverseGeoCodeOption= [[BMKReverseGeoCodeOption alloc] init];
     //需要逆地理编码的坐标位置
     reverseGeoCodeOption.reverseGeoPoint = mapView.centerCoordinate;
-    if (currentIsStart)
-    {
+    if (currentIsStart){
         self.ccMsgModel.startPlaceModel.location = mapView.centerCoordinate;
         _startAnnotation.coordinate = mapView.centerCoordinate;
     }
@@ -415,14 +460,12 @@
 - (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
 {
     //BMKReverseGeoCodeResult是编码的结果，包括地理位置，道路名称，uid，城市名等信息
-    if(currentIsStart)
-    {
+    if(currentIsStart){
         BMKPoiInfo *info = [[BMKPoiInfo alloc] init];
         info = result.poiList[0];
         
         NSString *city;
-        if ([self isSupportCity:result.addressDetail.city])
-        {
+        if ([self isSupportCity:result.addressDetail.city]){
             city = result.addressDetail.city;
             PlaceModel *model = [[PlaceModel alloc] init];
             model.cityName = city;
@@ -432,8 +475,7 @@
             self.ccMsgModel.startPlaceModel = model;
             _ptView.startPlaceTF.text = model.address;
         }
-        else if ([self isSupportCity:result.addressDetail.district])
-        {
+        else if ([self isSupportCity:result.addressDetail.district]){
             city = result.addressDetail.district;
             PlaceModel *model = [[PlaceModel alloc] init];
             model.cityName = city;
@@ -443,8 +485,7 @@
             self.ccMsgModel.startPlaceModel = model;
             _ptView.startPlaceTF.text = model.address;
         }
-        else
-        {
+        else{
             self.ccMsgModel.startPlaceModel = nil;
             _ptView.startPlaceTF.text = @"";
 //            [self toast:@"当前城市不支持"];
@@ -647,6 +688,7 @@
     }
     return NO;
 }
+
 
 -(void)alReLoadData{
     

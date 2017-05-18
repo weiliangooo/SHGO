@@ -28,7 +28,7 @@
 
 -(UITableView *)myTableView{
     if (!_myTableView){
-        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 360*PROPORTION750) style:UITableViewStylePlain];
+        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 450*PROPORTION750) style:UITableViewStylePlain];
         _myTableView.backgroundColor = [UIColor whiteColor];
         _myTableView.clipsToBounds = YES;
         _myTableView.layer.cornerRadius = 15*PROPORTION750;

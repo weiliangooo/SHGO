@@ -87,8 +87,11 @@
 }
 
 -(void)leftBtn:(UIButton *)button{
-    [self dismissViewControllerAnimated:true completion:nil];
-    [self.navigationController popViewControllerAnimated:true];
+    if (self.navigationController.viewControllers.count == 1) {
+        [self dismissViewControllerAnimated:true completion:nil];
+    }else{
+        [self.navigationController popViewControllerAnimated:true];
+    }
 }
 
 -(void)loadData{
@@ -153,10 +156,18 @@
             [self.view addSubview:_detailView];
         }
     }else{
-        _detailView = [OrderDetailBaseView orderDetailViewWithType:[model.orderStatus integerValue]];
-        [_detailView setModel:_orderDetailModel];
-        _detailView.delegate = self;
-        [self.view addSubview:_detailView];
+        if ([model.orderStatus integerValue] <= 30 && _orderDetailModel.driverPhone.length > 5 ) {
+            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadSend];
+            [_detailView setModel:_orderDetailModel];
+            _detailView.delegate = self;
+            [self.view addSubview:_detailView];
+        }else{
+            _detailView = [OrderDetailBaseView orderDetailViewWithType:[model.orderStatus integerValue]];
+            [_detailView setModel:_orderDetailModel];
+            _detailView.delegate = self;
+            [self.view addSubview:_detailView];
+        }
+       
     }
 //    switch ([model.orderStatus integerValue]) {
 //        case 0:{
@@ -478,10 +489,9 @@
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
     //创建网页内容对象
-    NSString* thumbURL =  @"https://m.xiaomachuxing.com";
-    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"欢迎使用 小马出行" descr:@"欢迎使用 小马出行 优惠 便捷 一键即达！" thumImage:[UIImage imageNamed:@"default"]];
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"Hi，朋友，送你10元小马出行优惠券，为你约车买单！" descr:@"我一直用小马出行，既经济又便捷舒适，邀你一起来体验，首次乘坐立减10元~" thumImage:[UIImage imageNamed:@"default"]];
     //设置网页地址
-    shareObject.webpageUrl = @"https://m.xiaomachuxing.com";
+    shareObject.webpageUrl =[NSString stringWithFormat:@"https://m.xiaomachuxing.com/qrcode/inviteapp/id/%@", [MyHelperNO getUid]];
     
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;

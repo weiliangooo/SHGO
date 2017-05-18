@@ -49,8 +49,11 @@
 }
 
 -(void)leftBtn:(UIButton *)button{
-    [self dismissViewControllerAnimated:true completion:nil];
-    [self.navigationController popViewControllerAnimated:true];
+    if (self.navigationController.viewControllers.count == 1) {
+        [self dismissViewControllerAnimated:true completion:nil];
+    }else{
+        [self.navigationController popViewControllerAnimated:true];
+    }
 }
 
 //-(void)rightBtn:(UIButton *)button{

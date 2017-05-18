@@ -28,7 +28,7 @@
     
     _myWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT-64)];
     _myWebView.delegate = self;
-    [_myWebView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://m.xiaomachuxing.com/Xm/qrcode/phpqrcode/id/%@", [MyHelperNO getUid]]]]];
+    [_myWebView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://m.xiaomachuxing.com/qrcode/recommendapp/id/%@", [MyHelperNO getUid]]]]];
     [self.view addSubview:_myWebView];
 }
 
@@ -36,7 +36,7 @@
 {
     NSURL *url = [request URL];
     
-    NSURL *myUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://m.xiaomachuxing.com/Xm/qrcode/phpqrcode/id/%@#app", [MyHelperNO getUid]]];
+    NSURL *myUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://m.xiaomachuxing.com/qrcode/recommendapp/id/%@#", [MyHelperNO getUid]]];
     
     if ([url isEqual:myUrl])
     {
@@ -48,18 +48,25 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [_myWebView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName('share_tip hide')[0].remove()"];
-    [_myWebView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName('filter hide')[0].remove()"];
-    [_myWebView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName('btn')[0].remove()"];
-    [_myWebView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName('btn')[0].remove()"];
+//    [_myWebView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName('share_tip hide')[0].remove()"];
+//    [_myWebView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName('filter hide')[0].remove()"];
+//    [_myWebView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName('btn')[0].remove()"];
+//    [_myWebView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName('btn')[0].remove()"];
 }
 
-
+-(void)leftBtn:(UIButton *)button{
+    if ([_myWebView canGoBack]) {
+        [_myWebView goBack];
+    }else{
+        [self.navigationController popViewControllerAnimated:true];
+    }
+}
 
 -(void)presentShareWaysView
 {
     _shareView = [[ShareView alloc] init];
     _shareView.shareBlock = ^(NSInteger flag){
+        
         [self shareWebPageToPlatformType:flag];
     };
 }
@@ -72,10 +79,9 @@
     
     
     //创建网页内容对象
-    NSString* thumbURL =  @"https://m.xiaomachuxing.com";
-    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"欢迎使用 小马出行" descr:@"欢迎使用 小马出行 优惠 便捷 一键即达！" thumImage:[UIImage imageNamed:@"default"]];
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"Hi，朋友，送你10元小马出行优惠券，为你约车买单！" descr:@"我一直用小马出行，既经济又便捷舒适，邀你一起来体验，首次乘坐立减10元~" thumImage:[UIImage imageNamed:@"default"]];
     //设置网页地址
-    shareObject.webpageUrl = @"https://m.xiaomachuxing.com";
+    shareObject.webpageUrl =[NSString stringWithFormat:@"https://m.xiaomachuxing.com/qrcode/inviteapp/id/%@", [MyHelperNO getUid]];
     
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;

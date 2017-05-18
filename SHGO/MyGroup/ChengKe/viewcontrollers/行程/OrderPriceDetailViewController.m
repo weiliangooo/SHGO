@@ -178,7 +178,7 @@
                 [backView addSubview:view];
                 
                 UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(40*PROPORTION750, 25*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
-                imageView1.image = [UIImage imageNamed:@"alipay"];
+                imageView1.image = [UIImage imageNamed:@"tuituitui"];
                 [view addSubview:imageView1];
                 
                 UILabel *lable1 = [[UILabel alloc] initWithFrame:CGRectMake(imageView1.right+20*PROPORTION750, 27.5*PROPORTION750, 450*PROPORTION750, 25*PROPORTION750)];
@@ -190,7 +190,7 @@
                 [view addSubview:lable1];
                 
                 UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(lable1.right+60*PROPORTION750, 25*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
-                imageView2.image = [UIImage imageNamed:@"alipay"];
+                imageView2.image = [UIImage imageNamed:@"tuituitui"];
                 [view addSubview:imageView2];
                 
                 UILabel *lable2 = [[UILabel alloc] initWithFrame:CGRectMake(imageView2.right+20*PROPORTION750, 27.5*PROPORTION750, 450*PROPORTION750, 25*PROPORTION750)];

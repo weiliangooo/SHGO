@@ -12,7 +12,9 @@
 
 ///CLLocationCoordinate2D -> “经度，纬度”
 +(NSString *)locationCoordinateToLocationString:(CLLocationCoordinate2D)coordinate{
-    return [NSString stringWithFormat:@"%f,%f",coordinate.latitude,coordinate.longitude];
+    NSString *latString = [NSString stringWithFormat:@"%f", coordinate.latitude];
+    NSString *lonString = [NSString stringWithFormat:@"%f", coordinate.longitude];
+    return [NSString stringWithFormat:@"%@,%@",[self changeFloat:latString] ,[self changeFloat:lonString]];
 }
 
 ///“经度，纬度” -> CLLocationCoordinate2D
@@ -27,6 +29,20 @@
     [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
     NSDate* date = [formatter dateFromString:normalTime];
     return [NSString stringWithFormat:@"%ld", (long)[date timeIntervalSince1970]];
+}
+
+///去除经纬度多余的0
++(NSString *)changeFloat:(NSString *)stringFloat{
+    NSUInteger length = [stringFloat length];
+    for(int i = 1; i<=10; i++){
+        NSString *subString = [stringFloat substringFromIndex:length - i];
+        if(![subString isEqualToString:@"0"]){
+            return stringFloat;
+        }else{
+            stringFloat = [stringFloat substringToIndex:length - i];
+        }
+    }
+    return [stringFloat substringToIndex:length - 7];
 }
 
 

@@ -9,6 +9,9 @@
 #import "CKMsgListViewController.h"
 #import "CKMsgDetailViewController.h"
 #import "MsgListModel.h"
+#import "MyWebViewController.h"
+#import "CKMainViewController.h"
+#import "UIImage+ScalImage.h"
 
 @interface CKMsgListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -33,6 +36,11 @@
     return _myTableView;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self loadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -41,7 +49,7 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     
     [self.view addSubview:self.myTableView];
-    [self loadData];
+//    [self loadData];
 }
 
 -(void)loadData
@@ -113,8 +121,7 @@
     return 150*PROPORTION750;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CKMsgListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
         cell = [[CKMsgListCell alloc] init];
@@ -130,16 +137,45 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MsgModel *model = [[MsgModel alloc] init];
     model = _msglistModel.msgModels[indexPath.section];
-    if (model.msgWebUrl.length < 5)
-    {
-        CKMsgDetailViewController *viewController = [[CKMsgDetailViewController alloc] init];
-        viewController.model = model;
-        [self.navigationController pushViewController:viewController animated:YES];
+    if (model.msgWebUrl.length < 5){
+        NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       model.msgId,@"id",
+                                       [MyHelperNO getUid], @"uid",
+                                       [MyHelperNO getMyToken], @"token", nil];
+        [self post:@"user/is_read" withParam:reqDic success:^(id responseObject) {
+            int code = [responseObject intForKey:@"status"];
+            NSString *msg = [responseObject stringForKey:@"msg"];
+            NSLog(@"%@", responseObject);
+            if (code == 200) {
+//                [self.myTableView reloadData];
+                CKMsgDetailViewController *viewController = [[CKMsgDetailViewController alloc] init];
+                viewController.model = model;
+                [self.navigationController pushViewController:viewController animated:YES];
+            }else{
+                [self toast:msg];
+            }
+        }failure:^(NSError *error) {
+            
+        }];
+        
+    }else{
+        MyWebViewController *viewController = [[MyWebViewController alloc] initWithTopTitle:@"消息" urlString:model.msgWebUrl];
+        [self.navigationController pushViewController:viewController animated:true];
     }
-    else
-    {
-    
+}
+
+-(void)leftBtn:(UIButton *)button{
+    for( MsgModel *model in _msglistModel.msgModels){
+        if (!model.isRead) {
+            for (UIViewController *viewController in self.navigationController.viewControllers) {
+                if ([viewController isKindOfClass:[CKMainViewController class]]) {
+                    [((CKMainViewController *)viewController).rightBtn setImage:[[UIImage imageNamed:@"right_msg"] scaleImageByWidth:35*PROPORTION750] forState:UIControlStateNormal];
+                }
+            }
+            break;
+        }
     }
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 - (void)didReceiveMemoryWarning {

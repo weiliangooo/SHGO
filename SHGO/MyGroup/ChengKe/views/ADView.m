@@ -19,7 +19,7 @@
         self.frame = [UIScreen mainScreen].bounds;
         self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
         
-        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100*PROPORTION750, (AL_DEVICE_HEIGHT-650*PROPORTION750)/2, 550*PROPORTION750, 650*PROPORTION750)];
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(60*PROPORTION750, (AL_DEVICE_HEIGHT-660*PROPORTION750)/2, 630*PROPORTION750, 660*PROPORTION750)];
         _imageView.clipsToBounds = true;
         _imageView.layer.cornerRadius = 15*PROPORTION750;
         _imageView.userInteractionEnabled = true;

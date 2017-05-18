@@ -70,7 +70,12 @@
     
     selectTip = 100;
     
-    titles = @[@"行程有变，暂时不需要用车",@"信息填写错误，需要重新下单",@"赶时间，选择乘坐其他交通工具",@"联系不上司机",@"阿斯顿发撒的方式",@"112双方首发"];
+    titles = @[@"1.行程有变，暂时不需要用车",
+               @"2.订单信息填写有误，需重新下单",
+               @"3.联系不上司机或客服",
+               @"4.不想坐了，选择乘坐其他交通工具",
+               @"5.价格太高",
+               @"6.其他原因"];
     
     self.myTableView.height = [self calTableViewHeightWithCellMaxNum:5 cellNum:6 cellHeight:85*PROPORTION750 headerHeight:145*PROPORTION750 footHeight:180*PROPORTION750];
     

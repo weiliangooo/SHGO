@@ -92,7 +92,7 @@
         ckTipLB.textAlignment = NSTextAlignmentLeft;
         [_orderMsgView addSubview:ckTipLB];
         
-        _ckLB = [[UILabel alloc] initWithFrame:CGRectMake(355*PROPORTION750, timeTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
+        _ckLB = [[UILabel alloc] initWithFrame:CGRectMake(355*PROPORTION750, timeTipLB.bottom, 300*PROPORTION750, 90*PROPORTION750)];
         _ckLB.text = @"香蕉 苹果 芥子";
         _ckLB.textColor = [UIColor colorWithHexString:@"999999"];
         _ckLB.font = SYSF750(30);
@@ -100,6 +100,10 @@
         _ckLB.userInteractionEnabled = true;
         [_ckLB addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapEvents:)]];
         [_orderMsgView addSubview:_ckLB];
+        
+        UIImageView *rightImgView1 = [[UIImageView alloc] initWithFrame:CGRectMake(662*PROPORTION750, timeTipLB.bottom+30*PROPORTION750, 18*PROPORTION750, 30*PROPORTION750)];
+        rightImgView1.image = [UIImage imageNamed:@"right_wallet"];
+        [_orderMsgView addSubview:rightImgView1];
         
         UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, ckTipLB.bottom, _orderMsgView.width, 2*PROPORTION750)];
         line2.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
@@ -118,19 +122,34 @@
         _priceLB.attributedText = price;
         [_orderMsgView addSubview:_priceLB];
         
-        UIButton *detailBtn = [[UIButton alloc] initWithFrame:CGRectMake(530*PROPORTION750, line2.bottom+42.5*PROPORTION750, 130*PROPORTION750, 25*PROPORTION750)];
-        detailBtn.tag = 102;
-        [detailBtn setTitle:@"查看明细" forState:UIControlStateNormal];
-        [detailBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
-        detailBtn.titleLabel.font = SYSF750(25);
-        [detailBtn setImage:[[UIImage imageNamed:@"right_wallet"] scaleImageByHeight:25*PROPORTION750] forState:UIControlStateNormal];
-        detailBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 130*PROPORTION750, 0, -130*PROPORTION750);
-        detailBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -15*PROPORTION750, 0, 15*PROPORTION750);
-        [detailBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
-        [_orderMsgView addSubview:detailBtn];
+        
+        UILabel *detailLB = [[UILabel alloc] initWithFrame:CGRectMake(355*PROPORTION750, line2.bottom+40*PROPORTION750, 300*PROPORTION750, 30*PROPORTION750)];
+        detailLB.text = @"查看明细";
+        detailLB.textColor = [UIColor colorWithHexString:@"999999"];
+        detailLB.font = SYSF750(30);
+        detailLB.textAlignment = NSTextAlignmentRight;
+        detailLB.userInteractionEnabled = true;
+        [detailLB addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapEvents:)]];
+        [_orderMsgView addSubview:detailLB];
+        
+        UIImageView *rightImgView2 = [[UIImageView alloc] initWithFrame:CGRectMake(662*PROPORTION750, line2.bottom+40*PROPORTION750, 18*PROPORTION750, 30*PROPORTION750)];
+        rightImgView2.image = [UIImage imageNamed:@"right_wallet"];
+        [_orderMsgView addSubview:rightImgView2];
+        
+//        UIButton *detailBtn = [[UIButton alloc] initWithFrame:CGRectMake(530*PROPORTION750, line2.bottom+42.5*PROPORTION750, 130*PROPORTION750, 25*PROPORTION750)];
+//        detailBtn.tag = 102;
+//        [detailBtn setTitle:@"查看明细" forState:UIControlStateNormal];
+//        [detailBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
+//        detailBtn.titleLabel.font = SYSF750(25);
+////        [detailBtn setImage:[[UIImage imageNamed:@"right_wallet"] scaleImageByHeight:25*PROPORTION750] forState:UIControlStateNormal];
+////        detailBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 130*PROPORTION750, 0, -130*PROPORTION750);
+////        detailBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -15*PROPORTION750, 0, 15*PROPORTION750);
+//        detailBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+//        [detailBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+//        [_orderMsgView addSubview:detailBtn];
         
         _orderMsgView.height = line2.bottom+110*PROPORTION750;
-        
+        _driverNameLB = nil;
 //        [self driverMsgWithView:_orderMsgView];
         
     }
@@ -157,7 +176,7 @@
         ckModel *cmodel = _model.ckMsgs[i];
         ckString = [ckString stringByAppendingString:[NSString stringWithFormat:@" %@",cmodel.name]];
     }
-    ckString = [ckString stringByAppendingString:@" >"];
+//    ckString = [ckString stringByAppendingString:@" >"];
     _ckLB.text = ckString;
     [self setPriceString:_model.orderPrice];
     
@@ -179,8 +198,10 @@
 -(void)setCarMsg{
     ckModel *model = [[ckModel alloc] init];
     model = _model.ckMsgs[0];
-    if ([model.orderStatus integerValue] > 30) {
-        _driverNameLB.text = _model.driverName;
+    if (_driverNameLB != nil) {
+        if (_model.driverName.length > 0) {
+             _driverNameLB.text = [NSString stringWithFormat:@"%@师傅" ,[_model.driverName substringWithRange:NSMakeRange(0,1)]];
+        }
         [_starView setScore:[_model.driverScore doubleValue]];
         _carNameLB.text = _model.carName;
         _carNumLB.text = _model.carCode;
@@ -199,7 +220,10 @@
     if (_delegate && [_delegate respondsToSelector:@selector(OrderDetailBaseViewClickWithTitle:)]) {
         if (tap.view == _ckLB) {
             [_delegate OrderDetailBaseViewClickWithTitle:@"乘客信息"];
+        }else{
+            [_delegate OrderDetailBaseViewClickWithTitle:@"查看明细"];
         }
+
     }
 }
 

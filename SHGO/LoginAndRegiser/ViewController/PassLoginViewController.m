@@ -35,7 +35,7 @@
     [self.view addSubview:back1];
     
     tf1 = [[UITextField alloc] initWithFrame:CGRectMake(30*PROPORTION750, 20*PROPORTION750, 610*PROPORTION750, 50*PROPORTION750)];
-    tf1.placeholder = @"手机号／用户名";
+    tf1.placeholder = @"手机号";
     tf1.font = SYSF750(30);
 //    tf1.secureTextEntry = true;
     tf1.keyboardType = UIKeyboardTypeNumberPad;
@@ -48,7 +48,7 @@
     [self.view addSubview:back2];
     
     tf2 = [[UITextField alloc] initWithFrame:CGRectMake(30*PROPORTION750, 20*PROPORTION750, 610*PROPORTION750, 50*PROPORTION750)];
-    tf2.placeholder = @"新密码";
+    tf2.placeholder = @"密码";
     tf2.font = SYSF750(30);
     tf2.secureTextEntry = true;
     [back2 addSubview:tf2];

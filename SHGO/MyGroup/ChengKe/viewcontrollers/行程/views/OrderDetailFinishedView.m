@@ -8,6 +8,7 @@
 
 #import "OrderDetailFinishedView.h"
 #import "MyStar.h"
+#import "UIImage+ScalImage.h"
 
 @implementation OrderDetailFinishedView
 
@@ -42,7 +43,7 @@
     [self.scollerView addSubview:backView];
     
     UILabel *tipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 0, 650*PROPORTION750, 90*PROPORTION750)];
-    tipLB.text = @"车辆人员概况";
+    tipLB.text = @"司机";
     tipLB.font = SYSF750(30);
     tipLB.textAlignment = NSTextAlignmentLeft;
     [backView addSubview:tipLB];
@@ -62,7 +63,7 @@
     [backView addSubview:self.starView];
     
     UILabel *carTypeTipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, self.driverNameLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
-    carTypeTipLB.text = @"车辆品牌";
+    carTypeTipLB.text = @"车辆";
     carTypeTipLB.font = SYSF750(30);
     carTypeTipLB.textAlignment = NSTextAlignmentLeft;
     [backView addSubview:carTypeTipLB];
@@ -75,7 +76,7 @@
     [backView addSubview:self.carNameLB ];
     
     UILabel *carNumTipLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, carTypeTipLB.bottom, 325*PROPORTION750, 90*PROPORTION750)];
-    carNumTipLB.text = @"车辆牌照";
+    carNumTipLB.text = @"车牌";
     carNumTipLB.font = SYSF750(30);
     carNumTipLB.textAlignment = NSTextAlignmentLeft;
     [backView addSubview:carNumTipLB];
@@ -93,7 +94,8 @@
     
     UIButton *detailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, line2.bottom, 710*PROPORTION750, 90*PROPORTION750)];
     detailBtn.tag = 102;
-    [detailBtn setTitle:@"联系司机" forState:UIControlStateNormal];
+    [detailBtn setImage:[[UIImage imageNamed:@"detail"] scaleImageByWidth:30*PROPORTION750] forState:UIControlStateNormal];
+    [detailBtn setTitle:@" 联系司机" forState:UIControlStateNormal];
     [detailBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
     detailBtn.titleLabel.font = SYSF750(25);
     [detailBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];

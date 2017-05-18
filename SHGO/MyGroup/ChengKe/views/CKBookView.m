@@ -267,10 +267,15 @@
                 titleLB.font = SYSF750(25);
                 [view addSubview:titleLB];
                 
-                _discountLB = [[UILabel alloc] initWithFrame:CGRectMake(self.width-450*PROPORTION750, 30*PROPORTION750, 410*PROPORTION750, 30*PROPORTION750)];
+                _discountLB = [[UILabel alloc] initWithFrame:CGRectMake(self.width-450*PROPORTION750, 30*PROPORTION750, 385*PROPORTION750, 30*PROPORTION750)];
                 _discountLB.textAlignment = NSTextAlignmentRight;
+                _discountLB.font = SYSF750(30);
                 [view addSubview:_discountLB];
                 [self setDiscountString:@"不使用优惠"];
+                
+                UIImageView *rightImgView = [[UIImageView alloc] initWithFrame:CGRectMake(view.width-48*PROPORTION750, 30*PROPORTION750, 18*PROPORTION750, 30*PROPORTION750)];
+                rightImgView.image = [UIImage imageNamed:@"right_wallet"];
+                [view addSubview:rightImgView];
                 
                 _discountLB.userInteractionEnabled = YES;
                 [_discountLB addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickDiscoutLB:)]];
@@ -341,11 +346,11 @@
 -(void)setDiscountString:(NSString *)discountString
 {
     _discountString = discountString;
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@>",discountString]];
-    [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#ff4d00"] range:NSMakeRange(0, string.length-1)];
-    [string addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, string.length-1)];
-    [string addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(string.length-1, 1)];
-    [string addAttribute:NSFontAttributeName value:SYSF750(30) range:NSMakeRange(string.length-1, 1)];
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:discountString];
+    [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#ff4d00"] range:NSMakeRange(0, string.length)];
+    [string addAttribute:NSFontAttributeName value:SYSF750(25) range:NSMakeRange(0, string.length)];
+//    [string addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(string.length-1, 1)];
+//    [string addAttribute:NSFontAttributeName value:SYSF750(30) range:NSMakeRange(string.length-1, 1)];
 
     _discountLB.attributedText = string;
 }

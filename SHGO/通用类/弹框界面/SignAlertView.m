@@ -43,6 +43,14 @@
         imageView.image = [UIImage imageNamed:@"signBg"];
         [self addSubview:imageView];
         
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, imageView.width, imageView.height)];
+        label.backgroundColor = [UIColor clearColor];
+        label.text = @"已签到";
+        label.textColor = [UIColor whiteColor];
+        label.font = SYSF750(30);
+        label.textAlignment = NSTextAlignmentCenter;
+        [imageView addSubview:label];
+        
         UIImageView *tipImgView = [[UIImageView alloc] initWithFrame:CGRectMake(225*PROPORTION750, 105*PROPORTION750, 110*PROPORTION750, 100*PROPORTION750)];
         tipImgView.image = [UIImage imageNamed:@"sign_succ"];
         [backView addSubview:tipImgView];

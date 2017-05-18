@@ -289,6 +289,7 @@
 		F701C8EB1E4846AA008ADFD6 /* MyHelperNO.m in Sources */ = {isa = PBXBuildFile; fileRef = F701C8D41E4846AA008ADFD6 /* MyHelperNO.m */; };
 		F701C8EC1E4846AA008ADFD6 /* MyHelperNO.m in Sources */ = {isa = PBXBuildFile; fileRef = F701C8D41E4846AA008ADFD6 /* MyHelperNO.m */; };
 		F701C8ED1E4846AA008ADFD6 /* MyHelperNO.m in Sources */ = {isa = PBXBuildFile; fileRef = F701C8D41E4846AA008ADFD6 /* MyHelperNO.m */; };
+		F70501C71ECD405000933D7B /* OrderDetailHadSend.m in Sources */ = {isa = PBXBuildFile; fileRef = F70501C61ECD405000933D7B /* OrderDetailHadSend.m */; };
 		F706AD571ECAE6D000138BC0 /* XMAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F706AD561ECAE6D000138BC0 /* XMAdViewController.m */; };
 		F71275631E82650900238420 /* CKPlaceTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F71275621E82650900238420 /* CKPlaceTimeView.m */; };
 		F71275661E83A0FF00238420 /* CKLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F71275651E83A0FF00238420 /* CKLoginViewController.m */; };
@@ -653,6 +654,8 @@
 		F701C7931E4844E5008ADFD6 /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
 		F701C8D31E4846AA008ADFD6 /* MyHelperNO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHelperNO.h; sourceTree = "<group>"; };
 		F701C8D41E4846AA008ADFD6 /* MyHelperNO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelperNO.m; sourceTree = "<group>"; };
+		F70501C51ECD405000933D7B /* OrderDetailHadSend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailHadSend.h; sourceTree = "<group>"; };
+		F70501C61ECD405000933D7B /* OrderDetailHadSend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailHadSend.m; sourceTree = "<group>"; };
 		F706AD551ECAE6D000138BC0 /* XMAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMAdViewController.h; sourceTree = "<group>"; };
 		F706AD561ECAE6D000138BC0 /* XMAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMAdViewController.m; sourceTree = "<group>"; };
 		F71275611E82650900238420 /* CKPlaceTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKPlaceTimeView.h; sourceTree = "<group>"; };
@@ -1705,6 +1708,8 @@
 				F753B9B11EC424090063781A /* OrderDetailCarPayView.m */,
 				F753B9B31EC424310063781A /* OrderDetailHadPayView.h */,
 				F753B9B41EC424310063781A /* OrderDetailHadPayView.m */,
+				F70501C51ECD405000933D7B /* OrderDetailHadSend.h */,
+				F70501C61ECD405000933D7B /* OrderDetailHadSend.m */,
 				F753B9B61EC424520063781A /* OrderDetailHadCarView.h */,
 				F753B9B71EC424520063781A /* OrderDetailHadCarView.m */,
 				F753B9B91EC424700063781A /* OrderDetailFinishedView.h */,
@@ -2350,6 +2355,7 @@
 				F76D78031E9B32B7003EFF67 /* CKCancellationViewController.m in Sources */,
 				F7F625CA1E8E2A3900B025DC /* CKCitysListModel.m in Sources */,
 				F701C80C1E4844E6008ADFD6 /* MJRefreshNormalHeader.m in Sources */,
+				F70501C71ECD405000933D7B /* OrderDetailHadSend.m in Sources */,
 				F764CA651EA9E32900B91253 /* OrderPriceDetailViewController.m in Sources */,
 				F701C8571E4844E6008ADFD6 /* SDWebImagePrefetcher.m in Sources */,
 				F761C2EA1E98B5B600FCA6E3 /* CKOrderViewController.m in Sources */,

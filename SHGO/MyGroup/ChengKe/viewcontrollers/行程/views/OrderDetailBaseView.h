@@ -15,6 +15,7 @@ typedef enum : NSUInteger {
     OrederStatusRefund = 20,
     OrederStatusCarPay = 25,
     OrederStatusHadPay = 30,
+    OrederStatusHadSend,
     OrederStatusHadCar = 40,
     OrederStatusFinished,
     OrederStatusHadCommed,
