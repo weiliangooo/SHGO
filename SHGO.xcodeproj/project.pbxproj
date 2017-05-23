@@ -704,7 +704,6 @@
 		F73FCC951EA846FE00EB45CD /* PlaceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceModel.m; sourceTree = "<group>"; };
 		F73FCC981EA87CAC00EB45CD /* OrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListModel.h; sourceTree = "<group>"; };
 		F73FCC991EA87CAC00EB45CD /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListModel.m; sourceTree = "<group>"; };
-		F7409E4E1EA483FF007AB779 /* HeFei.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HeFei.gpx; sourceTree = "<group>"; };
 		F74F2B9C1EAB33FE006B2B27 /* WalletMoneyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletMoneyModel.h; sourceTree = "<group>"; };
 		F74F2B9D1EAB33FE006B2B27 /* WalletMoneyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletMoneyModel.m; sourceTree = "<group>"; };
 		F74F2B9F1EAB3CDA006B2B27 /* WalletDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletDetailViewController.h; sourceTree = "<group>"; };
@@ -1070,7 +1069,6 @@
 		F701C6701E48440D008ADFD6 = {
 			isa = PBXGroup;
 			children = (
-				F7409E4E1EA483FF007AB779 /* HeFei.gpx */,
 				F76D78371E9B8158003EFF67 /* Alipay */,
 				F76D789C1E9B8158003EFF67 /* Weixin */,
 				F76D780A1E9B6F83003EFF67 /* UMSocial */,

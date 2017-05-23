@@ -297,7 +297,7 @@
 
 -(void)CKSearchPlaceView:(CKSearchPlaceView *)CKSPView locationModel:(PlaceModel *)locationModel{
     [CKSPView hiddenView];
-    if (CKSPView.preFlag == CKSPViewStartStatusStartTrue || CKSPView.preFlag == CKSPViewStartStatusStartTrue){
+    if (CKSPView.preFlag == CKSPViewStartStatusStartTrue || CKSPView.preFlag == CKSPViewStartStatusStartFalse){
         currentIsStart = YES;
         self.ccMsgModel.startPlaceModel = locationModel;
         self.ptView.startPlaceTF.text = locationModel.address;
@@ -465,17 +465,7 @@
         info = result.poiList[0];
         
         NSString *city;
-        if ([self isSupportCity:result.addressDetail.city]){
-            city = result.addressDetail.city;
-            PlaceModel *model = [[PlaceModel alloc] init];
-            model.cityName = city;
-            model.address = info.name;
-            model.detailAddress = info.address;
-            model.location = result.location;
-            self.ccMsgModel.startPlaceModel = model;
-            _ptView.startPlaceTF.text = model.address;
-        }
-        else if ([self isSupportCity:result.addressDetail.district]){
+        if ([self isSupportCity:result.addressDetail.district]){
             city = result.addressDetail.district;
             PlaceModel *model = [[PlaceModel alloc] init];
             model.cityName = city;
@@ -485,6 +475,26 @@
             self.ccMsgModel.startPlaceModel = model;
             _ptView.startPlaceTF.text = model.address;
         }
+        else if ([self isSupportCity:result.addressDetail.city]){
+            city = result.addressDetail.city;
+            PlaceModel *model = [[PlaceModel alloc] init];
+            model.cityName = city;
+            model.address = info.name;
+            model.detailAddress = info.address;
+            model.location = result.location;
+            self.ccMsgModel.startPlaceModel = model;
+            _ptView.startPlaceTF.text = model.address;
+        }
+//        else if ([self isSupportCity:result.addressDetail.district]){
+//            city = result.addressDetail.district;
+//            PlaceModel *model = [[PlaceModel alloc] init];
+//            model.cityName = city;
+//            model.address = info.name;
+//            model.detailAddress = info.address;
+//            model.location = result.location;
+//            self.ccMsgModel.startPlaceModel = model;
+//            _ptView.startPlaceTF.text = model.address;
+//        }
         else{
             self.ccMsgModel.startPlaceModel = nil;
             _ptView.startPlaceTF.text = @"";
