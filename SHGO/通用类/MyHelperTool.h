@@ -17,6 +17,9 @@
 +(CLLocationCoordinate2D)locationStringToLocationCoordinate:(NSString *)locationString;
 ///YYYY-MM-dd HH:mm:ss -> 时间戳
 +(NSString *)normalTimeToTimeSP:(NSString *)normalTime;
-
+///判断定位是否打开
++ (BOOL)isLocationServiceOpen;
+///是否需要更新
++(BOOL)isNeedUpdate:(NSString *)newVersion;
 
 @end

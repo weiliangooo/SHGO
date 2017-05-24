@@ -45,5 +45,38 @@
     return [stringFloat substringToIndex:length - 7];
 }
 
++ (BOOL)isLocationServiceOpen {
+    if ([ CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
+        return NO;
+    } else
+        return YES;
+}
+
++(BOOL)isNeedUpdate:(NSString *)newVersion{
+    // 获取app版本
+    NSString *app_Version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    
+    //剔除版本号字符串中的点
+    newVersion = [newVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
+    app_Version = [app_Version stringByReplacingOccurrencesOfString:@"." withString:@""];
+    //计算版本号位数差
+    int placeMistake = (int)(newVersion.length-app_Version.length);
+    //根据placeMistake的绝对值判断两个版本号是否位数相等
+    if (abs(placeMistake) == 0) {
+        //位数相等
+        return [newVersion integerValue] > [app_Version integerValue];
+    }else {
+        //位数不等
+        //multipleMistake差的倍数
+        NSInteger multipleMistake = pow(10, abs(placeMistake));
+        NSInteger server = [newVersion integerValue];
+        NSInteger local = [app_Version integerValue];
+        if (server > local) {
+            return server > local * multipleMistake;
+        }else {
+            return server * multipleMistake > local;
+        }
+    }
+}
 
 @end

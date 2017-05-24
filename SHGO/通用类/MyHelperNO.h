@@ -48,6 +48,13 @@
 //存储弹广告的时间
 +(void)savePreTime;
 
+//服务器版本
++(void)saveServerVersion:(NSString *)newVersion;
++(NSString *)getServerVersion;
+
++(void)saveServerLink:(NSString *)link;
++(NSString *)getServerLink;
+
 + (NSString *)getIpAddresses;
 
 @end

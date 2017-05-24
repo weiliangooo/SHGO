@@ -75,6 +75,21 @@
     return [[NSUserDefaults standardUserDefaults] stringForKey:@"headImage"];
 }
 
+//服务器版本
++(void)saveServerVersion:(NSString *)newVersion{
+    [[NSUserDefaults standardUserDefaults] setValue:newVersion forKey:@"newVersion"];
+}
+
++(NSString *)getServerVersion{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"newVersion"];
+}
+
++(void)saveServerLink:(NSString *)link{
+    [[NSUserDefaults standardUserDefaults] setValue:link forKey:@"serverLink"];
+}
++(NSString *)getServerLink{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"serverLink"];
+}
 
 +(void)removeAllData
 {

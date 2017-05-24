@@ -29,6 +29,7 @@
 #import "MyWebViewController.h"
 #import "BaseNavViewController.h"
 #import "CKShareViewController.h"
+#import "MyHelperTool.h"
 
 @interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKPoiSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate,CKLeftViewDelegate>
 {
@@ -136,7 +137,68 @@
     [locationBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:locationBtn];
     
-    [self requestForPlaces];
+    if ([MyHelperTool isLocationServiceOpen]) {
+        [self requestForPlaces];
+    }else{
+        [self openLocationTip];
+    }
+}
+
+-(void)openLocationTip{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"小马出行需要定位支持,否则将无法使用" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"我已打开" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([MyHelperTool isLocationServiceOpen]) {
+            [self requestForPlaces];
+        }else{
+            [self openLocationTip];
+        }
+    }];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:true completion:nil];
+}
+
+-(void)judgeVersionUpdate:(NSDictionary *)versionDic{
+    NSString *newVersion = [versionDic stringForKey:@"version"];
+    [MyHelperNO saveServerVersion:newVersion];
+    NSString *link = [versionDic stringForKey:@"url"];
+    [MyHelperNO saveServerLink:link];
+    int update = [versionDic intForKey:@"update"];
+    if ([MyHelperTool isNeedUpdate:newVersion]) {
+        if (update == 1) {
+            [self tipUpdateForce:link];
+        }else{
+            [self tipUpdate:link];
+        }
+    }
+}
+
+-(void)tipUpdate:(NSString *)url{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"小马出行更新新版本啦！" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *canCleAction = [UIAlertAction actionWithTitle:@"暂不更新" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"马上去更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    }];
+    [alert addAction:canCleAction];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:true completion:nil];
+}
+
+-(void)tipUpdateForce:(NSString *)url{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"小马出行更新新版本啦！" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"马上去更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self tipUpdateForce:[MyHelperNO getServerLink]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    }];
+    UIAlertAction *hadAction = [UIAlertAction actionWithTitle:@"我已更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([MyHelperTool isNeedUpdate:[MyHelperNO getServerVersion]]) {
+            [self tipUpdateForce:[MyHelperNO getServerLink]];
+        }
+    }];
+    [alert addAction:hadAction];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:true completion:nil];
 }
 
 -(void)buttonClickEvents:(UIButton *)button{
@@ -340,6 +402,8 @@
             cityListModel = [[CKCitysListModel alloc] initWithData:data];
             _CKSPView.defaultModel = cityListModel;
             
+            [self judgeVersionUpdate:[responseObject objectForKey:@"ios"]];
+            
             _locService = [[BMKLocationService alloc]init];
             _locService.delegate = self;
             //启动LocationService
@@ -485,16 +549,6 @@
             self.ccMsgModel.startPlaceModel = model;
             _ptView.startPlaceTF.text = model.address;
         }
-//        else if ([self isSupportCity:result.addressDetail.district]){
-//            city = result.addressDetail.district;
-//            PlaceModel *model = [[PlaceModel alloc] init];
-//            model.cityName = city;
-//            model.address = info.name;
-//            model.detailAddress = info.address;
-//            model.location = result.location;
-//            self.ccMsgModel.startPlaceModel = model;
-//            _ptView.startPlaceTF.text = model.address;
-//        }
         else{
             self.ccMsgModel.startPlaceModel = nil;
             _ptView.startPlaceTF.text = @"";
