@@ -287,6 +287,11 @@
                         NSString *startLocal = [MyHelperTool locationCoordinateToLocationString:weakSelf.ccMsgModel.startPlaceModel.location];
                         NSString *endLocal = [MyHelperTool locationCoordinateToLocationString:weakSelf.ccMsgModel.endPlaceModel.location];
 
+                        if (timeId == nil) {
+                            [weakSelf toast:@"暂无班次"];
+                            return;
+                        }
+                        
                         NSMutableDictionary *reqDic2 = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                        timeSp, @"choose_time",
                                                        timeId, @"banci_id",

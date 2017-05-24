@@ -117,6 +117,10 @@
         return _dataArray.count;
     }
     else{
+        if (timeArray.count == 0) {
+            _timeId = nil;
+            _timeStr = nil;
+        }
         return timeArray.count;
     }
 }
@@ -149,6 +153,7 @@
         [pickerView reloadComponent:1];
     }else{
         if (timeArray.count == 0) {
+            _timeId = nil;
             return;
         }
         [[timeArray objectAtIndex:row] stringForKey:@"start_time"];
@@ -171,11 +176,15 @@
         _dateStr = [[_dataArray objectAtIndex:row] stringForKey:@"date"];
         genderLabel.text = [[_dataArray objectAtIndex:row] stringForKey:@"date"];
     }else{
-        NSDictionary *dic = [timeArray objectAtIndex:row];
-        _timeStr = [dic stringForKey:@"start_time"];
-        _timeId = [dic stringForKey:@"id"];
-        genderLabel.text = [dic stringForKey:@"start_time"];
-        
+        if (timeArray.count == 0) {
+            _timeId = nil;
+            genderLabel.text = @"暂无班次";
+        }else{
+            NSDictionary *dic = [timeArray objectAtIndex:row];
+            _timeStr = [dic stringForKey:@"start_time"];
+            _timeId = [dic stringForKey:@"id"];
+            genderLabel.text = [dic stringForKey:@"start_time"];
+        }
     }
     return genderLabel;
 }
