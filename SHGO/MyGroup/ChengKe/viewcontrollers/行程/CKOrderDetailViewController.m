@@ -25,6 +25,7 @@
 
 #import "MyWebViewController.h"
 #import "UIImage+ScalImage.h"
+#import "ComplaintViewController.h"
 
 @interface CKOrderDetailViewController ()<OrderDetailDelegate,OrderDetailBaseViewDelgate,PopAleatViewDelegate,AlertClassDelegate,UpCommenViewDelegate>
 
@@ -328,6 +329,10 @@
         shareView.shareBlock = ^(NSInteger flag){
             [self shareWebPageToPlatformType:flag];
         };
+    }else if ([title isEqualToString:@"我要投诉"]){
+        ComplaintViewController *viewController = [[ComplaintViewController alloc] init];
+        viewController.orderNum = self.order_sn;
+        [self.navigationController pushViewController:viewController animated:true];
     }
 }
 

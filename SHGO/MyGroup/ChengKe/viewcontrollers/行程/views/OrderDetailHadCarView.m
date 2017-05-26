@@ -34,6 +34,14 @@
     tipLB.textAlignment = NSTextAlignmentLeft;
     [backView addSubview:tipLB];
     
+    UIButton *cButton = [[UIButton alloc] initWithFrame:CGRectMake(710*PROPORTION750-230*PROPORTION750, 0, 200*PROPORTION750, 90*PROPORTION750)];
+    [cButton setTitle:@"我要投诉" forState:UIControlStateNormal];
+    [cButton setTitleColor:[UIColor colorWithHexString:@"1aad19"] forState:UIControlStateNormal];
+    cButton.titleLabel.font = SYSF750(30);
+    [cButton setImage:[[UIImage imageNamed:@"comIcon"] scaleImageByWidth:30*PROPORTION750] forState:UIControlStateNormal];
+    [cButton addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+    [backView addSubview:cButton];
+    
     UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(0, 90*PROPORTION750, backView.width, 2*PROPORTION750)];
     line1.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     [backView addSubview:line1];

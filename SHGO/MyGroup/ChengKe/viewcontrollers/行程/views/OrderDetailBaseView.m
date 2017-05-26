@@ -12,6 +12,7 @@
 #import "OrederDetailCancleView.h"
 #import "OrderDetailRefundView.h"
 #import "OrderDetailCarPayView.h"
+#import "OrderDetailHadSend.h"
 #import "OrderDetailHadPayView.h"
 #import "OrderDetailHadCarView.h"
 #import "OrderDetailFinishedView.h"
@@ -242,6 +243,8 @@
             return [[OrderDetailCarPayView alloc] init];
         case OrederStatusHadPay:
             return [[OrderDetailHadPayView alloc] init];
+        case OrederStatusHadSend:
+            return [[OrderDetailHadSend alloc] init];
         case OrederStatusHadCar:
             return [[OrderDetailHadCarView alloc] init];
         case OrederStatusFinished:

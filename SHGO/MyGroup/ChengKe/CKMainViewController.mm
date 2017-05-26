@@ -695,7 +695,7 @@
                 if (code == 200)
                 {
                     [_leftView.myTableHead setUpSignBtnStauts:true];
-                    SignAlertView *alerView = [[SignAlertView alloc] initWithTipTitle:[NSString stringWithFormat:@"获得红包%@元", [responseObject stringForKey:@"data"]]];
+                    SignAlertView *alerView = [[SignAlertView alloc] initWithTipTitle:[NSString stringWithFormat:@"获得红包%.2f元", [[responseObject stringForKey:@"data"] doubleValue]]];
                 }
                 else if (code == 300)
                 {

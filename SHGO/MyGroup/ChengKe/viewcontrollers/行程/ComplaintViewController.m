@@ -1,15 +1,15 @@
 //
-//  ResonForCancleViewController.m
+//  ComplaintViewController.m
 //  SHGO
 //
-//  Created by 魏亮 on 2017/4/17.
+//  Created by 魏亮 on 2017/5/26.
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "ResonForCancleViewController.h"
+#import "ComplaintViewController.h"
 #import "CKMainViewController.h"
 
-@interface ResonForCancleViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
+@interface ComplaintViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
 {
     NSArray *titles;
     
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation ResonForCancleViewController
+@implementation ComplaintViewController
 
 -(UITableView *)myTableView
 {
@@ -65,17 +65,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.type = 1;
-    self.topTitle = @"取消原因";
+    self.topTitle = @"投诉原因";
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     
     selectTip = 100;
     
-    titles = @[@"行程有变，暂时不需要用车",
-               @"订单信息填写有误，需重新下单",
-               @"联系不上司机或客服",
-               @"不想坐了，选择乘坐其他交通工具",
-               @"价格太高",
-               @"其他原因"];
+    titles = @[@"物品丢失",
+               @"出城时间太长",
+               @"出发时间延迟",
+               @"未在约定时间上车",
+               @"司机服务态度不好",
+               @"司机额外收取费用",
+               @"出了交通事故",
+               @"未走高速",
+               @"其他问题"];
     
     self.myTableView.height = [self calTableViewHeightWithCellMaxNum:5 cellNum:6 cellHeight:85*PROPORTION750 headerHeight:145*PROPORTION750 footHeight:180*PROPORTION750];
     
@@ -117,7 +120,7 @@
     backView.backgroundColor = [UIColor whiteColor];
     
     UILabel *topTitleLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 30*PROPORTION750, backView.width, 30*PROPORTION750)];
-    topTitleLB.text = @"行程已取消，请告诉我们原因";
+    topTitleLB.text = @"请告诉我们投诉原因";
     topTitleLB.font = SYSF750(30);
     topTitleLB.textAlignment = NSTextAlignmentCenter;
     [backView addSubview:topTitleLB];
@@ -148,7 +151,7 @@
     
     textView = [[UITextView alloc] initWithFrame:CGRectMake(40*PROPORTION750, 30*PROPORTION750, 630*PROPORTION750, 120*PROPORTION750)];
     textView.clipsToBounds = YES;
-//    textView.delegate = self;
+    //    textView.delegate = self;
     textView.returnKeyType = UIReturnKeyDone;
     textView.layer.cornerRadius = 15*PROPORTION750;
     textView.layer.borderColor = [UIColor colorWithHexString:@"f4f4f4"].CGColor;
@@ -165,10 +168,10 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ResonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    CResonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell)
     {
-        cell = [[ResonCell alloc] init];
+        cell = [[CResonCell alloc] init];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.titleLB.text = titles[indexPath.row];
@@ -190,8 +193,7 @@
 -(void)keyboardWasShown:(NSNotification*)aNotification
 {
     CGRect keyBoardFrame = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    if (keyBoardFrame.origin.y < self.myTableView.bottom)
-    {
+    if (keyBoardFrame.origin.y < self.myTableView.bottom){
         [UIView animateWithDuration:1.0f animations:^{
             self.view.frame = CGRectMake(0, -keyBoardFrame.origin.y+self.myTableView.bottom, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT);
         }];
@@ -224,10 +226,10 @@
     }
     NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    _orderNum, @"order_sn",
-                                   upTitle,@"reason",
+                                   upTitle,@"detail",
                                    [MyHelperNO getUid], @"uid",
                                    [MyHelperNO getMyToken], @"token", nil];
-    [self post:@"order/order_cansle" withParam:reqDic success:^(id responseObject) {
+    [self post:@"order/complaint" withParam:reqDic success:^(id responseObject) {
         int code = [responseObject intForKey:@"status"];
         NSLog(@"%@", responseObject);
         NSString *msg = [responseObject stringForKey:@"msg"];
@@ -250,18 +252,12 @@
     } failure:^(NSError *error) {
         
     }];
-
+    
 }
 
 -(void)popToMainVC
 {
-    for (YHBaseViewController *viewController in self.navigationController.viewControllers)
-    {
-        if ([viewController isKindOfClass:[CKMainViewController class]]) {
-            CKMainViewController *mainVC = (CKMainViewController *)viewController;
-            [self.navigationController popToViewController:mainVC animated:YES];
-        }
-    }
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 -(CGFloat)calTableViewHeightWithCellMaxNum:(NSInteger)cellMaxNum
@@ -285,14 +281,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
 
@@ -300,7 +296,7 @@
 
 
 
-@implementation ResonCell
+@implementation CResonCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -343,24 +339,4 @@
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
