@@ -31,7 +31,7 @@
         self.userInteractionEnabled = YES;
 //        [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(test:)]];
         
-        UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(0, self.height-530*PROPORTION750, self.width, 530*PROPORTION750)];
+        UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(0, self.height-530*PROPORTION750+105*PROPORTION750, self.width, 530*PROPORTION750-105*PROPORTION750)];
         myView.backgroundColor = [UIColor whiteColor];
         [self addSubview:myView];
         
@@ -49,7 +49,7 @@
         NSArray *images = @[@"wchat_share",@"alipay",@"saoma"];
         NSArray *tips = @[@"微信支付",@"支付宝支付",@"上车扫码"];
         
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 2; i++)
         {
             CKPayCell *cell = [[CKPayCell alloc] initWithFrame:CGRectMake(0, 90*PROPORTION750+105*PROPORTION750*i, self.width, 105*PROPORTION750)];
             cell.headImage.image = [UIImage imageNamed:images[i]];
@@ -90,7 +90,7 @@
             [myView addSubview:cell];
         }
         
-        _payBtn = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, 405*PROPORTION750, self.width-60*PROPORTION750, 100*PROPORTION750)];
+        _payBtn = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, 405*PROPORTION750-105*PROPORTION750, self.width-60*PROPORTION750, 100*PROPORTION750)];
         _payBtn.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
         _payBtn.clipsToBounds = YES;
         _payBtn.layer.cornerRadius = 15*PROPORTION750;

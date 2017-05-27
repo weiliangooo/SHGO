@@ -319,7 +319,8 @@
             }];
         };
 
-    }else if ([title isEqualToString:@"联系司机"]){
+    }
+    else if ([title isEqualToString:@" 联系司机"]){
         [self phoneAlertView:_orderDetailModel.driverPhone];
     }else if ([title isEqualToString:@"去评价"]){
         UpCommenView *view = [[UpCommenView alloc] init];
@@ -547,6 +548,59 @@
 //    [self.mapView setMapStatus:status withAnimation:YES];
 //    
 //}
+
+-(void)zhifubaoNotice:(NSNotification *)obj
+{
+    
+    NSLog(@"obj ======= ======= ===== %@", obj);
+    NSString * status = [obj.userInfo stringForKey:@"status"];
+    if([status isEqualToString:@"6002"]){//网络连接出错
+        [self toast:@"网络连接出错"];
+    }
+    if([status isEqualToString:@"6001"]){//用户中途取消
+        [self toast:@"用户中途取消"];
+    }
+    if([status isEqualToString:@"9000"]){//成功
+        [self toast:@"订单支付成功"];
+        [self performSelector:@selector(succToNext) withObject:nil afterDelay:1.5];
+        //        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    if([status isEqualToString:@"8000"]){//正在处理中
+        [self toast:@"正在处理中"];
+    }
+    if([status isEqualToString:@"4000"]){//订单支付失败
+        [self toast:@"订单支付失败"];
+        
+    }
+}
+-(void)weixinNotice:(NSNotification *)obj
+{
+    NSLog(@"obj ======= ======= ===== %@", obj);
+    NSString * status = [obj.userInfo stringForKey:@"status"];
+    NSString *strMsg;
+    //支付返回结果，实际支付结果需要去微信服务器端查询
+    switch ([status intValue]) {
+        case 0:
+            strMsg = @"订单支付成功";
+            [self toast:strMsg];
+            [self performSelector:@selector(succToNext) withObject:nil afterDelay:1.5];
+            //            [self.navigationController popToRootViewControllerAnimated:YES];
+            break;
+        case -1:
+            strMsg = @"订单支付失败";
+            [self toast:strMsg];
+            break;
+        case -2:
+            strMsg = @"用户中途取消";
+            [self toast:strMsg];
+            break;
+        default:
+            strMsg = @"未知错误";
+            [self toast:strMsg];
+            break;
+    }
+}
+
 
 
 - (void)didReceiveMemoryWarning {

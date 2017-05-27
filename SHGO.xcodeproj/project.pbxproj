@@ -2784,6 +2784,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = HA8YBCBL7M;
 				ENABLE_BITCODE = NO;
+				ENABLE_ONLY_ACTIVE_RESOURCES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SHGO/MyGroup/ThridSDK",
@@ -2825,6 +2826,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = HA8YBCBL7M;
 				ENABLE_BITCODE = NO;
+				ENABLE_ONLY_ACTIVE_RESOURCES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SHGO/MyGroup/ThridSDK",
