@@ -72,10 +72,10 @@
 //    [gouBT addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
 //    [self.view addSubview:gouBT];
     
-    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:@"温馨提示：未注册小马出行账号的手机号，登录时将自动注册，且代表您已同意《使用协议及隐私条款》"];
+    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:@"温馨提示：未注册小马出行账号的手机号，登录时将自动注册，且代表您已同意《网约车用户服务协议及安全保障细则》"];
     [AttributedStr addAttribute:NSForegroundColorAttributeName
                           value:[UIColor colorWithHexString:@"1aad19"]
-                          range:NSMakeRange(AttributedStr.length-10, 9)];
+                          range:NSMakeRange(AttributedStr.length-17, 16)];
     
     UILabel *xyLB = [[UILabel alloc] initWithFrame:CGRectMake(20*PROPORTION750, _codeBT.bottom+50*PROPORTION750, 710*PROPORTION750, 100*PROPORTION750)];
     xyLB.textAlignment = NSTextAlignmentLeft;
@@ -169,7 +169,7 @@
 }
 
 -(void)xyLBClickEvent:(UITapGestureRecognizer *)tap{
-    MyWebViewController *viewController = [[MyWebViewController alloc] initWithTopTitle:@"使用协议及隐私条款" urlString:@"https://m.xiaomachuxing.com/index/agreement"];
+    MyWebViewController *viewController = [[MyWebViewController alloc] initWithTopTitle:@"网约车用户服务协议" urlString:@"https://m.xiaomachuxing.com/index/use-agreement.html"];
     BaseNavViewController *navi = [[BaseNavViewController alloc] initWithRootViewController:viewController];
     [self presentViewController:navi animated:true completion:nil];
 }
