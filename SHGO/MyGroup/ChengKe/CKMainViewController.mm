@@ -86,10 +86,8 @@
     currentIsStart = YES;
     
     _startAnnotation = [[BMKPointAnnotation alloc]init];
-//    _startAnnotation.title = @"起点";
     
     _endAnnotation = [[BMKPointAnnotation alloc]init];
-//    _endAnnotation.title = @"终点";
 }
 
 
@@ -564,8 +562,7 @@
 }
 
 //城市检索回调
-- (void)onGetPoiResult:(BMKPoiSearch*)searcher result:(BMKPoiResult*)poiResult errorCode:(BMKSearchErrorCode)errorCode
-{
+- (void)onGetPoiResult:(BMKPoiSearch*)searcher result:(BMKPoiResult*)poiResult errorCode:(BMKSearchErrorCode)errorCode{
     if(errorCode == BMK_SEARCH_NO_ERROR)
     {
         NSMutableArray *addressArray = [NSMutableArray array];
@@ -639,8 +636,7 @@
 }
 
 //用来弹出左边菜单栏
--(void)showLeftView
-{
+-(void)showLeftView{
     if (!_leftView) {
         _leftView = [[CKLeftView alloc] initWithViewController:self];
         _leftView.delegate = self;

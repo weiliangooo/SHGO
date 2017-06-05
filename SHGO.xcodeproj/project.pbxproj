@@ -337,6 +337,11 @@
 		F75C4C361EAF148100740030 /* CKMsgListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C351EAF148100740030 /* CKMsgListViewController.m */; };
 		F75C4C391EAF16B000740030 /* MsgListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C381EAF16B000740030 /* MsgListModel.m */; };
 		F75C4C3C1EAF3C4600740030 /* CKMsgDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C3B1EAF3C4600740030 /* CKMsgDetailViewController.m */; };
+		F760C6E01EE50143008446C3 /* jcore-ios-1.1.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6DD1EE50143008446C3 /* jcore-ios-1.1.3.a */; };
+		F760C6E11EE50143008446C3 /* jpush-ios-3.0.5.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6DE1EE50143008446C3 /* jpush-ios-3.0.5.a */; };
+		F760C6E31EE502CF008446C3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6E21EE502CE008446C3 /* CoreFoundation.framework */; };
+		F760C6E71EE50327008446C3 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6E61EE50327008446C3 /* UserNotifications.framework */; };
+		F760C6E91EE50332008446C3 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6E81EE50332008446C3 /* libresolv.tbd */; };
 		F761C2DD1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2DC1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m */; };
 		F761C2E01E98AAB600FCA6E3 /* CKWalletDQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2DF1E98AAB600FCA6E3 /* CKWalletDQuestionViewController.m */; };
 		F761C2E31E98AAD100FCA6E3 /* CKRedPackDRegularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2E21E98AAD100FCA6E3 /* CKRedPackDRegularViewController.m */; };
@@ -749,6 +754,14 @@
 		F75C4C381EAF16B000740030 /* MsgListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgListModel.m; sourceTree = "<group>"; };
 		F75C4C3A1EAF3C4600740030 /* CKMsgDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMsgDetailViewController.h; sourceTree = "<group>"; };
 		F75C4C3B1EAF3C4600740030 /* CKMsgDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMsgDetailViewController.m; sourceTree = "<group>"; };
+		F760C6DD1EE50143008446C3 /* jcore-ios-1.1.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.1.3.a"; sourceTree = "<group>"; };
+		F760C6DE1EE50143008446C3 /* jpush-ios-3.0.5.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.5.a"; sourceTree = "<group>"; };
+		F760C6DF1EE50143008446C3 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		F760C6E21EE502CE008446C3 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		F760C6E41EE50318008446C3 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		F760C6E61EE50327008446C3 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		F760C6E81EE50332008446C3 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		F760C6EA1EE50E1C008446C3 /* SHGO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SHGO.entitlements; sourceTree = "<group>"; };
 		F761C2DB1E98A8D800FCA6E3 /* CKRedPackDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRedPackDetailViewController.h; sourceTree = "<group>"; };
 		F761C2DC1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRedPackDetailViewController.m; sourceTree = "<group>"; };
 		F761C2DE1E98AAB600FCA6E3 /* CKWalletDQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKWalletDQuestionViewController.h; sourceTree = "<group>"; };
@@ -1002,21 +1015,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F760C6E91EE50332008446C3 /* libresolv.tbd in Frameworks */,
+				F760C6E71EE50327008446C3 /* UserNotifications.framework in Frameworks */,
+				F76D78331E9B7035003EFF67 /* libz.tbd in Frameworks */,
+				F79F0CA81E8222D500EAD30B /* CoreTelephony.framework in Frameworks */,
+				F760C6E31EE502CF008446C3 /* CoreFoundation.framework in Frameworks */,
 				F712CD0B1EBAFDA600B67880 /* Foundation.framework in Frameworks */,
 				F712CD091EBAFD9300B67880 /* UIKit.framework in Frameworks */,
 				F76944101EB04C3D00A6F82A /* libsqlite3.tbd in Frameworks */,
+				F760C6E11EE50143008446C3 /* jpush-ios-3.0.5.a in Frameworks */,
 				F76D78B71E9B837F003EFF67 /* CoreMotion.framework in Frameworks */,
 				F76D78B51E9B836D003EFF67 /* CFNetwork.framework in Frameworks */,
 				F76D78B31E9B8299003EFF67 /* CoreText.framework in Frameworks */,
 				F76D78A21E9B8158003EFF67 /* AlipaySDK.framework in Frameworks */,
 				F76D78A41E9B8158003EFF67 /* libssl.a in Frameworks */,
-				F76D78331E9B7035003EFF67 /* libz.tbd in Frameworks */,
 				F76D78311E9B7024003EFF67 /* libc++.tbd in Frameworks */,
+				F760C6E01EE50143008446C3 /* jcore-ios-1.1.3.a in Frameworks */,
 				F79F0CA21E8222AA00EAD30B /* CoreGraphics.framework in Frameworks */,
 				F79F0CBE1E82259B00EAD30B /* BaiduMapAPI_Utils.framework in Frameworks */,
 				F79F0CAA1E8222EB00EAD30B /* libstdc++.6.0.9.tbd in Frameworks */,
 				F79F0D221E82277900EAD30B /* libssl.a in Frameworks */,
-				F79F0CA81E8222D500EAD30B /* CoreTelephony.framework in Frameworks */,
 				F79F0CA61E8222C800EAD30B /* libsqlite3.0.tbd in Frameworks */,
 				F76D78251E9B6F83003EFF67 /* TencentOpenAPI.framework in Frameworks */,
 				F79F0D211E82277900EAD30B /* libcrypto.a in Frameworks */,
@@ -1072,6 +1090,7 @@
 		F701C6701E48440D008ADFD6 = {
 			isa = PBXGroup;
 			children = (
+				F760C6DC1EE50143008446C3 /* Lib */,
 				F76D78371E9B8158003EFF67 /* Alipay */,
 				F76D789C1E9B8158003EFF67 /* Weixin */,
 				F76D780A1E9B6F83003EFF67 /* UMSocial */,
@@ -1097,6 +1116,7 @@
 		F701C67B1E48440D008ADFD6 /* SHGO */ = {
 			isa = PBXGroup;
 			children = (
+				F760C6EA1EE50E1C008446C3 /* SHGO.entitlements */,
 				F701C8F91E4849CC008ADFD6 /* Classes */,
 				F701C8C51E4846AA008ADFD6 /* 通用类 */,
 				F701C88A1E48453D008ADFD6 /* LoginAndRegiser */,
@@ -1625,6 +1645,16 @@
 			path = views;
 			sourceTree = "<group>";
 		};
+		F760C6DC1EE50143008446C3 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				F760C6DD1EE50143008446C3 /* jcore-ios-1.1.3.a */,
+				F760C6DE1EE50143008446C3 /* jpush-ios-3.0.5.a */,
+				F760C6DF1EE50143008446C3 /* JPUSHService.h */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
 		F761C2E71E98B59D00FCA6E3 /* 行程 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1993,6 +2023,10 @@
 		F79F0C981E82227800EAD30B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F760C6E81EE50332008446C3 /* libresolv.tbd */,
+				F760C6E61EE50327008446C3 /* UserNotifications.framework */,
+				F760C6E41EE50318008446C3 /* AdSupport.framework */,
+				F760C6E21EE502CE008446C3 /* CoreFoundation.framework */,
 				F712CD0A1EBAFDA600B67880 /* Foundation.framework */,
 				F712CD081EBAFD9300B67880 /* UIKit.framework */,
 				F769440F1EB04C3D00A6F82A /* libsqlite3.tbd */,
@@ -2184,7 +2218,15 @@
 					F701C6781E48440D008ADFD6 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = HA8YBCBL7M;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					F701C6911E48440D008ADFD6 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -2779,6 +2821,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = SHGO/SHGO.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: meiling Sun (54B77Z8WJ5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2808,11 +2851,13 @@
 					"$(PROJECT_DIR)/UMSocial/UMSocialSDKPlugin",
 					"$(PROJECT_DIR)/Alipay",
 					"$(PROJECT_DIR)/Weixin",
+					"$(PROJECT_DIR)/Lib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HaoMa.xmcx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "7c9fee4e-25ff-4637-8752-a92248e2f2e1";
+				PROVISIONING_PROFILE_SPECIFIER = xmcxpassDe;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2822,8 +2867,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = SHGO/SHGO.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: meiling Sun (54B77Z8WJ5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = HA8YBCBL7M;
 				ENABLE_BITCODE = NO;
 				ENABLE_ONLY_ACTIVE_RESOURCES = YES;
@@ -2850,11 +2896,13 @@
 					"$(PROJECT_DIR)/UMSocial/UMSocialSDKPlugin",
 					"$(PROJECT_DIR)/Alipay",
 					"$(PROJECT_DIR)/Weixin",
+					"$(PROJECT_DIR)/Lib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HaoMa.xmcx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "0bcb70ac-f4ae-442c-aa48-1ae6e9c45786";
+				PROVISIONING_PROFILE_SPECIFIER = xmcxpassDi;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

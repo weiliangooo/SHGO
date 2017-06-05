@@ -89,15 +89,13 @@
 
 -(void)buttonClickEvents:(UIButton *)button{
     [self dismissView];
-//    if ([_timeStr isEqualToString:@"无可乘班次"]){
-//        return;
-//    }
     NSString *timeSting = [_dateStr stringByAppendingString:@" 00:00:00"];
     self.CKTimeSelectBlock(button.tag == 100, timeSting, _timeId);
+    NSLog(@"%@, %@", timeSting, _timeId);
 }
 
--(void)setDataArray:(NSMutableArray *)dataArray
-{
+///
+-(void)setDataArray:(NSMutableArray *)dataArray{
     _dataArray = dataArray;
     if ([[_dataArray objectAtIndex:0] arrayForKey:@"runs"].count == 0) {
         [_dataArray removeObjectAtIndex:0];
@@ -127,21 +125,21 @@
 
 #pragma 实现UIPickerViewDataSource的协议的方法
 //返回的是component列的行显示的内容
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    if (component == 0){
-        //row表示你已经选中第几行了，当然是从0开始的
-        _dateStr = [[_dataArray objectAtIndex:row] stringForKey:@"date"];
-        return [[_dataArray objectAtIndex:row] stringForKey:@"date"];
-    }else{
-        NSDictionary *dic = [timeArray objectAtIndex:row];
-        if (dic != nil) {
-            _timeStr = [dic stringForKey:@"start_time"];
-            _timeId = [dic stringForKey:@"id"];
-            return [dic stringForKey:@"start_time"];
-        }
-        return @"无可乘班次";
-    }
-}
+//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+//    if (component == 0){
+//        //row表示你已经选中第几行了，当然是从0开始的
+//        _dateStr = [[_dataArray objectAtIndex:row] stringForKey:@"date"];
+//        return [[_dataArray objectAtIndex:row] stringForKey:@"date"];
+//    }else{
+//        NSDictionary *dic = [timeArray objectAtIndex:row];
+//        if (dic != nil) {
+//            _timeStr = [dic stringForKey:@"start_time"];
+//            _timeId = [dic stringForKey:@"id"];
+//            return [dic stringForKey:@"start_time"];
+//        }
+//        return @"无可乘班次";
+//    }
+//}
 
 //如果选中某行，该执行的方法
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
@@ -156,7 +154,9 @@
             _timeId = nil;
             return;
         }
-        [[timeArray objectAtIndex:row] stringForKey:@"start_time"];
+        NSDictionary *dic = [timeArray objectAtIndex:row];
+        _timeStr = [dic stringForKey:@"start_time"];
+        _timeId = [dic stringForKey:@"id"];
     }
 }
 
@@ -176,15 +176,10 @@
         _dateStr = [[_dataArray objectAtIndex:row] stringForKey:@"date"];
         genderLabel.text = [[_dataArray objectAtIndex:row] stringForKey:@"date"];
     }else{
-        if (timeArray.count == 0) {
-            _timeId = nil;
-            genderLabel.text = @"暂无班次";
-        }else{
-            NSDictionary *dic = [timeArray objectAtIndex:row];
-            _timeStr = [dic stringForKey:@"start_time"];
-            _timeId = [dic stringForKey:@"id"];
-            genderLabel.text = [dic stringForKey:@"start_time"];
-        }
+        NSDictionary *dic = [timeArray objectAtIndex:row];
+        _timeStr = [dic stringForKey:@"start_time"];
+        _timeId = [dic stringForKey:@"id"];
+        genderLabel.text = [dic stringForKey:@"start_time"];
     }
     return genderLabel;
 }
