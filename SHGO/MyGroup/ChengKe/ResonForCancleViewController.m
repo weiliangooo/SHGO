@@ -253,15 +253,15 @@
 
 }
 
--(void)popToMainVC
-{
-    for (YHBaseViewController *viewController in self.navigationController.viewControllers)
-    {
+-(void)popToMainVC{
+    for (YHBaseViewController *viewController in self.navigationController.viewControllers){
         if ([viewController isKindOfClass:[CKMainViewController class]]) {
             CKMainViewController *mainVC = (CKMainViewController *)viewController;
             [self.navigationController popToViewController:mainVC animated:YES];
+            return;
         }
     }
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 -(CGFloat)calTableViewHeightWithCellMaxNum:(NSInteger)cellMaxNum

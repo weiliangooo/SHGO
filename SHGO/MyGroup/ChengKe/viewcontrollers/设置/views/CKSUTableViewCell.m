@@ -24,11 +24,11 @@
         _detailLB.textAlignment = NSTextAlignmentRight;
         [self addSubview:_detailLB];
         
-        UIImageView *rightImgView = [[UIImageView alloc] initWithFrame:CGRectMake(662*PROPORTION750, 30*PROPORTION750, 18*PROPORTION750, 30*PROPORTION750)];
-        rightImgView.clipsToBounds = YES;
-        rightImgView.layer.cornerRadius = 15*PROPORTION750;
-        rightImgView.image = [UIImage imageNamed:@"right_wallet"];
-        [self addSubview:rightImgView];
+        _rightImgView = [[UIImageView alloc] initWithFrame:CGRectMake(662*PROPORTION750, 30*PROPORTION750, 18*PROPORTION750, 30*PROPORTION750)];
+        _rightImgView.clipsToBounds = YES;
+        _rightImgView.layer.cornerRadius = 15*PROPORTION750;
+        _rightImgView.image = [UIImage imageNamed:@"right_wallet"];
+        [self addSubview:_rightImgView];
     }
     return self;
 }

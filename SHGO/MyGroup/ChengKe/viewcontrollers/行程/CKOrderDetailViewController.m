@@ -28,7 +28,9 @@
 #import "ComplaintViewController.h"
 
 @interface CKOrderDetailViewController ()<OrderDetailDelegate,OrderDetailBaseViewDelgate,PopAleatViewDelegate,AlertClassDelegate,UpCommenViewDelegate>
-
+{
+    BOOL isFirstLoad;
+}
 @property (nonatomic, strong) OrderDetailBaseView *detailView;
 
 @property (nonatomic, strong) OrderDetailModel *orderDetailModel;
@@ -39,10 +41,12 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    if (![self.topTitle isEqualToString:@"订单详情"]) {
-        [self loadData];
-//    }
-    
+    [self loadData];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad {
@@ -55,36 +59,16 @@
     self.rightBtn.frame = CGRectMake(0, 0, 35*PROPORTION, 35*PROPORTION);
     [self.rightBtn setImage:[[UIImage imageNamed:@"what_right"] scaleImageByWidth:35*PROPORTION750] forState:UIControlStateNormal];
     
-//    self.topTitle = @"订单详情";
-//    [self loadData];
-//    self.mapView.hidden = true;
-//    OrderDetailBaseView *view = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCar];
-//    [self.view addSubview:view];
-    
-    
-//    _detailView = [[OrderDetailView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-475*PROPORTION750-64, 690*PROPORTION750, 465*PROPORTION750)];
-//    _detailView.delegate = self;
-//    [self.view addSubview:_detailView];
-//    
-//    headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(300*PROPORTION750, _detailView.top-45*PROPORTION750, 150*PROPORTION750, 150*PROPORTION750)];
-//    headImgView.clipsToBounds = YES;
-//    headImgView.layer.cornerRadius = 75*PROPORTION750;
-//    headImgView.layer.borderColor = [UIColor whiteColor].CGColor;
-//    headImgView.layer.borderWidth = 8*PROPORTION750;
-//    headImgView.image = [UIImage imageNamed:@"default"];
-//    [self.view addSubview:headImgView];
-//    
-//    carNumLB = [[UILabel alloc] initWithFrame:CGRectMake(300*PROPORTION750, _detailView.top+85*PROPORTION750, 150*PROPORTION750, 40*PROPORTION750)];
-//    carNumLB.backgroundColor = [UIColor whiteColor];
-//    carNumLB.text = _orderDetailModel.carCode;
-//    carNumLB.font = SYSF750(20);
-//    carNumLB.textAlignment = NSTextAlignmentCenter;
-//    carNumLB.clipsToBounds = YES;
-//    carNumLB.layer.cornerRadius = 10*PROPORTION750;
-//    carNumLB.layer.borderColor = [UIColor colorWithHexString:@"f4f4f4"].CGColor;
-//    carNumLB.layer.borderWidth = 1.0f;
-//    [self.view addSubview:carNumLB];
-    
+    self.topTitle = _myTitle;
+    isFirstLoad = true;
+
+    if ([_myTitle isEqualToString:@"待付款"]) {
+        //获取通知中心单例对象
+        NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
+        //添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
+        [center addObserver:self selector:@selector(zhifubaoNotice:) name:@"zhifubaonotice" object:nil];
+        [center addObserver:self selector:@selector(weixinNotice:) name:@"weixinnotice" object:nil];
+    }
 }
 
 -(void)leftBtn:(UIButton *)button{
@@ -131,7 +115,16 @@
     }
     ckModel *model = [[ckModel alloc] init];
     model = _orderDetailModel.ckMsgs[0];
-    self.topTitle = model.orderStatus_;
+    if (isFirstLoad) {
+        isFirstLoad = false;
+    }else{
+        self.topTitle = model.orderStatus_;
+    }
+    
+    if (![model.orderStatus_ isEqualToString:@"待付款"]) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }
+    
     if ([model.orderStatus integerValue] == 0) {
         if ([model.orderStatus_ isEqualToString:@"系统取消"]) {
             _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusSystemCancle];
@@ -170,85 +163,6 @@
         }
        
     }
-//    switch ([model.orderStatus integerValue]) {
-//        case 0:{
-//            if ([model.orderStatus_ isEqualToString:@"系统取消"]) {
-//                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusSystemCancle];
-//                [_detailView setModel:_orderDetailModel];
-//                _detailView.delegate = self;
-//                [self.view addSubview:_detailView];
-//            }else{
-//                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusNoPay];
-//                [_detailView setModel:_orderDetailModel];
-//                _detailView.delegate = self;
-//                [self.view addSubview:_detailView];
-//            }
-//        }
-//            break;
-//        case 10:{
-//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusCancle];
-//            [_detailView setModel:_orderDetailModel];
-//            _detailView.delegate = self;
-//            [self.view addSubview:_detailView];
-//        }
-//            break;
-//        case 20:{
-//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusRefund];
-//            [_detailView setModel:_orderDetailModel];
-//            _detailView.delegate = self;
-//            [self.view addSubview:_detailView];
-//        }
-//            break;
-//            
-//        case 25:{
-//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusCarPay];
-//            [_detailView setModel:_orderDetailModel];
-//            _detailView.delegate = self;
-//            [self.view addSubview:_detailView];
-//        }
-//            break;
-//        case 30:{
-//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadPay];
-//            [_detailView setModel:_orderDetailModel];
-//            _detailView.delegate = self;
-//            [self.view addSubview:_detailView];
-//        }
-//            break;
-//        case 40:{
-//            _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCar];
-//            [_detailView setModel:_orderDetailModel];
-//            _detailView.delegate = self;
-//            [self.view addSubview:_detailView];
-//        }
-//            break;
-//        case 50:{
-//            if ([_orderDetailModel.is_pj isEqualToString:@"1"]) {
-//                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusHadCommed];
-//                [_detailView setModel:_orderDetailModel];
-//                _detailView.delegate = self;
-//                [self.view addSubview:_detailView];
-//            }else{
-//                _detailView = [OrderDetailBaseView orderDetailViewWithType:OrederStatusFinished];
-//                [_detailView setModel:_orderDetailModel];
-//                _detailView.delegate = self;
-//                [self.view addSubview:_detailView];
-//            }
-//            
-//        }
-//            break;
-//            
-//        default:
-//            break;
-//    }
-//    self.topTitle = _orderDetailModel.orderStatus;
-//    self.startAnnotation.subtitle = _orderDetailModel.startPlace.address;
-//    self.startAnnotation.coordinate = _orderDetailModel.startPlace.location;
-//    self.endAnnotation.subtitle = _orderDetailModel.endPlace.address;
-//    self.endAnnotation.coordinate = _orderDetailModel.endPlace.location;
-//    [self getMapViewVisbleRect];
-//    
-//    _detailView.orderDetailModel = _orderDetailModel;
-//    carNumLB.text = _orderDetailModel.carCode;
 }
 
 #pragma --mark orderDetailBaseView delegate
@@ -522,36 +436,8 @@
     }];
 }
 
-
-//计算地图显示区域
-//-(void)getMapViewVisbleRect{
-//    BMKMapPoint point1 = BMKMapPointForCoordinate(_orderDetailModel.startPlace.location);
-//    BMKMapPoint point2 = BMKMapPointForCoordinate(_orderDetailModel.endPlace.location);
-//    CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
-//    
-//    //这个数组就是百度地图比例尺对应的物理距离，其中2000000对应的比例是3，5对应的是21；可能有出入可以根据情况累加
-//    float zoomLe = 0.00;
-//    NSArray *zoomLevelArr = [[NSArray alloc]initWithObjects:@"2000000", @"1000000", @"500000", @"200000", @"100000", @"50000", @"25000", @"20000", @"10000", @"5000", @"2000", @"1000", @"500", @"200", @"100", @"50", @"20", @"10", @"5", nil];
-//    for (int j=0; j<zoomLevelArr.count; j++){
-//        if (j + 1 < zoomLevelArr.count){
-//            if (distance < [zoomLevelArr[j] intValue] && distance > [zoomLevelArr[j+1] intValue] ){
-//                zoomLe = j+6.4;
-//                break;
-//            }
-//        }
-//    }
-//    BMKMapStatus *status = [[BMKMapStatus alloc] init];
-//    status.fLevel = zoomLe;
-//    status.targetScreenPt = CGPointMake(AL_DEVICE_WIDTH/2, 450*PROPORTION750);
-//    status.targetGeoPt = CLLocationCoordinate2DMake((_orderDetailModel.startPlace.location.latitude+_orderDetailModel.endPlace.location.latitude)/2,
-//                                                    (_orderDetailModel.startPlace.location.longitude+_orderDetailModel.endPlace.location.longitude)/2);
-//    [self.mapView setMapStatus:status withAnimation:YES];
-//    
-//}
-
 -(void)zhifubaoNotice:(NSNotification *)obj
 {
-    
     NSLog(@"obj ======= ======= ===== %@", obj);
     NSString * status = [obj.userInfo stringForKey:@"status"];
     if([status isEqualToString:@"6002"]){//网络连接出错
@@ -562,8 +448,6 @@
     }
     if([status isEqualToString:@"9000"]){//成功
         [self toast:@"订单支付成功"];
-        [self performSelector:@selector(succToNext) withObject:nil afterDelay:1.5];
-        //        [self.navigationController popToRootViewControllerAnimated:YES];
     }
     if([status isEqualToString:@"8000"]){//正在处理中
         [self toast:@"正在处理中"];
@@ -583,8 +467,6 @@
         case 0:
             strMsg = @"订单支付成功";
             [self toast:strMsg];
-            [self performSelector:@selector(succToNext) withObject:nil afterDelay:1.5];
-            //            [self.navigationController popToRootViewControllerAnimated:YES];
             break;
         case -1:
             strMsg = @"订单支付失败";

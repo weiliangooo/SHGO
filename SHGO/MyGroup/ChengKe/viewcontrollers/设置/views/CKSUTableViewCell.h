@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong) UILabel *detailLB;
 
+@property (nonatomic, strong)UIImageView *rightImgView;
+
 @end

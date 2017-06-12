@@ -57,9 +57,7 @@
 //    [self loadData];
 }
 
--(void)loadData
-{
-    
+-(void)loadData{
     NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[MyHelperNO getUid], @"uid", [MyHelperNO getMyToken], @"token", nil];
     [self post:@"order/orderlist" withParam:reqDic success:^(id responseObject) {
         [_myTableView.mj_header endRefreshing];
@@ -202,6 +200,7 @@
     
     CKOrderDetailViewController *viewController = [[CKOrderDetailViewController alloc] init];
     viewController.order_sn = model.order_sn;
+    viewController.myTitle = model.type;
     [self.navigationController pushViewController:viewController animated:true];
 
 }

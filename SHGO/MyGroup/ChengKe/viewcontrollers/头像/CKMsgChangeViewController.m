@@ -12,10 +12,14 @@
 #import "UploadFileData.h"
 #import "XAAssetPickerController.h"
 #import "XACameraController.h"
+#import "TitleTextField.h"
 
 @interface CKMsgChangeViewController ()<PopAleatViewDelegate,UIPickerViewDelegate, UIPickerViewDataSource>
 {
     NSMutableArray *postArray;
+    TitleTextField *nameTF;
+    TitleTextField *phoneTF;
+    TitleTextField *idTF;
 }
 @property (nonatomic, strong) UIImageView *headImg;
 
@@ -53,6 +57,31 @@
     tipLB.font = SYSF750(30);
     tipLB.textAlignment = NSTextAlignmentLeft;
     [myView addSubview:tipLB];
+    
+//    nameTF = [[TitleTextField alloc] initWithFrame:CGRectMake(0, 180*PROPORTION750, 710*PROPORTION750, 100*PROPORTION750)];
+//    nameTF.titleLB.text = @"姓名";
+//    nameTF.contentTF.placeholder = @"请输入姓名";
+//    nameTF.contentTF.text = [MyHelperNO getMyRealName];
+//    [myView addSubview:nameTF];
+//    
+//    phoneTF = [[TitleTextField alloc] initWithFrame:CGRectMake(0, 280*PROPORTION750, 710*PROPORTION750, 100*PROPORTION750)];
+//    phoneTF.titleLB.text = @"手机号";
+//    phoneTF.contentTF.placeholder = @"请输入手机号";
+//    phoneTF.contentTF.text = [MyHelperNO getMyMobilePhone];
+//    [myView addSubview:phoneTF];
+//    
+//    idTF = [[TitleTextField alloc] initWithFrame:CGRectMake(0, 380*PROPORTION750, 710*PROPORTION750, 100*PROPORTION750)];
+//    idTF.titleLB.text = @"身份证";
+//    idTF.contentTF.placeholder = @"请输入身份证";
+//    idTF.contentTF.text = [MyHelperNO getMyIdentNo];
+//    [myView addSubview:idTF];
+//    
+//    UILabel *bottomLB = [[UILabel alloc] initWithFrame:CGRectMake(60*PROPORTION750, myView.bottom+30*PROPORTION750, 630*PROPORTION750, 30*PROPORTION750)];
+//    bottomLB.text = @"*这些信息涌来登记和赠送保险";
+//    bottomLB.textColor = [UIColor colorWithHexString:@"666666"];
+//    bottomLB.font = SYSF750(30);
+//    bottomLB.textAlignment = NSTextAlignmentLeft;
+//    [self.view addSubview:bottomLB];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 178*PROPORTION750, 710*PROPORTION750, 2*PROPORTION750)];
     line.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
@@ -205,15 +234,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

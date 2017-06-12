@@ -28,7 +28,7 @@
 
 -(UITableView *)myTableView{
     if (!_myTableView){
-        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 450*PROPORTION750) style:UITableViewStylePlain];
+        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 540*PROPORTION750) style:UITableViewStylePlain];
         _myTableView.backgroundColor = [UIColor whiteColor];
         _myTableView.clipsToBounds = YES;
         _myTableView.layer.cornerRadius = 15*PROPORTION750;
@@ -48,7 +48,7 @@
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     
-    titles = @[@"修改密码",@"分享有礼",@"小马帮助",@"法律条款",@"关于我们"];
+    titles = @[@"修改密码",@"分享有礼",@"小马帮助",@"法律条款",@"关于我们",@"当前版本"];
  
     [self.view addSubview:self.myTableView];
     
@@ -102,6 +102,14 @@
     
     cell.titleLB.text = titles[indexPath.row];
     
+    if (indexPath.row == titles.count-1) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.rightImgView.hidden = true;
+        [cell.detailLB setOrigin:CGPointMake(380*PROPORTION750, 0)];
+        NSString *app_Version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+        cell.detailLB.text = app_Version;
+    }
+    
     return cell;
 }
 
@@ -128,7 +136,7 @@
         }
             break;
         case 3:{
-            MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"法律条款" urlString:@"https://m.xiaomachuxing.com/index/agreement"];
+            MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"法律条款" urlString:@"https://m.xiaomachuxing.com/index/use-agreement.html"];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;

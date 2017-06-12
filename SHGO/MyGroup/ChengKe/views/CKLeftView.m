@@ -58,7 +58,7 @@
         
         dataArray = @[@{@"head":@"left_wallet",@"title":@"钱包"},
                       @{@"head":@"left_order",@"title":@"行程"},
-                      @{@"head":@"left_ck",@"title":@"乘客"},
+                      @{@"head":@"discount_wallet",@"title":@"优惠"},
                       @{@"head":@"left_setup",@"title":@"设置"}];
         
         _myTableHead = [[CKLeftHeadView alloc] initWithFrame:CGRectMake(0, 0, leftView.width, 270*PROPORTION750)];

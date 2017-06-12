@@ -61,7 +61,7 @@
     if ([annotation isKindOfClass:[BMKPointAnnotation class]]){
         if (annotation == _startAnnotation){
             BMKAnnotationView *newStart = [[BMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startAnnotation"];
-            newStart.image = [UIImage imageNamed:@"startPoint"];   //把大头针换成别的图片
+            newStart.image = [UIImage imageNamed:@"starPoint"];   //把大头针换成别的图片
             return newStart;
         }else{
             BMKAnnotationView *newStart = [[BMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endAnnotation"];

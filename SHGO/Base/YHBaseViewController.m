@@ -630,9 +630,12 @@
 }
 
 -(void)gotoLoginViewController{
+    AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
     CKLoginViewController *viewController = [[CKLoginViewController alloc] init];
     BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
-    [self presentViewController:navigationController animated:YES completion:nil];
+//    [self presentViewController:navigationController animated:YES completion:nil];
+    de.window.rootViewController = navigationController;
 }
 
 -(void)alReLoadData{

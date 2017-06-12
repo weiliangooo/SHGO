@@ -406,6 +406,11 @@
     [self.myTableView reloadData];
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [_cityTF resignFirstResponder];
+    [_placeTF resignFirstResponder];
+}
+
 
 @end
 

@@ -16,4 +16,6 @@
 
 @property (nonatomic, strong) NSString *order_sn;
 
+@property (nonatomic, strong) NSString *myTitle;
+
 @end

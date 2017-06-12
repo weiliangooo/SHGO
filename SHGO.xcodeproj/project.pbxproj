@@ -305,6 +305,11 @@
 		F712CD0B1EBAFDA600B67880 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F712CD0A1EBAFDA600B67880 /* Foundation.framework */; };
 		F712CD0E1EBB208900B67880 /* MyHelperTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F712CD0D1EBB208900B67880 /* MyHelperTool.m */; };
 		F720C2001EC4954F0067EA18 /* UpCommenView.m in Sources */ = {isa = PBXBuildFile; fileRef = F720C1FF1EC4954F0067EA18 /* UpCommenView.m */; };
+		F72C01261EE65BDB0017CAAC /* BookSelectNumPsView.m in Sources */ = {isa = PBXBuildFile; fileRef = F72C01251EE65BDB0017CAAC /* BookSelectNumPsView.m */; };
+		F72C012A1EE68CE50017CAAC /* WalletQuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F72C01291EE68CE50017CAAC /* WalletQuanModel.m */; };
+		F72C012D1EE68E750017CAAC /* QuanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F72C012C1EE68E750017CAAC /* QuanViewController.m */; };
+		F72C01311EE68FE50017CAAC /* WalletDiscoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F72C01301EE68FE50017CAAC /* WalletDiscoutCell.m */; };
+		F72C01351EE6954A0017CAAC /* TitleTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F72C01341EE6954A0017CAAC /* TitleTextField.m */; };
 		F732818D1EC99E06001DA376 /* SetPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F732818C1EC99E06001DA376 /* SetPassWordViewController.m */; };
 		F73281901EC9ABA9001DA376 /* PassLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F732818F1EC9ABA9001DA376 /* PassLoginViewController.m */; };
 		F73281931EC9AE14001DA376 /* ForgetPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73281921EC9AE14001DA376 /* ForgetPassViewController.m */; };
@@ -312,7 +317,6 @@
 		F73B0EA31E96413600FB468E /* CKSureOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B0EA21E96413600FB468E /* CKSureOrderModel.m */; };
 		F73B582C1ECAEE37007F5CA3 /* ADView.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B582B1ECAEE37007F5CA3 /* ADView.m */; };
 		F73B80201E9721330005EC11 /* CKPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B801F1E9721330005EC11 /* CKPayView.m */; };
-		F73B80271E9754680005EC11 /* CKListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73B80261E9754680005EC11 /* CKListViewController.m */; };
 		F73CC4221ED7BC1900EF798E /* ComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73CC4211ED7BC1900EF798E /* ComplaintViewController.m */; };
 		F73FCC961EA846FE00EB45CD /* PlaceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F73FCC951EA846FE00EB45CD /* PlaceModel.m */; };
 		F73FCC9A1EA87CAC00EB45CD /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F73FCC991EA87CAC00EB45CD /* OrderListModel.m */; };
@@ -320,7 +324,6 @@
 		F74F2BA11EAB3CDA006B2B27 /* WalletDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F2BA01EAB3CDA006B2B27 /* WalletDetailViewController.m */; };
 		F74F2BA51EAB3D8F006B2B27 /* WalletDetailHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F2BA41EAB3D8F006B2B27 /* WalletDetailHeadView.m */; };
 		F74F2BA81EAB3F0E006B2B27 /* WalletDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F2BA71EAB3F0E006B2B27 /* WalletDetailCell.m */; };
-		F74F2BAB1EAB44EE006B2B27 /* WalletDiscoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F74F2BAA1EAB44EE006B2B27 /* WalletDiscoutCell.m */; };
 		F75172081EA5D640007EC790 /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75172071EA5D640007EC790 /* ActivityModel.m */; };
 		F753B9A31EC419820063781A /* OrderDetailBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9A21EC419820063781A /* OrderDetailBaseView.m */; };
 		F753B9A61EC421FD0063781A /* OrderDetailNoPayview.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9A51EC421FD0063781A /* OrderDetailNoPayview.m */; };
@@ -333,7 +336,6 @@
 		F753B9BB1EC424700063781A /* OrderDetailFinishedView.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9BA1EC424700063781A /* OrderDetailFinishedView.m */; };
 		F753B9BE1EC4248D0063781A /* OrderDetailHadCommedView.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9BD1EC4248D0063781A /* OrderDetailHadCommedView.m */; };
 		F753B9C11EC45D9E0063781A /* RefundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F753B9C01EC45D9E0063781A /* RefundView.m */; };
-		F75C4C271EAED71800740030 /* WalletQuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C261EAED71800740030 /* WalletQuanModel.m */; };
 		F75C4C361EAF148100740030 /* CKMsgListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C351EAF148100740030 /* CKMsgListViewController.m */; };
 		F75C4C391EAF16B000740030 /* MsgListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C381EAF16B000740030 /* MsgListModel.m */; };
 		F75C4C3C1EAF3C4600740030 /* CKMsgDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75C4C3B1EAF3C4600740030 /* CKMsgDetailViewController.m */; };
@@ -342,10 +344,7 @@
 		F760C6E31EE502CF008446C3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6E21EE502CE008446C3 /* CoreFoundation.framework */; };
 		F760C6E71EE50327008446C3 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6E61EE50327008446C3 /* UserNotifications.framework */; };
 		F760C6E91EE50332008446C3 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6E81EE50332008446C3 /* libresolv.tbd */; };
-		F761C2DD1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2DC1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m */; };
-		F761C2E01E98AAB600FCA6E3 /* CKWalletDQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2DF1E98AAB600FCA6E3 /* CKWalletDQuestionViewController.m */; };
-		F761C2E31E98AAD100FCA6E3 /* CKRedPackDRegularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2E21E98AAD100FCA6E3 /* CKRedPackDRegularViewController.m */; };
-		F761C2E61E98B3F100FCA6E3 /* CKDiscountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2E51E98B3F100FCA6E3 /* CKDiscountViewController.m */; };
+		F760C7351EE55939008446C3 /* PingCarSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = F760C7341EE55939008446C3 /* PingCarSelectView.m */; };
 		F761C2EA1E98B5B600FCA6E3 /* CKOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2E91E98B5B600FCA6E3 /* CKOrderViewController.m */; };
 		F761C2EE1E98C2BA00FCA6E3 /* CKSetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2ED1E98C2BA00FCA6E3 /* CKSetUpViewController.m */; };
 		F761C2F11E98C77100FCA6E3 /* CKSUAcountSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2F01E98C77100FCA6E3 /* CKSUAcountSecurityViewController.m */; };
@@ -353,7 +352,6 @@
 		F761C2F81E98CD9900FCA6E3 /* CKSUCurrentPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2F71E98CD9900FCA6E3 /* CKSUCurrentPhoneViewController.m */; };
 		F761C2FB1E98CF7C00FCA6E3 /* CKSUVerifyCurrentPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2FA1E98CF7C00FCA6E3 /* CKSUVerifyCurrentPhoneViewController.m */; };
 		F761C2FE1E98D84F00FCA6E3 /* CKSUVerifyNewPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2FD1E98D84F00FCA6E3 /* CKSUVerifyNewPhoneViewController.m */; };
-		F76497F61EAD97DB005E90EC /* CKListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F76497F51EAD97DB005E90EC /* CKListModel.m */; };
 		F764CA581EA9999B00B91253 /* CKOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F764CA571EA9999B00B91253 /* CKOrderDetailViewController.m */; };
 		F764CA5C1EA99B6300B91253 /* OrderDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = F764CA5B1EA99B6300B91253 /* OrderDetailView.m */; };
 		F764CA5F1EA99C0600B91253 /* OrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F764CA5E1EA99C0600B91253 /* OrderDetailModel.m */; };
@@ -369,7 +367,6 @@
 		F769441F1EB04D5200A6F82A /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = F76944181EB04D5200A6F82A /* FMDatabaseQueue.m */; };
 		F76944201EB04D5200A6F82A /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = F769441B1EB04D5200A6F82A /* FMResultSet.m */; };
 		F76D77FD1E9B0F8E003EFF67 /* CKMsgChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D77FC1E9B0F8E003EFF67 /* CKMsgChangeViewController.m */; };
-		F76D78001E9B2FAE003EFF67 /* CKDiscountRegularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D77FF1E9B2FAE003EFF67 /* CKDiscountRegularViewController.m */; };
 		F76D78031E9B32B7003EFF67 /* CKCancellationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D78021E9B32B7003EFF67 /* CKCancellationViewController.m */; };
 		F76D78061E9B4681003EFF67 /* CKShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D78051E9B4681003EFF67 /* CKShareViewController.m */; };
 		F76D78091E9B6572003EFF67 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = F76D78081E9B6572003EFF67 /* ShareView.m */; };
@@ -433,16 +430,11 @@
 		F7B14F1A1EA4A15500D7CDB6 /* SignAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B14F191EA4A15500D7CDB6 /* SignAlertView.m */; };
 		F7B14F1D1EA4B91800D7CDB6 /* ResonForCancleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B14F1C1EA4B91800D7CDB6 /* ResonForCancleViewController.m */; };
 		F7B53D251E8B7C4D0011F04A /* CKMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B53D241E8B7C4D0011F04A /* CKMapViewController.m */; };
-		F7C63F281E976910009EC70C /* CKEditCKMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C63F271E976910009EC70C /* CKEditCKMsgViewController.m */; };
-		F7C63F2B1E976EE9009EC70C /* CKAddCKMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C63F2A1E976EE9009EC70C /* CKAddCKMsgViewController.m */; };
 		F7C63F2F1E977220009EC70C /* CKWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C63F2E1E977220009EC70C /* CKWalletViewController.m */; };
-		F7C63F321E9788F5009EC70C /* CKWalletDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C63F311E9788F5009EC70C /* CKWalletDetailViewController.m */; };
 		F7D943961E823FA2000C9F8F /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F7D943951E823FA2000C9F8F /* mapapi.bundle */; };
 		F7D9439C1E825721000C9F8F /* CKLeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D9439B1E825721000C9F8F /* CKLeftView.m */; };
 		F7F625CA1E8E2A3900B025DC /* CKCitysListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F625C91E8E2A3900B025DC /* CKCitysListModel.m */; };
 		F7F7D3ED1E8B8AD300BAD55F /* CKSendOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7F7D3EC1E8B8AD300BAD55F /* CKSendOrderViewController.m */; };
-		F7FD999B1E8B47EF00A863DE /* CKBookCKSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FD999A1E8B47EF00A863DE /* CKBookCKSelectView.m */; };
-		F7FD999E1E8B489F00A863DE /* CKBookCKSelectBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FD999D1E8B489F00A863DE /* CKBookCKSelectBtn.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -690,6 +682,16 @@
 		F712CD0D1EBB208900B67880 /* MyHelperTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelperTool.m; sourceTree = "<group>"; };
 		F720C1FE1EC4954F0067EA18 /* UpCommenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpCommenView.h; sourceTree = "<group>"; };
 		F720C1FF1EC4954F0067EA18 /* UpCommenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpCommenView.m; sourceTree = "<group>"; };
+		F72C01241EE65BDB0017CAAC /* BookSelectNumPsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookSelectNumPsView.h; sourceTree = "<group>"; };
+		F72C01251EE65BDB0017CAAC /* BookSelectNumPsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookSelectNumPsView.m; sourceTree = "<group>"; };
+		F72C01281EE68CE50017CAAC /* WalletQuanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletQuanModel.h; sourceTree = "<group>"; };
+		F72C01291EE68CE50017CAAC /* WalletQuanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletQuanModel.m; sourceTree = "<group>"; };
+		F72C012B1EE68E750017CAAC /* QuanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuanViewController.h; sourceTree = "<group>"; };
+		F72C012C1EE68E750017CAAC /* QuanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuanViewController.m; sourceTree = "<group>"; };
+		F72C012F1EE68FE50017CAAC /* WalletDiscoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletDiscoutCell.h; sourceTree = "<group>"; };
+		F72C01301EE68FE50017CAAC /* WalletDiscoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletDiscoutCell.m; sourceTree = "<group>"; };
+		F72C01331EE6954A0017CAAC /* TitleTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleTextField.h; sourceTree = "<group>"; };
+		F72C01341EE6954A0017CAAC /* TitleTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleTextField.m; sourceTree = "<group>"; };
 		F732818B1EC99E06001DA376 /* SetPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPassWordViewController.h; sourceTree = "<group>"; };
 		F732818C1EC99E06001DA376 /* SetPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPassWordViewController.m; sourceTree = "<group>"; };
 		F732818E1EC9ABA9001DA376 /* PassLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassLoginViewController.h; sourceTree = "<group>"; };
@@ -704,8 +706,6 @@
 		F73B582B1ECAEE37007F5CA3 /* ADView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADView.m; sourceTree = "<group>"; };
 		F73B801E1E9721330005EC11 /* CKPayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKPayView.h; sourceTree = "<group>"; };
 		F73B801F1E9721330005EC11 /* CKPayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKPayView.m; sourceTree = "<group>"; };
-		F73B80251E9754680005EC11 /* CKListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKListViewController.h; sourceTree = "<group>"; };
-		F73B80261E9754680005EC11 /* CKListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKListViewController.m; sourceTree = "<group>"; };
 		F73CC4201ED7BC1900EF798E /* ComplaintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComplaintViewController.h; sourceTree = "<group>"; };
 		F73CC4211ED7BC1900EF798E /* ComplaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComplaintViewController.m; sourceTree = "<group>"; };
 		F73FCC941EA846FE00EB45CD /* PlaceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceModel.h; sourceTree = "<group>"; };
@@ -720,8 +720,6 @@
 		F74F2BA41EAB3D8F006B2B27 /* WalletDetailHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletDetailHeadView.m; sourceTree = "<group>"; };
 		F74F2BA61EAB3F0E006B2B27 /* WalletDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletDetailCell.h; sourceTree = "<group>"; };
 		F74F2BA71EAB3F0E006B2B27 /* WalletDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletDetailCell.m; sourceTree = "<group>"; };
-		F74F2BA91EAB44EE006B2B27 /* WalletDiscoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletDiscoutCell.h; sourceTree = "<group>"; };
-		F74F2BAA1EAB44EE006B2B27 /* WalletDiscoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletDiscoutCell.m; sourceTree = "<group>"; };
 		F75172061EA5D640007EC790 /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
 		F75172071EA5D640007EC790 /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
 		F753B9A11EC419820063781A /* OrderDetailBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailBaseView.h; sourceTree = "<group>"; };
@@ -746,8 +744,6 @@
 		F753B9BD1EC4248D0063781A /* OrderDetailHadCommedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailHadCommedView.m; sourceTree = "<group>"; };
 		F753B9BF1EC45D9E0063781A /* RefundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefundView.h; sourceTree = "<group>"; };
 		F753B9C01EC45D9E0063781A /* RefundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefundView.m; sourceTree = "<group>"; };
-		F75C4C251EAED71800740030 /* WalletQuanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletQuanModel.h; sourceTree = "<group>"; };
-		F75C4C261EAED71800740030 /* WalletQuanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletQuanModel.m; sourceTree = "<group>"; };
 		F75C4C341EAF148100740030 /* CKMsgListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMsgListViewController.h; sourceTree = "<group>"; };
 		F75C4C351EAF148100740030 /* CKMsgListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMsgListViewController.m; sourceTree = "<group>"; };
 		F75C4C371EAF16B000740030 /* MsgListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgListModel.h; sourceTree = "<group>"; };
@@ -762,14 +758,8 @@
 		F760C6E61EE50327008446C3 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		F760C6E81EE50332008446C3 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		F760C6EA1EE50E1C008446C3 /* SHGO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SHGO.entitlements; sourceTree = "<group>"; };
-		F761C2DB1E98A8D800FCA6E3 /* CKRedPackDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRedPackDetailViewController.h; sourceTree = "<group>"; };
-		F761C2DC1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRedPackDetailViewController.m; sourceTree = "<group>"; };
-		F761C2DE1E98AAB600FCA6E3 /* CKWalletDQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKWalletDQuestionViewController.h; sourceTree = "<group>"; };
-		F761C2DF1E98AAB600FCA6E3 /* CKWalletDQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKWalletDQuestionViewController.m; sourceTree = "<group>"; };
-		F761C2E11E98AAD100FCA6E3 /* CKRedPackDRegularViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRedPackDRegularViewController.h; sourceTree = "<group>"; };
-		F761C2E21E98AAD100FCA6E3 /* CKRedPackDRegularViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRedPackDRegularViewController.m; sourceTree = "<group>"; };
-		F761C2E41E98B3F100FCA6E3 /* CKDiscountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKDiscountViewController.h; sourceTree = "<group>"; };
-		F761C2E51E98B3F100FCA6E3 /* CKDiscountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKDiscountViewController.m; sourceTree = "<group>"; };
+		F760C7331EE55939008446C3 /* PingCarSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingCarSelectView.h; sourceTree = "<group>"; };
+		F760C7341EE55939008446C3 /* PingCarSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingCarSelectView.m; sourceTree = "<group>"; };
 		F761C2E81E98B5B600FCA6E3 /* CKOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKOrderViewController.h; sourceTree = "<group>"; };
 		F761C2E91E98B5B600FCA6E3 /* CKOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKOrderViewController.m; sourceTree = "<group>"; };
 		F761C2EC1E98C2BA00FCA6E3 /* CKSetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSetUpViewController.h; sourceTree = "<group>"; };
@@ -784,8 +774,6 @@
 		F761C2FA1E98CF7C00FCA6E3 /* CKSUVerifyCurrentPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSUVerifyCurrentPhoneViewController.m; sourceTree = "<group>"; };
 		F761C2FC1E98D84F00FCA6E3 /* CKSUVerifyNewPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSUVerifyNewPhoneViewController.h; sourceTree = "<group>"; };
 		F761C2FD1E98D84F00FCA6E3 /* CKSUVerifyNewPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSUVerifyNewPhoneViewController.m; sourceTree = "<group>"; };
-		F76497F41EAD97DB005E90EC /* CKListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKListModel.h; sourceTree = "<group>"; };
-		F76497F51EAD97DB005E90EC /* CKListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKListModel.m; sourceTree = "<group>"; };
 		F764CA561EA9999B00B91253 /* CKOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKOrderDetailViewController.h; sourceTree = "<group>"; };
 		F764CA571EA9999B00B91253 /* CKOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKOrderDetailViewController.m; sourceTree = "<group>"; };
 		F764CA5A1EA99B6300B91253 /* OrderDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailView.h; sourceTree = "<group>"; };
@@ -816,8 +804,6 @@
 		F769441B1EB04D5200A6F82A /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		F76D77FB1E9B0F8E003EFF67 /* CKMsgChangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMsgChangeViewController.h; sourceTree = "<group>"; };
 		F76D77FC1E9B0F8E003EFF67 /* CKMsgChangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMsgChangeViewController.m; sourceTree = "<group>"; };
-		F76D77FE1E9B2FAE003EFF67 /* CKDiscountRegularViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKDiscountRegularViewController.h; sourceTree = "<group>"; };
-		F76D77FF1E9B2FAE003EFF67 /* CKDiscountRegularViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKDiscountRegularViewController.m; sourceTree = "<group>"; };
 		F76D78011E9B32B7003EFF67 /* CKCancellationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCancellationViewController.h; sourceTree = "<group>"; };
 		F76D78021E9B32B7003EFF67 /* CKCancellationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCancellationViewController.m; sourceTree = "<group>"; };
 		F76D78041E9B4681003EFF67 /* CKShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKShareViewController.h; sourceTree = "<group>"; };
@@ -989,14 +975,8 @@
 		F7B14F1C1EA4B91800D7CDB6 /* ResonForCancleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResonForCancleViewController.m; sourceTree = "<group>"; };
 		F7B53D231E8B7C4D0011F04A /* CKMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMapViewController.h; sourceTree = "<group>"; };
 		F7B53D241E8B7C4D0011F04A /* CKMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMapViewController.m; sourceTree = "<group>"; };
-		F7C63F261E976910009EC70C /* CKEditCKMsgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKEditCKMsgViewController.h; sourceTree = "<group>"; };
-		F7C63F271E976910009EC70C /* CKEditCKMsgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKEditCKMsgViewController.m; sourceTree = "<group>"; };
-		F7C63F291E976EE9009EC70C /* CKAddCKMsgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAddCKMsgViewController.h; sourceTree = "<group>"; };
-		F7C63F2A1E976EE9009EC70C /* CKAddCKMsgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKAddCKMsgViewController.m; sourceTree = "<group>"; };
 		F7C63F2D1E977220009EC70C /* CKWalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKWalletViewController.h; sourceTree = "<group>"; };
 		F7C63F2E1E977220009EC70C /* CKWalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKWalletViewController.m; sourceTree = "<group>"; };
-		F7C63F301E9788F5009EC70C /* CKWalletDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKWalletDetailViewController.h; sourceTree = "<group>"; };
-		F7C63F311E9788F5009EC70C /* CKWalletDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKWalletDetailViewController.m; sourceTree = "<group>"; };
 		F7D943951E823FA2000C9F8F /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
 		F7D9439A1E825721000C9F8F /* CKLeftView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLeftView.h; sourceTree = "<group>"; };
 		F7D9439B1E825721000C9F8F /* CKLeftView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKLeftView.m; sourceTree = "<group>"; };
@@ -1004,10 +984,6 @@
 		F7F625C91E8E2A3900B025DC /* CKCitysListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCitysListModel.m; sourceTree = "<group>"; };
 		F7F7D3EB1E8B8AD300BAD55F /* CKSendOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSendOrderViewController.h; sourceTree = "<group>"; };
 		F7F7D3EC1E8B8AD300BAD55F /* CKSendOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSendOrderViewController.m; sourceTree = "<group>"; };
-		F7FD99991E8B47EF00A863DE /* CKBookCKSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKBookCKSelectView.h; sourceTree = "<group>"; };
-		F7FD999A1E8B47EF00A863DE /* CKBookCKSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKBookCKSelectView.m; sourceTree = "<group>"; };
-		F7FD999C1E8B489F00A863DE /* CKBookCKSelectBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKBookCKSelectBtn.h; sourceTree = "<group>"; };
-		F7FD999D1E8B489F00A863DE /* CKBookCKSelectBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKBookCKSelectBtn.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1081,6 +1057,7 @@
 		225BFFF41E9A1C3E00BB88A9 /* 头像 */ = {
 			isa = PBXGroup;
 			children = (
+				F72C01321EE694D50017CAAC /* views */,
 				F76D77FB1E9B0F8E003EFF67 /* CKMsgChangeViewController.h */,
 				F76D77FC1E9B0F8E003EFF67 /* CKMsgChangeViewController.m */,
 			);
@@ -1569,6 +1546,33 @@
 			path = MyGroup;
 			sourceTree = "<group>";
 		};
+		F72C01271EE68CE50017CAAC /* models */ = {
+			isa = PBXGroup;
+			children = (
+				F72C01281EE68CE50017CAAC /* WalletQuanModel.h */,
+				F72C01291EE68CE50017CAAC /* WalletQuanModel.m */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		F72C012E1EE68FE50017CAAC /* views */ = {
+			isa = PBXGroup;
+			children = (
+				F72C012F1EE68FE50017CAAC /* WalletDiscoutCell.h */,
+				F72C01301EE68FE50017CAAC /* WalletDiscoutCell.m */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		F72C01321EE694D50017CAAC /* views */ = {
+			isa = PBXGroup;
+			children = (
+				F72C01331EE6954A0017CAAC /* TitleTextField.h */,
+				F72C01341EE6954A0017CAAC /* TitleTextField.m */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
 		F73B80231E97543A0005EC11 /* viewcontrollers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1576,23 +1580,20 @@
 				F761C2EB1E98C2A800FCA6E3 /* 设置 */,
 				F761C2E71E98B59D00FCA6E3 /* 行程 */,
 				F7C63F2C1E97720B009EC70C /* 钱包 */,
-				F73B80241E9754470005EC11 /* 乘客 */,
+				F73B80241E9754470005EC11 /* 优惠券 */,
 			);
 			path = viewcontrollers;
 			sourceTree = "<group>";
 		};
-		F73B80241E9754470005EC11 /* 乘客 */ = {
+		F73B80241E9754470005EC11 /* 优惠券 */ = {
 			isa = PBXGroup;
 			children = (
-				F76497F31EAD97A0005E90EC /* models */,
-				F73B80251E9754680005EC11 /* CKListViewController.h */,
-				F73B80261E9754680005EC11 /* CKListViewController.m */,
-				F7C63F261E976910009EC70C /* CKEditCKMsgViewController.h */,
-				F7C63F271E976910009EC70C /* CKEditCKMsgViewController.m */,
-				F7C63F291E976EE9009EC70C /* CKAddCKMsgViewController.h */,
-				F7C63F2A1E976EE9009EC70C /* CKAddCKMsgViewController.m */,
+				F72C012E1EE68FE50017CAAC /* views */,
+				F72C01271EE68CE50017CAAC /* models */,
+				F72C012B1EE68E750017CAAC /* QuanViewController.h */,
+				F72C012C1EE68E750017CAAC /* QuanViewController.m */,
 			);
-			path = "乘客";
+			path = "优惠券";
 			sourceTree = "<group>";
 		};
 		F73FCC971EA87C9600EB45CD /* models */ = {
@@ -1626,8 +1627,6 @@
 			children = (
 				F74F2B9C1EAB33FE006B2B27 /* WalletMoneyModel.h */,
 				F74F2B9D1EAB33FE006B2B27 /* WalletMoneyModel.m */,
-				F75C4C251EAED71800740030 /* WalletQuanModel.h */,
-				F75C4C261EAED71800740030 /* WalletQuanModel.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -1639,8 +1638,6 @@
 				F74F2BA41EAB3D8F006B2B27 /* WalletDetailHeadView.m */,
 				F74F2BA61EAB3F0E006B2B27 /* WalletDetailCell.h */,
 				F74F2BA71EAB3F0E006B2B27 /* WalletDetailCell.m */,
-				F74F2BA91EAB44EE006B2B27 /* WalletDiscoutCell.h */,
-				F74F2BAA1EAB44EE006B2B27 /* WalletDiscoutCell.m */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -1707,15 +1704,6 @@
 				F76D78081E9B6572003EFF67 /* ShareView.m */,
 			);
 			path = views;
-			sourceTree = "<group>";
-		};
-		F76497F31EAD97A0005E90EC /* models */ = {
-			isa = PBXGroup;
-			children = (
-				F76497F41EAD97DB005E90EC /* CKListModel.h */,
-				F76497F51EAD97DB005E90EC /* CKListModel.m */,
-			);
-			path = models;
 			sourceTree = "<group>";
 		};
 		F764CA591EA99B3400B91253 /* views */ = {
@@ -2090,16 +2078,16 @@
 				F71275771E85215100238420 /* CKTimeSelectView.m */,
 				F712757C1E88D90C00238420 /* CKBookView.h */,
 				F712757D1E88D90C00238420 /* CKBookView.m */,
-				F7FD99991E8B47EF00A863DE /* CKBookCKSelectView.h */,
-				F7FD999A1E8B47EF00A863DE /* CKBookCKSelectView.m */,
-				F7FD999C1E8B489F00A863DE /* CKBookCKSelectBtn.h */,
-				F7FD999D1E8B489F00A863DE /* CKBookCKSelectBtn.m */,
 				F73B0E9E1E96197000FB468E /* CKDiscoutSelectView.h */,
 				F73B0E9F1E96197000FB468E /* CKDiscoutSelectView.m */,
 				F73B801E1E9721330005EC11 /* CKPayView.h */,
 				F73B801F1E9721330005EC11 /* CKPayView.m */,
 				F73B582A1ECAEE37007F5CA3 /* ADView.h */,
 				F73B582B1ECAEE37007F5CA3 /* ADView.m */,
+				F760C7331EE55939008446C3 /* PingCarSelectView.h */,
+				F760C7341EE55939008446C3 /* PingCarSelectView.m */,
+				F72C01241EE65BDB0017CAAC /* BookSelectNumPsView.h */,
+				F72C01251EE65BDB0017CAAC /* BookSelectNumPsView.m */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -2132,18 +2120,6 @@
 				F74F2B9B1EAB33BA006B2B27 /* models */,
 				F7C63F2D1E977220009EC70C /* CKWalletViewController.h */,
 				F7C63F2E1E977220009EC70C /* CKWalletViewController.m */,
-				F7C63F301E9788F5009EC70C /* CKWalletDetailViewController.h */,
-				F7C63F311E9788F5009EC70C /* CKWalletDetailViewController.m */,
-				F761C2DB1E98A8D800FCA6E3 /* CKRedPackDetailViewController.h */,
-				F761C2DC1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m */,
-				F761C2DE1E98AAB600FCA6E3 /* CKWalletDQuestionViewController.h */,
-				F761C2DF1E98AAB600FCA6E3 /* CKWalletDQuestionViewController.m */,
-				F761C2E11E98AAD100FCA6E3 /* CKRedPackDRegularViewController.h */,
-				F761C2E21E98AAD100FCA6E3 /* CKRedPackDRegularViewController.m */,
-				F761C2E41E98B3F100FCA6E3 /* CKDiscountViewController.h */,
-				F761C2E51E98B3F100FCA6E3 /* CKDiscountViewController.m */,
-				F76D77FE1E9B2FAE003EFF67 /* CKDiscountRegularViewController.h */,
-				F76D77FF1E9B2FAE003EFF67 /* CKDiscountRegularViewController.m */,
 				F74F2B9F1EAB3CDA006B2B27 /* WalletDetailViewController.h */,
 				F74F2BA01EAB3CDA006B2B27 /* WalletDetailViewController.m */,
 			);
@@ -2326,7 +2302,6 @@
 				F701C8301E4844E6008ADFD6 /* TAAbstractDotView.m in Sources */,
 				F76D78AA1E9B8158003EFF67 /* NSDataEx.m in Sources */,
 				F753B9B21EC424090063781A /* OrderDetailCarPayView.m in Sources */,
-				F76D78001E9B2FAE003EFF67 /* CKDiscountRegularViewController.m in Sources */,
 				F701C7F71E4844E6008ADFD6 /* MJRefreshAutoGifFooter.m in Sources */,
 				F701C6C61E4844C2008ADFD6 /* CAAnimation+HCAnimation.m in Sources */,
 				F769441F1EB04D5200A6F82A /* FMDatabaseQueue.m in Sources */,
@@ -2351,19 +2326,19 @@
 				F701C6C31E4844C2008ADFD6 /* BaseNavViewController.m in Sources */,
 				F701C7EE1E4844E6008ADFD6 /* MJRefreshComponent.m in Sources */,
 				F701C7F11E4844E6008ADFD6 /* MJRefreshFooter.m in Sources */,
+				F72C012D1EE68E750017CAAC /* QuanViewController.m in Sources */,
 				F701C85A1E4844E6008ADFD6 /* UIButton+WebCache.m in Sources */,
-				F76497F61EAD97DB005E90EC /* CKListModel.m in Sources */,
 				F701C6D21E4844C2008ADFD6 /* YHBaseView.m in Sources */,
 				F701C79D1E4844E5008ADFD6 /* AFHTTPRequestOperationManager.m in Sources */,
 				F71275721E84E23C00238420 /* CKMsgModel.m in Sources */,
-				F761C2E31E98AAD100FCA6E3 /* CKRedPackDRegularViewController.m in Sources */,
 				F701C8811E4844E6008ADFD6 /* UIImage+ScalImage.m in Sources */,
 				F701C8691E4844E6008ADFD6 /* UIImageView+WebCache.m in Sources */,
 				F76D78AC1E9B8158003EFF67 /* RSADataSigner.m in Sources */,
 				F7C63F2F1E977220009EC70C /* CKWalletViewController.m in Sources */,
+				F72C012A1EE68CE50017CAAC /* WalletQuanModel.m in Sources */,
 				F701C8001E4844E6008ADFD6 /* MJRefreshBackGifFooter.m in Sources */,
+				F760C7351EE55939008446C3 /* PingCarSelectView.m in Sources */,
 				F71275661E83A0FF00238420 /* CKLoginViewController.m in Sources */,
-				F7FD999B1E8B47EF00A863DE /* CKBookCKSelectView.m in Sources */,
 				F701C8181E4844E6008ADFD6 /* NSBundle+MJRefresh.m in Sources */,
 				F701C6D81E4844C2008ADFD6 /* YHBaseViewController.m in Sources */,
 				F701C8031E4844E6008ADFD6 /* MJRefreshBackNormalFooter.m in Sources */,
@@ -2381,15 +2356,11 @@
 				F70182011E8DED5000B28C59 /* PGSLeadViewController.m in Sources */,
 				F701C7EB1E4844E6008ADFD6 /* MJRefreshBackFooter.m in Sources */,
 				F753B9AC1EC423B20063781A /* OrederDetailCancleView.m in Sources */,
-				F761C2E01E98AAB600FCA6E3 /* CKWalletDQuestionViewController.m in Sources */,
 				F701C7F41E4844E6008ADFD6 /* MJRefreshHeader.m in Sources */,
-				F73B80271E9754680005EC11 /* CKListViewController.m in Sources */,
 				F7B14F1D1EA4B91800D7CDB6 /* ResonForCancleViewController.m in Sources */,
 				F701C6CC1E4844C2008ADFD6 /* NoDataView.m in Sources */,
 				F701C84B1E4844E6008ADFD6 /* SDWebImageDecoder.m in Sources */,
-				F75C4C271EAED71800740030 /* WalletQuanModel.m in Sources */,
 				F701C6C91E4844C2008ADFD6 /* Frame.m in Sources */,
-				F7FD999E1E8B489F00A863DE /* CKBookCKSelectBtn.m in Sources */,
 				F71275751E84E2C600238420 /* CCMsgModel.m in Sources */,
 				F701C8751E4844E6008ADFD6 /* NSDictionaryExt.m in Sources */,
 				F720C2001EC4954F0067EA18 /* UpCommenView.m in Sources */,
@@ -2406,12 +2377,10 @@
 				F761C2EA1E98B5B600FCA6E3 /* CKOrderViewController.m in Sources */,
 				F701C7D61E4844E6008ADFD6 /* UploadFileData.m in Sources */,
 				F76D78A91E9B8158003EFF67 /* MD5DataSigner.m in Sources */,
-				F7C63F321E9788F5009EC70C /* CKWalletDetailViewController.m in Sources */,
 				F712757E1E88D90C00238420 /* CKBookView.m in Sources */,
 				F753B9A31EC419820063781A /* OrderDetailBaseView.m in Sources */,
 				F75C4C3C1EAF3C4600740030 /* CKMsgDetailViewController.m in Sources */,
 				F701C7AC1E4844E5008ADFD6 /* AFURLRequestSerialization.m in Sources */,
-				F761C2E61E98B3F100FCA6E3 /* CKDiscountViewController.m in Sources */,
 				F701C7A31E4844E5008ADFD6 /* AFNetworkReachabilityManager.m in Sources */,
 				F712CD0E1EBB208900B67880 /* MyHelperTool.m in Sources */,
 				F753B9B51EC424310063781A /* OrderDetailHadPayView.m in Sources */,
@@ -2433,8 +2402,8 @@
 				F753B9B81EC424520063781A /* OrderDetailHadCarView.m in Sources */,
 				F73B582C1ECAEE37007F5CA3 /* ADView.m in Sources */,
 				F761C2F11E98C77100FCA6E3 /* CKSUAcountSecurityViewController.m in Sources */,
+				F72C01311EE68FE50017CAAC /* WalletDiscoutCell.m in Sources */,
 				F764CA5C1EA99B6300B91253 /* OrderDetailView.m in Sources */,
-				F7C63F2B1E976EE9009EC70C /* CKAddCKMsgViewController.m in Sources */,
 				F701C7C11E4844E6008ADFD6 /* AssetPickerCell.m in Sources */,
 				F701C7E21E4844E6008ADFD6 /* MBProgressHUD+Add.m in Sources */,
 				F753B9A91EC423900063781A /* OrderDetailSystemCancelview.m in Sources */,
@@ -2451,7 +2420,9 @@
 				F76944201EB04D5200A6F82A /* FMResultSet.m in Sources */,
 				F701C8061E4844E6008ADFD6 /* MJRefreshBackStateFooter.m in Sources */,
 				F71275631E82650900238420 /* CKPlaceTimeView.m in Sources */,
+				F72C01351EE6954A0017CAAC /* TitleTextField.m in Sources */,
 				F701C8151E4844E6008ADFD6 /* MJRefreshConst.m in Sources */,
+				F72C01261EE65BDB0017CAAC /* BookSelectNumPsView.m in Sources */,
 				F76D78A71E9B8158003EFF67 /* DataSigner.m in Sources */,
 				F7B53D251E8B7C4D0011F04A /* CKMapViewController.m in Sources */,
 				F701C8781E4844E6008ADFD6 /* NSString+NSStringExt.m in Sources */,
@@ -2493,7 +2464,6 @@
 				F701C7FD1E4844E6008ADFD6 /* MJRefreshAutoStateFooter.m in Sources */,
 				F701C8271E4844E6008ADFD6 /* Regular.m in Sources */,
 				F753B9AF1EC423CD0063781A /* OrderDetailRefundView.m in Sources */,
-				F7C63F281E976910009EC70C /* CKEditCKMsgViewController.m in Sources */,
 				F7B14F1A1EA4A15500D7CDB6 /* SignAlertView.m in Sources */,
 				F701C7DF1E4844E6008ADFD6 /* XACameraController.m in Sources */,
 				F753B9C11EC45D9E0063781A /* RefundView.m in Sources */,
@@ -2503,9 +2473,7 @@
 				F7A08EC71EA7837A000F41CC /* MyWebViewController.m in Sources */,
 				F701C7B21E4844E5008ADFD6 /* AFURLSessionManager.m in Sources */,
 				F712756F1E83D15700238420 /* CKSearchPlaceView.m in Sources */,
-				F761C2DD1E98A8D800FCA6E3 /* CKRedPackDetailViewController.m in Sources */,
 				F74F2BA51EAB3D8F006B2B27 /* WalletDetailHeadView.m in Sources */,
-				F74F2BAB1EAB44EE006B2B27 /* WalletDiscoutCell.m in Sources */,
 				F76D78361E9B7BAA003EFF67 /* HelpViewController.m in Sources */,
 				F76D77FD1E9B0F8E003EFF67 /* CKMsgChangeViewController.m in Sources */,
 			);

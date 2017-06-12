@@ -19,7 +19,6 @@
 #import "CKCitysListModel.h"
 #import "CKMsgListViewController.h"
 #import "CKBookViewController.h"
-#import "CKListViewController.h"
 #import "CKWalletViewController.h"
 #import "CKOrderViewController.h"
 #import "CKSetUpViewController.h"
@@ -30,8 +29,10 @@
 #import "BaseNavViewController.h"
 #import "CKShareViewController.h"
 #import "MyHelperTool.h"
+//#import <BaiduMapAPI_Base/>
+#import "QuanViewController.h"
 
-@interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKPoiSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate,CKLeftViewDelegate>
+@interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKPoiSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate,CKLeftViewDelegate,BMKOfflineMapDelegate>
 {
     ///用来记录当前所要搜索的城市 判断百度返回结果城市是否为要搜索的城市
     NSString *poiSearchCity;
@@ -58,6 +59,9 @@
 @property (nonatomic, strong)BMKLocationService *locService;
 //百度搜索服务类
 @property (nonatomic, strong)BMKPoiSearch *poiSearch;
+
+@property (nonatomic, strong)BMKOfflineMap *offMap;
+
 
 @end
 
@@ -88,8 +92,23 @@
     _startAnnotation = [[BMKPointAnnotation alloc]init];
     
     _endAnnotation = [[BMKPointAnnotation alloc]init];
+    
+//    _offMap = [[BMKOfflineMap alloc] init];
+//    _offMap.delegate = self;
+//    BMKOLSearchRecord *oneRecord = [[BMKOLSearchRecord alloc] init];
+//    oneRecord.cityType = 0;
+//    oneRecord.cityName = @"全国基础包";
+//    oneRecord.cityID = 1;
+//    [_offMap start:oneRecord.cityID];
+//    
+//    NSArray *array = _offMap.getOfflineCityList;
+//    NSLog(@"%@", array);
 }
 
+
+//- (void)onGetOfflineMapState:(int)type withState:(int)state{
+//    NSLog(@"onGetOfflineMapState ==== ========= ========= ========== =========%d, %d", type, state);
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -663,7 +682,7 @@
             break;
         case 102:
         {
-            CKListViewController *viewController = [[CKListViewController alloc] init];
+            QuanViewController *viewController = [[QuanViewController alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;

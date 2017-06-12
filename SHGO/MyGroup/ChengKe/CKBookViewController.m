@@ -8,7 +8,7 @@
 
 #import "CKBookViewController.h"
 #import "CKBookView.h"
-#import "CKBookCKSelectView.h"
+#import "BookSelectNumPsView.h"
 #import "CKDiscoutSelectView.h"
 #import "CKSendOrderViewController.h"
 #import "CKPayView.h"
@@ -17,14 +17,12 @@
 #import "CKOrderDetailViewController.h"
 #import "BaseNavViewController.h"
 
-@interface CKBookViewController ()<BMKMapViewDelegate,CKBookViewDelegate,CKBookMsgViewDelegate,CKPayViewDelegate,DiscoutSelectViewDelegate,BookCKSelectDetailViewDelegate>
+@interface CKBookViewController ()<BMKMapViewDelegate,CKBookViewDelegate,CKPayViewDelegate,DiscoutSelectViewDelegate>
 {
     NSString *orderSn;
 }
 ///显示界面
 @property (nonatomic, strong)CKBookView *bookView;
-///选择乘车成员界面
-@property (nonatomic, strong)CKBookCKSelectView *ckBookCKSelectView;
 ///选择优惠界面
 @property (nonatomic, strong)CKDiscoutSelectView *ckDiscoutView;
 ///确认订单界面的model
@@ -33,16 +31,24 @@
 @property (nonatomic, strong)CKPayView *payView;
 ///获取所有的活动
 @property (nonatomic, strong)NSMutableArray <ActivityModel *> *allActModels;
+///是否是拼车
+@property (nonatomic, assign)BOOL isPinCar;
+///选中的乘客数
+@property (nonatomic, assign)NSInteger numPs;
 ///当前选择的优惠活动
 @property (nonatomic, strong)ActivityModel *stActModel;
-///获取所有的活动
-@property (nonatomic, strong)NSMutableArray <CKMsgModel *> *allCkModels;
-///选中的乘客
-@property (nonatomic, strong)NSMutableArray <CKMsgModel *> *ckModels;
+///是否是拼车
+@property (nonatomic, assign)BOOL isUseWallet;
+
 
 @end
 
 @implementation CKBookViewController
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,11 +58,13 @@
     
     [self getCKsAndActs];
     
-    _bookView = [[CKBookView alloc] initWithFrame:CGRectMake(0, AL_DEVICE_HEIGHT-880*PROPORTION750-64, AL_DEVICE_WIDTH, 880*PROPORTION750) inputData:_inputData];
+    _bookView = [[CKBookView alloc] initWithFrame:CGRectMake(0, AL_DEVICE_HEIGHT-570*PROPORTION750-64, AL_DEVICE_WIDTH, 880*PROPORTION750) inputData:_inputData];
     _bookView.delegate = self;
-    _bookView.ckBookMsgView.delegate = self;
-    _bookView.ckBookMsgView.stCKData = self.ckModels;
-    _bookView.ckBookMsgView.stActModel = self.stActModel;
+    _bookView.stActModel = _stActModel;
+    _bookView.numPs = _numPs;
+//    _bookView.ckBookMsgView.delegate = self;
+//    _bookView.ckBookMsgView.stCKData = self.ckModels;
+//    _bookView.ckBookMsgView.stActModel = self.stActModel;
     [self.view addSubview:_bookView];
     
     //获取通知中心单例对象
@@ -74,63 +82,77 @@
     NSArray *acts = [NSArray arrayWithArray:[_inputData arrayForKey:@"act"]];
     _allActModels = [NSMutableArray array];
     _stActModel = [[ActivityModel alloc] init];
-    for (int i = 0 ; i < acts.count+1; i++)
-    {
+    for (int i = 0 ; i < acts.count+1; i++){
         ActivityModel *model;
-        if (i == acts.count)
-        {
-            model = [[ActivityModel alloc] initWithInputData:nil];
+        if (i == 0) {
+            NSDictionary *dic = [acts objectAtIndex:i];
+            model = [[ActivityModel alloc] initWithInputData:dic];
             _stActModel = model;
         }
-        else
-        {
+        else if (i == acts.count){
+            model = [[ActivityModel alloc] initWithInputData:nil];
+        }
+        else{
             NSDictionary *dic = [acts objectAtIndex:i];
             model = [[ActivityModel alloc] initWithInputData:dic];
         }
         [_allActModels addObject:model];
     }
-    
-    NSArray *passengers = [NSArray arrayWithArray:[_inputData arrayForKey:@"passenger"]];
-    _ckModels = [NSMutableArray array];
-    _allCkModels = [NSMutableArray array];
-    for (int i = 0 ; i < passengers.count; i++)
-    {
-        NSDictionary *dic = [passengers objectAtIndex:i];
-        CKMsgModel *model = [[CKMsgModel alloc] initWithInputData:dic];
-        [_allCkModels addObject:model];
-        if ([model.ckOwn integerValue] == 1)
-        {
-            [_ckModels addObject:model];
-        }
-    }
+    _numPs = 1;
+    _isUseWallet = false;
+    _isPinCar = true;
 }
 
 #pragma --mark CKBookView 代理
--(void)CKBookViewClickSureBtn
-{
-    NSString *string = _bookView.ckBookMsgView.amoutLB.text;
-    string = [string substringFromIndex:3];
-    _payView = [[CKPayView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
-    [_payView.payBtn setTitle:[NSString stringWithFormat:@"确认付款%@",string] forState:UIControlStateNormal];
-    _payView.delegate = self;
-}
-
-#pragma --mark ckBookMsgView 代理
--(void)CKBookMsgViewEventsWithFlag:(NSInteger)flag
-{
-    if (flag == 1)
-    {
-        _ckBookCKSelectView = [[CKBookCKSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT) allData:_allCkModels selectData:[_ckModels mutableCopy]];
-        _ckBookCKSelectView.detailView.delegate = self;
+-(void)CKBookView:(CKBookView *)bookView events:(NSInteger)event{
+    
+    __block typeof(self) weakSelf = self;
+    switch (event) {
+        case 99:{
+            [self getCKsAndActs];
+            _bookView.stActModel = _stActModel;
+            _bookView.numPs = _numPs;
+        }
+            break;
+        case 100:{
+            [self getCKsAndActs];
+            _isPinCar = false;
+            _bookView.stActModel = _stActModel;
+            _bookView.numPs = _numPs;
+        }
+            break;
+        case 101:{
+            BookSelectNumPsView *view = [[BookSelectNumPsView alloc] init];
+            view.bookNumPsBlock = ^(NSInteger num){
+                weakSelf.numPs = num;
+                weakSelf.bookView.numPs = num;
+            };
+        }
+            break;
+        case 102:{
+            _ckDiscoutView = [[CKDiscoutSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT) data:_allActModels];
+            _ckDiscoutView.stActModel = _stActModel;
+            _ckDiscoutView.delegate = self;
+        }
+            break;
+        case 103:
+            _isUseWallet = true;
+            break;
+        case 104:
+            _isUseWallet = false;
+            break;
+        case 105:{
+            NSString *string = _bookView.APrice;
+            _payView = [[CKPayView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
+            [_payView.payBtn setTitle:[NSString stringWithFormat:@"确认付款%@",string] forState:UIControlStateNormal];
+            _payView.delegate = self;
+        }
+            break;
+            
+        default:
+            break;
     }
-    else if (flag == 2)
-    {
-        _ckDiscoutView = [[CKDiscoutSelectView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT) data:_allActModels];
-        _ckDiscoutView.stActModel = _stActModel;
-        _ckDiscoutView.delegate = self;
-    }
 }
-
 
 #pragma --mark CKPayView 代理
 -(void)CKPayViwePayEventsWithFlag:(NSInteger)flag
@@ -149,11 +171,12 @@
                                    _sureOrderModel.up_arriver,@"arriver",
                                    _sureOrderModel.up_paytype,@"paytype",
                                    _sureOrderModel.up_paytool,@"paytool",
-                                   _sureOrderModel.up_passenger,@"passenger",
+                                   _sureOrderModel.up_passenger,@"passenger_count",
                                    _sureOrderModel.up_use_wallet,@"use_wallet",
                                    [MyHelperNO getUid], @"uid",
                                    [MyHelperNO getMyToken], @"token", nil];
-    [self post:@"choosecar/order" withParam:reqDic success:^(id responseObject) {
+    NSString *urlString = _isPinCar?@"choosecar/order_test":@"choosecar/order_vip";
+    [self post:urlString withParam:reqDic success:^(id responseObject) {
         int code = [responseObject intForKey:@"status"];
         NSString *msg = [responseObject stringForKey:@"msg"];
         NSLog(@"%@", responseObject);
@@ -247,19 +270,10 @@
 }
 
 #pragma --mark CKDiscoutSelectView 代理
--(void)DiscoutSelectView:(CKDiscoutSelectView *)dicoutView selectResult:(ActivityModel *)model
-{
+-(void)DiscoutSelectView:(CKDiscoutSelectView *)dicoutView selectResult:(ActivityModel *)model{
     _stActModel = model;
     [dicoutView removeFromSuperview];
-    _bookView.ckBookMsgView.stActModel = _stActModel;
-}
-
-#pragma --mark CKBookCKSelectView 代理
--(void)CKBookCKSelectView:(CKBookCKSelectView *)selectView selectData:(NSMutableArray *)data
-{
-    _ckModels = data;
-    [selectView removeFromSuperview];
-    _bookView.ckBookMsgView.stCKData = _ckModels;
+    _bookView.stActModel = _stActModel;
 }
 
 ///生成要提交的model
@@ -285,24 +299,14 @@
         _sureOrderModel.up_paytype = @"1";
     }
     _sureOrderModel.up_paytool = [NSString stringWithFormat:@"%d", (int)flag];
-    
-    NSString *passenger = @"";
-    for (CKMsgModel *model in _ckModels)
-    {
-        NSString *stirng = [NSString stringWithFormat:@"%@|%@|%@_",model.ckId,model.ckName,model.ckType];
-        passenger = [passenger stringByAppendingString:stirng];
-    }
-    passenger = [passenger substringToIndex:passenger.length-1];
-    _sureOrderModel.up_passenger = passenger;
-    _sureOrderModel.up_use_wallet = _bookView.ckBookMsgView.useWallet?@"1":@"2";
-    if (([_stActModel.actType isEqualToString:@"event"] || [_stActModel.actType isEqualToString:@"extra"]) && ![_stActModel.actId isEqualToString:_sureOrderModel.up_paytype])
-    {
+    _sureOrderModel.up_passenger = [NSString stringWithFormat:@"%d", (int)_numPs];
+    _sureOrderModel.up_use_wallet = _isUseWallet?@"1":@"2";
+    if (([_stActModel.actType isEqualToString:@"event"] || [_stActModel.actType isEqualToString:@"extra"]) && ![_stActModel.actId isEqualToString:_sureOrderModel.up_paytype]){
         [self toast:@"线上优惠仅限线上付款"];
         return;
     }
     
-    if (([_stActModel.actType isEqualToString:@"user_money"] || [_stActModel.actType isEqualToString:@"coupon"]) && ![_sureOrderModel.up_paytype isEqualToString:@"1"])
-    {
+    if (([_stActModel.actType isEqualToString:@"user_money"] || [_stActModel.actType isEqualToString:@"coupon"]) && ![_sureOrderModel.up_paytype isEqualToString:@"1"]){
         [self toast:@"线上优惠仅限线上付款"];
         return;
     }
@@ -359,6 +363,10 @@
             [self toast:strMsg];
             break;
     }
+}
+-(void)leftBtn:(UIButton *)button{
+    
+    [self.navigationController popViewControllerAnimated:true];
 }
 -(void)succToNext
 {
