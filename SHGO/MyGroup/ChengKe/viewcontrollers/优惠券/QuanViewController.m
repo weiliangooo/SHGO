@@ -11,7 +11,7 @@
 #import "WalletDiscoutCell.h"
 #import "MyWebViewController.h"
 #import "UIImage+ScalImage.h"
-#import "CKShareViewController.h"
+#import "ShareViewController.h"
 
 @interface QuanViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -176,7 +176,7 @@
 }
 
 -(void)imageTap:(UITapGestureRecognizer *)tap{
-    CKShareViewController *viewController = [[CKShareViewController  alloc] init];
+    ShareViewController *viewController = [[ShareViewController  alloc] init];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

@@ -8,7 +8,7 @@
 
 #import "PGSLeadViewController.h"
 
-#import "CKLoginViewController.h"
+#import "LoginViewController.h"
 
 #import "BaseNavViewController.h"
 
@@ -48,7 +48,7 @@
 }
 
 -(void)goToLoginInterface:(UITapGestureRecognizer *)tap{
-    CKLoginViewController *viewController = [[CKLoginViewController alloc] init];
+    LoginViewController *viewController = [[LoginViewController alloc] init];
     BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
     [self presentViewController:navigationController animated:YES completion:nil];
 }

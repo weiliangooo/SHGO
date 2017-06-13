@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CKLoginTextField : UIView
+@interface LoginTextField : UIView
 
 ///textfield左边的图片
 @property (nonatomic, strong) NSString *leftImgName;

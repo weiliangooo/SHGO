@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "CKSUTableViewCell.h"
+#import "SUTableViewCell.h"
 
-@implementation CKSUTableViewCell
+@implementation SUTableViewCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

@@ -6,7 +6,7 @@
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "CKMsgChangeViewController.h"
+#import "MsgChangeViewController.h"
 #import "PopAleatView.h"
 #import "XAAssetData.h"
 #import "UploadFileData.h"
@@ -14,7 +14,7 @@
 #import "XACameraController.h"
 #import "TitleTextField.h"
 
-@interface CKMsgChangeViewController ()<PopAleatViewDelegate,UIPickerViewDelegate, UIPickerViewDataSource>
+@interface MsgChangeViewController ()<PopAleatViewDelegate,UIPickerViewDelegate, UIPickerViewDataSource>
 {
     NSMutableArray *postArray;
     TitleTextField *nameTF;
@@ -27,7 +27,7 @@
 
 @end
 
-@implementation CKMsgChangeViewController
+@implementation MsgChangeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -113,11 +113,9 @@
 
 -(void)onClick:(UIButton *)sender setbtn:(UIButton *)btn popAleatView:(id)popAleatView
 {
-    if (sender.tag==0)
-    {
+    if (sender.tag==0){
         //检查摄像头是否支持摄像机模式
-        if ([XACameraController isCaremaAvailable])
-        {
+        if ([XACameraController isCaremaAvailable]){
             [self presentViewController:[XACameraController cameraWithCaremaType:CameraTypeImage Completion:^(XAAssetData *result) {
                 if ([result isImageType]) {
                     postArray = [NSMutableArray array];
@@ -134,8 +132,7 @@
                         
                         //
                         NSData *postData = UIImageJPEGRepresentation(data.fullScreenImage, 1);
-                        if (postData.length>100*1000)
-                        {
+                        if (postData.length>100*1000){
                             double resultSize = 100000.0/postData.length;
                             NSLog(@"%lu, %f", (unsigned long)postData.length, resultSize);
                             postData=UIImageJPEGRepresentation(data.fullScreenImage, resultSize);
@@ -149,16 +146,12 @@
             } faile:^(NSError *error) {
                 
             }] animated:YES completion:nil];
-             
         }
-        else
-        {
+        else{
             [self alertMessage:@"该设备不支持摄像头"];
             return;
         }
-    }
-    else
-    {
+    }else{
         XAAssetPickerController *picker = [XAAssetPickerController pickerWithPickType:AssetsPickTypeAll Completion:^(NSArray *result){
             XAAssetData *resultData = [result objectAtIndex:0];
             _headImg.image = resultData.fullScreenImage;
@@ -172,8 +165,7 @@
                     //                        picData.fileData = resultData.fileData;
                     
                     NSData *postData = UIImageJPEGRepresentation(resultData.fullScreenImage, 1.0);
-                    if (postData.length>100*1024)
-                    {
+                    if (postData.length>100*1024){
                         double resultSize = 102400.0/postData.length;
                         postData=UIImageJPEGRepresentation(resultData.fullScreenImage, resultSize);
                     }
@@ -181,9 +173,7 @@
                     picData.mimeType = resultData.MIMEType;
                     [postArray addObject:picData];
                 }
-                
             }
-            
         }];
         [picker setMaxCount:1];
         [self presentViewController:picker animated:YES completion:nil];
@@ -191,10 +181,8 @@
 
 }
 
--(void)rightBtn:(UIButton *)button
-{
-    if (postArray == nil)
-    {
+-(void)rightBtn:(UIButton *)button{
+    if (postArray == nil){
         [self toast:@"请选择要上传的图片！"];
         return;
     }
@@ -225,8 +213,7 @@
     }];
 }
 
--(void)exitCurrent
-{
+-(void)exitCurrent{
     [self.navigationController popViewControllerAnimated:YES];
 }
 

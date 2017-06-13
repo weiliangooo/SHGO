@@ -24,7 +24,6 @@
     // Do any additional setup after loading the view.
     self.topTitle = @"正在派单中";
     
-//    UIView *msgView = [[UIView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-330*PROPORTION750-64, 690*PROPORTION750, 310*PROPORTION750)];
     UIView *msgView = [[UIView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-240*PROPORTION750-64, 690*PROPORTION750, 220*PROPORTION750)];
     msgView.backgroundColor = [UIColor whiteColor];
     msgView.clipsToBounds = YES;
@@ -42,7 +41,6 @@
     [self.view addSubview:line1];
     
     UIImageView *timeImage = [[UIImageView alloc] initWithFrame:CGRectMake(line1.right+15*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
-//    timeImage.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
     timeImage.image = [UIImage imageNamed:@"time"];
     [msgView addSubview:timeImage];
     
@@ -51,7 +49,6 @@
     timeLB.textColor = [UIColor colorWithHexString:@"#999999"];
     timeLB.font = SYSF750(25);
     [msgView addSubview:timeLB];
-    
     
     UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, 88*PROPORTION750, 690*PROPORTION750, 2*PROPORTION750)];
     line2.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
@@ -64,7 +61,6 @@
     NSString *start2 = [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:(timeInterval - 3600)]];
     
     UILabel *msgLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, line2.bottom+30*PROPORTION750, 630*PROPORTION750, 70*PROPORTION750)];
-//    msgLB.text = @"系统将于今天（03-21）10:00为您派单，并安排司机来接您。请留意手机提醒并保持手机畅通。";
     msgLB.font = SYSF750(25);
     msgLB.numberOfLines = 2;
     NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"系统将于%@为您派单，并安排司机来接您，请留意手机提醒并保持手机畅通。", start2]];
@@ -79,19 +75,6 @@
                           range:NSMakeRange(20, AttributedStr.length-20)];
     msgLB.attributedText = AttributedStr;
     [msgView addSubview:msgLB];
-    
-//    UIView *line3 = [[UIView alloc] initWithFrame:CGRectMake(0, 218*PROPORTION750, 690*PROPORTION750, 2*PROPORTION750)];
-//    line3.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
-//    [msgView addSubview:line3];
-//    
-//    UIButton *cancleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, line3.bottom, msgView.width, 90*PROPORTION750)];
-//    cancleBtn.backgroundColor = [UIColor clearColor];
-//    [cancleBtn setTitle:@"取消订单" forState:UIControlStateNormal];
-//    [cancleBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
-//    cancleBtn.titleLabel.font = SYSF750(25);
-//    [cancleBtn setImage:[[UIImage imageNamed:@"left_order"] scaleImageByHeight:30*PROPORTION750] forState:UIControlStateNormal];
-//    [cancleBtn addTarget:self action:@selector(canCleBtnClickEvent) forControlEvents:UIControlEventTouchUpInside];
-//    [msgView addSubview:cancleBtn];
     
 }
 

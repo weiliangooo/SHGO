@@ -6,17 +6,15 @@
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "CKSetUpViewController.h"
-#import "CKSUTableViewCell.h"
-#import "CKSUAcountSecurityViewController.h"
-#import "CKShareViewController.h"
-#import "HelpViewController.h"
-#import "CancleOrderAlertView.h"
-#import "MyWebViewController.h"
-#import "PopAleatView.h"
+#import "SetUpViewController.h"
+#import "SUTableViewCell.h"
 #import "SetPassWordViewController.h"
+#import "ShareViewController.h"
+#import "MyWebViewController.h"
+#import "CancleOrderAlertView.h"
+#import "PopAleatView.h"
 
-@interface CKSetUpViewController ()<UITableViewDelegate, UITableViewDataSource, AlertClassDelegate, PopAleatViewDelegate>
+@interface SetUpViewController ()<UITableViewDelegate, UITableViewDataSource, AlertClassDelegate, PopAleatViewDelegate>
 {
     NSArray *titles;
 }
@@ -24,7 +22,7 @@
 
 @end
 
-@implementation CKSetUpViewController
+@implementation SetUpViewController
 
 -(UITableView *)myTableView{
     if (!_myTableView){
@@ -35,7 +33,6 @@
         _myTableView.delegate = self;
         _myTableView.dataSource = self;
         _myTableView.scrollEnabled = NO;
-//        _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _myTableView;
 }
@@ -64,44 +61,33 @@
     [self.view addSubview:button];
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return titles.count;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.05;
 }
 
-
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.05;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 90*PROPORTION750;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CKSUTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (!cell)
-    {
-        cell = [[CKSUTableViewCell alloc] init];
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    SUTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell){
+        cell = [[SUTableViewCell alloc] init];
     }
-    
     cell.backgroundColor = [UIColor clearColor];
-    
     cell.titleLB.text = titles[indexPath.row];
-    
     if (indexPath.row == titles.count-1) {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.rightImgView.hidden = true;
@@ -109,12 +95,10 @@
         NSString *app_Version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
         cell.detailLB.text = app_Version;
     }
-    
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 0:{
@@ -124,13 +108,11 @@
         }
             break;
         case 1:{
-            CKShareViewController *viewController = [[CKShareViewController  alloc] init];
+            ShareViewController *viewController = [[ShareViewController  alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
         case 2:{
-//            HelpViewController *viewController = [[HelpViewController  alloc] init];
-//            [self.navigationController pushViewController:viewController animated:YES];
             MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"小马帮助" urlString:@"https://m.xiaomachuxing.com/index/cproblem"];
             [self.navigationController pushViewController:viewController animated:YES];
         }
@@ -145,7 +127,6 @@
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
-            
         default:
             break;
     }
@@ -154,7 +135,6 @@
 -(void)exitBtnClick:(UIButton *)button{
     CancleOrderAlertView *alerView = [[CancleOrderAlertView alloc] initWithTipTitle:@"是否退出登录" TipImage:nil];
     alerView.delegate =self;
-    
 }
 
 #pragma --mark AlertClassDelegate
@@ -163,20 +143,17 @@
     if (index == 100){
        [self gotoLoginViewController]; 
     }
-    NSLog(@"%d",(int)index);
 }
 
+///选择时通过 密码 还是 验证码方式修改密码
 -(void)onClick:(UIButton *)sender setbtn:(UIButton *)btn popAleatView:(id)popAleatView{
     SetPassWordViewController *viewController = [[SetPassWordViewController alloc] init];
-    if (sender.tag == 0) {
-        
+    if (sender.tag == 0) {///选择通过验证码 修改密码
         NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        [MyHelperNO getUid], @"uid",
                                        [MyHelperNO getMyToken], @"token", nil];
         [self post:@"user/has_pass" withParam:reqDic success:^(id responseObject) {
             int code = [responseObject intForKey:@"status"];
-            NSLog(@"%@", responseObject);
-//            NSString *msg = [responseObject stringForKey:@"msg"];
             if (code == 200){
                 viewController.isNormal = true;
                 [self.navigationController pushViewController:viewController animated:true];
@@ -189,33 +166,20 @@
                 viewController.isNormal = false;
                 [self.navigationController pushViewController:viewController animated:true];
             }
-            
         } failure:^(NSError *error) {
             
         }];
         
-    }else if (sender.tag == 1){
+    }else if (sender.tag == 1){///选择通过密码 修改密码
         viewController.isNormal = false;
         [self.navigationController pushViewController:viewController animated:true];
     }
     
 }
 
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "CKLoginTextField.h"
+#import "LoginTextField.h"
 
-@implementation CKLoginTextField
+@implementation LoginTextField
 
 /*
 // Only override drawRect: if you perform custom drawing.

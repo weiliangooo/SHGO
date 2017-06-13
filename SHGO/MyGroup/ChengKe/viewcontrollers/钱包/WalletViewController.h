@@ -8,6 +8,6 @@
 
 #import "YHBaseViewController.h"
 
-@interface CKWalletViewController : YHBaseViewController
+@interface WalletViewController : YHBaseViewController
 
 @end

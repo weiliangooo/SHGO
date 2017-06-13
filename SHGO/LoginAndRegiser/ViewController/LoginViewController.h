@@ -8,6 +8,6 @@
 
 #import "YHBaseViewController.h"
 
-@interface CKLoginViewController : YHBaseViewController
+@interface LoginViewController : YHBaseViewController
 
 @end

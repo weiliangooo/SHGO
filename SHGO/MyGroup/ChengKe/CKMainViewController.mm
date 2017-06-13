@@ -19,17 +19,16 @@
 #import "CKCitysListModel.h"
 #import "CKMsgListViewController.h"
 #import "CKBookViewController.h"
-#import "CKWalletViewController.h"
+#import "WalletViewController.h"
 #import "CKOrderViewController.h"
-#import "CKSetUpViewController.h"
-#import "CKMsgChangeViewController.h"
+#import "SetUpViewController.h"
+#import "MsgChangeViewController.h"
 #import "UIImage+ScalImage.h"
 #import "ADView.h"
 #import "MyWebViewController.h"
 #import "BaseNavViewController.h"
-#import "CKShareViewController.h"
+#import "ShareViewController.h"
 #import "MyHelperTool.h"
-//#import <BaiduMapAPI_Base/>
 #import "QuanViewController.h"
 
 @interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKPoiSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate,CKLeftViewDelegate,BMKOfflineMapDelegate>
@@ -220,7 +219,7 @@
 
 -(void)buttonClickEvents:(UIButton *)button{
     if (button.tag == 500) {
-        CKShareViewController *viewController = [[CKShareViewController  alloc] init];
+        ShareViewController *viewController = [[ShareViewController  alloc] init];
         [self.navigationController pushViewController:viewController animated:YES];
     }else{
         [self reloadCurrent];
@@ -623,8 +622,7 @@
 
 
 //计算地图显示区域
--(void)getMapViewVisbleRect
-{
+-(void)getMapViewVisbleRect{
     BMKMapPoint point1 = BMKMapPointForCoordinate(self.ccMsgModel.startPlaceModel.location);
     BMKMapPoint point2 = BMKMapPointForCoordinate(self.ccMsgModel.endPlaceModel.location);
     CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
@@ -668,38 +666,32 @@
 -(void)CKLeftView:(CKLeftView *)leftView didSelectFlag:(NSInteger)flag{
     [leftView hiddenViewAtonce];
     switch (flag) {
-        case 100:
-        {
-            CKWalletViewController *viewController = [[CKWalletViewController alloc] init];
+        case 100:{
+            WalletViewController *viewController = [[WalletViewController alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
-        case 101:
-        {
+        case 101:{
             CKOrderViewController *viewController = [[CKOrderViewController alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
-        case 102:
-        {
+        case 102:{
             QuanViewController *viewController = [[QuanViewController alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
-        case 103:
-        {
-            CKSetUpViewController *viewController = [[CKSetUpViewController alloc] init];
+        case 103:{
+            SetUpViewController *viewController = [[SetUpViewController alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
-        case 201:
-        {
-            CKMsgChangeViewController *viewController = [[CKMsgChangeViewController alloc] init];
+        case 201:{
+            MsgChangeViewController *viewController = [[MsgChangeViewController alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;
-        case 202:
-        {
+        case 202:{
             NSMutableDictionary *reqDic= [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                           [MyHelperNO getUid], @"uid",
                                           [MyHelperNO getMyToken], @"token", nil];

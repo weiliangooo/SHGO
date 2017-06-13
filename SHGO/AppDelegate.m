@@ -8,15 +8,17 @@
 
 #import "AppDelegate.h"
 #import "BaseNavViewController.h"
-#import "XMAdViewController.h"
 #import "PGSLeadViewController.h"
-#import "CKLoginViewController.h"
+#import "LoginViewController.h"
 #import "CKMainViewController.h"
 #import "CKRealNameViewController.h"
 #import <UMSocialCore/UMSocialCore.h>
 #import "WXApi.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "JPUSHService.h"
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
 
 @interface AppDelegate ()<WXApiDelegate,JPUSHRegisterDelegate>
 
@@ -27,58 +29,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-    //设置启动页面时间
-    //    [NSThread sleepForTimeInterval:1.0];
-    //    StartViewController *startVC = [[StartViewController alloc] init];
-    //    self.window.rootViewController = startVC;
-    
-
-//    NSString *remoteHostName = @"www.baidu.com";
     ///极光推送
     JPUSHRegisterEntity *entity = [[JPUSHRegisterEntity alloc] init];
     entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        
-    }
     [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
     [JPUSHService setupWithOption:launchOptions appKey:@"096a2ae58b6a3b5a6d49ffc1" channel:@"App Store" apsForProduction:false];
-    //通知类型（这里将声音、消息、提醒角标都给加上）
-//    let userSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound],
-//                                                  categories: nil)
-//    if ((UIDevice.current.systemVersion as NSString).floatValue >= 8.0) {
-//        //可以添加自定义categories
-//        JPUSHService.register(forRemoteNotificationTypes: userSettings.types.rawValue,
-//                              categories: nil)
-//    }
-//    else {
-//        //categories 必须为nil
-//        JPUSHService.register(forRemoteNotificationTypes: userSettings.types.rawValue,
-//                              categories: nil)
-//    }
-//    
-//    // 启动JPushSDK
-//    JPUSHService.setup(withOption: nil, appKey: "d2510127ea93ff0a241bb77f",
-//                       channel: "App Store", apsForProduction: false)
-    
-    
     
     //注册百度地图
     _BMManager = [[BMKMapManager alloc] init];
     BOOL ret = [_BMManager start:@"HG5lcpblG2wK7lyP9fVyHO5A9xMyPtub" generalDelegate:nil];
-    if (!ret)
-    {
+    if (!ret){
         NSLog(@"manager start failed!");
     }
-    /*
-    //跳往选择界面 选择时司机还是乘客
-    MainViewController *mainVC = [[MainViewController alloc] init];
-    
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-    self.window.rootViewController = mainVC;
-    */
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -89,10 +51,8 @@
         PGSLeadViewController *viewController = [[PGSLeadViewController alloc] init];
         self.window.rootViewController = viewController;
     }else{
-//        XMAdViewController *viewController = [[XMAdViewController alloc] init];
-//        self.window.rootViewController = viewController;
         if ([MyHelperNO getMyToken].length == 0){
-            CKLoginViewController *viewController = [[CKLoginViewController alloc] init];
+            LoginViewController *viewController = [[LoginViewController alloc] init];
             BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
             self.window.rootViewController = navigationController;
         }else{
@@ -109,39 +69,25 @@
         }
         
     }
-    
+    ///配置友盟
     /* 打开调试日志 */
     [[UMSocialManager defaultManager] openLog:YES];
-    
     /* 设置友盟appkey */
     [[UMSocialManager defaultManager] setUmSocialAppkey:@"58eb3cba2ae85b3d5e001d27"];
-    
     [self configUSharePlatforms];
     
     return YES;
 }
 
-
-- (void)configUSharePlatforms
-{
+- (void)configUSharePlatforms{
     /* 设置微信的appKey和appSecret */
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx6c8ba4f0f1cdd17f" appSecret:@"37aeeecf6da4bb7990562c54ba858feb" redirectURL:@"https://m.xiaoma.com"];
-//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx96f0e15a8ab1ac0e" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
-    /*
-     * 移除相应平台的分享，如微信收藏wx96f0e15a8ab1ac0e wx6c8ba4f0f1cdd17f
-     */
-    //[[UMSocialManager defaultManager] removePlatformProviderWithPlatformTypes:@[@(UMSocialPlatformType_WechatFavorite)]];
-    
-    /* 设置分享到QQ互联的appID
-     * U-Share SDK为了兼容大部分平台命名，统一用appKey和appSecret进行参数设置，而QQ平台仅需将appID作为U-Share的appKey参数传进即可。
-     */
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1106092284"/*设置QQ平台的appID*/  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
-    
 }
+
 ///jpush
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    
     /// Required - 注册 DeviceToken
     [JPUSHService registerDeviceToken:deviceToken];
 }
@@ -151,33 +97,31 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
 
-//// iOS 10 Support
-//- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
-//    // Required
-//    NSDictionary * userInfo = notification.request.content.userInfo;
-//    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-//        [JPUSHService handleRemoteNotification:userInfo];
-//    }
-//    completionHandler(UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以选择设置
-//}
-//
-//// iOS 10 Support
-//- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
-//    // Required
-//    NSDictionary * userInfo = response.notification.request.content.userInfo;
-//    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-//        [JPUSHService handleRemoteNotification:userInfo];
-//    }
-//    completionHandler();  // 系统要求执行这个方法
-//}
+// iOS 10 Support
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
+    // Required
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [JPUSHService handleRemoteNotification:userInfo];
+    }
+    completionHandler(UNNotificationPresentationOptionAlert|UNNotificationPresentationOptionSound); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以选择设置
+}
 
+// iOS 10 Support
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    // Required
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [JPUSHService handleRemoteNotification:userInfo];
+    }
+    completionHandler();  // 系统要求执行这个方法
+}
+
+// Required, iOS 7 Support
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    
-    // Required, iOS 7 Support
     [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -198,10 +142,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    //创建一个消息对象
+    //创建一个消息对象//发送消息
     if (_noticeFlag != nil) {
         NSNotification * notice = [NSNotification notificationWithName:_noticeFlag object:nil userInfo:nil];
-        //发送消息
         [[NSNotificationCenter defaultCenter] postNotification:notice];
     }
     
@@ -213,55 +156,44 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 
 // 支持所有iOS系统
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-    // 其他如支付等SDK的回调
-    if ([url.host isEqualToString:@"pay"] && [url.scheme isEqualToString:@"wx6c8ba4f0f1cdd17f"])
-    {
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    ///微信支付回调
+    if ([url.host isEqualToString:@"pay"] && [url.scheme isEqualToString:@"wx6c8ba4f0f1cdd17f"]){
         return [WXApi handleOpenURL:url delegate:self];
     }
-    
-    
-    if ([url.host isEqualToString:@"safepay"])
-    {
-        NSLog(@"支付宝返回url_2： = %@", url);
+    ///支付宝支付回调
+    if ([url.host isEqualToString:@"safepay"]){
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            
             NSString *status = resultDic[@"resultStatus"];
-            
-            //创建一个消息对象
+            //创建一个消息对象//发送消息
             NSNotification * notice = [NSNotification notificationWithName:@"zhifubaonotice" object:nil userInfo:@{@"status":status}];
-            //发送消息
             [[NSNotificationCenter defaultCenter]postNotification:notice];
         }];
-        
     }
-    
-    if ([url.host isEqualToString:@"platformapi"]){//支付宝钱包快登授权返回 authCode
+    //支付宝钱包快登授权返回 authCode
+    if ([url.host isEqualToString:@"platformapi"]){
         [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
-            NSLog(@"result = %@",resultDic);
-            
+            NSString *status = resultDic[@"resultStatus"];
+            //创建一个消息对象//发送消息
+            NSNotification * notice = [NSNotification notificationWithName:@"zhifubaonotice" object:nil userInfo:@{@"status":status}];
+            [[NSNotificationCenter defaultCenter]postNotification:notice];
         }];
     }
-    //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
+    
+    //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响 分享回调
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
     if (!result) {
-        
     }
     return result;
 }
 
 //微信回调
--(void)onResp:(BaseResp *)resp
-{//微信支付回调函数
-    //    NSString *strMsg = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
+-(void)onResp:(BaseResp *)resp{
     if([resp isKindOfClass:[PayResp class]]){
-        //创建一个消息对象
+        //创建一个消息对象//发送消息
         NSNotification * notice = [NSNotification notificationWithName:@"weixinnotice" object:nil userInfo:@{@"status":[NSString stringWithFormat:@"%d",resp.errCode]}];
-        //发送消息
         [[NSNotificationCenter defaultCenter] postNotification:notice];
     }
-    
 }
 
 

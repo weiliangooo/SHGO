@@ -1,5 +1,5 @@
 //
-//  HelpViewController.h
+//  CKShareViewController.h
 //  SHGO
 //
 //  Created by 魏亮 on 2017/4/10.
@@ -8,6 +8,6 @@
 
 #import "YHBaseViewController.h"
 
-@interface HelpViewController : YHBaseViewController
+@interface ShareViewController : YHBaseViewController
 
 @end

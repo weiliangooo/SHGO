@@ -8,6 +8,6 @@
 
 #import "YHBaseViewController.h"
 
-@interface CKMsgChangeViewController : YHBaseViewController
+@interface MsgChangeViewController : YHBaseViewController
 
 @end

@@ -5,16 +5,15 @@
 //  Created by Alen on 2017/3/23.
 //  Copyright © 2017年 Alen. All rights reserved.
 //
-#import "CKLoginViewController.h"
-#import "CKLoginTextField.h"
+#import "LoginViewController.h"
+#import "LoginTextField.h"
 #import "CKMainViewController.h"
 #import "CKRealNameViewController.h"
-
 #import "BaseNavViewController.h"
 #import "MyWebViewController.h"
 #import "PassLoginViewController.h"
 
-@interface CKLoginViewController ()
+@interface LoginViewController ()
 {
     ///定时器
     NSTimer * timer;
@@ -22,15 +21,15 @@
     int countDownTime;
 }
 ///登录输入框
-@property (nonatomic, strong) CKLoginTextField *accountTF;
+@property (nonatomic, strong) LoginTextField *accountTF;
 ///验证码输入框
-@property (nonatomic, strong) CKLoginTextField *codeTF;
+@property (nonatomic, strong) LoginTextField *codeTF;
 ///获取验证码按钮
 @property (nonatomic, strong) UIButton *codeBT;
 
 @end
 
-@implementation CKLoginViewController
+@implementation LoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,11 +41,11 @@
     ///每次只要调用登录界面则清除 本地数据
     [MyHelperNO removeAllData];
     
-    _accountTF = [[CKLoginTextField alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 90*PROPORTION750) leftImgName:@"shouj" placeholderTitle:@"请输入手机号码"];
+    _accountTF = [[LoginTextField alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 90*PROPORTION750) leftImgName:@"shouj" placeholderTitle:@"请输入手机号码"];
     _accountTF.myTextField.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:_accountTF];
     
-    _codeTF = [[CKLoginTextField alloc] initWithFrame:CGRectMake(20*PROPORTION750, _accountTF.bottom+30*PROPORTION750, 470*PROPORTION750, 90*PROPORTION750) leftImgName:@"suo" placeholderTitle:@"请输入验证码"];
+    _codeTF = [[LoginTextField alloc] initWithFrame:CGRectMake(20*PROPORTION750, _accountTF.bottom+30*PROPORTION750, 470*PROPORTION750, 90*PROPORTION750) leftImgName:@"suo" placeholderTitle:@"请输入验证码"];
     _accountTF.myTextField.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:_codeTF];
     
@@ -60,17 +59,6 @@
     _codeBT.tag = 100;
     [_codeBT addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_codeBT];
-    
-    
-    
-    
-//    UIButton *gouBT = [[UIButton alloc] initWithFrame:CGRectMake(205*PROPORTION750, loginBT.bottom+30*PROPORTION750, 30*PROPORTION750, 30*PROPORTION750)];
-//    [gouBT setImage:[UIImage imageNamed:@"ckunselected"] forState:UIControlStateNormal];
-//    [gouBT setImage:[UIImage imageNamed:@"ckselected"] forState:UIControlStateSelected];
-//    [gouBT setSelected:YES];
-//    gouBT.tag = 102;
-//    [gouBT addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:gouBT];
     
     NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:@"温馨提示：未注册小马出行账号的手机号，登录时将自动注册，且代表您已同意《网约车用户服务协议及安全保障细则》"];
     [AttributedStr addAttribute:NSForegroundColorAttributeName
@@ -133,8 +121,7 @@
             int code = [responseObject intForKey:@"status"];
             NSString *msg = [responseObject stringForKey:@"msg"];
             NSLog(@"%@", responseObject);
-            if (code == 200)
-            {
+            if (code == 200){
                 NSDictionary *dic = [responseObject objectForKey:@"data"];
                 [USERDEFAULTS setObject:[dic stringForKey:@"token"] forKey:@"token"];
                 [USERDEFAULTS setObject:[dic stringForKey:@"is_realname"] forKey:@"realName"];
@@ -142,19 +129,16 @@
                 [USERDEFAULTS setObject:[dic stringForKey:@"avatar"] forKey:@"headImage"];
                 [USERDEFAULTS setObject:_accountTF.myTextField.text forKey:@"mobilePhone"];
                 
-                if ([[responseObject objectForKey:@"data"] intForKey:@"is_realname"] == 2)
-                {
+                if ([[responseObject objectForKey:@"data"] intForKey:@"is_realname"] == 2){
                     CKRealNameViewController *viewController = [[CKRealNameViewController alloc] init];
                     [self.navigationController pushViewController:viewController animated:YES];
                 }
-                else
-                {
+                else{
                     CKMainViewController *viewController = [[CKMainViewController alloc] init];
                     [self.navigationController pushViewController:viewController animated:YES];
                 }
             }
-            else if (code == 400)
-            {
+            else if (code == 400){
                 [self toast:msg];
             }
         } failure:^(NSError *error) {
@@ -162,9 +146,6 @@
         }];
         
         
-    }
-    else if (button.tag == 102){
-//        [button setSelected:!button.selected];
     }
 }
 
@@ -174,13 +155,13 @@
     [self presentViewController:navi animated:true completion:nil];
 }
 
+///获取验证码
 - (void)getVerificationCode{
     NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:_accountTF.myTextField.text, @"phone", nil];
     [self post:@"login/index" withParam:reqDic success:^(id responseObject) {
         int code = [responseObject intForKey:@"status"];
         NSLog(@"%@", responseObject);
-        if (code == 200)
-        {
+        if (code == 200){
             countDownTime = 60;
             timer = [[NSTimer alloc]init];
             timer= [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];

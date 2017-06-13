@@ -1,5 +1,5 @@
 //
-//  CKSUVerifyCurrentPhoneViewController.h
+//  CKSetUpViewController.h
 //  SHGO
 //
 //  Created by 魏亮 on 2017/4/8.
@@ -8,6 +8,6 @@
 
 #import "YHBaseViewController.h"
 
-@interface CKSUVerifyCurrentPhoneViewController : YHBaseViewController
+@interface SetUpViewController : YHBaseViewController
 
 @end

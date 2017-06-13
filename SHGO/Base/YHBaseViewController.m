@@ -7,7 +7,7 @@
 //
 
 #import "YHBaseViewController.h"
-#import "CKLoginViewController.h"
+#import "LoginViewController.h"
 #import "AppDelegate.h"
 #import "BaseNavViewController.h"
 @interface YHBaseViewController ()<UIAlertViewDelegate>{
@@ -632,7 +632,7 @@
 -(void)gotoLoginViewController{
     AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
-    CKLoginViewController *viewController = [[CKLoginViewController alloc] init];
+    LoginViewController *viewController = [[LoginViewController alloc] init];
     BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
 //    [self presentViewController:navigationController animated:YES completion:nil];
     de.window.rootViewController = navigationController;

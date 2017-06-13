@@ -11,18 +11,8 @@
 
 @implementation ShareView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
--(instancetype)init
-{
-    if (self = [super initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)])
-    {
+-(instancetype)init{
+    if (self = [super initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)]){
         AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
         self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
         self.userInteractionEnabled = YES;
@@ -49,8 +39,7 @@
         
         NSArray *images = @[@"wchat_share",@"session_share",@"qq_share",@"qqzone_share"];
         NSArray *tips = @[@"微信好友",@"朋友圈",@"QQ好友",@"QQ空间"];
-        for (int i = 0; i < 4; i++)
-        {
+        for (int i = 0; i < 4; i++){
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(60*PROPORTION750+175*PROPORTION750*i, 90*PROPORTION750, 105*PROPORTION750, 160*PROPORTION750)];
             view.tag = 100+i;
             view.userInteractionEnabled = YES;
@@ -85,26 +74,21 @@
     return self;
 }
 
--(void)viewTapEvents:(UITapGestureRecognizer *)tap
-{
+-(void)viewTapEvents:(UITapGestureRecognizer *)tap{
     switch (tap.view.tag) {
-        case 100:
-        {
+        case 100:{
             self.shareBlock(1);
         }
             break;
-        case 101:
-        {
+        case 101:{
             self.shareBlock(2);
         }
             break;
-        case 102:
-        {
+        case 102:{
             self.shareBlock(4);
         }
             break;
-        case 103:
-        {
+        case 103:{
             self.shareBlock(5);
         }
             break;
@@ -113,8 +97,7 @@
     }
 }
 
--(void)dismissCurrentView
-{
+-(void)dismissCurrentView{
     [self removeFromSuperview];
 }
 

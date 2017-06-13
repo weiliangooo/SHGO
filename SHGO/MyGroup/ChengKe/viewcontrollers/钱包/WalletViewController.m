@@ -6,19 +6,19 @@
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "CKWalletViewController.h"
+#import "WalletViewController.h"
 #import "WalletMoneyModel.h"
 #import "WalletDetailViewController.h"
 #import "WalletQuanModel.h"
 
-@interface CKWalletViewController ()
+@interface WalletViewController ()
 {
     NSString *user_wallet;
     NSString *user_money;
 }
 @end
 
-@implementation CKWalletViewController
+@implementation WalletViewController
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

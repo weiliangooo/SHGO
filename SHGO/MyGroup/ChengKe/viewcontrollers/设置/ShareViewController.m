@@ -6,19 +6,17 @@
 //  Copyright © 2017年 Alen. All rights reserved.
 //
 
-#import "CKShareViewController.h"
+#import "ShareViewController.h"
 #import "ShareView.h"
 #import <UMSocialCore/UMSocialCore.h>
 
-@interface CKShareViewController ()<UIWebViewDelegate>
-
+@interface ShareViewController ()<UIWebViewDelegate>
 @property (nonatomic, strong) UIWebView *myWebView;
-
 @property (nonatomic, strong) ShareView *shareView;
 
 @end
 
-@implementation CKShareViewController
+@implementation ShareViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,14 +30,10 @@
     [self.view addSubview:_myWebView];
 }
 
--(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSURL *url = [request URL];
-    
     NSURL *myUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://m.xiaomachuxing.com/qrcode/recommendapp/id/%@#", [MyHelperNO getUid]]];
-    
-    if ([url isEqual:myUrl])
-    {
+    if ([url isEqual:myUrl]){
         [self presentShareWaysView];
         return NO;
     }
@@ -62,30 +56,23 @@
     }
 }
 
--(void)presentShareWaysView
-{
+-(void)presentShareWaysView{
+    __weak typeof(self) weakSelf = self;
     _shareView = [[ShareView alloc] init];
     _shareView.shareBlock = ^(NSInteger flag){
-        
-        [self shareWebPageToPlatformType:flag];
+        [weakSelf shareWebPageToPlatformType:flag];
     };
 }
 
-- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
-{
-    
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType{
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-    
-    
     //创建网页内容对象
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"Hi，朋友，送你10元小马出行优惠券，为你约车买单！" descr:@"我一直用小马出行，既经济又便捷舒适，邀你一起来体验，首次乘坐立减10元~" thumImage:[UIImage imageNamed:@"default"]];
     //设置网页地址
     shareObject.webpageUrl =[NSString stringWithFormat:@"https://m.xiaomachuxing.com/qrcode/inviteapp/id/%@", [MyHelperNO getUid]];
-    
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;
-    
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
         if (error) {
@@ -110,15 +97,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

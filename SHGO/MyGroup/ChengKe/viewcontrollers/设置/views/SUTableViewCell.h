@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CKSUTableViewCell : UITableViewCell
+@interface SUTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel *titleLB;
 
