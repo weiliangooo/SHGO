@@ -12,8 +12,8 @@
 #import "Frame.h"
 
 @implementation XAClient
-+(XAClient *)sharedClient
-{
+
++(XAClient *)sharedClient{
     static XAClient *_sharedClient;
     if (_sharedClient == nil) {
         _sharedClient = [[XAClient alloc] init];
@@ -21,22 +21,18 @@
     return _sharedClient;
 }
 
--(BOOL)isNetWorkEnable
-{
+-(BOOL)isNetWorkEnable{
     NetworkStatus status = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
     return status != kNotReachable;
 }
 
--(BOOL)isNetWorkAvailable
-{
+-(BOOL)isNetWorkAvailable{
     return [[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus] != AFNetworkReachabilityStatusNotReachable;
 }
 
--(AFHTTPRequestOperationManager *)httpManager
-{
+-(AFHTTPRequestOperationManager *)httpManager{
     if (_httpManager == nil) {
         _httpManager = [AFHTTPRequestOperationManager manager];
-//        _httpManager.responseSerializer = [AFHTTPResponseSerializer serializer];
         _httpManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"application/json",nil];
     }
     return _httpManager;
@@ -44,8 +40,7 @@
 
 
 //POST方式
--(BOOL)POST:(NSString *)apiUrl withParam:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure
-{
+-(BOOL)POST:(NSString *)apiUrl withParam:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure{
     //取消其他所有请求
     [self.httpManager.operationQueue cancelAllOperations];
     //检查网络是否可用
@@ -59,12 +54,10 @@
     NSLog(@"%@%@", apiUrl, [self paramToString:params]);
     //请求接口
     [self.httpManager POST:apiUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
         if (success != nil) {
             success(responseObject);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    
         if (error.code == NSURLErrorCancelled) {
             NSLog(@"请求被取消");
         }else if (failure != nil) {
@@ -169,7 +162,6 @@
 
 -(BOOL)postInBackground:(NSString *)api withParam:(NSMutableDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
-    
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
     httpManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     //取消其他所有请求

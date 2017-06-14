@@ -301,15 +301,15 @@
     _sureOrderModel.up_paytool = [NSString stringWithFormat:@"%d", (int)flag];
     _sureOrderModel.up_passenger = [NSString stringWithFormat:@"%d", (int)_numPs];
     _sureOrderModel.up_use_wallet = _isUseWallet?@"1":@"2";
-    if (([_stActModel.actType isEqualToString:@"event"] || [_stActModel.actType isEqualToString:@"extra"]) && ![_stActModel.actId isEqualToString:_sureOrderModel.up_paytype]){
-        [self toast:@"线上优惠仅限线上付款"];
-        return;
-    }
-    
-    if (([_stActModel.actType isEqualToString:@"user_money"] || [_stActModel.actType isEqualToString:@"coupon"]) && ![_sureOrderModel.up_paytype isEqualToString:@"1"]){
-        [self toast:@"线上优惠仅限线上付款"];
-        return;
-    }
+//    if (([_stActModel.actType isEqualToString:@"event"] || [_stActModel.actType isEqualToString:@"extra"]) && ![_stActModel.actId isEqualToString:_sureOrderModel.up_paytype]){
+//        [self toast:@"线上优惠仅限线上付款"];
+//        return;
+//    }
+//    
+//    if (([_stActModel.actType isEqualToString:@"user_money"] || [_stActModel.actType isEqualToString:@"coupon"]) && ![_sureOrderModel.up_paytype isEqualToString:@"1"]){
+//        [self toast:@"线上优惠仅限线上付款"];
+//        return;
+//    }
 }
 
 

@@ -155,10 +155,9 @@ static void logReachabilityFlags_(const char *name, int line, SCNetworkReachabil
 
 #define logNetworkStatus(status) (logNetworkStatus_(__PRETTY_FUNCTION__, __LINE__, status))
 
+///打印当前网络状态
 static void logNetworkStatus_(const char *name, int line, NetworkStatus status) {
-	
 	NSString *statusString = nil;
-	
 	switch (status) {
 		case kNotReachable:
 			statusString = @"Not Reachable";
@@ -170,9 +169,7 @@ static void logNetworkStatus_(const char *name, int line, NetworkStatus status) 
 			statusString = @"Reachable via WiFi";
 			break;
 	}
-	
 	NSLog(@"%s (%d) \n\tNetwork Status: %@", name, line, statusString);
-	
 } // logNetworkStatus_()
 
 #else
@@ -199,31 +196,21 @@ static void logNetworkStatus_(const char *name, int line, NetworkStatus status) 
 
 
 - (void) dealloc {
-	
 	[self stopNotifier];
 	if(reachabilityRef) {
-		
 		CFRelease(reachabilityRef); reachabilityRef = NULL;
-		
 	}
-	
 	self.key = nil;
-	
 	[super dealloc];
-	
 } // dealloc
 
 
-- (Reachability *) initWithReachabilityRef: (SCNetworkReachabilityRef) ref 
-{
+- (Reachability *) initWithReachabilityRef: (SCNetworkReachabilityRef) ref {
     self = [super init];
-	if (self != nil) 
-    {
+	if (self != nil) {
 		reachabilityRef = ref;
 	}
-	
 	return self;
-	
 } // initWithReachabilityRef:
 
 
@@ -793,19 +780,12 @@ static const SCNetworkReachabilityFlags kOnDemandConnection = kSCNetworkReachabi
 
 
 - (BOOL) connectionRequired {
-	
 	NSAssert(reachabilityRef, @"connectionRequired called with NULL reachabilityRef");
-	
 	SCNetworkReachabilityFlags flags;
-	
 	if (SCNetworkReachabilityGetFlags(reachabilityRef, &flags)) {
-		
 		logReachabilityFlags(flags);
-		
 		return (flags & kSCNetworkReachabilityFlagsConnectionRequired);
-		
 	}
-	
 	return NO;
 	
 } // connectionRequired

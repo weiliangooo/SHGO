@@ -64,6 +64,8 @@
 
 #define YH_REQUEST_DOMAIN @"https://m.xiaomachuxing.com/xmapp/"//域名
 
+#define URLAPI(x) [YH_REQUEST_DOMAIN stringByAppendingString:api];
+
 //与4寸屏宽度比
 #define HW fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.width)/320
 //导航颜色

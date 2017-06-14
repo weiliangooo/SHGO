@@ -20,6 +20,8 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 
+#import "MainViewController.h"
+
 @interface AppDelegate ()<WXApiDelegate,JPUSHRegisterDelegate>
 
 @end
@@ -57,7 +59,12 @@
             self.window.rootViewController = navigationController;
         }else{
             if([MyHelperNO isHadAuthentication]){
-                CKMainViewController *viewController = [[CKMainViewController alloc] init];
+//                CKMainViewController *viewController = [[CKMainViewController alloc] init];
+//                BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
+//                navigationController.navigationBar.hidden = NO;
+//                self.window.rootViewController = navigationController;
+                
+                MainViewController *viewController = [[MainViewController alloc] init];
                 BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
                 navigationController.navigationBar.hidden = NO;
                 self.window.rootViewController = navigationController;

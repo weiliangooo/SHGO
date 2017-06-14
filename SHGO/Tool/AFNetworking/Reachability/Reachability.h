@@ -112,7 +112,6 @@
 // I recommend you set NS_BLOCK_ASSERTIONS=1 in the release versions of your projects.
 
 enum {
-	
 	// DDG NetworkStatus Constant Names.
 	kNotReachable = 0, // Apple's code depends upon 'NotReachable' being the same value as 'NO'.
 	kReachableViaWWAN, // Switched order from Apple's enum. WWAN is active before WiFi.
@@ -122,14 +121,12 @@ enum {
 typedef	uint32_t NetworkStatus;
 
 enum {
-	
 	// Apple NetworkStatus Constant Names.
 	NotReachable     = kNotReachable,
 	ReachableViaWiFi = kReachableViaWiFi,
 	ReachableViaWWAN = kReachableViaWWAN
 	
 };
-
 
 extern NSString *const kInternetConnection;
 extern NSString *const kLocalWiFiConnection;
@@ -140,7 +137,6 @@ extern NSString *const kReachabilityChangedNotification;
 @private
 	NSString                *key_;
 	SCNetworkReachabilityRef reachabilityRef;
-
 }
 
 @property (copy) NSString *key; // Atomic because network operations are asynchronous.

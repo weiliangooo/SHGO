@@ -10,28 +10,20 @@
 #import <BaiduMapAPI_Location/BMKLocationComponent.h>
 #import <BaiduMapAPI_Search/BMKSearchComponent.h>
 #import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
-#import "CKLeftView.h"
 #import "CKSearchPlaceView.h"
 #import "CKTimeSelectView.h"
 #import "CKPlaceTimeView.h"
-#import "SignAlertView.h"
 #import "CCMsgModel.h"
 #import "CKCitysListModel.h"
-#import "CKMsgListViewController.h"
 #import "CKBookViewController.h"
-#import "WalletViewController.h"
-#import "CKOrderViewController.h"
-#import "SetUpViewController.h"
-#import "MsgChangeViewController.h"
 #import "UIImage+ScalImage.h"
 #import "ADView.h"
 #import "MyWebViewController.h"
 #import "BaseNavViewController.h"
 #import "ShareViewController.h"
 #import "MyHelperTool.h"
-#import "QuanViewController.h"
 
-@interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKPoiSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate,CKLeftViewDelegate,BMKOfflineMapDelegate>
+@interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKPoiSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate,BMKOfflineMapDelegate>
 {
     ///用来记录当前所要搜索的城市 判断百度返回结果城市是否为要搜索的城市
     NSString *poiSearchCity;
@@ -48,8 +40,7 @@
 @property (nonatomic, strong)BMKPointAnnotation *startAnnotation;
 ///终点位置的大头钉
 @property (nonatomic, strong)BMKPointAnnotation *endAnnotation;
-///左边的菜单界面
-@property (nonatomic, strong)CKLeftView *leftView;
+
 ///搜索位置时，显示的view
 @property (nonatomic, strong)CKSearchPlaceView *CKSPView;
 ///选择时间的view
@@ -83,13 +74,9 @@
 -(void)myInit{
     _poiSearch = [[BMKPoiSearch alloc] init];
     _poiSearch.delegate =self;
-    
     _ccMsgModel = [[CCMsgModel alloc] init];
-    
     currentIsStart = YES;
-    
     _startAnnotation = [[BMKPointAnnotation alloc]init];
-    
     _endAnnotation = [[BMKPointAnnotation alloc]init];
     
 //    _offMap = [[BMKOfflineMap alloc] init];
@@ -112,15 +99,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.type = 2;
-    [self.leftBtn setImage:[UIImage imageNamed:@"left_menu"] forState:UIControlStateNormal];
-    [self.rightBtn setImage:[UIImage imageNamed:@"right_msg"] forState:UIControlStateNormal];
-//    self.topTitle = @"小马出行";
-    UIImageView *titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
-    titleView.contentMode = UIViewContentModeScaleAspectFill;
-    titleView.frame = CGRectMake(0, 0, 75, 20);
-    self.navigationItem.titleView = titleView;
-    
     [self myInit];
     
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
@@ -238,15 +216,7 @@
     [_locService startUserLocationService];
 }
 
-#pragma --mark 重写父类的方法
--(void)leftBtn:(UIButton *)button{
-    [self showLeftView];
-}
 
--(void)rightBtn:(UIButton *)button{
-    CKMsgListViewController *viewController = [[CKMsgListViewController alloc] init];
-    [self.navigationController pushViewController:viewController animated:YES];
-}
 
 #pragma --mark CKPlaceTimeView 代理函数
 -(void)CKPlaceTimeViewClickEvents:(NSInteger)flag
@@ -652,78 +622,8 @@
     
 }
 
-//用来弹出左边菜单栏
--(void)showLeftView{
-    if (!_leftView) {
-        _leftView = [[CKLeftView alloc] initWithViewController:self];
-        _leftView.delegate = self;
-    }else{
-        [_leftView showView];
-    }
-}
 
-#pragma --mark CKLeftViewDelegate
--(void)CKLeftView:(CKLeftView *)leftView didSelectFlag:(NSInteger)flag{
-    [leftView hiddenViewAtonce];
-    switch (flag) {
-        case 100:{
-            WalletViewController *viewController = [[WalletViewController alloc] init];
-            [self.navigationController pushViewController:viewController animated:YES];
-        }
-            break;
-        case 101:{
-            CKOrderViewController *viewController = [[CKOrderViewController alloc] init];
-            [self.navigationController pushViewController:viewController animated:YES];
-        }
-            break;
-        case 102:{
-            QuanViewController *viewController = [[QuanViewController alloc] init];
-            [self.navigationController pushViewController:viewController animated:YES];
-        }
-            break;
-        case 103:{
-            SetUpViewController *viewController = [[SetUpViewController alloc] init];
-            [self.navigationController pushViewController:viewController animated:YES];
-        }
-            break;
-        case 201:{
-            MsgChangeViewController *viewController = [[MsgChangeViewController alloc] init];
-            [self.navigationController pushViewController:viewController animated:YES];
-        }
-            break;
-        case 202:{
-            NSMutableDictionary *reqDic= [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                          [MyHelperNO getUid], @"uid",
-                                          [MyHelperNO getMyToken], @"token", nil];
-            [self post:@"user/sign" withParam:reqDic success:^(id responseObject) {
-                int code = [responseObject intForKey:@"status"];
-                NSString *msg = [responseObject stringForKey:@"msg"];
-                NSLog(@"%@", responseObject);
-                if (code == 200)
-                {
-                    [_leftView.myTableHead setUpSignBtnStauts:true];
-                    SignAlertView *alerView = [[SignAlertView alloc] initWithTipTitle:[NSString stringWithFormat:@"获得红包%.2f元", [[responseObject stringForKey:@"data"] doubleValue]]];
-                }
-                else if (code == 300)
-                {
-                    [self toast:@"身份认证已过期"];
-                    [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
-                }
-                else if (code == 400)
-                {
-                    [_leftView.myTableHead setUpSignBtnStauts:true];
-                    [self toast:msg];
-                }
-            } failure:^(NSError *error) {
-                
-            }];
-        }
-            break;
-        default:
-            break;
-    }
 
-}
 
 
 ///通过城市的名称 获取城市在服务器对应的id
@@ -767,7 +667,7 @@
 
 
 -(void)alReLoadData{
-    
+    NSLog(@"ckmain");
 }
 
 - (void)didReceiveMemoryWarning {
