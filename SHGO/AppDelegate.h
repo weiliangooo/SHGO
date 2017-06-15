@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <BaiduMapAPI_Base/BMKMapManager.h>
+#import "MainViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -19,7 +20,7 @@
 
 @property (nonatomic, strong) NSString *noticeFlag;
 
-
+@property (nonatomic, strong) MainViewController *mainVc;
 
 @end
 

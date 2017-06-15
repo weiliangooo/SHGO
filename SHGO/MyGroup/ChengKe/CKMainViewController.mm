@@ -385,9 +385,9 @@
         NSLog(@"%@", responseObject);
         if (code == 200){
             if([[responseObject stringForKey:@"mes"] isEqualToString:@"1"]){
-                [self.rightBtn setImage:[[UIImage imageNamed:@"right_msg_true"] scaleImageByWidth:35*PROPORTION750] forState:UIControlStateNormal];
+                [((YHBaseViewController *)self.parentViewController).rightBtn setImage:[[UIImage imageNamed:@"right_msg_true"] scaleImageByWidth:35*PROPORTION750] forState:UIControlStateNormal];
             }else{
-                [self.rightBtn setImage:[[UIImage imageNamed:@"right_msg"] scaleImageByWidth:35*PROPORTION750] forState:UIControlStateNormal];
+                [((YHBaseViewController *)self.parentViewController).rightBtn setImage:[[UIImage imageNamed:@"right_msg"] scaleImageByWidth:35*PROPORTION750] forState:UIControlStateNormal];
             }
             NSArray *data = [NSArray arrayWithArray:[responseObject arrayForKey:@"data"]];
             cityListModel = [[CKCitysListModel alloc] initWithData:data];

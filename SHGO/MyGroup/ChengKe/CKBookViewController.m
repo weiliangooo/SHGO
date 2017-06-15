@@ -370,23 +370,29 @@
 }
 -(void)succToNext
 {
-    NSDictionary *info = [_inputData objectForKey:@"info"];
+//    NSDictionary *info = [_inputData objectForKey:@"info"];
+//    
+//    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+//    formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+//    [formatter setDateStyle:NSDateFormatterMediumStyle];
+//    [formatter setTimeStyle:NSDateFormatterShortStyle];
+//    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+//    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[[_inputData stringForKey:@"unix"] integerValue]];
+//    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+//    
+//    CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
+//    viewController.startEndCity = [NSString stringWithFormat:@"%@——>%@", [info stringForKey:@"start_address_name"], [info stringForKey:@"end_address_name"]];
+//    viewController.startTime = confromTimespStr;
+//    viewController.orderNum = orderSn;
+//    [self.navigationController pushViewController:viewController animated:YES];
+//    
+//    [_payView removeFromSuperview];
     
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[[_inputData stringForKey:@"unix"] integerValue]];
-    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
-    
-    CKSendOrderViewController *viewController = [[CKSendOrderViewController alloc] initWithCCMsgModel:self.ccMsgModel];
-    viewController.startEndCity = [NSString stringWithFormat:@"%@——>%@", [info stringForKey:@"start_address_name"], [info stringForKey:@"end_address_name"]];
-    viewController.startTime = confromTimespStr;
-    viewController.orderNum = orderSn;
-    [self.navigationController pushViewController:viewController animated:YES];
-    
-    [_payView removeFromSuperview];
+    AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    de.mainVc = [[MainViewController alloc] init];
+    BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:de.mainVc];
+    //                    navigationController.navigationBar.hidden = NO;
+    de.window.rootViewController = navigationController;
 }
 
 

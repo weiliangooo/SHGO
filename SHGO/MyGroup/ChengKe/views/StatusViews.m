@@ -13,16 +13,16 @@
 
 @implementation S_StartView
 
--(instancetype)initWithFrame:(CGRect)frame DataSource:(NSDictionary *)dic{
+-(instancetype)initWithFrame:(CGRect)frame DataSource:(StatusModel *)dic{
     if (self = [super initWithFrame:frame]) {
+        _statusModel = dic;
 //        UIView *msgView = [[UIView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-240*PROPORTION750-64, 690*PROPORTION750, 220*PROPORTION750)];
         self.backgroundColor = [UIColor whiteColor];
         self.clipsToBounds = YES;
         self.layer.cornerRadius = 15*PROPORTION750;
         
         UILabel * _startEndCityLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 298*PROPORTION750, 30*PROPORTION750)];
-        //            _startEndCityLB.text = _startEndCity;
-        _startEndCityLB.text = @"合肥市——>桐城市";
+        _startEndCityLB.text = [NSString stringWithFormat:@"%@——>%@", _statusModel.start_address_name, _statusModel.end_address_name];
         _startEndCityLB.textColor = [UIColor colorWithHexString:@"#999999"];
         _startEndCityLB.font = SYSF750(30);
         [self addSubview:_startEndCityLB];
@@ -36,8 +36,8 @@
         [self addSubview:timeImage];
         
         UILabel *timeLB = [[UILabel alloc]initWithFrame:CGRectMake(timeImage.right, 30*PROPORTION750, 305*PROPORTION750, 30*PROPORTION750)];
-        //            timeLB.text = [NSString stringWithFormat:@"%@ 出发",_startTime];
-        timeLB.text = [NSString stringWithFormat:@"%@ 出发",@"2017-06-14-09:00"];
+        timeLB.text = [NSString stringWithFormat:@"%@ 出发", [MyHelperTool timeSpToTime:_statusModel.start_unixtime]];
+//        timeLB.text = [NSString stringWithFormat:@"%@ 出发",@"2017-06-14-09:00"];
         timeLB.textColor = [UIColor colorWithHexString:@"#999999"];
         timeLB.font = SYSF750(25);
         [self addSubview:timeLB];
@@ -52,11 +52,12 @@
         //            NSTimeInterval timeInterval = [date timeIntervalSince1970];
         //            NSString *start2 = [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:(timeInterval - 3600)]];
         
+        
         UILabel *msgLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, line2.bottom+30*PROPORTION750, 630*PROPORTION750, 70*PROPORTION750)];
         msgLB.font = SYSF750(25);
         msgLB.numberOfLines = 2;
-        //            NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"系统将于%@为您派单，并安排司机来接您，请留意手机提醒并保持手机畅通。", start2]];
-        NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"系统将于%@为您派单，并安排司机来接您，请留意手机提醒并保持手机畅通。", @"2017-06-14-08:00"]];
+        NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"系统将于%@为您派单，并安排司机来接您，请留意手机提醒并保持手机畅通。", [MyHelperTool timeSpToTime:[NSString stringWithFormat:@"%d", [_statusModel.start_unixtime intValue]-3600]]]];
+//        NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"系统将于%@为您派单，并安排司机来接您，请留意手机提醒并保持手机畅通。", @"2017-06-14-08:00"]];
         [AttributedStr addAttribute:NSForegroundColorAttributeName
                               value:[UIColor colorWithHexString:@"999999"]
                               range:NSMakeRange(0, 4)];
@@ -73,43 +74,44 @@
         line3.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
         [self addSubview:line3];
         
+        NSMutableAttributedString *AttrBtn = [[NSMutableAttributedString alloc] initWithString:@"如需取消，请拨400-966-3655"];
+        [AttrBtn addAttribute:NSForegroundColorAttributeName
+                              value:[UIColor colorWithHexString:@"999999"]
+                              range:NSMakeRange(0, 7)];
+        [AttrBtn addAttribute:NSForegroundColorAttributeName
+                              value:[UIColor colorWithHexString:@"#1ead1a"]
+                              range:NSMakeRange(7, 12)];
+        
         UIButton *canCleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, line3.bottom, 690*PROPORTION750, 90*PROPORTION750)];
-        [canCleBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+//        [canCleBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+//        [canCleBtn setTitle:@"如需取消，请拨400-966-3655" forState:UIControlStateNormal];
+        [canCleBtn setAttributedTitle:AttrBtn forState:UIControlStateNormal];
         [canCleBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
         canCleBtn.titleLabel.font = SYSF750(30);
+        [canCleBtn addTarget:self action:@selector(cancleEvent) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:canCleBtn];
         
     }
     return self;
 }
 
+-(void)cancleEvent{
+    self.statusBlock();
+}
 
 @end
 
 @implementation S_WatingView
 
--(instancetype)initWithFrame:(CGRect)frame DataSource:(NSDictionary *)dic{
+-(instancetype)initWithFrame:(CGRect)frame DataSource:(StatusModel *)dic{
     if (self = [super initWithFrame:frame]) {
+        _statusModel = dic;
 //        UIView *msgView = [[UIView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-450*PROPORTION750-64, 690*PROPORTION750, 430*PROPORTION750)];
         self.backgroundColor = [UIColor whiteColor];
         self.layer.cornerRadius = 15*PROPORTION750;
         
-        UILabel *driverNameLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 210*PROPORTION750, 30*PROPORTION750)];
-        driverNameLB.text = @"王师傅";
-        driverNameLB.textAlignment = NSTextAlignmentCenter;
-        driverNameLB.font = SYSF750(30);
-        [self addSubview:driverNameLB];
-        
-        UILabel *carLB = [[UILabel alloc] initWithFrame:CGRectMake(450*PROPORTION750, 30*PROPORTION750, 210*PROPORTION750, 100*PROPORTION750)];
-        carLB.text = @"白色●海马V70212312323";
-        carLB.textAlignment = NSTextAlignmentCenter;
-        carLB.font = SYSF750(30);
-        carLB.numberOfLines = 0;
-        [carLB sizeToFit];
-        [self addSubview:carLB];
-        
         MyStar *starView = [[MyStar alloc] initWithFrame:CGRectMake(182.5*PROPORTION750, 160*PROPORTION750, 325*PROPORTION750, 45*PROPORTION750) space:20*PROPORTION750];
-        [starView setScore:4.2];
+        [starView setScore:(CGFloat)[_statusModel.score doubleValue]];
         [self addSubview:starView];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 230*PROPORTION750, 690*PROPORTION750, 2*PROPORTION750)];
@@ -117,21 +119,25 @@
         [self addSubview:line];
         
         UIButton *phoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, line.bottom+30*PROPORTION750, 170*PROPORTION750, 40*PROPORTION750)];
+        phoneBtn.tag = 100;
         [phoneBtn setImage:[[UIImage imageNamed:@"detail"] scaleImageByWidth:40*PROPORTION750] forState:UIControlStateNormal];
         [phoneBtn setTitle:@"拨打电话" forState:UIControlStateNormal];
         [phoneBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
         phoneBtn.titleLabel.font = SYSF750(25);
         phoneBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 130*PROPORTION750);
         phoneBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        [phoneBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:phoneBtn];
         
         UIButton *msgBtn = [[UIButton alloc] initWithFrame:CGRectMake(490*PROPORTION750, line.bottom+30*PROPORTION750, 170*PROPORTION750, 40*PROPORTION750)];
+        msgBtn.tag = 200;
         [msgBtn setImage:[[UIImage imageNamed:@"message"] scaleImageByWidth:40*PROPORTION750] forState:UIControlStateNormal];
         [msgBtn setTitle:@"发送信息" forState:UIControlStateNormal];
         [msgBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
         msgBtn.titleLabel.font = SYSF750(25);
         msgBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 130*PROPORTION750);
         msgBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        [msgBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:msgBtn];
         
         
@@ -140,10 +146,12 @@
         [self addSubview:line2];
         
         UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, line2.bottom+30*PROPORTION750, 690*PROPORTION750, 40*PROPORTION750)];
+        shareBtn.tag = 300;
         [shareBtn setImage:[[UIImage imageNamed:@"share_icon"] scaleImageByWidth:40*PROPORTION750] forState:UIControlStateNormal];
         [shareBtn setTitle:@" 分享获得优惠券" forState:UIControlStateNormal];
         [shareBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         shareBtn.titleLabel.font = SYSF750(30);
+        [shareBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
         //            shareBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 130*PROPORTION750);
         //            shareBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         [self addSubview:shareBtn];
@@ -151,33 +159,23 @@
     return self;
 }
 
+-(void)buttonClickEvents:(UIButton *)button{
+    self.statusBlock(button.tag);
+}
 
 @end
 
 @implementation S_OnWayView
 
--(instancetype)initWithFrame:(CGRect)frame DataSource:(NSDictionary *)dic{
+-(instancetype)initWithFrame:(CGRect)frame DataSource:(StatusModel *)dic{
     if (self = [super initWithFrame:frame]) {
+        _statusModel = dic;
 //        UIView *msgView = [[UIView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-350*PROPORTION750-64, 690*PROPORTION750, 330*PROPORTION750)];
         self.backgroundColor = [UIColor whiteColor];
         self.layer.cornerRadius = 15*PROPORTION750;
         
-        UILabel *driverNameLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 210*PROPORTION750, 30*PROPORTION750)];
-        driverNameLB.text = @"王师傅";
-        driverNameLB.textAlignment = NSTextAlignmentCenter;
-        driverNameLB.font = SYSF750(30);
-        [self addSubview:driverNameLB];
-        
-        UILabel *carLB = [[UILabel alloc] initWithFrame:CGRectMake(450*PROPORTION750, 30*PROPORTION750, 210*PROPORTION750, 100*PROPORTION750)];
-        carLB.text = @"白色●海马V70212312323";
-        carLB.textAlignment = NSTextAlignmentCenter;
-        carLB.font = SYSF750(30);
-        carLB.numberOfLines = 0;
-        [carLB sizeToFit];
-        [self addSubview:carLB];
-        
         MyStar *starView = [[MyStar alloc] initWithFrame:CGRectMake(182.5*PROPORTION750, 160*PROPORTION750, 325*PROPORTION750, 45*PROPORTION750) space:20*PROPORTION750];
-        [starView setScore:4.2];
+        [starView setScore:(CGFloat)[_statusModel.score doubleValue]];
         [self addSubview:starView];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 230*PROPORTION750, 690*PROPORTION750, 2*PROPORTION750)];
@@ -191,11 +189,15 @@
         shareBtn.titleLabel.font = SYSF750(30);
         //            shareBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 130*PROPORTION750);
         //            shareBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        [shareBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:shareBtn];
     }
     return self;
 }
 
+-(void)buttonClickEvents:(UIButton *)button{
+    self.statusBlock();
+}
 
 @end
 
@@ -226,27 +228,15 @@
         self.backgroundColor = [UIColor whiteColor];
         self.layer.cornerRadius = 15*PROPORTION750;
         
-        UILabel *driverNameLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 210*PROPORTION750, 30*PROPORTION750)];
-        driverNameLB.text = @"王师傅";
-        driverNameLB.textAlignment = NSTextAlignmentCenter;
-        driverNameLB.font = SYSF750(30);
-        [self addSubview:driverNameLB];
-        
-        UILabel *carLB = [[UILabel alloc] initWithFrame:CGRectMake(450*PROPORTION750, 30*PROPORTION750, 210*PROPORTION750, 100*PROPORTION750)];
-        carLB.text = @"白色●海马V70212312323";
-        carLB.textAlignment = NSTextAlignmentCenter;
-        carLB.font = SYSF750(30);
-        carLB.numberOfLines = 0;
-        [carLB sizeToFit];
-        [self addSubview:carLB];
-        
         UIButton *tsBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 160*PROPORTION750, 690*PROPORTION750, 40*PROPORTION750)];
+        tsBtn.tag = 100;
         [tsBtn setImage:[[UIImage imageNamed:@"comIcon"] scaleImageByWidth:40*PROPORTION750] forState:UIControlStateNormal];
         [tsBtn setTitle:@" 我要投诉" forState:UIControlStateNormal];
         [tsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         tsBtn.titleLabel.font = SYSF750(30);
         //            shareBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 130*PROPORTION750);
         //            shareBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        [tsBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:tsBtn];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 230*PROPORTION750, 690*PROPORTION750, 2*PROPORTION750)];
@@ -327,13 +317,14 @@
         [_pjTextView addSubview:tvTipLB];
         
         UIButton *upBtn = [[UIButton alloc] initWithFrame:CGRectMake(40*PROPORTION750, _pjTextView.bottom+30*PROPORTION750, 610*PROPORTION750, 70*PROPORTION750)];
+        upBtn.tag = 200;
         upBtn.backgroundColor = [UIColor colorWithHexString:@"#1aad19"];
         upBtn.clipsToBounds = YES;
         upBtn.layer.cornerRadius = 15*PROPORTION750;
         [upBtn setTitle:@"提交评价" forState:UIControlStateNormal];
         upBtn.titleLabel.font = SYSF750(35);
         upBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [upBtn addTarget:self action:@selector(buttonClickEvent) forControlEvents:UIControlEventTouchUpInside];
+        [upBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:upBtn];
         
         //注册键盘出现的通知
@@ -346,8 +337,6 @@
                                                      name:UIKeyboardWillHideNotification object:nil];
 //                    UpCommenView *upView = [[UpCommenView alloc] initWithFrame:CGRectMake(0, line2.bottom, 690*PROPORTION750, 760*PROPORTION750)];
 //                    [self addSubview:upView];
-        
-        
         
         
     }
@@ -375,7 +364,7 @@
     CGRect keyBoardFrame = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     if (keyBoardFrame.origin.y < _pjTextView.bottom+AL_DEVICE_HEIGHT-845*PROPORTION750-64){
         [UIView animateWithDuration:1.0f animations:^{
-            self.frame = CGRectMake(30*PROPORTION750, -(-keyBoardFrame.origin.y+_pjTextView.bottom+AL_DEVICE_HEIGHT-845*PROPORTION750-64), 690*PROPORTION750, 825*PROPORTION750);
+            self.frame = CGRectMake(30*PROPORTION750, -(-keyBoardFrame.origin.y+_pjTextView.bottom+150*PROPORTION750), 690*PROPORTION750, 825*PROPORTION750);
         }];
     }
 }
@@ -387,26 +376,28 @@
     
 }
 
--(void)buttonClickEvent{
-    NSString *score1 = [_starView1 getScore];
-    NSString *score2 = [_starView2 getScore];
-    NSString *score3 = [_starView3 getScore];
-    NSString *score4 = [_starView4 getScore];
-    NSString *content = _pjTextView.text;
-    
-    if (_delegate && [_delegate respondsToSelector:@selector(S_EndView:score1:score2:score3:score4:text:)]) {
-        [_delegate S_EndView:self
-                         score1:score1
-                         score2:score2
-                         score3:score3
-                         score4:score4
-                           text:content];
+
+
+-(void)buttonClickEvents:(UIButton *)button{
+    if (button.tag == 100) {
+        self.statusBlock();
+    }else{
+        NSString *score1 = [_starView1 getScore];
+        NSString *score2 = [_starView2 getScore];
+        NSString *score3 = [_starView3 getScore];
+        NSString *score4 = [_starView4 getScore];
+        NSString *content = _pjTextView.text;
+        
+        if (_delegate && [_delegate respondsToSelector:@selector(S_EndView:score1:score2:score3:score4:text:)]) {
+            [_delegate S_EndView:self
+                          score1:score1
+                          score2:score2
+                          score3:score3
+                          score4:score4
+                            text:content];
+        }
     }
 }
-
-//-(void)closeBtnClickEvent{
-//    [self removeFromSuperview];
-//}
 
 
 @end

@@ -11,6 +11,9 @@
 #import "ForgetPassViewController.h"
 #import "CKRealNameViewController.h"
 #import "CKMainViewController.h"
+#import "AppDelegate.h"
+#import "MainViewController.h"
+#import "BaseNavViewController.h"
 
 @interface PassLoginViewController ()
 {
@@ -123,15 +126,16 @@
                 [USERDEFAULTS setObject:[dic stringForKey:@"avatar"] forKey:@"headImage"];
                 [USERDEFAULTS setObject:tf1.text forKey:@"mobilePhone"];
                 
-                if ([[responseObject objectForKey:@"data"] intForKey:@"is_realname"] == 2)
-                {
+                if ([[responseObject objectForKey:@"data"] intForKey:@"is_realname"] == 2){
                     CKRealNameViewController *viewController = [[CKRealNameViewController alloc] init];
                     [self.navigationController pushViewController:viewController animated:YES];
                 }
-                else
-                {
-                    CKMainViewController *viewController = [[CKMainViewController alloc] init];
-                    [self.navigationController pushViewController:viewController animated:YES];
+                else{
+                    AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                    de.mainVc = [[MainViewController alloc] init];
+                    BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:de.mainVc];
+                    //                    navigationController.navigationBar.hidden = NO;
+                    de.window.rootViewController = navigationController;
                 }
             }
             else if (code == 400)

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CKMapViewController.h"
+#import "StatusModel.h"
 
 typedef enum : NSUInteger {
     s_start,
@@ -20,7 +21,9 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, assign)CurStatus curStatus;
 @property (nonatomic, assign)CurStatus willStatus;
+@property (nonatomic, strong)StatusModel *statusModel;
+@property (nonatomic, strong)BMKPointAnnotation *driverAnnotation;
 
--(void)refreshCurUI;
+-(void)refreshCurUI:(StatusModel *)model;
 
 @end

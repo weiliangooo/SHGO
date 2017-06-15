@@ -31,6 +31,18 @@
     return [NSString stringWithFormat:@"%ld", (long)[date timeIntervalSince1970]];
 }
 
+///时间戳 -> YYYY-MM-dd HH:mm:ss
++(NSString *)timeSpToTime:(NSString *)timeSp{
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[timeSp integerValue]];
+    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+    return confromTimespStr;
+}
+
 ///去除经纬度多余的0
 +(NSString *)changeFloat:(NSString *)stringFloat{
     NSUInteger length = [stringFloat length];

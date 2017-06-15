@@ -12,6 +12,8 @@
 #import "BaseNavViewController.h"
 #import "MyWebViewController.h"
 #import "PassLoginViewController.h"
+#import "AppDelegate.h"
+#import "MainViewController.h"
 
 @interface LoginViewController ()
 {
@@ -40,6 +42,11 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
     ///每次只要调用登录界面则清除 本地数据
     [MyHelperNO removeAllData];
+    
+    AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (de.mainVc != nil) {
+        [de.mainVc stopTimer];
+    }
     
     _accountTF = [[LoginTextField alloc] initWithFrame:CGRectMake(20*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 90*PROPORTION750) leftImgName:@"shouj" placeholderTitle:@"请输入手机号码"];
     _accountTF.myTextField.keyboardType = UIKeyboardTypeNumberPad;
@@ -134,8 +141,11 @@
                     [self.navigationController pushViewController:viewController animated:YES];
                 }
                 else{
-                    CKMainViewController *viewController = [[CKMainViewController alloc] init];
-                    [self.navigationController pushViewController:viewController animated:YES];
+                    AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                    de.mainVc = [[MainViewController alloc] init];
+                    BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:de.mainVc];
+//                    navigationController.navigationBar.hidden = NO;
+                    de.window.rootViewController = navigationController;
                 }
             }
             else if (code == 400){

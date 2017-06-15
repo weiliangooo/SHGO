@@ -10,4 +10,8 @@
 
 @interface MainViewController : YHBaseViewController
 
+-(void)startTimer;
+
+-(void)stopTimer;
+
 @end

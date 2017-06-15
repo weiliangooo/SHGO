@@ -9,6 +9,8 @@
 #import "CKRealNameViewController.h"
 #import "CKMainViewController.h"
 #import "MyWebViewController.h"
+#import "AppDelegate.h"
+#import "BaseNavViewController.h"
 
 @interface CKRealNameViewController ()
 ///用作底部容器
@@ -33,11 +35,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.type = 1;
+    self.type = 2;
     [self.leftBtn setImage:nil forState:UIControlStateNormal];
     [self.leftBtn setTitle:@"< 登录" forState:UIControlStateNormal];
     [self.leftBtn setTitleColor:[UIColor colorWithHexString:@"1aad19"] forState:UIControlStateNormal];
     self.leftBtn.titleLabel.font = SYSF750(30);
+    
+    [self.rightBtn setImage:nil forState:UIControlStateNormal];
+    [self.rightBtn setTitle:@"跳过" forState:UIControlStateNormal];
+    [self.rightBtn setTitleColor:[UIColor colorWithHexString:@"1aad19"] forState:UIControlStateNormal];
+    self.rightBtn.titleLabel.font = SYSF750(30);
+    
     self.topTitle = @"免费乘车意外险";
     self.view.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
     
@@ -207,14 +215,25 @@
     
 }
 
+-(void)rightBtn:(UIButton *)button{
+    AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    de.mainVc = [[MainViewController alloc] init];
+    BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:de.mainVc];
+    navigationController.navigationBar.hidden = NO;
+    de.window.rootViewController = navigationController;
+}
+
 -(void)gotoWebViewController{
     MyWebViewController *viewController = [[MyWebViewController  alloc] initWithTopTitle:@"共享租车协议" urlString:@"https://m.xiaomachuxing.com/Xm/index/rentalagreement"];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
 -(void)gotoCKMainViewController{
-    CKMainViewController *viewController = [[CKMainViewController alloc] init];
-    [self.navigationController pushViewController:viewController animated:YES];
+    AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    de.mainVc = [[MainViewController alloc] init];
+    BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:de.mainVc];
+    navigationController.navigationBar.hidden = NO;
+    de.window.rootViewController = navigationController;
 }
 
 

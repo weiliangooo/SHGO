@@ -343,7 +343,7 @@
 		F760C6E01EE50143008446C3 /* jcore-ios-1.1.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6DD1EE50143008446C3 /* jcore-ios-1.1.3.a */; };
 		F760C6E11EE50143008446C3 /* jpush-ios-3.0.5.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6DE1EE50143008446C3 /* jpush-ios-3.0.5.a */; };
 		F760C6E31EE502CF008446C3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6E21EE502CE008446C3 /* CoreFoundation.framework */; };
-		F760C6E71EE50327008446C3 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6E61EE50327008446C3 /* UserNotifications.framework */; };
+		F760C6E71EE50327008446C3 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6E61EE50327008446C3 /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F760C6E91EE50332008446C3 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F760C6E81EE50332008446C3 /* libresolv.tbd */; };
 		F760C7351EE55939008446C3 /* PingCarSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = F760C7341EE55939008446C3 /* PingCarSelectView.m */; };
 		F761C2EA1E98B5B600FCA6E3 /* CKOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F761C2E91E98B5B600FCA6E3 /* CKOrderViewController.m */; };
@@ -399,6 +399,7 @@
 		F76D78B31E9B8299003EFF67 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F76D78B21E9B8298003EFF67 /* CoreText.framework */; };
 		F76D78B51E9B836D003EFF67 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F76D78B41E9B836D003EFF67 /* CFNetwork.framework */; };
 		F76D78B71E9B837F003EFF67 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F76D78B61E9B837F003EFF67 /* CoreMotion.framework */; };
+		F7737D4E1EF2161300BD6D1F /* StatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7737D4D1EF2161300BD6D1F /* StatusModel.m */; };
 		F7957D8C1EEF79AA00DD299E /* ALRequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F7957D8B1EEF79AA00DD299E /* ALRequestObject.m */; };
 		F79F0C871E821CB900EAD30B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F79F0C851E821CB900EAD30B /* Info.plist */; };
 		F79F0C881E821CB900EAD30B /* SHGOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F0C861E821CB900EAD30B /* SHGOTests.m */; };
@@ -927,6 +928,8 @@
 		F76D78B21E9B8298003EFF67 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		F76D78B41E9B836D003EFF67 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F76D78B61E9B837F003EFF67 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		F7737D4C1EF2161300BD6D1F /* StatusModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusModel.h; sourceTree = "<group>"; };
+		F7737D4D1EF2161300BD6D1F /* StatusModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusModel.m; sourceTree = "<group>"; };
 		F7957D8A1EEF79AA00DD299E /* ALRequestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALRequestObject.h; sourceTree = "<group>"; };
 		F7957D8B1EEF79AA00DD299E /* ALRequestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALRequestObject.m; sourceTree = "<group>"; };
 		F79F0C851E821CB900EAD30B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2086,6 +2089,8 @@
 				F75172071EA5D640007EC790 /* ActivityModel.m */,
 				F75C4C371EAF16B000740030 /* MsgListModel.h */,
 				F75C4C381EAF16B000740030 /* MsgListModel.m */,
+				F7737D4C1EF2161300BD6D1F /* StatusModel.h */,
+				F7737D4D1EF2161300BD6D1F /* StatusModel.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -2171,7 +2176,7 @@
 					F701C6781E48440D008ADFD6 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = HA8YBCBL7M;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2338,6 +2343,7 @@
 				F7B14F1D1EA4B91800D7CDB6 /* ResonForCancleViewController.m in Sources */,
 				F701C6CC1E4844C2008ADFD6 /* NoDataView.m in Sources */,
 				F701C84B1E4844E6008ADFD6 /* SDWebImageDecoder.m in Sources */,
+				F7737D4E1EF2161300BD6D1F /* StatusModel.m in Sources */,
 				F701C6C91E4844C2008ADFD6 /* Frame.m in Sources */,
 				F71275751E84E2C600238420 /* CCMsgModel.m in Sources */,
 				F701C8751E4844E6008ADFD6 /* NSDictionaryExt.m in Sources */,
@@ -2767,7 +2773,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: meiling Sun (54B77Z8WJ5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = HA8YBCBL7M;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				ENABLE_ONLY_ACTIVE_RESOURCES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2798,8 +2804,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HaoMa.xmcx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7c9fee4e-25ff-4637-8752-a92248e2f2e1";
-				PROVISIONING_PROFILE_SPECIFIER = xmcxpassDe;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2811,8 +2817,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = SHGO/SHGO.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: meiling Sun (54B77Z8WJ5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = HA8YBCBL7M;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				ENABLE_ONLY_ACTIVE_RESOURCES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2843,8 +2849,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HaoMa.xmcx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0bcb70ac-f4ae-442c-aa48-1ae6e9c45786";
-				PROVISIONING_PROFILE_SPECIFIER = xmcxpassDi;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

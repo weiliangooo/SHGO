@@ -64,8 +64,8 @@
 //                navigationController.navigationBar.hidden = NO;
 //                self.window.rootViewController = navigationController;
                 
-                MainViewController *viewController = [[MainViewController alloc] init];
-                BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
+                _mainVc = [[MainViewController alloc] init];
+                BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:_mainVc];
                 navigationController.navigationBar.hidden = NO;
                 self.window.rootViewController = navigationController;
             }else{

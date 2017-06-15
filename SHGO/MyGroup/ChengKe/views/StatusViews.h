@@ -7,22 +7,34 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StatusModel.h"
+
 
 @interface S_StartView : UIView
 
--(instancetype)initWithFrame:(CGRect)frame DataSource:(NSDictionary *)dic;
+@property (nonatomic, strong)StatusModel *statusModel;
+
+@property (nonatomic, copy) void (^statusBlock)();
+
+-(instancetype)initWithFrame:(CGRect)frame DataSource:(StatusModel *)dic;
 
 @end
 
 @interface S_WatingView : UIView
 
--(instancetype)initWithFrame:(CGRect)frame DataSource:(NSDictionary *)dic;
+@property (nonatomic, strong)StatusModel *statusModel;
+@property (nonatomic, copy) void (^statusBlock)(NSInteger status);
+
+-(instancetype)initWithFrame:(CGRect)frame DataSource:(StatusModel *)dic;
 
 @end
 
 @interface S_OnWayView : UIView
 
--(instancetype)initWithFrame:(CGRect)frame DataSource:(NSDictionary *)dic;
+@property (nonatomic, strong)StatusModel *statusModel;
+@property (nonatomic, copy) void (^statusBlock)();
+
+-(instancetype)initWithFrame:(CGRect)frame DataSource:(StatusModel *)dic;
 
 @end
 
@@ -46,6 +58,8 @@
 @interface S_EndView : UIView
 
 @property (nonatomic, assign) id<S_EndViewDelegate> delegate;
+
+@property (nonatomic, copy) void (^statusBlock)();
 
 -(instancetype)initWithFrame:(CGRect)frame DataSource:(NSDictionary *)dic;
 
