@@ -55,57 +55,62 @@
         tipLB.textAlignment = NSTextAlignmentCenter;
         [backView addSubview:tipLB];
         
-        UILabel *tip1 = [[UILabel alloc] initWithFrame:CGRectMake(100*PROPORTION750, tipLB.bottom+30*PROPORTION750, 150*PROPORTION750, 40*PROPORTION750)];
-        tip1.text = @"服务态度";
-        tip1.font = SYSF750(30);
-        tip1.textAlignment = NSTextAlignmentLeft;
-        [backView addSubview:tip1];
-        [tip1 sizeToFit];
-        CGFloat starViewSpace = (470*PROPORTION750-tip1.width)/5-40*PROPORTION750;
-        CGFloat starViewWidth = 470*PROPORTION750-tip1.width + starViewSpace;
-        
-        _starView1 = [[MyStar alloc] initWithFrame:CGRectMake(tip1.right+40*PROPORTION750, tipLB.bottom+25*PROPORTION750, starViewWidth, 40*PROPORTION750) space:starViewSpace];
-        [_starView1 setScore:5.0];
+        _starView1 = [[MyStar alloc] initWithFrame:CGRectMake(45*PROPORTION750, 120*PROPORTION750, 600*PROPORTION750, 80*PROPORTION750) space:50*PROPORTION750];
+        [_starView1 setScore:0.0];
         _starView1.isCanTap = true;
-        [backView addSubview:_starView1];
+        [self addSubview:_starView1];
         
-        UILabel *tip2 = [[UILabel alloc] initWithFrame:CGRectMake(100*PROPORTION750, tip1.bottom+30*PROPORTION750, 150*PROPORTION750, 40*PROPORTION750)];
-        tip2.text = @"车辆整洁";
-        tip2.font = SYSF750(30);
-        tip2.textAlignment = NSTextAlignmentLeft;
-        [backView addSubview:tip2];
-        [tip1 sizeToFit];
+//        UILabel *tip1 = [[UILabel alloc] initWithFrame:CGRectMake(100*PROPORTION750, tipLB.bottom+30*PROPORTION750, 150*PROPORTION750, 40*PROPORTION750)];
+//        tip1.text = @"服务态度";
+//        tip1.font = SYSF750(30);
+//        tip1.textAlignment = NSTextAlignmentLeft;
+//        [backView addSubview:tip1];
+//        [tip1 sizeToFit];
+//        CGFloat starViewSpace = (470*PROPORTION750-tip1.width)/5-40*PROPORTION750;
+//        CGFloat starViewWidth = 470*PROPORTION750-tip1.width + starViewSpace;
+//        
+//        _starView1 = [[MyStar alloc] initWithFrame:CGRectMake(tip1.right+40*PROPORTION750, tipLB.bottom+25*PROPORTION750, starViewWidth, 40*PROPORTION750) space:starViewSpace];
+//        [_starView1 setScore:5.0];
+//        _starView1.isCanTap = true;
+//        [backView addSubview:_starView1];
+//        
+//        UILabel *tip2 = [[UILabel alloc] initWithFrame:CGRectMake(100*PROPORTION750, tip1.bottom+30*PROPORTION750, 150*PROPORTION750, 40*PROPORTION750)];
+//        tip2.text = @"车辆整洁";
+//        tip2.font = SYSF750(30);
+//        tip2.textAlignment = NSTextAlignmentLeft;
+//        [backView addSubview:tip2];
+//        [tip1 sizeToFit];
+//        
+//        _starView2 = [[MyStar alloc] initWithFrame:CGRectMake(tip1.right+40*PROPORTION750, tip1.bottom+25*PROPORTION750, starViewWidth, 40*PROPORTION750) space:starViewSpace];
+//        _starView2.isCanTap = true;
+//        [_starView2 setScore:5.0];
+//        [backView addSubview:_starView2];
+//        
+//        UILabel *tip3 = [[UILabel alloc] initWithFrame:CGRectMake(100*PROPORTION750, tip2.bottom+30*PROPORTION750, 150*PROPORTION750, 40*PROPORTION750)];
+//        tip3.text = @"驾驶技术";
+//        tip3.font = SYSF750(30);
+//        tip3.textAlignment = NSTextAlignmentLeft;
+//        [backView addSubview:tip3];
+//        [tip1 sizeToFit];
+//        
+//        _starView3 = [[MyStar alloc] initWithFrame:CGRectMake(tip1.right+40*PROPORTION750, tip2.bottom+25*PROPORTION750, starViewWidth, 40*PROPORTION750) space:starViewSpace];
+//        _starView3.isCanTap = true;
+//        [_starView3 setScore:5.0];
+//        [backView addSubview:_starView3];
+//        
+//        UILabel *tip4 = [[UILabel alloc] initWithFrame:CGRectMake(100*PROPORTION750, tip3.bottom+30*PROPORTION750, 150*PROPORTION750, 40*PROPORTION750)];
+//        tip4.text = @"线路熟悉";
+//        tip4.font = SYSF750(30);
+//        tip4.textAlignment = NSTextAlignmentLeft;
+//        [backView addSubview:tip4];
+//        [tip1 sizeToFit];
+//        
+//        _starView4 = [[MyStar alloc] initWithFrame:CGRectMake(tip1.right+40*PROPORTION750, tip3.bottom+25*PROPORTION750, starViewWidth, 40*PROPORTION750) space:starViewSpace];
+//        _starView4.isCanTap = true;
+//        [_starView4 setScore:5.0];
+//        [backView addSubview:_starView4];
         
-        _starView2 = [[MyStar alloc] initWithFrame:CGRectMake(tip1.right+40*PROPORTION750, tip1.bottom+25*PROPORTION750, starViewWidth, 40*PROPORTION750) space:starViewSpace];
-        _starView2.isCanTap = true;
-        [_starView2 setScore:5.0];
-        [backView addSubview:_starView2];
-        
-        UILabel *tip3 = [[UILabel alloc] initWithFrame:CGRectMake(100*PROPORTION750, tip2.bottom+30*PROPORTION750, 150*PROPORTION750, 40*PROPORTION750)];
-        tip3.text = @"驾驶技术";
-        tip3.font = SYSF750(30);
-        tip3.textAlignment = NSTextAlignmentLeft;
-        [backView addSubview:tip3];
-        [tip1 sizeToFit];
-        
-        _starView3 = [[MyStar alloc] initWithFrame:CGRectMake(tip1.right+40*PROPORTION750, tip2.bottom+25*PROPORTION750, starViewWidth, 40*PROPORTION750) space:starViewSpace];
-        _starView3.isCanTap = true;
-        [_starView3 setScore:5.0];
-        [backView addSubview:_starView3];
-        
-        UILabel *tip4 = [[UILabel alloc] initWithFrame:CGRectMake(100*PROPORTION750, tip3.bottom+30*PROPORTION750, 150*PROPORTION750, 40*PROPORTION750)];
-        tip4.text = @"线路熟悉";
-        tip4.font = SYSF750(30);
-        tip4.textAlignment = NSTextAlignmentLeft;
-        [backView addSubview:tip4];
-        [tip1 sizeToFit];
-        
-        _starView4 = [[MyStar alloc] initWithFrame:CGRectMake(tip1.right+40*PROPORTION750, tip3.bottom+25*PROPORTION750, starViewWidth, 40*PROPORTION750) space:starViewSpace];
-        _starView4.isCanTap = true;
-        [_starView4 setScore:5.0];
-        [backView addSubview:_starView4];
-        
-        _pjTextView = [[UITextView alloc] initWithFrame:CGRectMake(100*PROPORTION750, tip4.bottom+30*PROPORTION750, 510*PROPORTION750, 200*PROPORTION750)];
+        _pjTextView = [[UITextView alloc] initWithFrame:CGRectMake(100*PROPORTION750, /*tip4.bottom+30*PROPORTION750*/320*PROPORTION750, 510*PROPORTION750, 200*PROPORTION750)];
         _pjTextView.clipsToBounds = true;
         _pjTextView.layer.cornerRadius = 15*PROPORTION750;
         _pjTextView.layer.borderColor = [UIColor colorWithHexString:@"f4f4f4"].CGColor;
@@ -178,18 +183,25 @@
 }
 
 -(void)buttonClickEvent{
-    NSString *score1 = [_starView1 getScore];
-    NSString *score2 = [_starView2 getScore];
-    NSString *score3 = [_starView3 getScore];
-    NSString *score4 = [_starView4 getScore];
+    if ([_starView1 getScore] == 0) {
+        MBProgressHUD *toastHUD = [[MBProgressHUD alloc] initWithView:self];
+        [self addSubview:toastHUD];
+        toastHUD.labelText = @"您还没有为司机评分";
+        toastHUD.mode = MBProgressHUDModeText;
+        
+        [toastHUD showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [toastHUD removeFromSuperview];
+        }];
+        return;
+    }
+    NSString *score = [_starView1 getScore];
     NSString *content = _pjTextView.text;
 
-    if (_delegate && [_delegate respondsToSelector:@selector(upCommenView:score1:score2:score3:score4:text:)]) {
+    if (_delegate && [_delegate respondsToSelector:@selector(upCommenView:score:text:)]) {
         [_delegate upCommenView:self
-                         score1:score1
-                         score2:score2
-                         score3:score3
-                         score4:score4
+                         score:score
                            text:content];
     }
 }

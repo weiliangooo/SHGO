@@ -47,10 +47,7 @@
 @protocol S_EndViewDelegate <NSObject>
 
 -(void)S_EndView:(S_EndView *)view
-             score1:(NSString *)score1
-             score2:(NSString *)score2
-             score3:(NSString *)score3
-             score4:(NSString *)score4
+             score:(NSString *)score
                text:(NSString *)text;
 
 @end

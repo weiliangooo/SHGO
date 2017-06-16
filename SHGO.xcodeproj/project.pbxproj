@@ -2176,7 +2176,7 @@
 					F701C6781E48440D008ADFD6 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = HA8YBCBL7M;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2773,7 +2773,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: meiling Sun (54B77Z8WJ5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = HA8YBCBL7M;
 				ENABLE_BITCODE = NO;
 				ENABLE_ONLY_ACTIVE_RESOURCES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2804,8 +2804,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HaoMa.xmcx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "7c9fee4e-25ff-4637-8752-a92248e2f2e1";
+				PROVISIONING_PROFILE_SPECIFIER = xmcxpassDe;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2817,8 +2817,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = SHGO/SHGO.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: meiling Sun (54B77Z8WJ5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = HA8YBCBL7M;
 				ENABLE_BITCODE = NO;
 				ENABLE_ONLY_ACTIVE_RESOURCES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2849,8 +2849,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HaoMa.xmcx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "0bcb70ac-f4ae-442c-aa48-1ae6e9c45786";
+				PROVISIONING_PROFILE_SPECIFIER = xmcxpassDi;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

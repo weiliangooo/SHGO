@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 #import "AppDelegate.h"
 #import "BaseNavViewController.h"
+
 @interface YHBaseViewController ()<UIAlertViewDelegate>{
     MBProgressHUD *_HUD;
     UIView *_topBg;

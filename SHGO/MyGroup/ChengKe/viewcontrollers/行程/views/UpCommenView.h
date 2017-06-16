@@ -12,10 +12,7 @@
 @protocol UpCommenViewDelegate <NSObject>
 
 -(void)upCommenView:(UpCommenView *)view
-             score1:(NSString *)score1
-             score2:(NSString *)score2
-             score3:(NSString *)score3
-             score4:(NSString *)score4
+             score:(NSString *)score
                text:(NSString *)text;
 
 @end

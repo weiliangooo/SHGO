@@ -294,17 +294,14 @@
 /********************** 刷新当前ui **********************/
 
 -(void)S_EndView:(S_EndView *)view
-          score1:(NSString *)score1
-          score2:(NSString *)score2
-          score3:(NSString *)score3
-          score4:(NSString *)score4
+          score:(NSString *)score
             text:(NSString *)text{
     NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    _statusModel.order_sn, @"order_sn",
-                                   score1, @"td",
-                                   score2, @"zj",
-                                   score3, @"js",
-                                   score4, @"sx",
+                                   score, @"td",
+                                   score, @"zj",
+                                   score, @"js",
+                                   score, @"sx",
                                    text, @"content",
                                    [MyHelperNO getUid], @"uid",
                                    [MyHelperNO getMyToken], @"token", nil];
