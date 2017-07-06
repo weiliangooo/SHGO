@@ -35,6 +35,7 @@
         self.start_unixtime = [dataSource stringForKey:@"start_unixtime"];
         self.score = [dataSource stringForKey:@"score"];
         self.car_type = [dataSource stringForKey:@"car_type"];
+        self.count = [dataSource stringForKey:@"count"];
     }
     return self;
 }

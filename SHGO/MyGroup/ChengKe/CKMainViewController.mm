@@ -139,7 +139,7 @@
 }
 
 -(void)openLocationTip{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"小马出行需要定位支持,否则将无法使用" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"打开定位开关" message:@"定位服务未开启，请进入系统【设置】>【隐私】>【定位服务】中打开开关，并允许小马出行使用定位服务" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"我已打开" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if ([MyHelperTool isLocationServiceOpen]) {
             [self requestForPlaces];
@@ -409,7 +409,8 @@
                     [view.imageView sd_setImageWithURL:[NSURL URLWithString:[responseObject stringForKey:@"img"]]];
                     view.imageTapBlock = ^(){
                         if(![[responseObject stringForKey:@"url"] isEqualToString:@"0"]){
-                            MyWebViewController *viewController = [[MyWebViewController alloc] initWithTopTitle:@"活动介绍" urlString:[responseObject stringForKey:@"url"]];
+                            NSString *urlString = [NSString stringWithFormat:@"%@/uid/%@",[responseObject stringForKey:@"url"], [MyHelperNO getUid]];
+                            MyWebViewController *viewController = [[MyWebViewController alloc] initWithTopTitle:@"活动介绍" urlString:urlString];
                             BaseNavViewController *nv = [[BaseNavViewController alloc] initWithRootViewController:viewController];
                             [self presentViewController:nv animated:true completion:nil];
                         }

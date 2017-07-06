@@ -17,6 +17,7 @@ typedef enum : NSUInteger {
     s_end,
 } CurStatus;
 
+
 @interface CurrentStatusViewController : CKMapViewController
 
 @property (nonatomic, assign)CurStatus curStatus;

@@ -33,6 +33,7 @@
 @property (nonatomic, strong) NSString *start_unixtime;
 @property (nonatomic, strong) NSString *score;
 @property (nonatomic, strong) NSString *car_type;
+@property (nonatomic, strong) NSString *count;
 
 -(instancetype)initWithData:(NSDictionary *)dataSource;
 

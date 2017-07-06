@@ -21,9 +21,12 @@
 #endif
 
 #import "MainViewController.h"
+#import "AdvertView.h"
 
 @interface AppDelegate ()<WXApiDelegate,JPUSHRegisterDelegate>
-
+{
+    AdvertView *adView;
+}
 @end
 
 @implementation AppDelegate
@@ -31,6 +34,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
+    if (![MyHelperNO  isFirstLogin]) {
+        adView = [[AdvertView alloc] init];
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_async(mainQueue,^{
+            [self.window addSubview:adView];
+        });
+    }
     ///极光推送
     JPUSHRegisterEntity *entity = [[JPUSHRegisterEntity alloc] init];
     entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
@@ -43,11 +57,7 @@
     if (!ret){
         NSLog(@"manager start failed!");
     }
-    
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-    
+
     if ([MyHelperNO  isFirstLogin]){
         [USERDEFAULTS setBool:YES forKey:@"hadLogin"];
         PGSLeadViewController *viewController = [[PGSLeadViewController alloc] init];
@@ -82,6 +92,10 @@
     /* 设置友盟appkey */
     [[UMSocialManager defaultManager] setUmSocialAppkey:@"58eb3cba2ae85b3d5e001d27"];
     [self configUSharePlatforms];
+    
+    if (adView != nil) {
+        [self.window bringSubviewToFront:adView];
+    }
     
     return YES;
 }
@@ -135,7 +149,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
 }
 
-
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -156,7 +169,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     }
     
 }
-
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.

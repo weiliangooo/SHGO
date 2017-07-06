@@ -134,7 +134,6 @@
                     AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
                     de.mainVc = [[MainViewController alloc] init];
                     BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:de.mainVc];
-                    //                    navigationController.navigationBar.hidden = NO;
                     de.window.rootViewController = navigationController;
                 }
             }

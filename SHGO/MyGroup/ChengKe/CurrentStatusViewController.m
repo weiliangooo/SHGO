@@ -70,21 +70,19 @@
         [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         self.mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
         self.mapView.zoomLevel = 17;
-//        self.mapView.gesturesEnabled = NO;
         self.mapView.delegate = self;
         self.view = self.mapView;
         [self CreateUI];
     }else{
         if (_curStatus == s_waiting) {
             self.driverAnnotation.coordinate = [MyHelperTool locationStringToLocationCoordinate:_statusModel.local];
-//            [self getVisbleRect:[MyHelperTool locationStringToLocationCoordinate:_statusModel.local] :self.mapView.centerCoordinate];
             BMKMapPoint point1 = BMKMapPointForCoordinate([MyHelperTool locationStringToLocationCoordinate:_statusModel.local]);
             BMKMapPoint point2 = BMKMapPointForCoordinate(self.mapView.centerCoordinate);
             CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
             if (distance/1000 < 1) {
                 DisLabel.text = [NSString stringWithFormat:@"1分钟|距离%.0f米", distance];
             }else{
-                DisLabel.text = [NSString stringWithFormat:@"%d分钟|距离%.0f公里",(int)distance/5*6, distance/1000];
+                DisLabel.text = [NSString stringWithFormat:@"%d分钟|距离%.0f公里",(int)distance/5000*6, distance/1000];
             }
         }
     }
@@ -112,7 +110,6 @@
             
             ((YHBaseViewController *)self.parentViewController).topTitle = @"等待派单中";
             S_StartView *view = [[S_StartView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-330*PROPORTION750-64, 690*PROPORTION750, 310*PROPORTION750) DataSource:_statusModel];
-//            view.statusModel = _statusModel;
             view.statusBlock = ^(){
                 [self phoneAlertView:@"400-966-3655"];
             };
@@ -120,6 +117,8 @@
         }
             break;
         case s_waiting:{
+            
+            
             self.locationService = [[BMKLocationService alloc] init];
             self.locationService.delegate = self;
             [BMKLocationService setLocationDistanceFilter:10];
@@ -137,6 +136,7 @@
             [self getVisbleRect:[MyHelperTool locationStringToLocationCoordinate:_statusModel.local] :self.mapView.centerCoordinate];
             
             ((YHBaseViewController *)self.parentViewController).topTitle = @"司机正在路上";
+            [self addTipView];
             S_WatingView *view = [[S_WatingView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-450*PROPORTION750-64, 690*PROPORTION750, 430*PROPORTION750) DataSource:_statusModel];
             view.statusBlock = ^(NSInteger flag){
                 if (flag == 100) {
@@ -156,7 +156,6 @@
         }
             break;
         case s_onWay:{
-            
             self.locationService = [[BMKLocationService alloc] init];
             self.locationService.delegate = self;
 //            [BMKLocationService setLocationDistanceFilter:0];
@@ -179,9 +178,8 @@
             
             [self getVisbleRect:[MyHelperTool locationStringToLocationCoordinate:_statusModel.s] :[MyHelperTool locationStringToLocationCoordinate:_statusModel.e]];
             
-            
-            
             ((YHBaseViewController *)self.parentViewController).topTitle = @"行程中";
+            [self addTipView];
             S_OnWayView *view = [[S_OnWayView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-350*PROPORTION750-64, 690*PROPORTION750, 330*PROPORTION750) DataSource:_statusModel];
             view.statusBlock = ^(){
                 ShareView *shareView = [[ShareView alloc] init];
@@ -240,23 +238,66 @@
 /**
  *  定位成功，再次定位的方法(定位成功触发)
  */
--(void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
-{
-    NSLog(@"sdfsfs");
-//    [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
+-(void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation{
     [self.mapView updateLocationData:userLocation];
-    // 完成地理反编码
-    // 1、创建反向地理编码选项对象
-//    BMKReverseGeoCodeOption *reverseOption = [[BMKReverseGeoCodeOption alloc] init];
-//    // 2、给反向地理编码选项对象坐标点赋值
-//    reverseOption.reverseGeoPoint = userLocation.location.coordinate;
-//    // 3、执行反向地理编码操作
-//    [self.geocoder reverseGeoCode:reverseOption];
+}
+
+///
+-(void)addTipView{
+    UIView *tipView = [[UIView alloc] initWithFrame:CGRectMake(20*PROPORTION750, 20*PROPORTION750, AL_DEVICE_WIDTH-40*PROPORTION750, 50*PROPORTION750)];
+    tipView.backgroundColor = [UIColor whiteColor];
+    tipView.clipsToBounds = true;
+    tipView.layer.cornerRadius = 15*PROPORTION750;
+    [self.view addSubview:tipView];
     
+    UILabel *tipLb = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH-200*PROPORTION750, 50*PROPORTION750)];
+    tipLb.text = @"如发现实际载客人数与合乘人数不符，请及时投诉";
+    tipLb.font = SYSF750(20);
+    tipLb.textAlignment = NSTextAlignmentCenter;
+    [tipView addSubview:tipLb];
+    
+    UIButton *tipBtn = [[UIButton alloc] initWithFrame:CGRectMake(tipLb.right, 0, 160*PROPORTION750, 50*PROPORTION750)];
+    tipBtn.backgroundColor = [UIColor colorWithHexString:@"#17b00e"];
+    [tipBtn setTitle:@"我要投诉" forState:UIControlStateNormal];
+    [tipBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    tipBtn.titleLabel.font = SYSF750(20);
+    [tipBtn addTarget:self action:@selector(tipBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [tipView addSubview:tipBtn];
+}
+
+-(void)tipBtnClicked:(UIButton *)button{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"是否确定实载人数与合载人数不符？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancleBtn = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    
+    UIAlertAction *sureBtn = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       _statusModel.order_sn, @"order_sn",
+                                       [MyHelperNO getUid], @"uid",
+                                       [MyHelperNO getMyToken], @"token", nil];
+        [self post:@"index/complaint" withParam:reqDic success:^(id responseObject) {
+            int code = [responseObject intForKey:@"status"];
+            NSLog(@"%@", responseObject);
+            NSString *msg = [responseObject stringForKey:@"msg"];
+            if (code == 200){
+                [self toast:@"感谢您的反馈！"];
+            }else if (code == 300){
+                [self toast:@"身份认证已过期"];
+                [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:1.5f];
+            }else if (code == 400){
+                [self toast:msg];
+            }
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
+    [alertController addAction:cancleBtn];
+    [alertController addAction:sureBtn];
+    [self presentViewController:alertController animated:true completion:nil];
 }
 
 -(void)addHeadView:(UIView *)view{
-    
     UILabel *driverNameLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 210*PROPORTION750, 30*PROPORTION750)];
     driverNameLB.text = _statusModel.driver_name;
     driverNameLB.textAlignment = NSTextAlignmentCenter;
@@ -270,6 +311,17 @@
     carLB.numberOfLines = 0;
     [carLB sizeToFit];
     [view addSubview:carLB];
+    
+    if (_curStatus == s_waiting || _curStatus == s_onWay) {
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"合乘人数：%@人", _statusModel.count]];
+        [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#71d77c"] range:NSMakeRange(5, 2)];
+        UILabel *numLB = [[UILabel alloc] initWithFrame:CGRectMake(carLB.left, carLB.bottom+10*PROPORTION750, carLB.width, 30*PROPORTION750)];
+//        numLB.text = _statusModel.count;
+        numLB.attributedText = string;
+        numLB.textAlignment = NSTextAlignmentCenter;
+        numLB.font = SYSF750(25);
+        [view addSubview:numLB];
+    }
     
     UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake(270*PROPORTION750, -50*PROPORTION750, 150*PROPORTION750, 150*PROPORTION750)];
     headImg.clipsToBounds = true;
@@ -340,34 +392,25 @@
             newStart.image = [UIImage imageNamed:@"driverLoc"];   //把大头针换成别的图片
             DisLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, newStart.width, 50*PROPORTION750)];
             DisLabel.textColor = [UIColor whiteColor];
-//            BMKMapPoint point1 = BMKMapPointForCoordinate([MyHelperTool locationStringToLocationCoordinate:_statusModel.local]);
-//            BMKMapPoint point2 = BMKMapPointForCoordinate(self.mapView.centerCoordinate);
-//            CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
-//            DisLabel.text = [NSString stringWithFormat:@"距离%.1f公里", distance/1000];
             DisLabel.textAlignment = NSTextAlignmentCenter;
             DisLabel.font = SYSF750(20);
             [newStart addSubview:DisLabel];
             newStart.centerOffset = CGPointMake(0, -newStart.size.height/2);
-            
             return newStart;
         }
     }
     return nil;
 }
 
-- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
-{
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType{
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-    
     //创建网页内容对象
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"Hi，朋友，送你10元小马出行优惠券，为你约车买单！" descr:@"我一直用小马出行，既经济又便捷舒适，邀你一起来体验，首次乘坐立减10元~" thumImage:[UIImage imageNamed:@"default"]];
     //设置网页地址
     shareObject.webpageUrl =[NSString stringWithFormat:@"https://m.xiaomachuxing.com/qrcode/inviteapp/id/%@", [MyHelperNO getUid]];
-    
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;
-    
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
         if (error) {

@@ -180,17 +180,17 @@
         return ;
     }
 
-        if(dic != nil){
-            //调起微信支付
-            PayReq* req             = [[PayReq alloc] init];
-            req.partnerId = [dic stringForKey:@"partnerid"];
-            req.prepayId = [dic stringForKey:@"prepayid"];
-            req.package = @"Sign=WXPay";
-            req.nonceStr = [dic stringForKey:@"noncestr"];
-            req.timeStamp = [[dic stringForKey:@"timestamp"] doubleValue];
-            req.sign = [dic stringForKey:@"sign"];
-            [WXApi sendReq:req];
-        }
+    if(dic != nil){
+        //调起微信支付
+        PayReq* req             = [[PayReq alloc] init];
+        req.partnerId = [dic stringForKey:@"partnerid"];
+        req.prepayId = [dic stringForKey:@"prepayid"];
+        req.package = @"Sign=WXPay";
+        req.nonceStr = [dic stringForKey:@"noncestr"];
+        req.timeStamp = [[dic stringForKey:@"timestamp"] doubleValue];
+        req.sign = [dic stringForKey:@"sign"];
+        [WXApi sendReq:req];
+    }
 }
 
 

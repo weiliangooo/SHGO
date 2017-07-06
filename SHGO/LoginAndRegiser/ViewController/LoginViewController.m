@@ -14,6 +14,7 @@
 #import "PassLoginViewController.h"
 #import "AppDelegate.h"
 #import "MainViewController.h"
+#import "PGSLeadViewController.h"
 
 @interface LoginViewController ()
 {
@@ -92,8 +93,7 @@
     loginBT.layer.cornerRadius = 15.0f*PROPORTION750;
     loginBT.tag = 101;
     [loginBT addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:loginBT];
-    
+    [self.view addSubview:loginBT];    
 }
 
 
@@ -144,7 +144,6 @@
                     AppDelegate *de = (AppDelegate *)[UIApplication sharedApplication].delegate;
                     de.mainVc = [[MainViewController alloc] init];
                     BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:de.mainVc];
-//                    navigationController.navigationBar.hidden = NO;
                     de.window.rootViewController = navigationController;
                 }
             }

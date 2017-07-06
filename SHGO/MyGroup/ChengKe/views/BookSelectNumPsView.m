@@ -84,7 +84,7 @@
 -(void)buttonClickEvents:(UIButton *)button{
     [self dismissView];
     if (button.tag == 101) {
-        self.bookNumPsBlock(self.numPs);
+        self.bookNumPsBlock(self.numPs == 0 ? 1:self.numPs);
     }
 }
 

@@ -8,14 +8,16 @@
 
 #import "PGSLeadViewController.h"
 
+#import <CoreLocation/CLLocationManager.h>
+
 #import "LoginViewController.h"
-
 #import "BaseNavViewController.h"
+#import "AppDelegate.h"
 
-@interface PGSLeadViewController ()
-
+@interface PGSLeadViewController ()<UIScrollViewDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, strong) UIScrollView *myScrollView;
+@property (nonatomic, strong) CLLocationManager *locManager;
 
 @end
 
@@ -23,15 +25,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     NSArray *pics = @[@"guide_one", @"guide_two", @"guide_three"];
     
     _myScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH, AL_DEVICE_HEIGHT)];
-    _myScrollView.backgroundColor = [UIColor whiteColor];
+    _myScrollView.backgroundColor = [UIColor clearColor];
     _myScrollView.showsHorizontalScrollIndicator = NO;
     _myScrollView.showsVerticalScrollIndicator = NO;
     _myScrollView.contentSize = CGSizeMake(AL_DEVICE_WIDTH*pics.count, 0);
     _myScrollView.pagingEnabled = YES;
+    _myScrollView.delegate = self;
     [self.view addSubview:_myScrollView];
     
     for (int i = 0 ; i < pics.count; i++){
@@ -41,33 +43,25 @@
         
         if (i == 2){
             imageView.userInteractionEnabled = YES;
-            [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToLoginInterface:)]];
+            [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoLoginViewController)]];
         }
     }
-    
+
+    _locManager = [[CLLocationManager alloc] init];
+    _locManager.delegate = self;
+    [_locManager requestWhenInUseAuthorization];
 }
 
--(void)goToLoginInterface:(UITapGestureRecognizer *)tap{
-    LoginViewController *viewController = [[LoginViewController alloc] init];
-    BaseNavViewController *navigationController = [[BaseNavViewController alloc] initWithRootViewController:viewController];
-    [self presentViewController:navigationController animated:YES completion:nil];
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (scrollView.contentOffset.x > AL_DEVICE_WIDTH*2+200*PROPORTION750) {
+        [self gotoLoginViewController];
+    }
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

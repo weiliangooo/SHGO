@@ -401,6 +401,7 @@
 		F76D78B71E9B837F003EFF67 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F76D78B61E9B837F003EFF67 /* CoreMotion.framework */; };
 		F7737D4E1EF2161300BD6D1F /* StatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7737D4D1EF2161300BD6D1F /* StatusModel.m */; };
 		F7957D8C1EEF79AA00DD299E /* ALRequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F7957D8B1EEF79AA00DD299E /* ALRequestObject.m */; };
+		F796A8511EFBAC5100BE21CA /* AdvertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F796A8501EFBAC5100BE21CA /* AdvertView.m */; };
 		F79F0C871E821CB900EAD30B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F79F0C851E821CB900EAD30B /* Info.plist */; };
 		F79F0C881E821CB900EAD30B /* SHGOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F79F0C861E821CB900EAD30B /* SHGOTests.m */; };
 		F79F0C9A1E82227800EAD30B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F79F0C991E82227800EAD30B /* CoreLocation.framework */; };
@@ -932,6 +933,8 @@
 		F7737D4D1EF2161300BD6D1F /* StatusModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusModel.m; sourceTree = "<group>"; };
 		F7957D8A1EEF79AA00DD299E /* ALRequestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALRequestObject.h; sourceTree = "<group>"; };
 		F7957D8B1EEF79AA00DD299E /* ALRequestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALRequestObject.m; sourceTree = "<group>"; };
+		F796A84F1EFBAC5100BE21CA /* AdvertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvertView.h; sourceTree = "<group>"; };
+		F796A8501EFBAC5100BE21CA /* AdvertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvertView.m; sourceTree = "<group>"; };
 		F79F0C851E821CB900EAD30B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F79F0C861E821CB900EAD30B /* SHGOTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHGOTests.m; sourceTree = "<group>"; };
 		F79F0C991E82227800EAD30B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -1517,6 +1520,8 @@
 				F712CD0D1EBB208900B67880 /* MyHelperTool.m */,
 				F7957D8A1EEF79AA00DD299E /* ALRequestObject.h */,
 				F7957D8B1EEF79AA00DD299E /* ALRequestObject.m */,
+				F796A84F1EFBAC5100BE21CA /* AdvertView.h */,
+				F796A8501EFBAC5100BE21CA /* AdvertView.m */,
 			);
 			path = "通用类";
 			sourceTree = "<group>";
@@ -2361,6 +2366,7 @@
 				F701C7D61E4844E6008ADFD6 /* UploadFileData.m in Sources */,
 				F76D78A91E9B8158003EFF67 /* MD5DataSigner.m in Sources */,
 				F712757E1E88D90C00238420 /* CKBookView.m in Sources */,
+				F796A8511EFBAC5100BE21CA /* AdvertView.m in Sources */,
 				F753B9A31EC419820063781A /* OrderDetailBaseView.m in Sources */,
 				F75C4C3C1EAF3C4600740030 /* CKMsgDetailViewController.m in Sources */,
 				F701C7AC1E4844E5008ADFD6 /* AFURLRequestSerialization.m in Sources */,
@@ -2801,6 +2807,7 @@
 					"$(PROJECT_DIR)/Weixin",
 					"$(PROJECT_DIR)/Lib",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HaoMa.xmcx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2846,6 +2853,7 @@
 					"$(PROJECT_DIR)/Weixin",
 					"$(PROJECT_DIR)/Lib",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HaoMa.xmcx;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -8,6 +8,7 @@
 
 #import "ResonForCancleViewController.h"
 #import "CKMainViewController.h"
+#import "MainViewController.h"
 
 @interface ResonForCancleViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
 {
@@ -255,8 +256,8 @@
 
 -(void)popToMainVC{
     for (YHBaseViewController *viewController in self.navigationController.viewControllers){
-        if ([viewController isKindOfClass:[CKMainViewController class]]) {
-            CKMainViewController *mainVC = (CKMainViewController *)viewController;
+        if ([viewController isKindOfClass:[MainViewController class]]) {
+            MainViewController *mainVC = (MainViewController *)viewController;
             [self.navigationController popToViewController:mainVC animated:YES];
             return;
         }

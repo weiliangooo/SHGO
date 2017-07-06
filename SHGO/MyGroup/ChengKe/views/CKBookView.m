@@ -336,7 +336,7 @@
             self.rightPingView.priceStr = [NSString stringWithFormat:@"%.2f",_vipMoney-discountPrice>0?_vipMoney-discountPrice:0.00];
         }else{
             self.leftPingView.priceStr = [NSString stringWithFormat:@"%0.2f",_singlePrice*_numPs+addPrice-discountPrice>0?_singlePrice*_numPs+addPrice-discountPrice:0.00];
-            self.rightPingView.priceStr = [NSString stringWithFormat:@"%.2f",_vipMoney-discountPrice-_money>0?_vipMoney-discountPrice:0.00];
+            self.rightPingView.priceStr = [NSString stringWithFormat:@"%.2f",_vipMoney-discountPrice>0?_vipMoney-discountPrice:0.00];
         }
     }
     

@@ -255,9 +255,8 @@
     
 }
 
--(void)popToMainVC
-{
-    [self.navigationController popViewControllerAnimated:true];
+-(void)popToMainVC{
+        [self.navigationController popViewControllerAnimated:true];
 }
 
 -(CGFloat)calTableViewHeightWithCellMaxNum:(NSInteger)cellMaxNum
