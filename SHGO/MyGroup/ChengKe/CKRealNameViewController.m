@@ -37,14 +37,16 @@
     // Do any additional setup after loading the view.
     self.type = 2;
     [self.leftBtn setImage:nil forState:UIControlStateNormal];
-    [self.leftBtn setTitle:@"< 登录" forState:UIControlStateNormal];
+    [self.leftBtn setTitle:@" < 登录" forState:UIControlStateNormal];
     [self.leftBtn setTitleColor:[UIColor colorWithHexString:@"1aad19"] forState:UIControlStateNormal];
     self.leftBtn.titleLabel.font = SYSF750(30);
+    self.leftBtn.sizeToFit;
     
     [self.rightBtn setImage:nil forState:UIControlStateNormal];
-    [self.rightBtn setTitle:@"跳过" forState:UIControlStateNormal];
+    [self.rightBtn setTitle:@"跳过 " forState:UIControlStateNormal];
     [self.rightBtn setTitleColor:[UIColor colorWithHexString:@"1aad19"] forState:UIControlStateNormal];
     self.rightBtn.titleLabel.font = SYSF750(30);
+    self.rightBtn.sizeToFit;
     
     self.topTitle = @"免费乘车意外险";
     self.view.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];

@@ -10,6 +10,7 @@
 #import "CKOrderDetailViewController.h"
 #import "OrderListModel.h"
 #import "OrderDetailModel.h"
+#import "BillViewController.h"
 
 @interface CKOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -48,7 +49,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.type = 1;
+    self.type = 3;
+    [self.rightBtn setTitle:@"开发票" forState:UIControlStateNormal];
     self.topTitle = @"我的行程";
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
@@ -212,6 +214,11 @@
     dispatch_after(delayTime, dispatch_get_main_queue(), ^{
         [self hideLoading];
     });
+}
+
+-(void)rightBtn:(UIButton *)button{
+    BillViewController *viewController = [[BillViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:true];
 }
 
 - (void)didReceiveMemoryWarning {

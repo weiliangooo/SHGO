@@ -59,8 +59,7 @@
  2返回按钮和搜索按钮
  **/
 -(void)setType:(int)type{
-    if(type==1)
-    {
+    if(type==1){
         _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _leftBtn.frame = CGRectMake(0, 0, 38*PROPORTION750, 30*PROPORTION750);
         _leftBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 20*PROPORTION750, 0, 0);
@@ -68,8 +67,7 @@
         [_leftBtn addTarget:self action:@selector(leftBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self ios7LeftBarButtonItems:[[UIBarButtonItem alloc]initWithCustomView:_leftBtn]];
     }
-    else if (type==2)
-    {
+    else if (type==2){
         _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _leftBtn.frame = CGRectMake(0, 0, 25*PROPORTION, 25*PROPORTION);
         [_leftBtn setImage:[UIImage imageNamed:@"useravatar"] forState:UIControlStateNormal];
@@ -81,20 +79,20 @@
         [_rightBtn addTarget:self action:@selector(rightBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_rightBtn setImage:[UIImage imageNamed:@"messagenotification"] forState:UIControlStateNormal];
         [self ios7RightBarButtonItems:[[UIBarButtonItem alloc]initWithCustomView:_rightBtn]];
-        
     }
-    else if(type == 3)
-    {
+    else if(type == 3){
         _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _leftBtn.frame = CGRectMake(0, 0, 25*PROPORTION, 25*PROPORTION);
-        [_leftBtn setImage:[UIImage imageNamed:@"rowBack"] forState:UIControlStateNormal];
+//        _leftBtn.frame = CGRectMake(0, 0, 25*PROPORTION, 25*PROPORTION);
+        _leftBtn.frame = CGRectMake(0, 0, 38*PROPORTION750, 30*PROPORTION750);
+        _leftBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 20*PROPORTION750, 0, 0);
+        [_leftBtn setImage:[UIImage imageNamed:@"rowback"] forState:UIControlStateNormal];
         [_leftBtn addTarget:self action:@selector(leftBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self ios7LeftBarButtonItems:[[UIBarButtonItem alloc]initWithCustomView:_leftBtn]];
     
         _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _rightBtn.frame = CGRectMake(0, 0, 60*PROPORTION, 20);
         [_rightBtn setTitle:@"取消订单" forState:UIControlStateNormal];
-        [_rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_rightBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _rightBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
         _rightBtn.titleLabel.font = [UIFont systemFontOfSize:14*PROPORTION];
         [_rightBtn addTarget:self action:@selector(rightBtn:) forControlEvents:UIControlEventTouchUpInside];
