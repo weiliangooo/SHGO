@@ -406,6 +406,7 @@
 		F77548541F1321B1000470A9 /* BillTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F77548531F1321B1000470A9 /* BillTableViewCell.m */; };
 		F77548571F1356E1000470A9 /* BillSubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77548561F1356E1000470A9 /* BillSubmitViewController.m */; };
 		F775485A1F13753D000470A9 /* BillHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77548591F13753D000470A9 /* BillHistoryViewController.m */; };
+		F777770B1F1F836C00566B87 /* BillHisModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F777770A1F1F836C00566B87 /* BillHisModel.m */; };
 		F7957D8C1EEF79AA00DD299E /* ALRequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F7957D8B1EEF79AA00DD299E /* ALRequestObject.m */; };
 		F796A8511EFBAC5100BE21CA /* AdvertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F796A8501EFBAC5100BE21CA /* AdvertView.m */; };
 		F79F0C871E821CB900EAD30B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F79F0C851E821CB900EAD30B /* Info.plist */; };
@@ -949,6 +950,8 @@
 		F77548561F1356E1000470A9 /* BillSubmitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillSubmitViewController.m; sourceTree = "<group>"; };
 		F77548581F13753D000470A9 /* BillHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillHistoryViewController.h; sourceTree = "<group>"; };
 		F77548591F13753D000470A9 /* BillHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillHistoryViewController.m; sourceTree = "<group>"; };
+		F77777091F1F836C00566B87 /* BillHisModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillHisModel.h; sourceTree = "<group>"; };
+		F777770A1F1F836C00566B87 /* BillHisModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillHisModel.m; sourceTree = "<group>"; };
 		F7957D8A1EEF79AA00DD299E /* ALRequestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALRequestObject.h; sourceTree = "<group>"; };
 		F7957D8B1EEF79AA00DD299E /* ALRequestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALRequestObject.m; sourceTree = "<group>"; };
 		F796A84F1EFBAC5100BE21CA /* AdvertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvertView.h; sourceTree = "<group>"; };
@@ -1616,6 +1619,8 @@
 				F764CA671EA9F48300B91253 /* OrderPriceModel.m */,
 				F758F7681F1DFF2D00B00A47 /* BillModel.h */,
 				F758F7691F1DFF2D00B00A47 /* BillModel.m */,
+				F77777091F1F836C00566B87 /* BillHisModel.h */,
+				F777770A1F1F836C00566B87 /* BillHisModel.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -2372,6 +2377,7 @@
 				F76B20871EEE76B700F28479 /* CurrentStatusViewController.m in Sources */,
 				F76D78091E9B6572003EFF67 /* ShareView.m in Sources */,
 				F75C4C391EAF16B000740030 /* MsgListModel.m in Sources */,
+				F777770B1F1F836C00566B87 /* BillHisModel.m in Sources */,
 				F70182011E8DED5000B28C59 /* PGSLeadViewController.m in Sources */,
 				F701C7EB1E4844E6008ADFD6 /* MJRefreshBackFooter.m in Sources */,
 				F753B9AC1EC423B20063781A /* OrederDetailCancleView.m in Sources */,

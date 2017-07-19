@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "18AD282F734336761BAF0EE60125A1E709004689",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "CE9450BB3586D2B619EFAB279B285F70632A6BFC" : 9223372036854775807,
+    "18AD282F734336761BAF0EE60125A1E709004689" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5FC4CBBE-4CEE-49E1-B149-EB2A22F6E6EA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "CE9450BB3586D2B619EFAB279B285F70632A6BFC" : "CarProtect\/",
+    "18AD282F734336761BAF0EE60125A1E709004689" : "SHGO\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "SHGO",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SHGO.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:weiliangooo\/SHGO.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "18AD282F734336761BAF0EE60125A1E709004689"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/git.coding.net\/AbelYang1\/CarProtect.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CE9450BB3586D2B619EFAB279B285F70632A6BFC"
+    }
+  ]
+}

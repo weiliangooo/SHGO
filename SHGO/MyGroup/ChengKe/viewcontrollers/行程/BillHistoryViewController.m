@@ -8,12 +8,15 @@
 
 #import "BillHistoryViewController.h"
 #import "BillHistoryTableViewCell.h"
+#import "BillHisModel.h"
 
 @interface BillHistoryViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *myTableView;
 
 @property (nonatomic, strong) UIView *tipView;
+
+@property (nonatomic, strong) NSMutableArray<BillHisModel *> *billHisModels;
 
 @end
 
@@ -59,7 +62,7 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 10;
+    return self.billHisModels.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -69,8 +72,9 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH-40*PROPORTION750, 100*PROPORTION750)];
     view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+    BillHisModel *model = self.billHisModels[section];
     UILabel *monthLb = [[UILabel alloc] initWithFrame:CGRectMake(10*PROPORTION750, 30*PROPORTION750, view.width-20*PROPORTION750, 25*PROPORTION750)];
-    monthLb.text = @"3月";
+    monthLb.text = [MyHelperTool timeSpToTime:model.add_time];
     monthLb.textAlignment = NSTextAlignmentLeft;
     monthLb.font = SYSF750(25);
     [view addSubview:monthLb];
@@ -84,7 +88,14 @@
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH-40*PROPORTION750, 420*PROPORTION750)];
     view.backgroundColor = [UIColor whiteColor];
-    NSArray *titles = @[@"发票详情",@"公司抬头:*******公司",@"发票内容：服务费",@"发票金额：82.50元",@"收件人：李**",@"联系电话：13778909878",@"收件地址：安徽省合肥市包河区和地广场"];
+    BillHisModel *model = self.billHisModels[section];
+    NSArray *titles = @[@"发票详情",
+                        [NSString stringWithFormat:@"公司抬头:%@", model.fptt],
+                        @"发票内容：服务费",
+                        [NSString stringWithFormat:@"发票金额：%@元", model.money],
+                        [NSString stringWithFormat:@"收件人：%@", model.recive_user],
+                        [NSString stringWithFormat:@"联系电话：%@", model.recive_phone],
+                        [NSString stringWithFormat:@"收件地址：%@", model.recive_address]];
     for(int i = 0; i < titles.count; i++){
         if (i == 0) {
             UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, AL_DEVICE_WIDTH-100*PROPORTION750, 30*PROPORTION750)];
@@ -104,7 +115,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return self.billHisModels[section].billModels.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -114,6 +125,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     BillHistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 //    cell.textLabel.text = [NSString stringWithFormat:@"section = %d, row = %d", (int)indexPath.section, (int)indexPath.row];
+    BillHisModel *model = self.billHisModels[indexPath.section];
+    cell.model = model.billModels[indexPath.row];
     return cell;
 }
 
@@ -128,13 +141,13 @@
         NSLog(@"%@", responseObject);
         NSString *msg = [responseObject stringForKey:@"msg"];
         if (code == 200){
-//            _billModels = [NSMutableArray array];
-//            NSArray *array = [responseObject arrayForKey:@"data"];
-//            for (int i = 0; i < array.count; i++) {
-//                BillModel *model = [[BillModel alloc] initWithDataSource:array[i]];
-//                [_billModels addObject:model];
-//            }
-//            [self.myTableView reloadData];
+            NSArray *array = [responseObject arrayForKey:@"data"];
+            self.billHisModels = [NSMutableArray array];
+            for (int i = 0; i < array.count; i++) {
+                BillHisModel *model = [[BillHisModel alloc] initWithDataSource:array[i]];
+                [self.billHisModels addObject:model];
+            }
+            [self.myTableView reloadData];
         }else if (code == 300){
             
         }else if (code == 400){

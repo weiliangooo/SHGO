@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BillModel.h"
 
 @interface BillHistoryTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) BillModel *model;
 
 @end

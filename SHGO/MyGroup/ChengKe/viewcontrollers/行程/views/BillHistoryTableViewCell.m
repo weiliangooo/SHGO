@@ -68,4 +68,12 @@
     return self;
 }
 
+-(void)setModel:(BillModel *)model{
+    _model = model;
+    self.timeLb.text = [MyHelperTool timeSpToTime:_model.order_time];
+    self.startLb.text = [NSString stringWithFormat:@"%@-%@", _model.start_address_name, _model.start_name];
+    self.endLb.text = [NSString stringWithFormat:@"%@-%@", _model.end_address_name, _model.arrive_name];
+    self.priceLb.text = [NSString stringWithFormat:@"¥%@",_model.money];
+}
+
 @end
