@@ -54,6 +54,8 @@
     
     [self.view addSubview:self.tipView];
     [self.view addSubview:self.myTableView];
+    
+    [self loadData];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -113,6 +115,36 @@
     BillHistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 //    cell.textLabel.text = [NSString stringWithFormat:@"section = %d, row = %d", (int)indexPath.section, (int)indexPath.row];
     return cell;
+}
+
+//网络请求
+-(void)loadData{
+    NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   [MyHelperNO getUid], @"uid",
+                                   [MyHelperNO getMyToken], @"token", nil];
+    [self post:@"user/bill_history" withParam:reqDic success:^(id responseObject) {
+        
+        int code = [responseObject intForKey:@"status"];
+        NSLog(@"%@", responseObject);
+        NSString *msg = [responseObject stringForKey:@"msg"];
+        if (code == 200){
+//            _billModels = [NSMutableArray array];
+//            NSArray *array = [responseObject arrayForKey:@"data"];
+//            for (int i = 0; i < array.count; i++) {
+//                BillModel *model = [[BillModel alloc] initWithDataSource:array[i]];
+//                [_billModels addObject:model];
+//            }
+//            [self.myTableView reloadData];
+        }else if (code == 300){
+            
+        }else if (code == 400){
+            [self toast:msg];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

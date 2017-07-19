@@ -268,7 +268,6 @@
 -(void)loadData{
     NSMutableDictionary *reqDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    [MyHelperNO getUid], @"uid",
-                                   @"2",@"type",
                                    [MyHelperNO getMyToken], @"token", nil];
     [self post:@"user/bill_list" withParam:reqDic success:^(id responseObject) {
         
