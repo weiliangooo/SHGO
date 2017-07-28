@@ -146,7 +146,7 @@
 }
 
 -(void)footViewTapEvent{
-    [_parentViewController phoneAlertView:@"400-966-3655"];
+    [_parentViewController phoneAlertView:@"400-1123-166"];
 }
 
 -(void)showView{
@@ -274,7 +274,7 @@
         [self addSubview:imageView];
         
         UILabel *phoneLB = [[UILabel alloc] initWithFrame:CGRectMake(imageView.right+30*PROPORTION750, 37.5*PROPORTION750, 300*PROPORTION750, 25*PROPORTION750)];
-        phoneLB.text = @"400-966-3655";
+        phoneLB.text = @"400-1123-166";
         phoneLB.textColor = [UIColor blackColor];
         phoneLB.font = SYSF750(25);
         phoneLB.textAlignment = NSTextAlignmentLeft;

@@ -74,7 +74,7 @@
         line3.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
         [self addSubview:line3];
         
-        NSMutableAttributedString *AttrBtn = [[NSMutableAttributedString alloc] initWithString:@"如需取消，请拨400-966-3655"];
+        NSMutableAttributedString *AttrBtn = [[NSMutableAttributedString alloc] initWithString:@"如需取消，请拨400-1123-166"];
         [AttrBtn addAttribute:NSForegroundColorAttributeName
                               value:[UIColor colorWithHexString:@"999999"]
                               range:NSMakeRange(0, 7)];
@@ -84,7 +84,7 @@
         
         UIButton *canCleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, line3.bottom, 690*PROPORTION750, 90*PROPORTION750)];
 //        [canCleBtn setTitle:@"取消订单" forState:UIControlStateNormal];
-//        [canCleBtn setTitle:@"如需取消，请拨400-966-3655" forState:UIControlStateNormal];
+//        [canCleBtn setTitle:@"如需取消，请拨400-1123-166" forState:UIControlStateNormal];
         [canCleBtn setAttributedTitle:AttrBtn forState:UIControlStateNormal];
         [canCleBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
         canCleBtn.titleLabel.font = SYSF750(30);

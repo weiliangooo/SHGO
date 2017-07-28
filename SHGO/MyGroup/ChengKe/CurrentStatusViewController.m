@@ -19,6 +19,8 @@
 @interface CurrentStatusViewController ()<S_EndViewDelegate,BMKLocationServiceDelegate>
 {
     UILabel *DisLabel;
+    BOOL isRectVisbel;
+    BMKUserLocation *myLocation;
 }
 @property (nonatomic, strong)BMKLocationService *locationService;
 
@@ -77,13 +79,15 @@
         if (_curStatus == s_waiting) {
             self.driverAnnotation.coordinate = [MyHelperTool locationStringToLocationCoordinate:_statusModel.local];
             BMKMapPoint point1 = BMKMapPointForCoordinate([MyHelperTool locationStringToLocationCoordinate:_statusModel.local]);
-            BMKMapPoint point2 = BMKMapPointForCoordinate(self.mapView.centerCoordinate);
+            BMKMapPoint point2 = BMKMapPointForCoordinate(myLocation.location.coordinate);
             CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
             if (distance/1000 < 1) {
                 DisLabel.text = [NSString stringWithFormat:@"1分钟|距离%.0f米", distance];
             }else{
                 DisLabel.text = [NSString stringWithFormat:@"%d分钟|距离%.0f公里",(int)distance/5000*6, distance/1000];
             }
+            [DisLabel sizeToFit];
+            DisLabel.center = CGPointMake(200*PROPORTION750/2, 50*PROPORTION750/2);
         }
     }
 }
@@ -94,6 +98,7 @@
     switch (_curStatus) {
             
         case s_start:{
+            isRectVisbel = false;
             self.startAnnotation = [[BMKPointAnnotation alloc]init];
             self.startAnnotation.title = @"起点";
             self.startAnnotation.subtitle = _statusModel.se;
@@ -111,14 +116,13 @@
             ((YHBaseViewController *)self.parentViewController).topTitle = @"等待派单中";
             S_StartView *view = [[S_StartView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-330*PROPORTION750-64, 690*PROPORTION750, 310*PROPORTION750) DataSource:_statusModel];
             view.statusBlock = ^(){
-                [self phoneAlertView:@"400-966-3655"];
+                [self phoneAlertView:@"400-1123-166"];
             };
             [self.view addSubview:view];
         }
             break;
         case s_waiting:{
-            
-            
+            isRectVisbel = true;
             self.locationService = [[BMKLocationService alloc] init];
             self.locationService.delegate = self;
             [BMKLocationService setLocationDistanceFilter:10];
@@ -133,7 +137,7 @@
             self.driverAnnotation.coordinate = [MyHelperTool locationStringToLocationCoordinate:_statusModel.local];
             [self.mapView addAnnotation:self.driverAnnotation];
             
-            [self getVisbleRect:[MyHelperTool locationStringToLocationCoordinate:_statusModel.local] :self.mapView.centerCoordinate];
+//            [self getVisbleRect:[MyHelperTool locationStringToLocationCoordinate:_statusModel.local] :self.mapView.centerCoordinate];
             
             ((YHBaseViewController *)self.parentViewController).topTitle = @"司机正在路上";
             [self addTipView];
@@ -156,6 +160,7 @@
         }
             break;
         case s_onWay:{
+            isRectVisbel = false;
             self.locationService = [[BMKLocationService alloc] init];
             self.locationService.delegate = self;
 //            [BMKLocationService setLocationDistanceFilter:0];
@@ -193,6 +198,7 @@
         }
             break;
         case s_end:{
+            isRectVisbel = false;
             self.startAnnotation = [[BMKPointAnnotation alloc]init];
             self.startAnnotation.title = @"起点";
             self.startAnnotation.subtitle = _statusModel.se;
@@ -240,6 +246,11 @@
  */
 -(void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation{
     [self.mapView updateLocationData:userLocation];
+    myLocation = userLocation;
+    if (isRectVisbel) {
+        isRectVisbel = false;
+        [self getVisbleRect:[MyHelperTool locationStringToLocationCoordinate:_statusModel.local] :myLocation.location.coordinate];
+    }
 }
 
 ///
@@ -251,7 +262,7 @@
     [self.view addSubview:tipView];
     
     UILabel *tipLb = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, AL_DEVICE_WIDTH-200*PROPORTION750, 50*PROPORTION750)];
-    tipLb.text = @"如发现实际载客人数与合乘人数不符，请及时投诉";
+    tipLb.text = @"如发现载客人数与合乘人数不符，请及时投诉";
     tipLb.font = SYSF750(20);
     tipLb.textAlignment = NSTextAlignmentCenter;
     [tipView addSubview:tipLb];
@@ -299,7 +310,7 @@
 
 -(void)addHeadView:(UIView *)view{
     UILabel *driverNameLB = [[UILabel alloc] initWithFrame:CGRectMake(30*PROPORTION750, 30*PROPORTION750, 210*PROPORTION750, 30*PROPORTION750)];
-    driverNameLB.text = _statusModel.driver_name;
+    driverNameLB.text = [NSString stringWithFormat:@"%@师傅",[_statusModel.driver_name substringToIndex:1]];
     driverNameLB.textAlignment = NSTextAlignmentCenter;
     driverNameLB.font = SYSF750(30);
     [view addSubview:driverNameLB];
@@ -320,6 +331,7 @@
         numLB.attributedText = string;
         numLB.textAlignment = NSTextAlignmentCenter;
         numLB.font = SYSF750(25);
+        [numLB sizeToFit];
         [view addSubview:numLB];
     }
     
@@ -459,7 +471,7 @@
     for (int j=0; j<zoomLevelArr.count; j++){
         if (j + 1 < zoomLevelArr.count){
             if (distance < [zoomLevelArr[j] intValue] && distance > [zoomLevelArr[j+1] intValue] ){
-                zoomLe = j+7;
+                zoomLe = j+6;
                 break;
             }
         }else{

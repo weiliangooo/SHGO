@@ -402,7 +402,7 @@
 //            [self showLoading:@"正在加载..."];
             if (![[responseObject stringForKey:@"img"] isEqualToString:@"0"] && [MyHelperNO canPreAdView]) {
                 [MyHelperNO savePreTime];
-                dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0/*延迟执行时间*/ * NSEC_PER_SEC));
+                dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0/*延迟执行时间*/ * NSEC_PER_SEC));
                 
                 dispatch_after(delayTime, dispatch_get_main_queue(), ^{
                     ADView *view = [[ADView alloc] init];

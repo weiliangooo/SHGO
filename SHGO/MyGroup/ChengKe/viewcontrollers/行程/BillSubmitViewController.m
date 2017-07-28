@@ -314,20 +314,26 @@
         if (code == 200){
             NSString *urlS = @"";
             if (payType == 100) {
-                urlS = @"";
+                urlS = @"wechat_pay";
             }else if (payType == 101){
                 urlS = @"user/ali_pay";
             }
             NSMutableDictionary *aDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[[responseObject objectForKey:@"data"] stringForKey:@"list"], @"bill_sn",
                                          [MyHelperNO getUid], @"uid",
-                                         [MyHelperNO getMyToken], @"token", nil];
+                                         [MyHelperNO getMyToken], @"token",
+                                         [MyHelperNO getIpAddresses], @"scip", nil];
             [self post:urlS withParam:aDic success:^(id responseObject) {
                 int code = [responseObject intForKey:@"status"];
                 NSLog(@"%@", responseObject);
                 NSString *msg = [responseObject stringForKey:@"msg"];
                 if (code == 200){
-                    [[PayViewController shareManager] zhifubaoInit:responseObject];
-//                    UIAlertController *viewController = [UIAlertController alertControllerWithTitle:@"" message:@"您已成功开具行程发票，我们将在您申请提交完成后最迟3个工作日内寄出。请注意查收。\n如有疑问请拨打：400-966-3655" preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    if (payType == 101) {
+                        [[PayViewController shareManager] zhifubaoInit:responseObject];
+                    }else if (payType == 100){
+                        [[PayViewController shareManager] weinxinInit:responseObject];
+                    }
+//                    UIAlertController *viewController = [UIAlertController alertControllerWithTitle:@"" message:@"您已成功开具行程发票，我们将在您申请提交完成后最迟3个工作日内寄出。请注意查收。\n如有疑问请拨打：400-1123-166" preferredStyle:UIAlertControllerStyleAlert];
 //                    UIAlertAction *sureBtn = [UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
 //                        
 //                    }];
@@ -342,7 +348,7 @@
             } failure:^(NSError *error) {
                 
             }];
-//            UIAlertController *viewController = [UIAlertController alertControllerWithTitle:@"" message:@"您已成功开具行程发票，我们将在您申请提交完成后最迟3个工作日内寄出。请注意查收。\n如有疑问请拨打：400-966-3655" preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertController *viewController = [UIAlertController alertControllerWithTitle:@"" message:@"您已成功开具行程发票，我们将在您申请提交完成后最迟3个工作日内寄出。请注意查收。\n如有疑问请拨打：400-1123-166" preferredStyle:UIAlertControllerStyleAlert];
 //            UIAlertAction *sureBtn = [UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
 //                
 //            }];
@@ -392,11 +398,7 @@
 -(void)keyBoardPresent:(NSNotification *)notification{
     CGRect boardFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     [_myScrollView setContentSize:CGSizeMake(_myScrollView.contentSize.width, _myScrollView.contentSize.height+boardFrame.size.height)];
-//    if (keyBoardFrame.origin.y < _pjTextView.bottom+AL_DEVICE_HEIGHT-845*PROPORTION750-64){
-//        [UIView animateWithDuration:1.0f animations:^{
-//            self.frame = CGRectMake(30*PROPORTION750, -(-keyBoardFrame.origin.y+_pjTextView.bottom+150*PROPORTION750), 690*PROPORTION750, 825*PROPORTION750);
-//        }];
-//    }
+
 }
 
 -(void)keyBoardDismiss:(NSNotification *)notification{
