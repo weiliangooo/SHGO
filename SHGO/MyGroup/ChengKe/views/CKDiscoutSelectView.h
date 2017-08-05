@@ -38,5 +38,7 @@
 @property (nonatomic, strong) UILabel *tipLB;
 ///显示当前勾选的活动
 @property (nonatomic, strong) UISwitch *mySwitch;
+///有效时间
+@property (nonatomic, strong) UILabel *endLb;
 
 @end

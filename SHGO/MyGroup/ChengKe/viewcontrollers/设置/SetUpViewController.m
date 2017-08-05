@@ -9,7 +9,6 @@
 #import "SetUpViewController.h"
 #import "SUTableViewCell.h"
 #import "SetPassWordViewController.h"
-#import "ShareViewController.h"
 #import "MyWebViewController.h"
 #import "CancleOrderAlertView.h"
 #import "PopAleatView.h"
@@ -108,7 +107,7 @@
         }
             break;
         case 1:{
-            ShareViewController *viewController = [[ShareViewController  alloc] init];
+            MyWebViewController *viewController = [[MyWebViewController  alloc] init];
             [self.navigationController pushViewController:viewController animated:YES];
         }
             break;

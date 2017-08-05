@@ -85,18 +85,32 @@
         UIButton *canCleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, line3.bottom, 690*PROPORTION750, 90*PROPORTION750)];
 //        [canCleBtn setTitle:@"取消订单" forState:UIControlStateNormal];
 //        [canCleBtn setTitle:@"如需取消，请拨400-1123-166" forState:UIControlStateNormal];
+        canCleBtn.tag = 100;
         [canCleBtn setAttributedTitle:AttrBtn forState:UIControlStateNormal];
         [canCleBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
         canCleBtn.titleLabel.font = SYSF750(30);
-        [canCleBtn addTarget:self action:@selector(cancleEvent) forControlEvents:UIControlEventTouchUpInside];
+        [canCleBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:canCleBtn];
+        
+        UIView *line4 = [[UIView alloc] initWithFrame:CGRectMake(0, 310*PROPORTION750, 690*PROPORTION750, 2*PROPORTION750)];
+        line4.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+        [self addSubview:line4];
+        
+        UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, line4.bottom+30*PROPORTION750, 690*PROPORTION750, 40*PROPORTION750)];
+        shareBtn.tag = 300;
+        [shareBtn setImage:[[UIImage imageNamed:@"share_icon"] scaleImageByWidth:40*PROPORTION750] forState:UIControlStateNormal];
+        [shareBtn setTitle:@" 分享获得优惠券" forState:UIControlStateNormal];
+        [shareBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        shareBtn.titleLabel.font = SYSF750(30);
+        [shareBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:shareBtn];
         
     }
     return self;
 }
 
--(void)cancleEvent{
-    self.statusBlock();
+-(void)buttonClickEvents:(UIButton *)button{
+    self.statusBlock(button.tag);
 }
 
 @end
@@ -129,18 +143,6 @@
         [phoneBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:phoneBtn];
         
-//        UIButton *msgBtn = [[UIButton alloc] initWithFrame:CGRectMake(490*PROPORTION750, line.bottom+30*PROPORTION750, 170*PROPORTION750, 40*PROPORTION750)];
-//        msgBtn.tag = 200;
-//        [msgBtn setImage:[[UIImage imageNamed:@"message"] scaleImageByWidth:40*PROPORTION750] forState:UIControlStateNormal];
-//        [msgBtn setTitle:@"发送信息" forState:UIControlStateNormal];
-//        [msgBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
-//        msgBtn.titleLabel.font = SYSF750(25);
-//        msgBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 130*PROPORTION750);
-//        msgBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-//        [msgBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
-//        [self addSubview:msgBtn];
-        
-        
         UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, 330*PROPORTION750, 690*PROPORTION750, 2*PROPORTION750)];
         line2.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
         [self addSubview:line2];
@@ -152,8 +154,6 @@
         [shareBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         shareBtn.titleLabel.font = SYSF750(30);
         [shareBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
-        //            shareBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 130*PROPORTION750);
-        //            shareBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         [self addSubview:shareBtn];
     }
     return self;
@@ -162,6 +162,8 @@
 -(void)buttonClickEvents:(UIButton *)button{
     self.statusBlock(button.tag);
 }
+
+
 
 @end
 
@@ -187,8 +189,6 @@
         [shareBtn setTitle:@" 分享获得优惠券" forState:UIControlStateNormal];
         [shareBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         shareBtn.titleLabel.font = SYSF750(30);
-        //            shareBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 130*PROPORTION750);
-        //            shareBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         [shareBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:shareBtn];
     }
@@ -334,6 +334,19 @@
         [upBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:upBtn];
         
+        UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, upBtn.bottom+30*PROPORTION750, 690*PROPORTION750, 2*PROPORTION750)];
+        line2.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+        [self addSubview:line2];
+        
+        UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, line2.bottom+30*PROPORTION750, 690*PROPORTION750, 40*PROPORTION750)];
+        shareBtn.tag = 300;
+        [shareBtn setImage:[[UIImage imageNamed:@"share_icon"] scaleImageByWidth:40*PROPORTION750] forState:UIControlStateNormal];
+        [shareBtn setTitle:@" 分享获得优惠券" forState:UIControlStateNormal];
+        [shareBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        shareBtn.titleLabel.font = SYSF750(30);
+        [shareBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:shareBtn];
+        
         //注册键盘出现的通知
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWasShown:)
@@ -387,8 +400,8 @@
 
 -(void)buttonClickEvents:(UIButton *)button{
     if (button.tag == 100) {
-        self.statusBlock();
-    }else{
+        self.statusBlock(button.tag);
+    }else if (button.tag == 200){
         if ([_starView1 getScore] == 0) {
             MBProgressHUD *toastHUD = [[MBProgressHUD alloc] initWithView:self];
             [self addSubview:toastHUD];
@@ -410,6 +423,8 @@
                           score:score
                             text:content];
         }
+    }else if (button.tag == 300){
+        self.statusBlock(button.tag);
     }
 }
 

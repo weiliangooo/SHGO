@@ -15,6 +15,7 @@
 ///type=event or extra 每个人都优惠。  0:不优惠。  其他都是总价减
 @property (nonatomic, strong)NSString *actPrice;
 @property (nonatomic, strong)NSString *actType;
+@property (nonatomic, strong)NSString *endTime;
 
 -(instancetype)initWithInputData:(NSDictionary *)inputData;
 

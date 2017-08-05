@@ -50,7 +50,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.type = 3;
-    [self.rightBtn setTitle:@"开发票" forState:UIControlStateNormal];
+//    [self.rightBtn setTitle:@"开发票" forState:UIControlStateNormal];
+    [self.rightBtn setTitle:@"" forState:UIControlStateNormal];
     self.topTitle = @"我的行程";
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
@@ -217,8 +218,8 @@
 }
 
 -(void)rightBtn:(UIButton *)button{
-    BillViewController *viewController = [[BillViewController alloc] init];
-    [self.navigationController pushViewController:viewController animated:true];
+//    BillViewController *viewController = [[BillViewController alloc] init];
+//    [self.navigationController pushViewController:viewController animated:true];
 }
 
 - (void)didReceiveMemoryWarning {

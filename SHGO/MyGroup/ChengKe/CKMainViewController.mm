@@ -20,7 +20,6 @@
 #import "ADView.h"
 #import "MyWebViewController.h"
 #import "BaseNavViewController.h"
-#import "ShareViewController.h"
 #import "MyHelperTool.h"
 
 @interface CKMainViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKPoiSearchDelegate,CKSearchPlaceViewDelegate,BMKRouteSearchDelegate,CKPlaceTimeViewDelegate,BMKOfflineMapDelegate>
@@ -117,17 +116,25 @@
     _ptView.delegate = self;
     [self.view addSubview:_ptView];
     
-    UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, 680*PROPORTION750, 70*PROPORTION750, 70*PROPORTION750)];
+    UIButton *kfBtn = [[UIButton alloc] initWithFrame:CGRectMake(40*PROPORTION750, (AL_DEVICE_HEIGHT-64)/2-50*PROPORTION750, 100*PROPORTION750, 100*PROPORTION750)];
+    kfBtn.backgroundColor = [UIColor clearColor];
+    [kfBtn setImage:[[UIImage imageNamed:@"mainKF"] scaleImageByWidth:100*PROPORTION750] forState:UIControlStateNormal];
+    kfBtn.tag = 500;
+    [kfBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:kfBtn];
+    
+    UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(40*PROPORTION750, kfBtn.bottom+30*PROPORTION750, 100*PROPORTION750, 100*PROPORTION750)];
     shareBtn.backgroundColor = [UIColor clearColor];
-    [shareBtn setImage:[[UIImage imageNamed:@"sy_share"] scaleImageByWidth:70*PROPORTION750] forState:UIControlStateNormal];
-    shareBtn.tag = 500;
+    shareBtn.tag = 501;
+    [shareBtn setImage:[[UIImage imageNamed:@"mainYHH"] scaleImageByWidth:100*PROPORTION750] forState:UIControlStateNormal];
+    [shareBtn setImage:[[UIImage imageNamed:@"mainYH"] scaleImageByWidth:100*PROPORTION750] forState:UIControlStateSelected];
     [shareBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:shareBtn];
     
-    UIButton *locationBtn = [[UIButton alloc] initWithFrame:CGRectMake(30*PROPORTION750, shareBtn.bottom+30*PROPORTION750, 70*PROPORTION750, 70*PROPORTION750)];
-//    locationBtn.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
-    locationBtn.tag = 501;
-    [locationBtn setImage:[[UIImage imageNamed:@"sy_location"] scaleImageByWidth:70*PROPORTION750] forState:UIControlStateNormal];
+    UIButton *locationBtn = [[UIButton alloc] initWithFrame:CGRectMake(AL_DEVICE_WIDTH-130*PROPORTION750, shareBtn.bottom+130*PROPORTION750, 100*PROPORTION750, 100*PROPORTION750)];
+    locationBtn.backgroundColor = [UIColor clearColor];
+    [locationBtn setImage:[[UIImage imageNamed:@"mainLoc"] scaleImageByWidth:100*PROPORTION750] forState:UIControlStateNormal];
+    locationBtn.tag = 502;
     [locationBtn addTarget:self action:@selector(buttonClickEvents:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:locationBtn];
     
@@ -197,9 +204,12 @@
 
 -(void)buttonClickEvents:(UIButton *)button{
     if (button.tag == 500) {
-        ShareViewController *viewController = [[ShareViewController  alloc] init];
+        [self phoneAlertView:@"400-1123-166"];
+    } else if (button.tag == 501){
+        button.selected = true;
+        MyWebViewController *viewController = [[MyWebViewController  alloc] init];
         [self.navigationController pushViewController:viewController animated:YES];
-    }else{
+    } else if (button.tag == 502){
         [self reloadCurrent];
     }
 }
@@ -400,7 +410,7 @@
             //启动LocationService
             [_locService startUserLocationService];
 //            [self showLoading:@"正在加载..."];
-            if (![[responseObject stringForKey:@"img"] isEqualToString:@"0"] && [MyHelperNO canPreAdView]) {
+            if (![[responseObject stringForKey:@"img"] isEqualToString:@"0"] && ([MyHelperNO canPreAdView] || [[responseObject stringForKey:@"type"] isEqualToString:@"1"])) {
                 [MyHelperNO savePreTime];
                 dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0/*延迟执行时间*/ * NSEC_PER_SEC));
                 
@@ -409,8 +419,9 @@
                     [view.imageView sd_setImageWithURL:[NSURL URLWithString:[responseObject stringForKey:@"img"]]];
                     view.imageTapBlock = ^(){
                         if(![[responseObject stringForKey:@"url"] isEqualToString:@"0"]){
-                            NSString *urlString = [NSString stringWithFormat:@"%@/uid/%@",[responseObject stringForKey:@"url"], [MyHelperNO getUid]];
-                            MyWebViewController *viewController = [[MyWebViewController alloc] initWithTopTitle:@"活动介绍" urlString:urlString];
+                            NSString *urlString = [responseObject stringForKey:@"url"];
+//                            [NSString stringWithFormat:@"%@/uid/%@",[responseObject stringForKey:@"url"], [MyHelperNO getUid]];
+                            MyWebViewController *viewController = [[MyWebViewController alloc] initWithTopTitle:nil urlString:urlString];
                             BaseNavViewController *nv = [[BaseNavViewController alloc] initWithRootViewController:viewController];
                             [self presentViewController:nv animated:true completion:nil];
                         }

@@ -112,8 +112,6 @@
 //        scrollView.contentSize = CGSizeMake(lastLB.right, 25*PROPORTION750);
 //    }
     
-    //        UIView *shareView = [[UIView alloc] initWithFrame:CGRectMake(0, self.height-75*PROPORTION750, 690*PROPORTION750, 75*PROPORTION750)];
-    
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, self.height-75*PROPORTION750, 690*PROPORTION750, 75*PROPORTION750)];
     button.tag = 103;
     [button setTitle:@"分享此次行程获得现金红包" forState:UIControlStateNormal];

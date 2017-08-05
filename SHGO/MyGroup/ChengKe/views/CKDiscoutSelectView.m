@@ -121,7 +121,7 @@
     ActivityModel *model = [_dataArray objectAtIndex:indexPath.row];
     cell.titleLB.text = model.actName;
     [cell.titleLB sizeToFit];
-    cell.tipLB.frame = CGRectMake(cell.titleLB.right, 42.5*PROPORTION750, 500*PROPORTION750, 25*PROPORTION750);
+    cell.tipLB.frame = CGRectMake(cell.titleLB.right, 22.5*PROPORTION750, 500*PROPORTION750, 25*PROPORTION750);
     if ([model.actType isEqualToString:@"event"] || [model.actType isEqualToString:@"extra"])
     {
         cell.tipLB.text = [NSString stringWithFormat:@"(每人优惠%@元)",model.actPrice];
@@ -143,6 +143,7 @@
     {
         [cell.mySwitch setOn:NO];
     }
+    cell.endLb.text = model.endTime;
     [cell.mySwitch addTarget:self action:@selector(switchClickEvents:) forControlEvents:UIControlEventValueChanged];
     cell.mySwitch.tag = 100+indexPath.row;
     return cell;
@@ -200,12 +201,12 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
     {
-        _titleLB = [[UILabel alloc] initWithFrame:CGRectMake(60*PROPORTION750, 40*PROPORTION750, 500*PROPORTION750, 30*PROPORTION750)];
+        _titleLB = [[UILabel alloc] initWithFrame:CGRectMake(60*PROPORTION750, 20*PROPORTION750, 500*PROPORTION750, 30*PROPORTION750)];
         _titleLB.font = SYSF750(30);
         _titleLB.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_titleLB];
         
-        _tipLB = [[UILabel alloc] initWithFrame:CGRectMake(_titleLB.right, 42.5*PROPORTION750, 500*PROPORTION750, 25*PROPORTION750)];
+        _tipLB = [[UILabel alloc] initWithFrame:CGRectMake(_titleLB.right, 22.5*PROPORTION750, 500*PROPORTION750, 25*PROPORTION750)];
         _tipLB.textColor = [UIColor colorWithHexString:@"#ff4f00"];
         _tipLB.font = SYSF750(25);
         _tipLB.textAlignment = NSTextAlignmentLeft;
@@ -213,6 +214,12 @@
         
         _mySwitch = [[UISwitch alloc] initWithFrame:CGRectMake(AL_DEVICE_WIDTH-160*PROPORTION750, 25*PROPORTION750, 100*PROPORTION750, 60*PROPORTION750)];
         [self addSubview:_mySwitch];
+        
+        _endLb = [[UILabel alloc] initWithFrame:CGRectMake(_titleLB.left, _titleLB.bottom+12.5*PROPORTION750, 500*PROPORTION750, 25*PROPORTION750)];
+        _endLb.textColor = [UIColor colorWithHexString:@"#999999"];
+        _endLb.font = SYSF750(25);
+        _endLb.textAlignment = NSTextAlignmentLeft;
+        [self addSubview:_endLb];
     }
     return self;
 }

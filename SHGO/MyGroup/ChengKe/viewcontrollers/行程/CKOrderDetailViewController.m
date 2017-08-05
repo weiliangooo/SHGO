@@ -11,7 +11,7 @@
 #import "OrderDetailModel.h"
 #import "OrderPriceDetailViewController.h"
 #import "OrderPriceModel.h"
-#import "ShareView.h"
+#import "ShareViewController.h"
 #import "OrderDetailBaseView.h"
 
 #import <UMSocialCore/UMSocialCore.h>
@@ -240,10 +240,9 @@
         UpCommenView *view = [[UpCommenView alloc] init];
         view.delegate = self;
     }else if ([title isEqualToString:@"分享行程"]){
-        ShareView *shareView = [[ShareView alloc] init];
-        shareView.shareBlock = ^(NSInteger flag){
-            [self shareWebPageToPlatformType:flag];
-        };
+        ShareViewController *viewContrller = [[ShareViewController alloc] init];
+        viewContrller.modalPresentationStyle = UIModalPresentationCustom;
+        [self presentViewController:viewContrller animated:true completion:nil];
     }else if ([title isEqualToString:@"我要投诉"]){
         ComplaintViewController *viewController = [[ComplaintViewController alloc] init];
         viewController.orderNum = self.order_sn;
@@ -343,13 +342,10 @@
         }];
 
     }
-    else if (event == OrderDetailViewEventShare)
-    {
-        ShareView *shareView = [[ShareView alloc] init];
-        shareView.shareBlock = ^(NSInteger flag){
-            [self shareWebPageToPlatformType:flag];
-        };
-
+    else if (event == OrderDetailViewEventShare){
+        ShareViewController *viewContrller = [[ShareViewController alloc] init];
+        viewContrller.modalPresentationStyle = UIModalPresentationCustom;
+        [self presentViewController:viewContrller animated:true completion:nil];
     }
 }
 

@@ -13,7 +13,7 @@
 #import "CancleOrderAlertView.h"
 #import "ResonForCancleViewController.h"
 #import "ComplaintViewController.h"
-#import "ShareView.h"
+#import "ShareViewController.h"
 #import <UMSocialCore/UMSocialCore.h>
 
 @interface CurrentStatusViewController ()<S_EndViewDelegate,BMKLocationServiceDelegate>
@@ -114,9 +114,15 @@
             [self getVisbleRect:[MyHelperTool locationStringToLocationCoordinate:_statusModel.s] :[MyHelperTool locationStringToLocationCoordinate:_statusModel.e]];
             
             ((YHBaseViewController *)self.parentViewController).topTitle = @"等待派单中";
-            S_StartView *view = [[S_StartView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-330*PROPORTION750-64, 690*PROPORTION750, 310*PROPORTION750) DataSource:_statusModel];
-            view.statusBlock = ^(){
-                [self phoneAlertView:@"400-1123-166"];
+            S_StartView *view = [[S_StartView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-430*PROPORTION750-64, 690*PROPORTION750, 410*PROPORTION750) DataSource:_statusModel];
+            view.statusBlock = ^(NSInteger tag){
+                if (tag == 100) {
+                    [self phoneAlertView:@"400-1123-166"];
+                }else{
+                    ShareViewController *viewContrller = [[ShareViewController alloc] init];
+                    viewContrller.modalPresentationStyle = UIModalPresentationCustom;
+                    [self presentViewController:viewContrller animated:true completion:nil];
+                }
             };
             [self.view addSubview:view];
         }
@@ -148,10 +154,9 @@
                 }else if (flag == 200){
                     
                 }else{
-                    ShareView *shareView = [[ShareView alloc] init];
-                    shareView.shareBlock = ^(NSInteger flag){
-                        [self shareWebPageToPlatformType:flag];
-                    };
+                    ShareViewController *viewContrller = [[ShareViewController alloc] init];
+                    viewContrller.modalPresentationStyle = UIModalPresentationCustom;
+                    [self presentViewController:viewContrller animated:true completion:nil];
                 }
             };
             [self.view addSubview:view];
@@ -187,10 +192,9 @@
             [self addTipView];
             S_OnWayView *view = [[S_OnWayView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-350*PROPORTION750-64, 690*PROPORTION750, 330*PROPORTION750) DataSource:_statusModel];
             view.statusBlock = ^(){
-                ShareView *shareView = [[ShareView alloc] init];
-                shareView.shareBlock = ^(NSInteger flag){
-                    [self shareWebPageToPlatformType:flag];
-                };
+                ShareViewController *viewContrller = [[ShareViewController alloc] init];
+                viewContrller.modalPresentationStyle = UIModalPresentationCustom;
+                [self presentViewController:viewContrller animated:true completion:nil];
             };
             [self.view addSubview:view];
         
@@ -214,11 +218,17 @@
             [self getVisbleRect:[MyHelperTool locationStringToLocationCoordinate:_statusModel.s] :[MyHelperTool locationStringToLocationCoordinate:_statusModel.e]];
             
             ((YHBaseViewController *)self.parentViewController).topTitle = @"已完成";
-            S_EndView *view = [[S_EndView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-845*PROPORTION750-64, 690*PROPORTION750, 825*PROPORTION750) DataSource:nil];
-            view.statusBlock = ^(){
-                ComplaintViewController *viewController = [[ComplaintViewController alloc] init];
-                viewController.orderNum = _statusModel.order_sn;
-                [self.navigationController pushViewController:viewController animated:true];
+            S_EndView *view = [[S_EndView alloc] initWithFrame:CGRectMake(30*PROPORTION750, AL_DEVICE_HEIGHT-895*PROPORTION750-64, 690*PROPORTION750, 875*PROPORTION750) DataSource:nil];
+            view.statusBlock = ^(NSInteger tag){
+                if (tag == 100) {
+                    ComplaintViewController *viewController = [[ComplaintViewController alloc] init];
+                    viewController.orderNum = _statusModel.order_sn;
+                    [self.navigationController pushViewController:viewController animated:true];
+                }else if (tag == 300){
+                    ShareViewController *viewContrller = [[ShareViewController alloc] init];
+                    viewContrller.modalPresentationStyle = UIModalPresentationCustom;
+                    [self presentViewController:viewContrller animated:true completion:nil];
+                }
             };
             view.delegate = self;
             [self.view addSubview:view];

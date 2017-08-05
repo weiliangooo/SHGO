@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong)StatusModel *statusModel;
 
-@property (nonatomic, copy) void (^statusBlock)();
+@property (nonatomic, copy) void (^statusBlock)(NSInteger tag);
 
 -(instancetype)initWithFrame:(CGRect)frame DataSource:(StatusModel *)dic;
 
@@ -56,7 +56,7 @@
 
 @property (nonatomic, assign) id<S_EndViewDelegate> delegate;
 
-@property (nonatomic, copy) void (^statusBlock)();
+@property (nonatomic, copy) void (^statusBlock)(NSInteger tag);
 
 -(instancetype)initWithFrame:(CGRect)frame DataSource:(NSDictionary *)dic;
 

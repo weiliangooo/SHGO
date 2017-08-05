@@ -84,13 +84,16 @@
     _stActModel = [[ActivityModel alloc] init];
     for (int i = 0 ; i < acts.count+1; i++){
         ActivityModel *model;
-        if (i == 0) {
+        if (i == 0 && i != acts.count) {
             NSDictionary *dic = [acts objectAtIndex:i];
             model = [[ActivityModel alloc] initWithInputData:dic];
             _stActModel = model;
         }
         else if (i == acts.count){
             model = [[ActivityModel alloc] initWithInputData:nil];
+            if (i == 0) {
+                _stActModel = model;
+            }
         }
         else{
             NSDictionary *dic = [acts objectAtIndex:i];
